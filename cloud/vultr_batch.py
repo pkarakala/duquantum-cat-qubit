@@ -56,15 +56,32 @@ def load_jobs(spec):
     return jobs
 
 
-def shard(jobs, n):
-    """Longest job first onto the least-loaded server."""
-    bins = [[0.0, []] for _ in range(n)]
-    for w, cmd in sorted(jobs, key=lambda j: -j[0]):
-        b = min(bins, key=lambda x: x[0])
-        b[0] += w
-        b[1].append(cmd)
-    return [b[1] for b in bins]
+def shard(jobs, n, slots=4):
+    """Longest job first onto the least-loaded lane; each VM has `slots` lanes (parallel jobs).
 
+    A VM's finish time is roughly its busiest lane, so four long jobs share one VM instead of
+    each taking a whole VM while three of its lanes sit idle.
+    """
+    lanes = [[0.0, k] for k in range(n) for _ in range(slots)]
+    out = [[] for _ in range(n)]
+    for w, cmd in sorted(jobs, key=lambda j: -j[0]):
+        lane = min(lanes, key=lambda x: (x[0], x[1]))
+        lane[0] += w
+        out[lane[1]].append(cmd)
+    return out
+
+
+def makespan(jobs, shards, slots):
+    """Estimated finish time per VM (weight units), simulating `slots` parallel lanes."""
+    w = {c: x for x, c in jobs}
+    est = []
+    for s in shards:
+        lanes = [0.0] * slots
+        for c in s:
+            i = lanes.index(min(lanes))
+            lanes[i] += w[c]
+        est.append(max(lanes) if s else 0.0)
+    return est
 
 def download(ip, dest):
     for sub in ["results", "figures"]:
@@ -143,16 +160,17 @@ def main():
         REF = f"origin/{a.branch}"
 
     jobs = load_jobs(a.jobs)
-    shards = [s for s in shard(jobs, a.servers) if s]
     pl = next((x for x in plans(a.region, 1) if x["id"] == a.plan), None)
     if not pl:
         raise SystemExit(f"plan {a.plan} not offered in {a.region}; see vultr_run.py --list-plans")
+    slots = a.jobs_per_vm or max(1, pl.get("vcpu_count", 16) // 4)
+    shards = [s for s in shard(jobs, a.servers, slots) if s]
     hourly = pl["monthly_cost"] / 730
     minutes = min(a.budget / (len(shards) * hourly) * 60, a.max_minutes)
     print(f"{len(jobs)} jobs on {len(shards)} x {a.plan} (~${hourly:.2f}/h each); "
           f"everything stops after {minutes:.0f} min (at most ${len(shards) * hourly * minutes / 60:.2f})")
-    for k, s in enumerate(shards):
-        print(f"  vm{k}: {len(s)} jobs")
+    for k, (s, m) in enumerate(zip(shards, makespan(jobs, shards, slots))):
+        print(f"  vm{k}: {len(s):2d} jobs, ~{m:.0f} weight units with {slots} in parallel")
     check_reserve(len(shards) * hourly * minutes / 60, a.reserve)
     if ours():
         raise SystemExit("duquantum VMs already exist; run `python cloud/vultr_run.py --cleanup` first")
@@ -178,7 +196,7 @@ def main():
     signal.signal(signal.SIGHUP, stop)
     signal.signal(signal.SIGTERM, stop)
 
-    ids, t0, ok = [], time.time(), False
+    ids, t0, ok, gone = [], time.time(), False, set()
     try:
         os_id, key = ubuntu_os_id(), ssh_key_id(a.pubkey)
         for k in range(len(shards)):
@@ -190,7 +208,7 @@ def main():
                 if not ids:
                     raise
                 print(f"could only create {len(ids)} VMs ({e}); spreading the jobs over those", flush=True)
-                shards = [s for s in shard(jobs, len(ids)) if s]
+                shards = [s for s in shard(jobs, len(ids), slots) if s]
                 break
             print(f"created vm{k} {ids[-1]}", flush=True)
         deadline = t0 + minutes * 60
@@ -199,6 +217,9 @@ def main():
         def worker(k):
             try:
                 run_vm(k, ids[k], shards[k], a.jobs_per_vm, deadline, status, dest)
+                if delete(ids[k]):               # stop paying for a VM as soon as its shard is home
+                    gone.add(ids[k])
+                    status[k] = "deleted"
             except BaseException as e:      # noqa: BLE001  report, the main thread deletes
                 errors[k] = repr(e)
                 status[k] = "failed"
@@ -216,7 +237,7 @@ def main():
             print(f"vm{k} failed: {e}")
     finally:
         mins = (time.time() - t0) / 60
-        deleted = all([delete(i) for i in ids])
+        deleted = all([delete(i) for i in ids if i not in gone])
         cost = len(ids) * hourly * mins / 60
         print(f"deleted {len(ids)} VMs after {mins:.1f} min, ~${cost:.2f} "
               "(confirm at https://my.vultr.com/subs/)", flush=True)
