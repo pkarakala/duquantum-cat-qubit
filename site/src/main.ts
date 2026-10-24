@@ -48,6 +48,11 @@ export function renderBanner(el: HTMLElement, b: Bundle): void {
 }
 
 export function renderRoute(hash: string, root: HTMLElement, b: Bundle): void {
+  const dlg = document.getElementById("card") as HTMLDialogElement | null;
+  if (dlg) {
+    if (dlg.open && typeof dlg.close === "function") dlg.close();
+    dlg.replaceChildren();
+  }
   const key = hash in ROUTES ? hash : DEFAULT_ROUTE;
   const route = ROUTES[key];
   root.replaceChildren();
