@@ -34,6 +34,7 @@ This file is written for judges, physicists and AI reviewers. Every claim below 
 | 17 | 1.3a cat lifetime | 1.95 µs | 1/(2κ_a α²) = 1.94 µs | `task_1_3a.json → cat_lifetime_us` | `tasks/task_1_3a.py` |
 | 18 | 1.3a becomes a mixture by 6 µs | parity 0.05, coherence 0.05, purity 0.501 | expected after ~3 lifetimes | `task_1_3a.json → at_6us` | `tasks/task_1_3a.py` |
 | 19 | 1.3a parity-decay fit is robust | 0.5135 / 0.5134 / 0.5132 / 0.5129 for fit windows starting at 0.8 / 1.0 / 2.0 / 3.0 µs; nonlinear fit on y gives 0.5139 | spread ≤ 0.12%, well below the 0.2% gap to the prediction | `task_1_3a.json → gamma_vs_fit_start_us, gamma_nonlinear_fit_per_us` | `tasks/task_1_3a.py` |
+| 20 | Full (N_a, N_b) grid: the two truncations don't interact, and 32×12 is converged | peak error vs 48×18: 24×10 → 0.41% (cheapest within 0.5%), 32×12 → 0.035%; steady state within 1e-5 for every N_a ≥ 20 at any N_b | rows (fixed N_b) and columns (fixed N_a) each saturate at their own error floor, so the one-at-a-time sweep was enough | `task_1_2_grid.json → summary, points` | `tasks/task_1_2_grid.py` on Vultr |
 
 ## 3. Convergence study (Task 1.2)
 
@@ -50,6 +51,18 @@ We varied each truncation separately (N_a ∈ {16, 20, 24, 28, 32, 40} at N_b = 
 | max memory top-2 population | 0.057 | 0.013 | 0.0020 | 2.5e-4 | 2.3e-5 | 1.3e-7 |
 
 **Answer to the prompt's question.** The steady state and the transient are not equally sensitive. The steady state barely depends on either truncation: the buffer is empty, and the memory sits at α² = 4.4 with a narrow photon distribution. The transient peak depends strongly on **N_b**. The buffer briefly holds ~2 photons with a long tail, and cutting that tail at N_b = 6 removes the photons that drive the overshoot, so the peak comes out 11% low. The memory needs N_a ≳ 24 because the overshoot reaches ~6.9 photons. **The starter N_a = 24 was adequate; the starter N_b = 6 was too small.** One 40×14 run takes ~3 min on 4 CPU cores, which is why `tasks/task_1_2.py` is the job we send to a cloud machine.
+
+**Full grid on a cloud VM (claim 20).** The one-at-a-time sweep assumes the two truncations don't interact. To test that, we ran all 49 combinations of N_a ∈ {16 … 48} and N_b ∈ {4 … 18} on a 16-vCPU Vultr VM (`cloud/vultr_run.py`). The sweep took 17 min of wall time, the whole VM session 19 min, for about $0.14; serially that is ~60 min of compute. The reference is the largest corner, 48×18, where both top-level populations are below 3e-7. Relative error of the peak ⟨n_a⟩ (`figures/task_1_2_grid.png`):
+
+| N_b \ N_a | 16 | 20 | 24 | 28 | 32 | 40 | 48 |
+|---|---|---|---|---|---|---|---|
+| 6 | 13% | 11% | 11% | 11% | 11% | 11% | 11% |
+| 8 | 6.9% | 2.7% | 2.3% | 2.3% | 2.3% | 2.3% | 2.3% |
+| 10 | 7.3% | 1.4% | 0.41% | 0.33% | 0.33% | 0.33% | 0.33% |
+| 12 | 7.6% | 1.5% | 0.20% | 0.046% | **0.035%** | 0.035% | 0.035% |
+| 14 | 7.7% | 1.5% | 0.20% | 0.021% | 0.0039% | 0.0028% | 0.0028% |
+
+Each row flattens at an error set by N_b alone, and each column at an error set by N_a alone. Where both are limiting, the errors roughly add (24×10: 0.41% against 0.33% + 0.20%). So the truncations act independently, and the one-at-a-time sweep above reached the right answer. Our production choice of 32×12 is 0.035% from the reference, ten times inside the 0.5% tolerance. The steady state is converged to 1e-5 for every N_a ≥ 20, whatever N_b is, because the buffer is empty in steady state.
 
 ## 4. Task 1.3a reasoning
 
@@ -84,11 +97,16 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
-- **Gemini review log** (`reviews/gemini-20261024-1632.md`, gemini-3.8-flash, run on the full code plus the prompt and this file):
-  - 2π conversions, √rate jump operators, the α² = +ε_d/g₂ sign, the truncation monitors, and the analytic checks: no issues found.
-  - Possible challenge 1, "the fit window starts at 1.0 µs, before the 1.07 µs settle time": Gemini *asserted* the effect was < 0.1% without running anything. **We checked it**: moving the start from 0.8 to 3.0 µs changes Γ by at most 0.12% (claim 19).
-  - Possible challenge 2, "the coherence normalization": confirmed. For an exact |C₊⟩ the metric is 1 − O(e^{−2α²}) ≈ 1 − 1.5e-4.
-  - Possible challenge 3, "a log-linear fit weights small values more": **we added a nonlinear fit on y**, which gives 0.5139 vs 0.5135 (claim 19).
+- **Gemini review log** ([`reviews/gemini-20261024-1632.md`](reviews/gemini-20261024-1632.md), `gemini-3.8-flash`, run on the full code plus the prompt and this file). It found no issues with the 2π conversions, the √rate jump operators, the α² = +ε_d/g₂ sign, the truncation monitors, or the analytic checks. Gemini *asserts* things without running anything, so we tested each claim it made that can be tested:
+
+  | Gemini said | We checked | Outcome |
+  |---|---|---|
+  | The fit window starts at 1.0 µs, before the 1.07 µs settle time; the effect is < 0.1% | Moved the window start from 0.8 to 3.0 µs: Γ changes by at most 0.12% (claim 19) | Confirmed; window kept |
+  | At 1.0 µs, ⟨n_a⟩ is within 1.5% of steady state | It is 1.0% below | Minor misread; no effect |
+  | A log-linear fit weights small values more | Added a nonlinear fit on y: 0.5139 vs 0.5135 /µs (claim 19) | Confirmed negligible |
+  | Parity rate 2κ_a⟨nP⟩ ≈ 2κ_a⟨n⟩⟨P⟩ | d⟨P⟩/dt = −2κ_a⟨nP⟩ exactly. The local rate −d ln P/dt drifts from 0.5141 (2 µs) to 0.5112 (6 µs) while 2κ_a⟨n⟩ stays 0.5146 | Explains claim 15's −0.2% residual: it is the ⟨nP⟩ ≈ ⟨n⟩⟨P⟩ step, which worsens as P → 0, not fit noise |
+  | Coherence normalization: 2\|⟨α\|ρ\|−α⟩\| = 1 − O(e^(−2α²)) for \|C₊⟩ | ≈ 1 − 1.5e-4, agrees with our derivation | No change |
+  | Scope: 1.3(b)/(c) not implemented | True at review time | Done afterwards: Task 1.3b |
 - What we caught ourselves that an AI would easily miss: the default ODE tolerance produced ~1e-4 noise in the truncation monitors, which would have hidden a real truncation problem. We tightened the tolerance and confirmed the results didn't change beyond it.
 
 ## 6. File map
@@ -101,7 +119,13 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 | `tasks/task_1_*.py` | one script per task; each writes `figures/*.png` and `results/*.json` |
 | `notebooks/0*_task_*.ipynb` | one notebook per task: plain-language explanation, the task code, and its outputs |
 | `run_all.sh` | reproduces everything in order |
-| `tools/ai_review.py` | optional LLM code review (Gemini or Grok) |
+| `tasks/task_1_2_grid.py` | full (Na, Nb) convergence grid, one process per point |
+| `cloud/vultr_sweep.sh` | runs the grid in parallel on a Vultr VM and merges it |
+| `cloud/vultr_batch.py` | any job list split across N Vultr VMs, hard dollar and time caps, per-job timings for cost estimates |
+| `cloud/setup_vm.sh` | one-time Python setup on a fresh VM |
+| `cloud/vultr_run.py` | Vultr API: creates the VM, uploads the code, runs the sweep, downloads results, deletes the VM |
+| `docs/tools-log.md` | every external tool and sponsor service used: when, what for, cost, evidence |
+| `tools/ai_review.py` | optional LLM code review (Gemini or Grok); `--dry-run` saves the prompt only |
 
 ## 7. Reproduce
 
@@ -111,3 +135,9 @@ python -m src.config                   # units check: kappa_2/2pi = 0.896 MHz
 ./run_all.sh
 ```
 Run times on 4 CPU cores: Task 1.0 ~20 s, 1.1 ~1 min, 1.2 ~12 min, 1.3a ~2 min, 1.3b ~13 min.
+
+The full 49-point convergence grid (up to Na=48, Nb=18) is too slow for a laptop, so we run it on a cloud VM:
+```bash
+python cloud/vultr_run.py --plan <id>  # VULTR_API_KEY set; VM is deleted at the end
+# or, on a VM you created yourself:  ./cloud/vultr_sweep.sh
+```

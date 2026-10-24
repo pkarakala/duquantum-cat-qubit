@@ -1,0 +1,19 @@
+# Tools log
+
+Every external tool or sponsor service we used, when, for what, and where the evidence is.
+Judges and Devpost categories are answered from this file, so add a row **when** a tool is
+used, not afterwards. Newest first. Never put keys, tokens or card details here.
+
+| When (EDT) | Tool | What we used it for | Settings / cost | Evidence in repo | Outcome |
+|---|---|---|---|---|---|
+| Oct 24 17:28 | Vultr (API v2) | Task 1.2 convergence grid, 49 (N_a, N_b) points up to 48×18, via `cloud/vultr_run.py` | `voc-c-16c-32gb-300s-amd`, 16 vCPU, region ewr, ~$0.44/h; 19.1 min VM time (17 min sweep, ~60 min serial compute), ~$0.14; VM auto-deleted | `results/grid.log`, `results/task_1_2_grid.json`, `figures/task_1_2_grid.png` | completed; claim 20 (truncations independent, 32×12 within 0.035%) |
+| Oct 24 16:32 | Gemini API (`gemini-3.8-flash`) | Independent physics/numerics code review of `src/` and `tasks/`, with the challenge prompt and TECHNICAL.md as context (`tools/ai_review.py`) | one text request, ~17k tokens | `reviews/gemini-20261024-1632.md`; triage in TECHNICAL.md §5 | no bugs found; 6 points checked by re-running fits (claim 19) |
+| Oct 24 15:45–16:30 | Claude (Claude Code, research thread) | Literature survey on cat-qubit control; prototypes for stretch goals (overshoot theory, shaped ε_d ramps, Heisenberg basin map for \|+α⟩ prep, robustness test, jax.grad pulse optimization, moon cats) | dynamiqs 0.3.7 on a 4-CPU sandbox, default mesolve tolerances; no sponsor tools | `research/` on branch claude/project-thread-80xv97 (its README lists each script and result); workbook Research tab | 4 techniques kept; GRAPE helps only with a weak drive; moon cats set aside; numbers to re-run with PR #2 tolerances before they go in the README |
+| Oct 24 (all day) | Claude (Anthropic) | Learning the physics, planning, writing most of `src/` and `tasks/`, reviewing results | n/a | README "How we used AI", TECHNICAL.md §5 | every number checked against a hand prediction or a convergence test |
+
+Rows are added automatically by `tools/ai_review.py` and `cloud/vultr_run.py`; add others
+(Cursor, Grok chat, ElevenLabs, notable Claude work) by hand in the commit that uses them.
+
+Planned, not yet used (move up into the table once used): Gemini multimodal figure check
+(`tools/ai_review.py --figures`), Cursor + Grok (SpaceXSI raffle), ElevenLabs voice-over,
+DEV post after the event.
