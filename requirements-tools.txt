@@ -1,0 +1,3 @@
+# Only for tools/ai_review.py (optional)
+google-genai
+openai
