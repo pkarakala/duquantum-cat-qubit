@@ -101,6 +101,8 @@ def main():
     if pl:
         print(f"{a.plan}: ~${pl['monthly_cost'] / 730:.2f}/h, at most ~${pl['monthly_cost'] / 730 * a.max_minutes / 60:.2f} "
               f"with --max-minutes {a.max_minutes:g}", flush=True)
+    if input("create the VM? [y/N] ").strip().lower() != "y":
+        return
     iid = call("POST", "/instances", {
         "region": a.region, "plan": a.plan, "os_id": ubuntu_os_id(),
         "sshkey_id": [ssh_key_id(a.pubkey)], "label": "duquantum-grid", "tags": ["duquantum"],
