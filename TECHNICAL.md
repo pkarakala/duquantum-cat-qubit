@@ -33,6 +33,7 @@ This file is written for judges, physicists and AI reviewers. Every claim below 
 | 16 | 1.3a it is a superposition, not a mixture | at 1 µs: coherence 0.63 = parity 0.63; purity 0.69 | a mixture has coherence 0, purity 0.5 | `task_1_3a.json → at_1us` | `tasks/task_1_3a.py` |
 | 17 | 1.3a cat lifetime | 1.95 µs | 1/(2κ_a α²) = 1.94 µs | `task_1_3a.json → cat_lifetime_us` | `tasks/task_1_3a.py` |
 | 18 | 1.3a becomes a mixture by 6 µs | parity 0.05, coherence 0.05, purity 0.501 | expected after ~3 lifetimes | `task_1_3a.json → at_6us` | `tasks/task_1_3a.py` |
+| 19 | 1.3a parity-decay fit is robust | 0.5135 / 0.5134 / 0.5132 / 0.5129 for fit windows starting at 0.8 / 1.0 / 2.0 / 3.0 µs; nonlinear fit on y gives 0.5139 | spread ≤ 0.12%, well below the 0.2% gap to the prediction | `task_1_3a.json → gamma_vs_fit_start_us, gamma_nonlinear_fit_per_us` | `tasks/task_1_3a.py` |
 
 ## 3. Convergence study (Task 1.2)
 
@@ -58,6 +59,12 @@ Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive,
 
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
+- **Gemini review log** (`reviews/gemini-20261024-1632.md`, gemini-3.8-flash, run on the full code plus the prompt and this file):
+  - 2π conversions, √rate jump operators, the α² = +ε_d/g₂ sign, the truncation monitors, and the analytic checks: no issues found.
+  - Possible challenge 1, "the fit window starts at 1.0 µs, before the 1.07 µs settle time": Gemini *asserted* the effect was < 0.1% without running anything. **We checked it**: moving the start from 0.8 to 3.0 µs changes Γ by at most 0.12% (claim 19).
+  - Possible challenge 2, "the coherence normalization": confirmed. For an exact |C₊⟩ the metric is 1 − O(e^{−2α²}) ≈ 1 − 1.5e-4.
+  - Possible challenge 3, "a log-linear fit weights small values more": **we added a nonlinear fit on y**, which gives 0.5139 vs 0.5135 (claim 19).
+  - Scope note: 1.3(b)/(c) are not yet in this PR; they come next.
 - What we caught ourselves that an AI would easily miss: the default ODE tolerance produced ~1e-4 noise in the truncation monitors, which would have hidden a real truncation problem. We tightened the tolerance and confirmed the results didn't change beyond it.
 
 ## 6. File map
