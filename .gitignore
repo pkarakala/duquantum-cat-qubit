@@ -6,3 +6,4 @@ __pycache__/
 prep/DuQuantum_2026_Hacker_Guide.pdf
 reviews/*.tmp
 results/grid/
+.cloud-worktrees/
