@@ -69,7 +69,7 @@ def shard(jobs, n):
 def download(ip, dest):
     for sub in ["results", "figures"]:
         subprocess.run(["scp", "-q", "-r", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10",
-                        f"root@{ip}:repo/{sub}/.", str(dest / sub)], check=True, timeout=600)
+                        f"root@{ip}:repo/{sub}/.", str(dest / sub)], check=True, timeout=120)
 
 
 def run_vm(k, iid, cmds, jobs_per_vm, deadline, status, dest):
