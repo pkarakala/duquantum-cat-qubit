@@ -83,6 +83,8 @@ Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive,
 | `run_all.sh` | reproduces everything in order |
 | `tasks/task_1_2_grid.py` | full (Na, Nb) convergence grid, one process per point |
 | `cloud/vultr_sweep.sh` | runs the grid in parallel on a Vultr VM and merges it |
+| `cloud/vultr_batch.py` | any job list split across N Vultr VMs, hard dollar and time caps, per-job timings for cost estimates |
+| `cloud/setup_vm.sh` | one-time Python setup on a fresh VM |
 | `cloud/vultr_run.py` | Vultr API: creates the VM, uploads the code, runs the sweep, downloads results, deletes the VM |
 | `docs/tools-log.md` | every external tool and sponsor service used: when, what for, cost, evidence |
 | `tools/ai_review.py` | optional LLM code review (Gemini or Grok); `--dry-run` saves the prompt only |
