@@ -96,7 +96,7 @@ def main(Na, Nb):
     EB = run(H0 + drive, jumps, dq.tensor(dq.fock(Na, 0), vac_b), t, ops)
     B = [summarize(tt, EB[i], f"eps1={e}") | {"eps1": e, "bare_beta": e * T_P} for i, e in enumerate(EPS1)]
 
-    # Control: the other drive quadrature eps (a + a^dag) is the Zeno Z gate, so it should not pick a well.
+    # Control: eps (a + a^dag) displaces along the imaginary axis (90 deg from both wells), so it should not pick one.
     print("control: wrong quadrature")
     ctrl = dq.pwc(jnp.array([0.0, T_P]), jnp.array([10.0]), a + a.dag())
     EC = run(H0 + ctrl, jumps, dq.tensor(dq.fock(Na, 0), vac_b), t, ops)
