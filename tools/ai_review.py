@@ -20,9 +20,24 @@ import json
 import os
 import re
 import subprocess
+import time
 from pathlib import Path
 
 from tools_log import log_tool
+
+
+def with_retry(call, tries=6, wait=10):
+    """Retry on 429/503 'model overloaded' errors, waiting 10, 20, 40 ... s."""
+    for k in range(tries):
+        try:
+            return call()
+        except Exception as e:  # google.genai.errors.ServerError / ClientError
+            code = getattr(e, "code", None) or getattr(e, "status_code", None)
+            if code not in (429, 500, 503) or k == tries - 1:
+                raise
+            print(f"  Gemini busy ({code}), retrying in {wait} s ...", flush=True)
+            time.sleep(wait)
+            wait *= 2
 
 ROOT = Path(__file__).resolve().parent.parent
 USAGE = {"in": 0, "out": 0}           # Gemini token counts, for docs/tools-log.md
@@ -64,7 +79,7 @@ def gather(diff_base=None):
 def ask_gemini(prompt, model):
     from google import genai          # pip install google-genai
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    r = client.models.generate_content(model=model, contents=prompt)
+    r = with_retry(lambda: client.models.generate_content(model=model, contents=prompt))
     count_tokens(r)
     return r.text
 
@@ -157,11 +172,11 @@ def check_figures(model, dry_run=False):
             print(f"{png.name}: claims {[r[0] for r in claims]}, prompt {len(text):,} chars")
             continue
         print(f"checking {png.name} ...", flush=True)
-        r = client.models.generate_content(
+        r = with_retry(lambda: client.models.generate_content(
             model=model,
             contents=[types.Part.from_bytes(data=png.read_bytes(), mime_type="image/png"), text],
             config=types.GenerateContentConfig(response_mime_type="application/json",
-                                               response_json_schema=FIGURE_SCHEMA))
+                                               response_json_schema=FIGURE_SCHEMA)))
         count_tokens(r)
         v = json.loads(r.text)
         raw[png.name] = v
