@@ -21,6 +21,7 @@ import json
 import os
 import signal
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -33,6 +34,9 @@ except ImportError:
     pass
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
+from tools_log import log_tool  # noqa: E402
+
 API = "https://api.vultr.com/v2"
 SSH = ["ssh", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10",
        "-o", "ServerAliveInterval=30", "-o", "ServerAliveCountMax=4"]   # a dead link fails in ~2 min
@@ -168,10 +172,23 @@ def main():
         for sub in ["results", "figures"]:
             subprocess.run(["scp", "-r", "-o", "StrictHostKeyChecking=accept-new",
                             f"root@{ip}:repo/{sub}/.", str(ROOT / sub)], check=True)
+        ok = True
+    except BaseException:
+        ok = False
+        raise
     finally:
-        if delete(iid):
-            print(f"deleted instance {iid} after {(time.time() - t0) / 60:.1f} min "
+        mins = (time.time() - t0) / 60
+        deleted = delete(iid)
+        if deleted:
+            print(f"deleted instance {iid} after {mins:.1f} min "
                   "(confirm at https://my.vultr.com/subs/)", flush=True)
+        cost = f"~${pl['monthly_cost'] / 730 * mins / 60:.2f}" if pl else "see Vultr billing"
+        log_tool("Vultr (API v2)",
+                 "Task 1.2 (Na, Nb) convergence grid via `cloud/vultr_run.py`",
+                 f"`{a.plan}`, region {a.region}, {mins:.0f} min, {cost}; VM "
+                 + ("deleted" if deleted else "NOT deleted, run --cleanup"),
+                 "`results/grid.log`, `results/task_1_2_grid.json`, `figures/task_1_2_grid.png`",
+                 "completed" if ok else "failed or interrupted; see terminal output")
 
 
 if __name__ == "__main__":

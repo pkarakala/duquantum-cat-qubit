@@ -22,7 +22,10 @@ import re
 import subprocess
 from pathlib import Path
 
+from tools_log import log_tool
+
 ROOT = Path(__file__).resolve().parent.parent
+USAGE = {"in": 0, "out": 0}           # Gemini token counts, for docs/tools-log.md
 
 CHECKLIST = """You are reviewing simulation code for the Alice & Bob cat-qubit challenge
 (dynamiqs/JAX, Lindblad master equation, memory a + buffer b,
@@ -61,7 +64,16 @@ def gather(diff_base=None):
 def ask_gemini(prompt, model):
     from google import genai          # pip install google-genai
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    return client.models.generate_content(model=model, contents=prompt).text
+    r = client.models.generate_content(model=model, contents=prompt)
+    count_tokens(r)
+    return r.text
+
+
+def count_tokens(r):
+    u = getattr(r, "usage_metadata", None)
+    if u:
+        USAGE["in"] += u.prompt_token_count or 0
+        USAGE["out"] += (u.candidates_token_count or 0) + (getattr(u, "thoughts_token_count", 0) or 0)
 
 
 def ask_grok(prompt, model):
@@ -150,6 +162,7 @@ def check_figures(model, dry_run=False):
             contents=[types.Part.from_bytes(data=png.read_bytes(), mime_type="image/png"), text],
             config=types.GenerateContentConfig(response_mime_type="application/json",
                                                response_json_schema=FIGURE_SCHEMA))
+        count_tokens(r)
         v = json.loads(r.text)
         raw[png.name] = v
         for c in v["claims"]:
@@ -167,6 +180,12 @@ def check_figures(model, dry_run=False):
                   "verdicts are Gemini's reading of the plot, triaged by us in TECHNICAL.md section 5.\n\n"
                   "| Figure | Claim | Verdict | Evidence |\n|---|---|---|---|\n" + "\n".join(out) + "\n")
     print("saved", md)
+    bad = sum(1 for v in raw.values() for c in v["claims"] if c["verdict"] == "contradicted")
+    issues = sum(1 for v in raw.values() for i in v["presentation_issues"] if i.strip().lower() != "none")
+    log_tool(f"Gemini API (`{model}`, multimodal)",
+             f"Checked {len(raw)} figures as images against their TECHNICAL.md claims (`ai_review.py --figures`)",
+             f"{len(raw)} requests, {USAGE['in']:,} in / {USAGE['out']:,} out tokens",
+             f"`reviews/{md.name}`", f"{bad} claims contradicted, {issues} presentation issues; triage pending")
 
 
 def main():
@@ -200,6 +219,10 @@ def main():
     out = ROOT / "reviews" / f"{a.provider}-{dt.datetime.now():%Y%m%d-%H%M}.md"
     out.write_text(f"# {a.provider} review ({model})\n\n{text}\n")
     print("saved", out)
+    tokens = f", {USAGE['in']:,} in / {USAGE['out']:,} out tokens" if USAGE["in"] else ""
+    log_tool(f"{'Gemini API' if a.provider == 'gemini' else 'Grok (xAI API)'} (`{model}`)",
+             "Physics/numerics code review" + (f" of `git diff {a.diff}`" if a.diff else " of `src/` and `tasks/`"),
+             f"1 request{tokens}", f"`reviews/{out.name}`", "triage pending")
 
 
 if __name__ == "__main__":
