@@ -83,6 +83,7 @@ Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive,
 | `run_all.sh` | reproduces everything in order |
 | `tasks/task_1_2_grid.py` | full (Na, Nb) convergence grid, one process per point |
 | `cloud/vultr_sweep.sh` | runs the grid in parallel on a Vultr VM and merges it |
+| `cloud/vultr_run.py` | Vultr API: creates the VM, uploads the code, runs the sweep, downloads results, deletes the VM |
 | `tools/ai_review.py` | optional LLM code review (Gemini or Grok); `--dry-run` saves the prompt only |
 
 ## 7. Reproduce
@@ -96,5 +97,6 @@ Run times on 4 CPU cores: Task 1.0 ~20 s, 1.1 ~1 min, 1.2 ~12 min, 1.3a ~2 min.
 
 The full 49-point convergence grid (up to Na=48, Nb=18) is too slow for a laptop, so we run it on a cloud VM:
 ```bash
-./cloud/vultr_sweep.sh                 # results/task_1_2_grid.json, figures/task_1_2_grid.png
+python cloud/vultr_run.py --plan <id>  # VULTR_API_KEY set; VM is deleted at the end
+# or, on a VM you created yourself:  ./cloud/vultr_sweep.sh
 ```
