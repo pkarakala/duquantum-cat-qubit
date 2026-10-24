@@ -26,6 +26,12 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+try:                                   # pip install truststore: use the macOS/Windows system
+    import truststore                  # certificate store (fixes CERTIFICATE_VERIFY_FAILED with
+    truststore.inject_into_ssl()       # python.org builds and on networks that inspect TLS)
+except ImportError:
+    pass
+
 ROOT = Path(__file__).resolve().parent.parent
 API = "https://api.vultr.com/v2"
 SSH = ["ssh", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10",
