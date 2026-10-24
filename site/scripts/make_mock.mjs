@@ -451,7 +451,8 @@ function buildReadout(records) {
     const snr = KAPPA_B * trapz(ts, db.map((v) => v * v));
     // Mock cost proxy: (1/2T) * integral of (eps/g2)^2 dt, the same scale as gamma_x_rel - 1 above.
     const cost = (0.5 / T) * epsOverG2.reduce((s, v) => s + v * v * (T / nBins), 0);
-    const snrId = `t2_4c.snr.td.two_mode.a2.10.p${name}.T1.0us`;
+    // CONTRACT §6.3 regex is lowercase-only; the brief writes T1.0us. Mock uses t1.0us.
+    const snrId = `t2_4c.snr.td.two_mode.a2.10.p${name}.t1.0us`;
     const costId = `t2_4c.cost.linresp.two_mode.a2.10.p${name}`;
     const peak = Math.max(...epsOverG2);
     const tr = { Na: 24, Nb: 8 };

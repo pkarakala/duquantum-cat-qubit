@@ -1,0 +1,374 @@
+:root {
+  --bg: #f7f5f0;
+  --plot-bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #5c5c5c;
+  --accent: #0072b2;
+  --ok: #009e73;
+  --warn: #e69f00;
+  --fail: #d55e00;
+  --grid: #dddddd;
+  --card: #ffffff;
+  --border: #c8c4ba;
+  --one-mode: #0072b2;
+  --two-mode: #d55e00;
+  --td: #009e73;
+  --ch1: #cc79a7;
+  --ch2: #e69f00;
+  --total: #7f7f7f;
+  --thermal: #56b4e9;
+  --focus: #0072b2;
+  --banner-bg: #f0e442;
+  --banner-fg: #1a1a1a;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161616;
+    --plot-bg: #1e1e1e;
+    --fg: #f2f2f2;
+    --muted: #b0b0b0;
+    --accent: #56b4e9;
+    --grid: #3a3a3a;
+    --card: #222222;
+    --border: #444444;
+    --banner-bg: #5a4d00;
+    --banner-fg: #fff6b0;
+    --focus: #56b4e9;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 360px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+.skip:focus {
+  left: 8px;
+  top: 8px;
+  z-index: 20;
+  background: var(--card);
+  padding: 0.4rem 0.7rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1.25rem;
+  padding: 0.85rem 1rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+
+.brand {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+}
+
+nav a {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.15rem 0.1rem;
+}
+nav a[aria-current="page"] {
+  color: var(--fg);
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+#banner {
+  margin: 0;
+  padding: 0.55rem 1rem;
+  background: var(--banner-bg);
+  color: var(--banner-fg);
+  font-size: 0.95rem;
+}
+#banner[hidden] {
+  display: none;
+}
+
+#app {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  outline: none;
+}
+
+h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.7rem;
+}
+h2 {
+  margin: 1.2rem 0 0.4rem;
+  font-size: 1.2rem;
+}
+h3 {
+  margin: 0.9rem 0 0.3rem;
+  font-size: 1.05rem;
+}
+p.lead,
+.lede {
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin: 0.6rem 0;
+}
+
+.plot {
+  width: 100%;
+  min-height: 280px;
+  background: var(--plot-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.plot.tall {
+  min-height: 360px;
+}
+
+label {
+  font-weight: 600;
+}
+input[type="range"] {
+  width: min(420px, 100%);
+}
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin: 0.6rem 0;
+  padding: 0.5rem 0.8rem 0.7rem;
+}
+legend {
+  padding: 0 0.3rem;
+  font-weight: 650;
+}
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+}
+
+button,
+select,
+input[type="range"] {
+  font: inherit;
+}
+
+button {
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+}
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+  font-size: 0.92rem;
+}
+th,
+td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  cursor: default;
+  background: color-mix(in srgb, var(--card) 86%, var(--fg));
+}
+th[role="columnheader"],
+th.sortable {
+  cursor: pointer;
+}
+th[aria-sort="ascending"]::after {
+  content: " ▲";
+}
+th[aria-sort="descending"]::after {
+  content: " ▼";
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.85rem;
+  max-width: 100%;
+}
+.chip .chip-id {
+  overflow-wrap: anywhere;
+}
+.chip[data-status="green"] {
+  border-color: var(--ok);
+}
+.chip[data-status="amber"],
+.chip[data-status="missing"] {
+  border-color: var(--warn);
+}
+.chip-mark {
+  color: var(--ok);
+  font-weight: 700;
+}
+.chip[data-status="amber"] .chip-mark,
+.chip[data-status="missing"] .chip-mark {
+  color: var(--warn);
+}
+
+.card {
+  background: var(--card);
+  color: var(--fg);
+  padding: 0.2rem 0.4rem 1rem;
+}
+.card[data-status="green"] {
+  box-shadow: inset 4px 0 0 var(--ok);
+}
+.card[data-status="amber"] {
+  box-shadow: inset 4px 0 0 var(--warn);
+}
+.badge[data-status="green"] {
+  color: var(--ok);
+  font-weight: 650;
+}
+.badge[data-status="amber"] {
+  color: var(--warn);
+}
+.mock-tag,
+.notes {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.rid {
+  overflow-wrap: anywhere;
+}
+.value {
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+.kv {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: 0.15rem 0.8rem;
+  margin: 0.4rem 0;
+}
+.kv dt {
+  color: var(--muted);
+  font-weight: 600;
+}
+.kv dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+dialog#card {
+  width: min(720px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem 1rem;
+  background: var(--card);
+  color: var(--fg);
+  box-shadow: var(--shadow);
+}
+dialog#card::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+dialog#card .close {
+  float: right;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin: 0.8rem 0;
+}
+
+.howto {
+  white-space: pre-wrap;
+  background: color-mix(in srgb, var(--card) 88%, var(--fg));
+  padding: 0.7rem 0.8rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+.agree-yes {
+  color: var(--ok);
+}
+.agree-no {
+  color: var(--fail);
+}
+
+@media (max-width: 600px) {
+  #app {
+    padding: 0.7rem;
+  }
+  .plot {
+    min-height: 240px;
+  }
+}

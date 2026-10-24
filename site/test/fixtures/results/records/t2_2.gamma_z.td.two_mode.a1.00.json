@@ -1,0 +1,62 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t2_2.gamma_z.td.two_mode.a1.00",
+  "task": "2.2",
+  "quantity": "gamma_z",
+  "value": 0.1212,
+  "uncertainty": 1.2120000000000001e-05,
+  "units": "1/us",
+  "method": "time_domain_fit_exp_offset",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 1.0,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 20,
+    "Nb": 6
+  },
+  "convergence": {
+    "key": "gamma_z",
+    "rel_tol": 0.001,
+    "sweeps": {
+      "Na": {
+        "fixed": {
+          "Nb": 6
+        },
+        "values": [
+          16,
+          20
+        ],
+        "results": [
+          0.122412,
+          0.1212
+        ]
+      }
+    },
+    "needed": {
+      "Na": 16
+    },
+    "converged": true
+  },
+  "cross_check": [
+    {
+      "method": "analytic_coth",
+      "ref_id": null,
+      "value": 0.1210788,
+      "rel_diff": 0.001,
+      "tol": 0.02,
+      "agree": true
+    }
+  ],
+  "artifacts": null,
+  "notes": "fixture",
+  "provenance": {
+    "script": "site/test/fixtures/make_fixtures.py",
+    "git_commit": "deadbee",
+    "dirty": false
+  }
+}
