@@ -7,6 +7,7 @@ results: every number in the README comes from the scripts in tasks/.
     export GEMINI_API_KEY=...   # or XAI_API_KEY=...
     python tools/ai_review.py --provider gemini              # review src/ and tasks/
     python tools/ai_review.py --provider grok --diff main    # review only changes vs main
+    python tools/ai_review.py --dry-run                      # save the prompt, call no API
 
 The challenge prompt and TECHNICAL.md are sent as context, so the reviewer
 knows the tasks, conventions and every claim we make.
@@ -72,14 +73,23 @@ def main():
     p.add_argument("--provider", choices=["gemini", "grok"], default="gemini")
     p.add_argument("--model", help="model name (defaults: gemini-3.8-flash / grok-4)")
     p.add_argument("--diff", metavar="BASE", help="review only `git diff BASE`")
+    p.add_argument("--dry-run", action="store_true", help="save the prompt to reviews/ and stop")
     a = p.parse_args()
     model = a.model or {"gemini": "gemini-3.8-flash", "grok": "grok-4"}[a.provider]
     prompt = (CHECKLIST
               + "\n\n## Context: the challenge prompt and our claims\n\n" + briefing()
               + "\n\n## Code to review\n\n" + gather(a.diff))
+    (ROOT / "reviews").mkdir(exist_ok=True)
+    if a.dry_run:
+        out = ROOT / "reviews" / "prompt.tmp"
+        out.write_text(prompt)
+        print(f"saved {out} ({len(prompt):,} chars, ~{len(prompt) // 4:,} tokens)")
+        return
+    key = {"gemini": "GEMINI_API_KEY", "grok": "XAI_API_KEY"}[a.provider]
+    if not os.environ.get(key):
+        raise SystemExit(f"set {key} in your shell first (never commit it)")
     text = (ask_gemini if a.provider == "gemini" else ask_grok)(prompt, model)
     out = ROOT / "reviews" / f"{a.provider}-{dt.datetime.now():%Y%m%d-%H%M}.md"
-    out.parent.mkdir(exist_ok=True)
     out.write_text(f"# {a.provider} review ({model})\n\n{text}\n")
     print("saved", out)
 
