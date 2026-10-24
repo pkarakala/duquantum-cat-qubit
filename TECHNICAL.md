@@ -33,6 +33,7 @@ This file is written for judges, physicists and AI reviewers. Every claim below 
 | 16 | 1.3a it is a superposition, not a mixture | at 1 µs: coherence 0.63 = parity 0.63; purity 0.69 | a mixture has coherence 0, purity 0.5 | `task_1_3a.json → at_1us` | `tasks/task_1_3a.py` |
 | 17 | 1.3a cat lifetime | 1.95 µs | 1/(2κ_a α²) = 1.94 µs | `task_1_3a.json → cat_lifetime_us` | `tasks/task_1_3a.py` |
 | 18 | 1.3a becomes a mixture by 6 µs | parity 0.05, coherence 0.05, purity 0.501 | expected after ~3 lifetimes | `task_1_3a.json → at_6us` | `tasks/task_1_3a.py` |
+| 19 | 1.3a parity-decay fit is robust | 0.5135 / 0.5134 / 0.5132 / 0.5129 for fit windows starting at 0.8 / 1.0 / 2.0 / 3.0 µs; nonlinear fit on y gives 0.5139 | spread ≤ 0.12%, well below the 0.2% gap to the prediction | `task_1_3a.json → gamma_vs_fit_start_us, gamma_nonlinear_fit_per_us` | `tasks/task_1_3a.py` |
 
 ## 3. Convergence study (Task 1.2)
 
@@ -58,16 +59,16 @@ Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive,
 
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
-- **Gemini code review** ([`reviews/gemini-20261024-1632.md`](reviews/gemini-20261024-1632.md), `gemini-3.8-flash`): it found no 2π, sign, √rate or truncation errors. We didn't take its suggestions on trust. We re-ran the parity fit (claim 15) to test the one suggestion it made about the fit window:
+- **Gemini review log** ([`reviews/gemini-20261024-1632.md`](reviews/gemini-20261024-1632.md), `gemini-3.8-flash`, run on the full code plus the prompt and this file). It found no issues with the 2π conversions, the √rate jump operators, the α² = +ε_d/g₂ sign, the truncation monitors, or the analytic checks. Gemini *asserts* things without running anything, so we tested each claim it made that can be tested:
 
   | Gemini said | We checked | Outcome |
   |---|---|---|
-  | The fit window starts at 1.0 µs, before the 1% settle time (1.07 µs); moving it to 1.1 µs changes Γ by < 0.1% | Re-fit with window start 0.5, 1.0, 1.1, 1.5, 2, 3 µs: Γ = 0.51357 … 0.51290 /µs; 1.0 → 1.1 µs changes Γ by 0.004% | Confirmed; window kept |
+  | The fit window starts at 1.0 µs, before the 1.07 µs settle time; the effect is < 0.1% | Moved the window start from 0.8 to 3.0 µs: Γ changes by at most 0.12% (claim 19) | Confirmed; window kept |
   | At 1.0 µs, ⟨n_a⟩ is within 1.5% of steady state | It is 1.0% below | Minor misread; no effect |
-  | Log-linear fit weights small values more than nonlinear least squares | `curve_fit` on P(t) gives 0.51387 vs 0.51346 /µs (0.08% apart) | Confirmed negligible |
-  | Parity rate is 2κ_a⟨nP⟩ ≈ 2κ_a⟨n⟩⟨P⟩ | The local rate −d ln P/dt drifts from 0.5141 (2 µs) to 0.5112 (6 µs) while 2κ_a⟨n⟩ stays 0.5146. So the −0.2% fit residual is this approximation, which gets worse as the cat turns into a mixture, not fit noise | New understanding of claim 15's residual |
-  | 2⟨α\|ρ\|−α⟩ = 1 for an ideal cat, up to e^(−2α²) ≈ 1.5e-4 | Agrees with our derivation | No change |
-
+  | A log-linear fit weights small values more | Added a nonlinear fit on y: 0.5139 vs 0.5135 /µs (claim 19) | Confirmed negligible |
+  | Parity rate 2κ_a⟨nP⟩ ≈ 2κ_a⟨n⟩⟨P⟩ | d⟨P⟩/dt = −2κ_a⟨nP⟩ exactly. The local rate −d ln P/dt drifts from 0.5141 (2 µs) to 0.5112 (6 µs) while 2κ_a⟨n⟩ stays 0.5146 | Explains claim 15's −0.2% residual: it is the ⟨nP⟩ ≈ ⟨n⟩⟨P⟩ step, which worsens as P → 0, not fit noise |
+  | Coherence normalization: 2\|⟨α\|ρ\|−α⟩\| = 1 − O(e^(−2α²)) for \|C₊⟩ | ≈ 1 − 1.5e-4, agrees with our derivation | No change |
+  | Scope: 1.3(b)/(c) not implemented | True at review time | Next on the plan |
 - What we caught ourselves that an AI would easily miss: the default ODE tolerance produced ~1e-4 noise in the truncation monitors, which would have hidden a real truncation problem. We tightened the tolerance and confirmed the results didn't change beyond it.
 
 ## 6. File map
