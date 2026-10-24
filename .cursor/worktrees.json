@@ -1,0 +1,7 @@
+{
+  "setup-worktree-windows": "setup-worktree-windows.ps1",
+  "setup-worktree-unix": "setup-worktree-unix.sh",
+  "setup-worktree": [
+    "echo 'No OS-specific worktree setup matched; see docs/plan/briefs/00-setup.md'"
+  ]
+}

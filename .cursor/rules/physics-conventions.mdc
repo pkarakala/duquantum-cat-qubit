@@ -1,0 +1,33 @@
+---
+description: Physics and numerics conventions for the cat-qubit simulations (units, drives, symmetries, rates, convergence, eigen acceptance)
+alwaysApply: true
+---
+
+# Physics conventions (non-negotiable)
+
+Source of truth: `docs/plan/RESEARCH.md`. Interfaces: `docs/plan/CONTRACT.md`.
+
+- **Units:** ħ = 1, time in µs, rates in rad/µs, ω = 2πf. The 2π is applied ONLY in `src/config.py`. If you write `2 * jnp.pi`, `2*math.pi` or `TWO_PI` anywhere else, you are almost certainly wrong.
+- **Model:** H = g₂a²b† + g₂a†²b − ε_d(b + b†), with jumps √κ_b·b and √κ_a·a, and α² = +ε_d/g₂. Build it only through `src/model.py`. Jump operators carry √rate.
+- **Drives:**
+  - `eps_z·(a + a†)` gives ȧ = −iε, which pushes along **Im**. It is a Z_L rotation and the readout drive, and it **cannot** prepare |+α⟩ from vacuum. An antiunitary symmetry forces Re⟨a⟩ ≡ 0 (RESEARCH §4.1).
+  - `eps_x·i(a† − a)` gives ȧ = +ε, which pushes along **Re**. Use it for state preparation.
+- **Symmetry facts you can test:**
+  - Re⟨a⟩ ≡ 0 under eps_z from vacuum.
+  - ⟨b⟩₋(t) = −⟨b⟩₊(t)*.
+  - Γ_X(ε_Z) is even in ε_Z. There is no "tilt"; the two one-way rates are equal.
+  - Liouvillian Z₂ sectors: the steady state and X_L are even; Z_L and Y_L are odd.
+- **Rates:**
+  - Γ_X = decay rate of Re⟨a⟩ = −λ₁, the smallest |λ| of the odd block (needs κ_a > 0). Dubovitskii's per-direction rate is Γ_X/2.
+  - Γ_Z = decay rate of parity = 2κ_aα²·coth(2α²). Y_L decays at Γ_Z − Γ_X.
+  - Fit parity as A·e^{−Γt} + C. The steady parity is 1/cosh(2α²).
+- **Convergence:** sweep Na and Nb **separately at every α**, through `src/convergence.py`. Monitor the top-Fock populations of both modes. The 20×6 truncation gives a 20× wrong Γ_X at α = 2.1.
+- **Eigen acceptance:** `rel_residual = ‖Lv−λv‖/(|λ|‖v‖) < 1e-4`, `edge_weight < 1e-6`, and stable across two truncations. When ε ≠ 0 there is no Z₂ symmetry, so use `sector='full_deflated'`.
+- **Precision:** double precision always. Raise `max_steps` for long traces (`C.METHOD_LONG`).
+- **Analytic checks to reuse:**
+  - ⟨b⟩_ss = ∓ε_Z/(2αg₂).
+  - Readout dephasing 2ε_Z²/(κ₂α²).
+  - Ringing at 3.14 MHz, Q ≈ 2.46, settling to 1% in 1.13 µs.
+  - Bit-flip channel 1: κ_aα²(coth 2α² − 1).
+  - Bit-flip channel 2: ≈ (κ_a²/κ₂)e^{−2α²}.
+- A number that disagrees with its analytic check is a **finding to investigate**, not a test to loosen.

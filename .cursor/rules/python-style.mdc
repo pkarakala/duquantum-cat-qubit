@@ -1,0 +1,19 @@
+---
+description: Python style for src/, tasks/, tools/ and tests/ - match the existing intro-track code
+globs: **/*.py
+alwaysApply: false
+---
+
+# Python style (match `src/` and `tasks/task_1_*.py`)
+
+- A module docstring of 1–6 lines: what the file does and why. Comments explain *why*, not what.
+- In task scripts, `from src import config as C` is the first project import (it sets double precision). Then `numpy as np`, `jax.numpy as jnp`, `matplotlib.pyplot as plt`, `dynamiqs as dq`.
+- Task scripts follow this shape:
+  - Small pure functions.
+  - A `main(...)` that runs, plots and records.
+  - `if __name__ == "__main__":` with `argparse`. Always include `--quick` (smoke run of 2 min or less, writing to quick paths). Lanes may add flags like `--na/--nb/--alpha/--model`.
+- Save figures with `src.plotting.save(fig, "task_<task>_<name>", quick=quick)`, and numbers with `src.results.record(...)`. Never write JSON by hand, except in `tasks/felis_crosscheck.py`, which runs in a separate venv.
+- Use `mesolve(..., save_states=False, save_extra=lambda t, rho: ...)` when you only need derived quantities, because full two-mode states are large. `save_extra` takes `(t, rho)`.
+- Use `C.METHOD` for normal runs and `C.METHOD_LONG` for traces of tens of µs. Never use the default tolerances.
+- Type hints are welcome on new public functions. Keep the code dependency-light (numpy, scipy, jax, dynamiqs, matplotlib, sympy, optax, psutil).
+- Tests use plain `pytest` functions with explicit tolerances, e.g. `assert abs(x - x_ref) <= 1e-6 * abs(x_ref)`, and say *why* that tolerance.

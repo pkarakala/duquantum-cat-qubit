@@ -3,5 +3,20 @@ __pycache__/
 .venv/
 *.pyc
 .DS_Store
-prep/DuQuantum_2026_Hacker_Guide.pdf
 reviews/*.tmp
+
+# Local-only material. notes/ holds the organizer Hacker Guide (phone numbers) and
+# Claude-chat strategy notes: never commit it. (The old prep/ path no longer exists.)
+notes/
+prep/DuQuantum_2026_Hacker_Guide.pdf
+
+# Scratch outputs: --quick runs, run-queue logs, local orchestration state
+results/quick/
+results/logs/
+figures/quick/
+.orchestrator/
+
+# Lab build outputs
+site/node_modules/
+site/dist/
+site/dist-single/

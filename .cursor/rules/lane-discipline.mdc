@@ -1,0 +1,21 @@
+---
+description: How a lane agent works - allowlist, TDD, records, status file, heavy jobs, git hygiene
+alwaysApply: true
+---
+
+# Lane discipline
+
+1. **Identify your lane** from the prompt (`You are lane <slug>`). Your brief is `docs/plan/briefs/<NN>-<slug>.md` and your status file is `docs/plan/status/<slug>.md`.
+2. **Allowlist:** edit only the paths that CONTRACT §1 and your brief §3 list for your lane. Before every commit, check that `git diff --name-only standard-track...HEAD` is a subset of it.
+3. **Frozen files:**
+   - After `l0-core` merges, `src/model.py`, `src/config.py` and `src/analysis.py` are frozen. Request a change with a `DECISION NEEDED` block.
+   - `docs/plan/CONTRACT.md` is frozen at G0.
+4. **TDD:** write `tests/test_<slug_underscored>.py` first, watch it fail, then implement. Mark expensive tests `@pytest.mark.slow`. Fast tests must stay small.
+5. **Records:**
+   - Every number goes through `src.results.record(...)`, with IDs exactly as specified in your brief (CONTRACT §6.3).
+   - `--quick` outputs go to `results/quick/` and are never committed.
+   - Production outputs must have `provenance.dirty == false`: commit code, then run, then commit outputs.
+6. **Heavy jobs:** ≤ 15 min may run in your lane. Anything longer goes under **Jobs to queue** in your status file (exact command, RAM estimate, expected wall time). Never run more than one sparse LU > 3 GB at a time.
+7. **Status file:** update it at every milestone. Escalate anything physics-relevant or cross-lane with a `DECISION NEEDED` block. **Never silently change scope,** and never loosen a tolerance to make a test pass.
+8. **Git:** commit on `std/<slug>` with the prefix `[<slug>]`. Stage explicit paths (never `git add .`). Never push or touch other branches. Never commit `notes/`.
+9. **Done means:** every acceptance gate in your brief §8 is checked off in the status file, with evidence (commands plus output excerpts). Then set the status to `DONE` and stop.
