@@ -44,7 +44,7 @@ $env:XLA_FLAGS = "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_thread
 - `python -m tasks.task_1_1` (defaults `--na 32 --nb 12`) reads `task_1_0c_nominal.npy` (so run 1_0 **first**), also runs the 24×6 starter, and writes `results/task_1_1.json`, figures `task_1_1_inflation`, `task_1_1_wigner`. Time grid: 301 points on [0, 3] µs (step 0.01 µs).
 
 ## 5. Tests to write FIRST (TDD)
-There is no `tests/` directory yet (L0-core creates `pytest.ini` and `tests/`). Your test is a **comparison script written before any task run**, saved at `$env:TEMP\duq-setup\compare_intro.py` and pasted verbatim into the status file. It must contain exactly these functions and rules:
+There is no `tests/` directory yet (L0-core creates `pytest.ini` and `tests/`). Your test is a **comparison script written before any task run** (stdlib only), saved at `$env:TEMP\duq-setup\compare_intro.py` and pasted verbatim into the status file. It must contain exactly these functions and rules:
 ```python
 """Compare fresh intro outputs with the committed copies. Usage: python compare_intro.py <ref_dir> <new_dir>"""
 import json, sys
@@ -79,8 +79,9 @@ def main(ref_dir, new_dir):
     fails = 0
     print("| file | key | committed | fresh | diff | rule | ok |\n|---|---|---|---|---|---|---|")
     for name, (rel, rules) in RULES.items():
-        ref = dict(leaves(json.loads((Path(ref_dir) / name).read_text())))
-        new = dict(leaves(json.loads((Path(new_dir) / name).read_text())))
+        # utf-8-sig: tolerates a BOM if a JSON was ever rewritten by Windows PowerShell 5.1
+        ref = dict(leaves(json.loads((Path(ref_dir) / name).read_text(encoding="utf-8-sig"))))
+        new = dict(leaves(json.loads((Path(new_dir) / name).read_text(encoding="utf-8-sig"))))
         if set(ref) != set(new): print(f"KEY MISMATCH {name}: {set(ref) ^ set(new)}"); fails += 1
         for key in sorted(set(ref) & set(new)):
             ok, diff, rule = check(key, ref[key], new[key], rel, rules)
@@ -91,24 +92,26 @@ def main(ref_dir, new_dir):
 if __name__ == "__main__":
     sys.exit(main(*sys.argv[1:3]))
 ```
-Self-test before running any task: `compare_intro.py ref ref` must print `ALL MATCH` (exit 0); then copy `ref` to `ref_bad`, change `peak_na` in `ref_bad\task_1_1.json` to `6.90` and confirm exit 1 with `peak_na ... NO`.
+Self-test (step 7 of §6: after the interpreter works and the committed JSONs are copied to `$T\ref`, and **before** running any task): `compare_intro.py $T\ref $T\ref` must print `ALL MATCH` (exit 0); then copy `ref` to `ref_bad`, change `peak_na` in `ref_bad\task_1_1.json` from `6.894411732563246` to `6.90` (rel diff 8.1e-4 > 1e-4) and confirm exit 1 with exactly one `NO` row, `task_1_1.json | peak_na`. Write `ref_bad` with `-Encoding ascii` (Windows PowerShell 5.1 `utf8` adds a BOM).
 
 Key numbers this enforces (committed values): task_1_0 `a.max_abs_error_vs_analytic` 9.72e-12 (< 1e-9), `b.final_n_sim` 0.4998322686860546 (rel 1e-6), `c.final_n` [4.387166, 4.403969, 4.408144] (rel 1e-6), `c.t90_us` [0.61, 0.155, 0.04] (exact, grid values); task_1_1 at 32×12: `peak_na` 6.894411732563246, `steady_na` 4.402615556547587, `max_top_b` 1.6920820976e-4, `starter_max_top_b` 0.0462 (rel 1e-4), `settle_1pct_us` 1.07, `t_peak_us` 0.23 (exact, grid values).
 
 ## 6. Method, step by step
-1. **Preflight (2 min).** In the main checkout: `git branch --show-current` must print `standard-track`. Snapshot `git status --porcelain` to `$T\status_before.txt` (`$T = "$env:TEMP\duq-setup"`). `git status --porcelain -- results figures` must be empty (else stop: DECISION NEEDED). Check `uv --version` (expect 0.11.x) and `gh --version`. Status file: create from `_TEMPLATE.md`, mark **started**.
-2. **Write and self-test `compare_intro.py`** (section 5). Status: **tests written**.
-3. **Attempt A, repo pins (Python 3.12).** Time it with `Measure-Command`.
-   `uv venv D:\duq-venv -p 3.12` then `uv pip install --python D:\duq-venv\Scripts\python.exe -r requirements.txt pytest sympy optax psutil`.
-4. **Verify the interpreter.** `& D:\duq-venv\Scripts\python.exe check_env.py` (final <n> ≈ 4, gate 3.9 to 4.1; devices list `CpuDevice`), `-m src.config` (must print `kappa_2/2pi = 0.896 MHz`), the import line from §4, and the x64 check `-c "import src.config, jax.numpy as jnp; assert jnp.zeros(1).dtype == jnp.float64; print('x64 OK')"`.
+1. **Preflight (2 min).** In the main checkout: `git branch --show-current` must print `standard-track`. Snapshot `git status --porcelain` to `$T\status_before.txt` (`$T = "$env:TEMP\duq-setup"`). `git status --porcelain -- results figures` must be empty (else stop: DECISION NEEDED). Check `uv --version` (verified: `uv 0.11.8 ... i686-pc-windows-msvc`, the 32-bit build, see §2), `uv python list` (look for `cpython-3.12.13-windows-x86_64-none` with a local path) and `gh --version` (2.97.0). If `D:\duq-venv` already exists, do not delete it blindly: run step 4 on it first; reuse it only if every step-4 check passes and it is 64-bit, otherwise recreate it with `--clear`. Status file: create from `_TEMPLATE.md` (set the `Branch` field to `standard-track`, not `std/<slug>`), mark **started**.
+2. **Write `compare_intro.py`** (section 5) before any install or run. Status: **tests written**. (Its self-test needs an interpreter and the reference copies, so it runs in step 7.)
+3. **Attempt A, repo pins (Python 3.12, 64-bit).** Time each command with `Measure-Command`. The lane's canonical command is `uv venv D:\duq-venv -p 3.12`, but on this laptop that resolves to 32-bit Python (§2), so use the explicit 64-bit request:
+   `uv venv D:\duq-venv -p cpython-3.12-windows-x86_64-none`, then **before installing** check bitness: `& D:\duq-venv\Scripts\python.exe -c "import struct, sys; print(sys.version); print(struct.calcsize('P') * 8, 'bit')"` must print `64 bit` (if it prints `32 bit`: `uv venv D:\duq-venv -p C:\Users\Harshit\AppData\Roaming\uv\python\cpython-3.12.13-windows-x86_64-none\python.exe --clear` and re-check). Then:
+   `uv pip install --python D:\duq-venv\Scripts\python.exe -r requirements.txt pytest sympy optax psutil`.
+4. **Verify the interpreter** (with `$env:XLA_FLAGS` already set in this shell, so the flag string itself is tested). `& D:\duq-venv\Scripts\python.exe check_env.py` (final <n> ≈ 4, gate 3.9 to 4.1; devices list `CpuDevice`), `-m src.config` (must print `kappa_2/2pi = 0.896 MHz`), the import line from §4, and the x64 check `-c "import src.config, jax.numpy as jnp; assert jnp.zeros(1).dtype == jnp.float64; print('x64 OK')"`. If any run aborts with `Unknown flags in XLA_FLAGS`, see §11 (do not silently drop the flags).
 5. **If step 3 or 4 fails:**
+   - Resolver error saying no wheel / no matching distribution for `jaxlib`: first re-check bitness (step 3); a 32-bit venv is the likely cause, not the pins.
    - `ImportError: DLL load failed` on `jaxlib`: it needs the Microsoft Visual C++ redistributable (2015-2022 x64 covers 2019). **Do not install system software yourself**; write DECISION NEEDED asking Harshit to install it, then retry step 4.
-   - Otherwise **Fallback 1:** `uv venv D:\duq-venv -p 3.11 --clear`, then `uv pip install --python D:\duq-venv\Scripts\python.exe jax==0.10.2 jaxlib==0.10.2 dynamiqs==0.3.7 numpy scipy matplotlib pandas jupyter pytest sympy optax psutil`, then step 4.
-   - Still failing: **Fallback 2, WSL Ubuntu.** In WSL, the same uv commands with a Linux path (`uv venv ~/duq-venv -p 3.12`, `uv pip install --python ~/duq-venv/bin/python -r requirements.txt pytest sympy optax psutil`, Fallback 1 pins if needed); `DUQ_PY` then points to the WSL venv and every lane runs its commands inside WSL. This changes every brief's commands: write DECISION NEEDED before telling anyone it is the plan.
+   - Otherwise **Fallback 1 (Python 3.11):** `uv venv D:\duq-venv -p cpython-3.11-windows-x86_64-none --clear` (uv downloads it; bitness check again), then `uv pip install --python D:\duq-venv\Scripts\python.exe jax==0.10.2 jaxlib==0.10.2 dynamiqs==0.3.7 numpy scipy matplotlib pandas jupyter pytest sympy optax psutil`, then step 4.
+   - Still failing: **Fallback 2, WSL Ubuntu.** Check `wsl -l -v` (if WSL or Ubuntu is not installed, that is system software: DECISION NEEDED). In WSL, from `/mnt/d/Brown University/duhack/duquantum-cat-qubit`, the same uv commands with a Linux path (`uv venv ~/duq-venv -p 3.12`, `uv pip install --python ~/duq-venv/bin/python -r requirements.txt pytest sympy optax psutil`, Fallback 1 pins if needed); `DUQ_PY` then points to the WSL venv (`~/duq-venv/bin/python`) and every lane runs its commands inside WSL with `export XLA_FLAGS=...`. This changes every brief's commands: write DECISION NEEDED before telling anyone it is the plan.
    Log every attempt (command, error first line, minutes spent) in the status file.
-6. **Persist the env vars** (new shells only; also set them in the current shell):
-   `setx DUQ_PY "D:\duq-venv\Scripts\python.exe"` and, because `setx` may misread a value that starts with `--`, `[Environment]::SetEnvironmentVariable("XLA_FLAGS", "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=2", "User")`. Open a new PowerShell and confirm `$env:DUQ_PY` and `$env:XLA_FLAGS`.
-7. **Copy references:** `Copy-Item results\task_1_0.json, results\task_1_1.json $T\ref\`.
+6. **Persist the env vars** (new processes only; they are also set in the current shell):
+   `setx DUQ_PY "D:\duq-venv\Scripts\python.exe"` and, because `setx` may misread a value that starts with `--`, `[Environment]::SetEnvironmentVariable("XLA_FLAGS", "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=2", "User")`. Confirm in a **new** PowerShell started from the Start menu or Windows Terminal (NOT Cursor's integrated terminal: Cursor and every agent terminal it spawns keep the environment Cursor started with, so they will not see `DUQ_PY` until Cursor is fully quit and reopened). Put "Harshit: fully quit and reopen Cursor before launching any lane agent" at the top of the status file.
+7. **Copy references and self-test the comparison:** `Copy-Item results\task_1_0.json, results\task_1_1.json $T\ref\`; then the §5 self-test (`ref` vs `ref` exit 0; `ref` vs `ref_bad` exit 1 with one `NO` row). Commands in §9.
 8. **Run the reproductions, in order, timed** (expect task_1_0 ≈ 20 s, task_1_1 ≈ 1 min; both are below the 15-min production limit):
    `Measure-Command { & $env:DUQ_PY -m tasks.task_1_0 | Tee-Object $T\task_1_0.log }`, then the same for `tasks.task_1_1`. Copy the two fresh JSONs to `$T\new\`.
 9. **Compare:** `& $env:DUQ_PY $T\compare_intro.py $T\ref $T\new | Tee-Object $T\compare.md`. Exit code must be 0. Paste the full table into the status file.
