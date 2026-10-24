@@ -2,6 +2,10 @@
 
     python cloud/vultr_batch.py grid --servers 3 --plan voc-c-16c-32gb-300s-amd --budget 5
     python cloud/vultr_batch.py jobs.txt --servers 4 --plan <id> --budget 10
+    python cloud/vultr_batch.py cloud/research_jobs.txt --branch research-runs --servers 4 --plan <id> --budget 20
+
+--branch runs the committed code of origin/<branch> (fetched first) and reads the jobs file
+from that branch, so the laptop can stay on any branch. Results land in this checkout.
 
 A jobs file has one shell command per line, run from the repo root with the VM's .venv
 (`python` means .venv/bin/python). An optional leading weight, `3<TAB>command`, is the
@@ -24,8 +28,11 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vultr_run import (ROOT, SSH, TAG, call, delete, log_tool, ours, plans,  # noqa: E402
-                       ssh_key_id, ubuntu_os_id, wait_ready)
+from vultr_run import (ROOT, SSH, TAG, call, check_reserve, delete, log_tool, ours,  # noqa: E402
+                       plans, ssh_key_id, ubuntu_os_id, wait_ready)
+
+
+REF = "HEAD"                           # what gets uploaded; origin/<branch> with --branch
 
 
 def load_jobs(spec):
@@ -35,7 +42,10 @@ def load_jobs(spec):
         return [((int(a) * int(b)) ** 3 / 1e6, f"python -m tasks.task_1_2_grid --point {a} {b}")
                 for a, b in (line.split() for line in out if line.strip())]
     jobs = []
-    for line in Path(spec).read_text().splitlines():
+    text = (Path(spec).read_text() if REF == "HEAD" else
+            subprocess.run(["git", "show", f"{REF}:{spec}"], cwd=ROOT, capture_output=True,
+                           text=True, check=True).stdout)
+    for line in text.splitlines():
         if line.strip() and not line.lstrip().startswith("#"):
             w, _, cmd = line.partition("\t") if "\t" in line else ("1", "", line)
             jobs.append((float(w), cmd.strip()))
@@ -55,7 +65,7 @@ def shard(jobs, n):
 def run_vm(k, iid, cmds, jobs_per_vm, deadline, status):
     ip = wait_ready(iid)
     status[k] = "setup"
-    archive = subprocess.run(["git", "archive", "HEAD"], cwd=ROOT, capture_output=True, check=True).stdout
+    archive = subprocess.run(["git", "archive", REF], cwd=ROOT, capture_output=True, check=True).stdout
     subprocess.run(SSH + [f"root@{ip}", "mkdir -p repo && tar -x -C repo"], input=archive, check=True)
     lines = "\n".join(c.replace("python ", ".venv/bin/python ", 1) if c.startswith("python ") else c
                       for c in cmds) + "\n"
@@ -82,7 +92,13 @@ def main():
     p.add_argument("--region", default="ewr")
     p.add_argument("--pubkey", default="~/.ssh/id_ed25519.pub")
     p.add_argument("--jobs-per-vm", type=int, help="parallel jobs per VM (default vCPU/4)")
+    p.add_argument("--branch", help="run origin/<branch> instead of the local checkout")
+    p.add_argument("--reserve", type=float, default=50, help="never let credit drop below this (USD)")
     a = p.parse_args()
+    global REF
+    if a.branch:
+        subprocess.run(["git", "fetch", "-q", "origin", a.branch], cwd=ROOT, check=True)
+        REF = f"origin/{a.branch}"
 
     jobs = load_jobs(a.jobs)
     shards = [s for s in shard(jobs, a.servers) if s]
@@ -95,6 +111,7 @@ def main():
           f"everything stops after {minutes:.0f} min (at most ${len(shards) * hourly * minutes / 60:.2f})")
     for k, s in enumerate(shards):
         print(f"  vm{k}: {len(s)} jobs")
+    check_reserve(len(shards) * hourly * minutes / 60, a.reserve)
     if ours():
         raise SystemExit("duquantum VMs already exist; run `python cloud/vultr_run.py --cleanup` first")
     if input("create the VMs? [y/N] ").strip().lower() != "y":
@@ -141,7 +158,7 @@ def main():
         print(f"deleted {len(ids)} VMs after {mins:.1f} min, ~${cost:.2f} "
               "(confirm at https://my.vultr.com/subs/)", flush=True)
         if ids:
-            log_tool("Vultr (API v2, batch)", f"`{a.jobs}`: {len(jobs)} jobs via `cloud/vultr_batch.py`",
+            log_tool("Vultr (API v2, batch)", f"`{a.jobs}` ({REF}): {len(jobs)} jobs via `cloud/vultr_batch.py`",
                      f"{len(ids)} x `{a.plan}`, {mins:.0f} min, ~${cost:.2f} of ${a.budget:g} cap; VMs "
                      + ("deleted" if deleted else "NOT all deleted, run --cleanup"),
                      "`results/batch-vm*.log` + job outputs", "completed" if ok else "failed or stopped")

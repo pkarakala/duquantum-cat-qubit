@@ -94,6 +94,22 @@ def wait_ready(iid, timeout=900):
     raise TimeoutError("instance did not become reachable")
 
 
+def credit_left():
+    """Unspent credit in USD: Vultr shows credit as a negative balance; pending charges are this month's usage."""
+    acc = call("GET", "/account")["account"]
+    return -float(acc["balance"]) - float(acc["pending_charges"])
+
+
+def check_reserve(max_cost, reserve):
+    """Refuse a run whose worst case would leave less than `reserve` dollars of credit."""
+    left = credit_left()
+    print(f"credit left ${left:.2f}; this run costs at most ${max_cost:.2f}; "
+          f"keeping at least ${reserve:g} in reserve", flush=True)
+    if left - max_cost < reserve:
+        raise SystemExit("refusing: the worst case would dip into the reserve. "
+                         "Lower --max-minutes/--budget or --servers.")
+
+
 def ours():
     return call("GET", f"/instances?tag={TAG}&per_page=500")["instances"]
 
@@ -120,6 +136,7 @@ def main():
     p.add_argument("--pubkey", default="~/.ssh/id_ed25519.pub")
     p.add_argument("--jobs", type=int, help="parallel runs on the VM (default vCPU/4)")
     p.add_argument("--max-minutes", type=float, default=90, help="hard stop: delete the VM after this long")
+    p.add_argument("--reserve", type=float, default=50, help="never let credit drop below this (USD)")
     p.add_argument("--list-plans", action="store_true")
     p.add_argument("--cleanup", action="store_true", help="delete every VM this script created, then exit")
     a = p.parse_args()
@@ -147,6 +164,8 @@ def main():
     if pl:
         print(f"{a.plan}: ~${pl['monthly_cost'] / 730:.2f}/h, at most ~${pl['monthly_cost'] / 730 * a.max_minutes / 60:.2f} "
               f"with --max-minutes {a.max_minutes:g}", flush=True)
+    if pl:
+        check_reserve(pl["monthly_cost"] / 730 * a.max_minutes / 60, a.reserve)
     if input("create the VM? [y/N] ").strip().lower() != "y":
         return
     iid = call("POST", "/instances", {
