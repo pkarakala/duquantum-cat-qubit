@@ -1,0 +1,6 @@
+dynamiqs
+jax
+numpy
+scipy
+matplotlib
+jupyter
