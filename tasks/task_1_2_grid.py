@@ -55,7 +55,7 @@ def merge():
             if (na[j], nb[i]) == (na[-1], nb[-1]):
                 txt = "ref"
             else:
-                txt = f"{100 * e:.2g}%" if e >= 1e-4 else f"{e:.0e}"
+                txt = f"{100 * e:.2g}%"
             axi.text(j, i, txt, ha="center", va="center", fontsize=6.5,
                      color="k" if e > 1e-3 else "w", fontweight="bold" if e < tol else "normal")
         for (a, b), label in [((32, 12), "used"), ((24, 6), "starter")]:

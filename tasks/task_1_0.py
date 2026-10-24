@@ -37,7 +37,9 @@ def part_a():
            title=f"1.0a single-photon loss (max error {err:.1e})")
     ax.legend(); ax.grid(alpha=0.3)
     save_fig(fig, "task_1_0a_photon_number")
-    dq.plot.wigner_mosaic(res.states[::40], n=6, xmax=3.5)
+    idx = np.arange(0, len(t), 40)
+    dq.plot.wigner_mosaic(res.states[idx], n=len(idx), xmax=3.5)
+    plt.gcf().suptitle("1.0a Wigner function at t = " + ", ".join(f"{float(t[i]):.1f}" for i in idx) + " µs")
     save_fig(plt.gcf(), "task_1_0a_wigner")
     return {"max_abs_error_vs_analytic": err}
 
@@ -89,7 +91,10 @@ def part_c():
     ax[0].legend()
     save_fig(fig, "task_1_0c_kappa2_sweep")
     nominal = res.states[1]
-    dq.plot.wigner_mosaic(nominal[::40], n=6, xmax=4)
+    idx = np.arange(0, len(t), 80)
+    dq.plot.wigner_mosaic(nominal[idx], n=len(idx), xmax=4)
+    plt.gcf().suptitle("1.0c Wigner function ($\\kappa_2$, from vacuum) at t = "
+                       + ", ".join(f"{float(t[i]):.1f}" for i in idx) + " µs")
     save_fig(plt.gcf(), "task_1_0c_wigner")
     RES_DIR.mkdir(exist_ok=True)   # Task 1.1 overlays this reference curve
     np.save(RES_DIR / "task_1_0c_nominal.npy", np.stack([np.asarray(t), n[1]]))

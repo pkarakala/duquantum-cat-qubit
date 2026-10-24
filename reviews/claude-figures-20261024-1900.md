@@ -17,7 +17,7 @@ everything else supported. 7 presentation issues, none affecting a number.
 | `task_1_0b_two_photon_loss.png` | 3 | supported | bars at n = 0 and 1 both ≈ 0.50, nothing visible at n ≥ 2 |
 | `task_1_0c_kappa2_sweep.png` | 4 | supported | all three curves end at the α² line; κ₂/4 (blue) sits visibly just below it (4.387) |
 | `task_1_0c_kappa2_sweep.png` | 5 | supported | right panel: the three curves coincide against κ₂t; reaching 90% (≈ 3.95) at κ₂t ≈ 0.86–0.90 |
-| `task_1_0c_wigner.png` | — | presentation | no times on the panels (they are t = 0, 0.2, …, 1.0 µs); fringes visibly fade across panels 2–6 within 1 µs, which a reader may not expect from an "effective model" figure without a caption |
+| `task_1_0c_wigner.png` | — | presentation | no times on the panels (they are t = 0, 0.4, …, 2.0 µs: `wigner_mosaic(n=6)` picks 6 of the 11 saved states); fringes visibly fade across panels 2–6, which a reader may not expect from an "effective model" figure without a caption |
 | `task_1_1_inflation.png` | 6 | supported | blue peak ≈ 6.9 at ≈ 0.23 µs, against the α² line at 4.41 |
 | `task_1_1_inflation.png` | 7 | supported | last excursions outside ±1% are at ≈ 0.87 µs (≈ 4.5) and ≈ 1.0 µs (≈ 4.36); flat at 4.40 after |
 | `task_1_1_inflation.png` | 8 | supported | green buffer peak ≈ 2.0 at ≈ 0.13 µs |
@@ -54,3 +54,11 @@ everything else supported. 7 presentation issues, none affecting a number.
 | B7 "max memory top-2 population ≤ 3e-5" | minor overstatement | `A2_phase[75°].max_top2_a` = 3.11e-5. Write "≤ 3.1e-5" (or "≲ 3e-5") |
 | 16, 18 source key | label mismatch | `task_1_3a.json → at_1us.coherence` is 0.313, i.e. \|⟨α\|ρ\|−α⟩\| without the factor 2; the claims quote 2× (0.63, 0.05). Say "2 × coherence" in the source column so a judge finds the number |
 | §4 "purity dips to ~0.6 at 0.3 µs" | no JSON source | `min_purity` / `t_min_purity_us` give the global minimum (0.501 at 6 µs), not the early dip. Visible in the figure, but not backed by a saved number |
+
+## Triage (same evening)
+
+Acted on all of the above: TECHNICAL.md claims 11, 16, 18, 20, B7 and §4 corrected or
+sourced; Wigner panels now carry their times; the grid prints every cell in percent; the
+1.1 monitor axis stops at 1e-9 and its title names the solver-noise wiggles; `ρ_a`, `κ_a`
+render as math. The B5 figure still plots Re⟨a⟩/α (F stays in the table). All figures were
+regenerated locally (Apple M2); every reported quantity matched the committed results to ≤ 1e-10 relative, the truncation monitors to ≤ 2e-6.

@@ -52,15 +52,16 @@ def main(Na, Nb):
     ax[0].axhline(0.5, color="gray", lw=0.8, ls=":")
     ax[0].set(xlabel="t (µs)", ylim=(0, 1.05), title="1.3a the memory is an even cat")
     ax[0].legend(fontsize=8); ax[0].grid(alpha=0.3)
-    ax[1].plot(t, 2 * q["coherence"], lw=2, label="2|⟨α|ρ_a|−α⟩|  (1 = cat, 0 = mixture)")
-    ax[1].plot(t, q["re_a"], lw=2, label="Re⟨a⟩  (0 = no preferred well)")
+    ax[1].plot(t, 2 * q["coherence"], lw=2,
+               label="$2|\\langle\\alpha|\\rho_a|{-\\alpha}\\rangle|$  (1 = pure cat, 0 = mixture)")
+    ax[1].plot(t, q["re_a"], lw=2, label="Re$\\langle a\\rangle$  (0 = no preferred well)")
     ax[1].set(xlabel="t (µs)", title="superposition, not mixture")
     ax[1].legend(fontsize=8); ax[1].grid(alpha=0.3)
     save_fig(fig, "task_1_3a_cat_diagnostics")
 
     idx = [np.argmin(np.abs(t - s)) for s in (1.0, 2.0, 4.0, 6.0)]
     dq.plot.wigner_mosaic(rho_a[jnp.array(idx)], n=4, xmax=4)
-    plt.gcf().suptitle("fringes fade as kappa_a turns the cat into a mixture (t = 1, 2, 4, 6 µs)")
+    plt.gcf().suptitle("fringes fade as $\\kappa_a$ turns the cat into a mixture (t = 1, 2, 4, 6 µs)")
     save_fig(plt.gcf(), "task_1_3a_wigner_fading")
 
     i1 = int(np.argmin(np.abs(t - 1.0)))
@@ -69,6 +70,9 @@ def main(Na, Nb):
         "at_1us": {k: float(v[i1]) for k, v in q.items()},
         "at_6us": {k: float(v[-1]) for k, v in q.items()},
         "min_purity": float(q["purity"].min()), "t_min_purity_us": float(t[int(q["purity"].argmin())]),
+        # the dip while the memory is entangled with the filling buffer (TECHNICAL.md section 4)
+        "min_purity_inflation": float(q["purity"][t < T_FIT].min()),
+        "t_min_purity_inflation_us": float(t[t < T_FIT][int(q["purity"][t < T_FIT].argmin())]),
         "max_abs_re_a": float(np.abs(q["re_a"]).max()),
         "parity_decay_fit_per_us": gamma, "parity_decay_pred_per_us": gamma_pred,
         "fit_rel_error": gamma / gamma_pred - 1,

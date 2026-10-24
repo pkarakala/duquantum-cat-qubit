@@ -48,7 +48,9 @@ def main(Na, Nb):
     ax[1].semilogy(t, e[3], label=f"buffer top level ({Na}x{Nb})")
     ax[1].semilogy(t, e0[2], "--", label="memory top 2 (starter)")
     ax[1].semilogy(t, e0[3], "--", label="buffer top (starter)")
-    ax[1].set(xlabel="t (µs)", ylabel="population", ylim=(1e-12, 1), title="truncation monitors")
+    # after the transient the monitors sit at the solver noise (atol = 1e-10), up to ~1e-7
+    ax[1].set(xlabel="t (µs)", ylabel="population", ylim=(1e-9, 1),
+              title="truncation monitors (wiggles < 1e-6 after 1.5 µs: solver noise)")
     ax[1].legend(fontsize=8); ax[1].grid(alpha=0.3)
     save_fig(fig, "task_1_1_inflation")
 
