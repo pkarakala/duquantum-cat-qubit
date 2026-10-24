@@ -34,6 +34,7 @@ This file is written for judges, physicists and AI reviewers. Every claim below 
 | 17 | 1.3a cat lifetime | 1.95 µs | 1/(2κ_a α²) = 1.94 µs | `task_1_3a.json → cat_lifetime_us` | `tasks/task_1_3a.py` |
 | 18 | 1.3a becomes a mixture by 6 µs | parity 0.05, coherence 0.05, purity 0.501 | expected after ~3 lifetimes | `task_1_3a.json → at_6us` | `tasks/task_1_3a.py` |
 | 19 | 1.3a parity-decay fit is robust | 0.5135 / 0.5134 / 0.5132 / 0.5129 for fit windows starting at 0.8 / 1.0 / 2.0 / 3.0 µs; nonlinear fit on y gives 0.5139 | spread ≤ 0.12%, well below the 0.2% gap to the prediction | `task_1_3a.json → gamma_vs_fit_start_us, gamma_nonlinear_fit_per_us` | `tasks/task_1_3a.py` |
+| 20 | Full (N_a, N_b) grid: the two truncations don't interact, and 32×12 is converged | peak error vs 48×18: 24×10 → 0.41% (cheapest within 0.5%), 32×12 → 0.035%; steady state within 1e-5 for every N_a ≥ 20 at any N_b | rows (fixed N_b) and columns (fixed N_a) each saturate at their own error floor, so the one-at-a-time sweep was enough | `task_1_2_grid.json → summary, points` | `tasks/task_1_2_grid.py` on Vultr |
 
 ## 3. Convergence study (Task 1.2)
 
@@ -50,6 +51,18 @@ We varied each truncation separately (N_a ∈ {16, 20, 24, 28, 32, 40} at N_b = 
 | max memory top-2 population | 0.057 | 0.013 | 0.0020 | 2.5e-4 | 2.3e-5 | 1.3e-7 |
 
 **Answer to the prompt's question.** The steady state and the transient are not equally sensitive. The steady state barely depends on either truncation: the buffer is empty, and the memory sits at α² = 4.4 with a narrow photon distribution. The transient peak depends strongly on **N_b**. The buffer briefly holds ~2 photons with a long tail, and cutting that tail at N_b = 6 removes the photons that drive the overshoot, so the peak comes out 11% low. The memory needs N_a ≳ 24 because the overshoot reaches ~6.9 photons. **The starter N_a = 24 was adequate; the starter N_b = 6 was too small.** One 40×14 run takes ~3 min on 4 CPU cores, which is why `tasks/task_1_2.py` is the job we send to a cloud machine.
+
+**Full grid on a cloud VM (claim 20).** The one-at-a-time sweep assumes the two truncations don't interact. To test that, we ran all 49 combinations of N_a ∈ {16 … 48} and N_b ∈ {4 … 18} on a 16-vCPU Vultr VM (`cloud/vultr_run.py`). The sweep took 17 min of wall time, the whole VM session 19 min, for about $0.14; serially that is ~60 min of compute. The reference is the largest corner, 48×18, where both top-level populations are below 3e-7. Relative error of the peak ⟨n_a⟩ (`figures/task_1_2_grid.png`):
+
+| N_b \ N_a | 16 | 20 | 24 | 28 | 32 | 40 | 48 |
+|---|---|---|---|---|---|---|---|
+| 6 | 13% | 11% | 11% | 11% | 11% | 11% | 11% |
+| 8 | 6.9% | 2.7% | 2.3% | 2.3% | 2.3% | 2.3% | 2.3% |
+| 10 | 7.3% | 1.4% | 0.41% | 0.33% | 0.33% | 0.33% | 0.33% |
+| 12 | 7.6% | 1.5% | 0.20% | 0.046% | **0.035%** | 0.035% | 0.035% |
+| 14 | 7.7% | 1.5% | 0.20% | 0.021% | 0.0039% | 0.0028% | 0.0028% |
+
+Each row flattens at an error set by N_b alone, and each column at an error set by N_a alone. Where both are limiting, the errors roughly add (24×10: 0.41% against 0.33% + 0.20%). So the truncations act independently, and the one-at-a-time sweep above reached the right answer. Our production choice of 32×12 is 0.035% from the reference, ten times inside the 0.5% tolerance. The steady state is converged to 1e-5 for every N_a ≥ 20, whatever N_b is, because the buffer is empty in steady state.
 
 ## 4. Task 1.3a reasoning
 
