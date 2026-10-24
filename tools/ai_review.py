@@ -88,6 +88,7 @@ def main():
     key = {"gemini": "GEMINI_API_KEY", "grok": "XAI_API_KEY"}[a.provider]
     if not os.environ.get(key):
         raise SystemExit(f"set {key} in your shell first (never commit it)")
+    print(f"sending ~{len(prompt) // 4:,} tokens to {model}; this usually takes 30 s to 2 min...", flush=True)
     text = (ask_gemini if a.provider == "gemini" else ask_grok)(prompt, model)
     out = ROOT / "reviews" / f"{a.provider}-{dt.datetime.now():%Y%m%d-%H%M}.md"
     out.write_text(f"# {a.provider} review ({model})\n\n{text}\n")
