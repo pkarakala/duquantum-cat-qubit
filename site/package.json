@@ -1,0 +1,28 @@
+{
+  "name": "duquantum-cat-qubit-lab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Cat Qubit Lab: static, offline-capable viewer for the DuQuantum 2026 results (no physics in the browser).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:single": "vite build --config vite.single.config.ts",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "mock": "node scripts/make_mock.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/plotly.js-dist-min": "^2.3.4",
+    "jsdom": "^30.1.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vite-plugin-singlefile": "^2.3.4",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "plotly.js-dist-min": "^4.1.2"
+  }
+}
