@@ -1,0 +1,50 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_0.n_plateau.td.one_mode.a2.00",
+  "task": "1.0",
+  "quantity": "n_plateau",
+  "value": 0.4998322686860546,
+  "uncertainty": null,
+  "units": "photons",
+  "method": "mesolve_final_value",
+  "params": {
+    "kappa_2_over_2pi_MHz": 0.8957,
+    "alpha0": 2.0
+  },
+  "truncation": {
+    "N": 30
+  },
+  "convergence": null,
+  "numerics": null,
+  "cross_check": [
+    {
+      "method": "analytic",
+      "ref_id": null,
+      "value": 0.49983226868604874,
+      "rel_diff": 1.1772313232160012e-14,
+      "tol": 1e-09,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_0.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_0.json; <n> at t = 3 us under pure two-photon loss from |alpha0 = 2>; parity is conserved, so the plateau is P_odd = 0.5 (1 - e^-8). convergence null: single mode N=30 (one-mode effective model), checked against the analytic prediction instead of a truncation sweep",
+  "provenance": {
+    "script": "tasks/task_1_0.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}

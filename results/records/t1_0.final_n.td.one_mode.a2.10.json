@@ -1,0 +1,56 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_0.final_n.td.one_mode.a2.10",
+  "task": "1.0",
+  "quantity": "final_n",
+  "value": 4.403969346892005,
+  "uncertainty": null,
+  "units": "photons",
+  "method": "mesolve_final_value",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0,
+    "kappa_2_scale": 1.0
+  },
+  "truncation": {
+    "N": 30
+  },
+  "convergence": null,
+  "numerics": null,
+  "cross_check": [
+    {
+      "method": "semiclassical_alpha2",
+      "ref_id": null,
+      "value": 4.41,
+      "rel_diff": 0.0013674950358265807,
+      "tol": 0.01,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_0.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_0.json; <n> at t = 2 us from vacuum, one-mode model at nominal kappa_2 (final_n[1] of the kappa_2/4, kappa_2, 4 kappa_2 batch). convergence null: single mode N=30 (one-mode effective model), checked against the analytic prediction instead of a truncation sweep",
+  "provenance": {
+    "script": "tasks/task_1_0.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}
