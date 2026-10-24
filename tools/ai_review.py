@@ -33,7 +33,11 @@ def with_retry(call, tries=6, wait=10):
             return call()
         except Exception as e:  # google.genai.errors.ServerError / ClientError
             code = getattr(e, "code", None) or getattr(e, "status_code", None)
-            if code not in (429, 500, 503) or k == tries - 1:
+            daily = "PerDay" in str(e)   # free-tier daily quota: waiting minutes won't help
+            if code not in (429, 500, 503) or daily or k == tries - 1:
+                if daily:
+                    print("  Gemini daily free-tier quota used up; progress so far is saved, "
+                          "rerun later (or with another --model) to finish.", flush=True)
                 raise
             print(f"  Gemini busy ({code}), retrying in {wait} s ...", flush=True)
             time.sleep(wait)
@@ -164,6 +168,8 @@ def check_figures(model, dry_run=False):
     jobs = list(figure_jobs())
     client = None if dry_run else genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     out, raw = [], {}
+    partial = ROOT / "reviews" / f"figures-partial-{model}.json"   # resume point between runs
+    done = json.loads(partial.read_text()) if partial.exists() else {}
     for png, claims, results in jobs:
         text = FIGURE_PROMPT.format(
             name=png.name, results=results,
@@ -171,14 +177,22 @@ def check_figures(model, dry_run=False):
         if dry_run:
             print(f"{png.name}: claims {[r[0] for r in claims]}, prompt {len(text):,} chars")
             continue
-        print(f"checking {png.name} ...", flush=True)
-        r = with_retry(lambda: client.models.generate_content(
+        if png.name in done:
+            v = done[png.name]
+            print(f"{png.name}: already checked, reusing", flush=True)
+        else:
+            print(f"checking {png.name} ...", flush=True)
+            v = None
+        if v is None:
+          r = with_retry(lambda: client.models.generate_content(
             model=model,
             contents=[types.Part.from_bytes(data=png.read_bytes(), mime_type="image/png"), text],
             config=types.GenerateContentConfig(response_mime_type="application/json",
                                                response_json_schema=FIGURE_SCHEMA)))
-        count_tokens(r)
-        v = json.loads(r.text)
+          count_tokens(r)
+          v = json.loads(r.text)
+          done[png.name] = v
+          partial.write_text(json.dumps(done, indent=2))
         raw[png.name] = v
         for c in v["claims"]:
             out.append(f"| `{png.name}` | {c['claim']} | {c['verdict']} | {c['evidence']} |")
@@ -195,6 +209,7 @@ def check_figures(model, dry_run=False):
                   "verdicts are Gemini's reading of the plot, triaged by us in TECHNICAL.md section 5.\n\n"
                   "| Figure | Claim | Verdict | Evidence |\n|---|---|---|---|\n" + "\n".join(out) + "\n")
     print("saved", md)
+    partial.unlink(missing_ok=True)
     bad = sum(1 for v in raw.values() for c in v["claims"] if c["verdict"] == "contradicted")
     issues = sum(1 for v in raw.values() for i in v["presentation_issues"] if i.strip().lower() != "none")
     log_tool(f"Gemini API (`{model}`, multimodal)",
