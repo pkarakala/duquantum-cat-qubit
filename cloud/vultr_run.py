@@ -83,6 +83,7 @@ def main():
     p.add_argument("--min-vcpu", type=int, default=16)
     p.add_argument("--pubkey", default="~/.ssh/id_ed25519.pub")
     p.add_argument("--jobs", type=int, help="parallel runs on the VM (default vCPU/4)")
+    p.add_argument("--max-minutes", type=float, default=90, help="hard stop: delete the VM after this long")
     p.add_argument("--list-plans", action="store_true")
     a = p.parse_args()
     if not os.environ.get("VULTR_API_KEY"):
@@ -96,6 +97,10 @@ def main():
             print("\nre-run with --plan <id>")
         return
 
+    pl = next((x for x in plans(a.region, 1) if x["id"] == a.plan), None)
+    if pl:
+        print(f"{a.plan}: ~${pl['monthly_cost'] / 730:.2f}/h, at most ~${pl['monthly_cost'] / 730 * a.max_minutes / 60:.2f} "
+              f"with --max-minutes {a.max_minutes:g}", flush=True)
     iid = call("POST", "/instances", {
         "region": a.region, "plan": a.plan, "os_id": ubuntu_os_id(),
         "sshkey_id": [ssh_key_id(a.pubkey)], "label": "duquantum-grid", "tags": ["duquantum"],
@@ -108,7 +113,8 @@ def main():
         archive = subprocess.run(["git", "archive", "HEAD"], cwd=ROOT, capture_output=True, check=True).stdout
         subprocess.run(SSH + [f"root@{ip}", "mkdir -p repo && tar -x -C repo"], input=archive, check=True)
         jobs = f"JOBS={a.jobs} " if a.jobs else ""
-        subprocess.run(SSH + [f"root@{ip}", f"cd repo && {jobs}./cloud/vultr_sweep.sh"], check=True)
+        left = a.max_minutes * 60 - (time.time() - t0)
+        subprocess.run(SSH + [f"root@{ip}", f"cd repo && {jobs}./cloud/vultr_sweep.sh"], check=True, timeout=left)
         print("downloading results", flush=True)
         for sub in ["results", "figures"]:
             subprocess.run(["scp", "-r", "-o", "StrictHostKeyChecking=accept-new",
