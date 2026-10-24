@@ -70,10 +70,10 @@ def ask_grok(prompt, model):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--provider", choices=["gemini", "grok"], default="gemini")
-    p.add_argument("--model", help="model name (defaults: gemini-2.5-pro / grok-4)")
+    p.add_argument("--model", help="model name (defaults: gemini-3.8-flash / grok-4)")
     p.add_argument("--diff", metavar="BASE", help="review only `git diff BASE`")
     a = p.parse_args()
-    model = a.model or {"gemini": "gemini-2.5-pro", "grok": "grok-4"}[a.provider]
+    model = a.model or {"gemini": "gemini-3.8-flash", "grok": "grok-4"}[a.provider]
     prompt = (CHECKLIST
               + "\n\n## Context: the challenge prompt and our claims\n\n" + briefing()
               + "\n\n## Code to review\n\n" + gather(a.diff))
