@@ -8,7 +8,9 @@ results: every number in the README comes from the scripts in tasks/.
     python tools/ai_review.py --provider gemini              # review src/ and tasks/
     python tools/ai_review.py --provider grok --diff main    # review only changes vs main
 
-The challenge prompt and TECHNICAL.md are sent as context, so the reviewer\nknows the tasks, conventions and every claim we make.\nOutput goes to reviews/<provider>-<timestamp>.md; we list what we acted on in the README.
+The challenge prompt and TECHNICAL.md are sent as context, so the reviewer
+knows the tasks, conventions and every claim we make.
+Output goes to reviews/<provider>-<timestamp>.md; we list what we acted on in the README.
 """
 import argparse
 import datetime as dt
