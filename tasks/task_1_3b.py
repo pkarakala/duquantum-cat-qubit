@@ -12,6 +12,11 @@ has to be broken on the memory, by something odd in a:
 
 We also test how much the stabilization forgives a miscalibrated pulse (phase and
 amplitude errors on beta), which is the cost question of 1.3(c).
+
+Single-point mode (one job per point for the cloud runner, cloud/research_jobs.txt):
+  python -m tasks.task_1_3b --na 40 --nb 14 --phase 25     # |beta| = alpha, 25 deg phase error
+  python -m tasks.task_1_3b --na 40 --nb 14 --beta 1.25    # real beta
+writes results/task_1_3b_points/beta<amp>_phase<deg>_<Na>x<Nb>.json only.
 """
 import argparse
 import time
@@ -62,7 +67,7 @@ def summarize(t, E, label):
     }
 
 
-def main(Na, Nb):
+def setup(Na, Nb):
     H0, jumps, (a, b) = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A)
     Ib = dq.eye(Nb)
     top_a = np.zeros(Na); top_a[-2:] = 1
@@ -70,6 +75,26 @@ def main(Na, Nb):
     ops = [dq.tensor(dq.coherent_dm(Na, C.ALPHA), Ib), a, a.dag() @ a, b.dag() @ b,
            dq.tensor(dq.asqarray(np.diag(top_a).astype(complex)), Ib),
            dq.tensor(dq.eye(Na), dq.asqarray(np.diag(top_b).astype(complex)))]
+    return H0, jumps, (a, b), ops
+
+
+def point(Na, Nb, amp, phase_deg):
+    """One method-A start |beta>, beta = amp * exp(i phase), as its own job (cloud runner).
+    Writes results/task_1_3b_points/beta<amp>_phase<deg>_<Na>x<Nb>.json; nothing else."""
+    H0, jumps, _, ops = setup(Na, Nb)
+    t = jnp.linspace(0, T_END, N_T)
+    be = amp * np.exp(1j * np.deg2rad(phase_deg))
+    E = run(H0, jumps, dq.tensor(dq.coherent(Na, be), dq.fock(Nb, 0)), t, ops)
+    r = summarize(np.asarray(t), E, f"beta={amp:g}, phase={phase_deg:g}deg") | {
+        "Na": Na, "Nb": Nb, "beta_amp": amp, "phase_deg": phase_deg,
+        "bare_overlap": float(np.exp(-abs(be - C.ALPHA) ** 2)),
+        "t": np.asarray(t)[::4].round(3).tolist(), "F_t": E[0].real[::4].round(5).tolist()}
+    print(r)
+    save_res(f"task_1_3b_points/beta{amp:g}_phase{phase_deg:g}_{Na}x{Nb}", r)
+
+
+def main(Na, Nb):
+    H0, jumps, (a, b), ops = setup(Na, Nb)
     t = jnp.linspace(0, T_END, N_T)
     tt = np.asarray(t)
     vac_b = dq.fock(Nb, 0)
@@ -143,5 +168,12 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--na", type=int, default=C.NA)
     p.add_argument("--nb", type=int, default=C.NB)
+    p.add_argument("--beta", type=float, default=None,
+                   help="run only one displaced start of this amplitude (with --phase, default 0)")
+    p.add_argument("--phase", type=float, default=None,
+                   help="run only one displaced start with this phase error in deg (amplitude --beta, default alpha)")
     args = p.parse_args()
-    main(args.na, args.nb)
+    if args.beta is None and args.phase is None:
+        main(args.na, args.nb)
+    else:
+        point(args.na, args.nb, C.ALPHA if args.beta is None else args.beta, args.phase or 0.0)

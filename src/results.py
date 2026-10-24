@@ -6,8 +6,8 @@ RES_DIR = Path(__file__).resolve().parent.parent / "results"
 
 
 def save(name, data):
-    RES_DIR.mkdir(exist_ok=True)
-    path = RES_DIR / f"{name}.json"
+    path = RES_DIR / f"{name}.json"      # name may contain a subfolder, e.g. "research/alpha_2.10"
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2))
     print("saved", path)
     return path

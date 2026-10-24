@@ -1,0 +1,60 @@
+# Research jobs for cloud/vultr_batch.py. One command per line, run from the repo root.
+# Format: <weight><TAB>python ...   weight = rough minutes on ~4 cores, scaled from results/grid.log
+# (32x12 to 3 us = 49 s, 40x14 = 215 s, 48x18 = 782 s; cost grows ~ (Na*Nb)^2.5).
+# No single quotes in commands: the runner wraps each line in sh -c '...'.
+# Every job writes its own file under results/ or figures/. Launch, then combine locally:
+#   python cloud/vultr_batch.py cloud/research_jobs.txt --branch research-runs --servers 4 --plan <id> --budget 20
+#   python -m research.merge_cloud
+# Longest jobs: GRAPE, ~45 min each (allow 90). Everything else is under ~8 min.
+
+# Overshoot vs alpha (Na from research.common.na_rule: 24, 28, 32, 38), then a convergence check at Na+6, Nb=16
+0.5	python -m research.alpha_sweep --alpha 1.5
+0.6	python -m research.alpha_sweep --alpha 1.8
+1	python -m research.alpha_sweep --alpha 2.1
+2.5	python -m research.alpha_sweep --alpha 2.4
+2.5	python -m research.alpha_sweep --alpha 1.5 --na-extra 6 --nb 16
+3.5	python -m research.alpha_sweep --alpha 1.8 --na-extra 6 --nb 16
+4.5	python -m research.alpha_sweep --alpha 2.1 --na-extra 6 --nb 16
+8	python -m research.alpha_sweep --alpha 2.4 --na-extra 6 --nb 16
+
+# Shaped buffer drive, one schedule per job at 40x14 (step is the reference), plus the laptop-size scan
+3	python -m research.schedules --na 40 --nb 14 --schedules step
+3	python -m research.schedules --na 40 --nb 14 --schedules linear:0.4
+3	python -m research.schedules --na 40 --nb 14 --schedules linear:0.6
+3	python -m research.schedules --na 40 --nb 14 --schedules sin2:0.4
+3	python -m research.schedules --na 40 --nb 14 --schedules sin2:0.6
+3	python -m research.schedules --na 40 --nb 14 --schedules twostep:0.7:0.26
+3	python -m research.schedules --na 40 --nb 14 --schedules twostep:0.75:0.3
+5	python -m research.schedules --na 28 --nb 7 --schedules scan
+
+# Task 1.3b at 40x14, one displaced start per job: phase error at |beta| = alpha ...
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 0
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 10
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 20
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 25
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 30
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 35
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 40
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 45
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --phase 60
+# ... and real amplitude beta (beta = 2.1 is the phase-0 line above)
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --beta 0.5
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --beta 1.0
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --beta 1.25
+2.5	python -m tasks.task_1_3b --na 40 --nb 14 --beta 1.5
+3.5	python -m tasks.task_1_3b --na 40 --nb 14 --beta 3.0
+3.5	python -m tasks.task_1_3b --na 40 --nb 14 --beta 3.5
+
+# GRAPE at 36x10: displacement baselines, then one optimization per seed (60 Adam steps, ~40 s each)
+2	python -m research.grape --na 36 --nb 10 --iters 0
+45	python -m research.grape --na 36 --nb 10 --iters 60 --init disp --seed 0
+45	python -m research.grape --na 36 --nb 10 --iters 60 --init disp --seed 1
+45	python -m research.grape --na 36 --nb 10 --iters 60 --init disp --seed 2
+45	python -m research.grape --na 36 --nb 10 --iters 60 --init cold --seed 0
+
+# Prototype results re-run with the tight solver (cheap), and the Wigner GIF
+1	python -m research.base
+1	python -m research.moon
+0.5	python -m research.heis
+0.5	python -m research.robust
+2.5	python -m research.wigner_gif
