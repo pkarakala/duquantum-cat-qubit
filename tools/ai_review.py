@@ -77,6 +77,7 @@ def main():
     prompt = (CHECKLIST
               + "\n\n## Context: the challenge prompt and our claims\n\n" + briefing()
               + "\n\n## Code to review\n\n" + gather(a.diff))
+    print(f"sending ~{len(prompt) // 4:,} tokens to {model}; this usually takes 30 s to 2 min...", flush=True)
     text = (ask_gemini if a.provider == "gemini" else ask_grok)(prompt, model)
     out = ROOT / "reviews" / f"{a.provider}-{dt.datetime.now():%Y%m%d-%H%M}.md"
     out.parent.mkdir(exist_ok=True)
