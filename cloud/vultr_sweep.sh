@@ -15,7 +15,10 @@ cd "$(dirname "$0")/.."
 JOBS=${JOBS:-$(( $(nproc) / 4 > 0 ? $(nproc) / 4 : 1 ))}
 
 if [ ! -d .venv ]; then
-  apt-get update -qq && apt-get install -y -qq python3-venv >/dev/null
+  # a fresh VM runs cloud-init/unattended-upgrades first; wait for the apt lock instead of failing
+  cloud-init status --wait >/dev/null 2>&1 || true
+  apt-get -o DPkg::Lock::Timeout=600 update -qq
+  apt-get -o DPkg::Lock::Timeout=600 install -y -qq python3-venv >/dev/null
   python3 -m venv .venv
   .venv/bin/pip install -q -r requirements.txt
 fi
