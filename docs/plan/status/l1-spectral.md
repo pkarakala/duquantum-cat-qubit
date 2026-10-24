@@ -7,7 +7,7 @@
 | Agent / model | Cursor agent (continuation) |
 | Started (EDT) | Sat Oct 24 2026, 6:35 PM |
 | Last update (EDT) | Sat Oct 24 2026, 7:20 PM |
-| Last commit | solver + this status (hash in the lane handoff) |
+| Last commit | `7a3b374` sparse Liouvillian and COLAMD shift-invert Gamma_X |
 
 ## Milestones
 - [x] Read brief, CONTRACT, RESEARCH, RUNBOOK
