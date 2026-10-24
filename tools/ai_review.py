@@ -8,7 +8,7 @@ results: every number in the README comes from the scripts in tasks/.
     python tools/ai_review.py --provider gemini              # review src/ and tasks/
     python tools/ai_review.py --provider grok --diff main    # review only changes vs main
 
-Output goes to reviews/<provider>-<timestamp>.md; we list what we acted on in the README.
+The challenge prompt and TECHNICAL.md are sent as context, so the reviewer\nknows the tasks, conventions and every claim we make.\nOutput goes to reviews/<provider>-<timestamp>.md; we list what we acted on in the README.
 """
 import argparse
 import datetime as dt
@@ -30,6 +30,16 @@ Check specifically, citing file and line:
    parity decay 2 kappa_a <n>, kappa_2 = 4 g2^2 / kappa_b).
 5. Fits: fitted window, model, and whether the stated agreement is justified.
 6. Anything a judge could challenge. Be concrete; say 'no issue' if none."""
+
+
+def briefing():
+    """Bring the reviewer up to speed: the challenge prompt and our technical layer."""
+    parts = []
+    for rel in ["docs/challenge_prompt_v4.md", "TECHNICAL.md"]:
+        p = ROOT / rel
+        if p.exists():
+            parts.append(f"### {rel}\n{p.read_text()}")
+    return "\n\n".join(parts)
 
 
 def gather(diff_base=None):
@@ -62,7 +72,9 @@ def main():
     p.add_argument("--diff", metavar="BASE", help="review only `git diff BASE`")
     a = p.parse_args()
     model = a.model or {"gemini": "gemini-2.5-pro", "grok": "grok-4"}[a.provider]
-    prompt = CHECKLIST + "\n\n" + gather(a.diff)
+    prompt = (CHECKLIST
+              + "\n\n## Context: the challenge prompt and our claims\n\n" + briefing()
+              + "\n\n## Code to review\n\n" + gather(a.diff))
     text = (ask_gemini if a.provider == "gemini" else ask_grok)(prompt, model)
     out = ROOT / "reviews" / f"{a.provider}-{dt.datetime.now():%Y%m%d-%H%M}.md"
     out.parent.mkdir(exist_ok=True)
