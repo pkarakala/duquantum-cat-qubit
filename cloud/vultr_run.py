@@ -7,6 +7,11 @@ stops the billing (check https://my.vultr.com/ afterwards anyway).
     export VULTR_API_KEY=...                      # my.vultr.com -> Account -> API; never commit it
     python cloud/vultr_run.py --list-plans        # cheapest plans with >= 16 vCPU in the region
     python cloud/vultr_run.py --plan <plan-id>    # the full run (~20-30 min)
+    python cloud/vultr_run.py --cleanup           # delete any VM this script left behind
+
+Safety: asks before creating; refuses if one of our VMs already exists; --max-minutes hard
+stop (default 90); deletes on success, error, Ctrl-C, closed terminal or kill. Only a laptop
+that sleeps or loses power mid-run can skip the delete -- then run --cleanup.
 
 Needs an SSH key at ~/.ssh/id_ed25519.pub (or pass --pubkey); it is registered with Vultr once.
 Only the committed code is uploaded (git archive HEAD), so no secrets leave the laptop.
@@ -14,6 +19,7 @@ Only the committed code is uploaded (git archive HEAD), so no secrets leave the 
 import argparse
 import json
 import os
+import signal
 import subprocess
 import time
 import urllib.error
@@ -22,7 +28,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 API = "https://api.vultr.com/v2"
-SSH = ["ssh", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10"]
+SSH = ["ssh", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10",
+       "-o", "ServerAliveInterval=30", "-o", "ServerAliveCountMax=4"]   # a dead link fails in ~2 min
+TAG = "duquantum"
 
 
 def call(method, path, body=None):
@@ -76,6 +84,24 @@ def wait_ready(iid, timeout=900):
     raise TimeoutError("instance did not become reachable")
 
 
+def ours():
+    return call("GET", f"/instances?tag={TAG}&per_page=500")["instances"]
+
+
+def delete(iid):
+    """Delete with retries; if it still fails, say loudly how to clean up."""
+    for i in range(6):
+        try:
+            call("DELETE", f"/instances/{iid}")
+            return True
+        except (SystemExit, OSError) as e:
+            print(f"delete failed ({e}); retrying in {10 * (i + 1)} s", flush=True)
+            time.sleep(10 * (i + 1))
+    print(f"\n!!! COULD NOT DELETE {iid}. IT IS STILL BILLING. Run: python cloud/vultr_run.py --cleanup\n"
+          "!!! or delete it at https://my.vultr.com/subs/", flush=True)
+    return False
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--plan", help="plan id from --list-plans")
@@ -85,9 +111,17 @@ def main():
     p.add_argument("--jobs", type=int, help="parallel runs on the VM (default vCPU/4)")
     p.add_argument("--max-minutes", type=float, default=90, help="hard stop: delete the VM after this long")
     p.add_argument("--list-plans", action="store_true")
+    p.add_argument("--cleanup", action="store_true", help="delete every VM this script created, then exit")
     a = p.parse_args()
     if not os.environ.get("VULTR_API_KEY"):
         raise SystemExit("set VULTR_API_KEY in your shell first (never commit it)")
+
+    if a.cleanup:
+        for inst in ours():
+            print("deleting", inst["id"], inst["label"], inst["main_ip"], flush=True)
+            delete(inst["id"])
+        print("no duquantum VMs left" if not ours() else "some VMs remain, check https://my.vultr.com/subs/")
+        return
 
     if a.list_plans or not a.plan:
         for pl in plans(a.region, a.min_vcpu)[:10]:
@@ -97,6 +131,8 @@ def main():
             print("\nre-run with --plan <id>")
         return
 
+    if ours():
+        raise SystemExit("a duquantum VM already exists; run --cleanup first so we never pay for two")
     pl = next((x for x in plans(a.region, 1) if x["id"] == a.plan), None)
     if pl:
         print(f"{a.plan}: ~${pl['monthly_cost'] / 730:.2f}/h, at most ~${pl['monthly_cost'] / 730 * a.max_minutes / 60:.2f} "
@@ -109,6 +145,11 @@ def main():
     })["instance"]["id"]
     print("created instance", iid, flush=True)
     t0 = time.time()
+
+    def stop(signum, _frame):         # closing the terminal (SIGHUP) or kill (SIGTERM) still deletes
+        raise SystemExit(f"got signal {signum}, deleting the VM")
+    signal.signal(signal.SIGHUP, stop)
+    signal.signal(signal.SIGTERM, stop)
     try:
         ip = wait_ready(iid)
         print("uploading committed code to", ip, flush=True)
@@ -122,9 +163,9 @@ def main():
             subprocess.run(["scp", "-r", "-o", "StrictHostKeyChecking=accept-new",
                             f"root@{ip}:repo/{sub}/.", str(ROOT / sub)], check=True)
     finally:
-        call("DELETE", f"/instances/{iid}")
-        print(f"deleted instance {iid} after {(time.time() - t0) / 60:.1f} min "
-              "(confirm at https://my.vultr.com/subs/)", flush=True)
+        if delete(iid):
+            print(f"deleted instance {iid} after {(time.time() - t0) / 60:.1f} min "
+                  "(confirm at https://my.vultr.com/subs/)", flush=True)
 
 
 if __name__ == "__main__":
