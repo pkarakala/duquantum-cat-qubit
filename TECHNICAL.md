@@ -58,6 +58,16 @@ Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive,
 
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
+- **Gemini code review** ([`reviews/gemini-20261024-1632.md`](reviews/gemini-20261024-1632.md), `gemini-3.8-flash`): it found no 2π, sign, √rate or truncation errors. We didn't take its suggestions on trust. We re-ran the parity fit (claim 15) to test the one suggestion it made about the fit window:
+
+  | Gemini said | We checked | Outcome |
+  |---|---|---|
+  | The fit window starts at 1.0 µs, before the 1% settle time (1.07 µs); moving it to 1.1 µs changes Γ by < 0.1% | Re-fit with window start 0.5, 1.0, 1.1, 1.5, 2, 3 µs: Γ = 0.51357 … 0.51290 /µs; 1.0 → 1.1 µs changes Γ by 0.004% | Confirmed; window kept |
+  | At 1.0 µs, ⟨n_a⟩ is within 1.5% of steady state | It is 1.0% below | Minor misread; no effect |
+  | Log-linear fit weights small values more than nonlinear least squares | `curve_fit` on P(t) gives 0.51387 vs 0.51346 /µs (0.08% apart) | Confirmed negligible |
+  | Parity rate is 2κ_a⟨nP⟩ ≈ 2κ_a⟨n⟩⟨P⟩ | The local rate −d ln P/dt drifts from 0.5141 (2 µs) to 0.5112 (6 µs) while 2κ_a⟨n⟩ stays 0.5146. So the −0.2% fit residual is this approximation, which gets worse as the cat turns into a mixture, not fit noise | New understanding of claim 15's residual |
+  | 2⟨α\|ρ\|−α⟩ = 1 for an ideal cat, up to e^(−2α²) ≈ 1.5e-4 | Agrees with our derivation | No change |
+
 - What we caught ourselves that an AI would easily miss: the default ODE tolerance produced ~1e-4 noise in the truncation monitors, which would have hidden a real truncation problem. We tightened the tolerance and confirmed the results didn't change beyond it.
 
 ## 6. File map
