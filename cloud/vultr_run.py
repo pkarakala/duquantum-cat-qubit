@@ -86,6 +86,8 @@ def wait_ready(iid, timeout=900):
               flush=True)
         if inst["status"] == "active" and inst["server_status"] == "ok" and inst["main_ip"] != "0.0.0.0":
             ip = inst["main_ip"]
+            # a fresh VM may reuse the IP of a deleted one; drop its old host key or ssh refuses
+            subprocess.run(["ssh-keygen", "-R", ip], capture_output=True)
             for _ in range(30):          # sshd comes up a little after the API says "ok"
                 if subprocess.run(SSH + [f"root@{ip}", "true"], capture_output=True).returncode == 0:
                     return ip
