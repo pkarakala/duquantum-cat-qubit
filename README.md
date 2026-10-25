@@ -54,7 +54,8 @@ Every number is saved as JSON in `results/`, so checking a claim does not requir
 | [`docs/SECTION2.md`](docs/SECTION2.md) | Section 2 in full: methods, all numbers, convergence checks |
 | [`docs/SECTION1.md`](docs/SECTION1.md), [`docs/TECHNICAL.md`](docs/TECHNICAL.md) | Section 1 write-up and its claim-by-claim evidence |
 | `research/s2/`, `src/` | Section 2 code; shared model code |
-| `tasks/`, `notebooks/` | Section 1 scripts and one notebook per task |
+| `notebooks/` | One short notebook per task: 01–05 Section 1, 06–09 Section 2 (load saved results, no re-run) |
+| `tasks/` | Section 1 scripts |
 | `results/`, `figures/` | Every number (JSON) and every figure |
 | `cloud/` | Vultr batch launcher and the job lists we ran |
 | `tests/` | Unit tests (`python -m unittest discover -s tests`) |
