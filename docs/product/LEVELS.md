@@ -229,6 +229,9 @@
 - **Controls:** a **pulse editor** (drag the bars); a `Budget` meter; ▶ Score.
 - **Views:** the pulse and its spectrum, with the 3.14 MHz ring marked; the signal; SNR against budget; the leaderboard.
 - **Check:** "Beat the square pulse at equal budget." Pass when `snr(yours) > snr(square)` and `cost(yours) ≤ cost(square)`.
+  - Constants (CONTRACT §6): T = 1 µs, 20 bins, amplitude ≤ 3·g₂, square reference 0.5·g₂, energy budget 0.25·g₂²·µs.
+  - Prototype: square SNR ≈ 0.95 vs SVD-optimal ≈ 4.06. Verify before quoting.
+- **L6 note for the aha numbers:** quote the overshoot (6.89, +56%) from the **32×12 preset**, never from the 16×5 live run, which under-shows the peak.
 - **Aha:** "Our provably optimal pulse is the top singular vector of the system's response. It puts its energy near the 3.14 MHz ring. You just did optimal control." The page then compares with our SVD pulse from `t2_4c`.
 - **On completion:**
   - Leaderboard: POST, and the server recomputes the score.

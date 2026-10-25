@@ -17,7 +17,7 @@ Product lanes read this together with the root `AGENTS.md`. Its physics rules st
 ## 1. Lanes and ownership
 | Slug | Brief | Owns | Depends on |
 |---|---|---|---|
-| `p0-server` | `briefs/P0-server.md` | `server/app/**` (FastAPI app, sim endpoints, cache, schemas), `server/Dockerfile`, `server/requirements.txt`, `server/.env.example`, `server/tests/**` (except tutor, data and chain tests), `deploy/docker-compose.yml`, `deploy/Caddyfile`, `deploy/README.md`, `server/precompute.py` | `l0-core` merged |
+| `p0-server` | `briefs/P0-server.md` | `server/app/**` (FastAPI app, sim endpoints, cache, schemas), `server/Dockerfile`, `server/requirements.txt`, `server/.env.example`, `server/tests/**` (except tutor, data and chain tests), `deploy/docker-compose.yml`, `deploy/Caddyfile`, `deploy/README.md`, `server/precompute.py`, `server/precomputed/**` | `l0-core` merged |
 | `p1-ts-sim` | `briefs/P1-ts-sim.md` | `site/src/sim/**` | none (pure TS) |
 | `p2-academy` | `briefs/P2-academy.md` | `site/src/academy/**` (engine, level specs, UI, presets, scripted hints) **except `site/src/academy/routes.ts`** (P7) | P1 interface; l6 skeleton |
 | `p3-blocks` | `briefs/P3-blocks.md` | `site/src/blocks/**` | §4 ExprTree |
@@ -36,6 +36,13 @@ Every lane owns `docs/product/status/<slug>.md`. Use `docs/plan/status/_TEMPLATE
 - **Local dev:** `server` runs with `uvicorn server.app.main:app --reload --port 8000` from the repo root, so `src/` is importable. The site runs with `npm run dev` in `site/`, with `VITE_API_BASE=http://localhost:8000`.
 - **Env vars** (`server/.env.example`): `GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.8-flash`, `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, `ELEVENLABS_AGENT_ID`, `BACKBOARD_API_KEY`, `TIGER_DATABASE_URL`, `SOLANA_RPC_URL=https://api.devnet.solana.com`, `SOLANA_SECRET_KEY_B58` (chain service only), `ADMIN_TOKEN`, `ALLOWED_ORIGINS`, `SIM_TIMEOUT_ONE_MODE_S=8`, `SIM_TIMEOUT_TWO_MODE_S=15`.
 - **Client timeouts:** 3 s for normal server calls; up to 15 s with a progress state for the L6 live run. After that, fall back to a preset.
+- **`API_HOST`**, e.g. `45-76-1-2.sslip.io`, is used by Caddy and by the chain service's metadata URLs.
+- **Secret isolation:**
+  - The api container reads `/opt/academy/.env`, which does **not** contain `SOLANA_SECRET_KEY_B58`.
+  - The chain container reads `/opt/academy/chain.env` (`SOLANA_SECRET_KEY_B58`, `SOLANA_RPC_URL`, `ADMIN_TOKEN`, `API_HOST`).
+  - The api's `features.chain` comes from probing `GET /api/chain/health`, not from env.
+- **Deploy:** `docker compose --env-file /opt/academy/.env up -d --build`, run from `deploy/`.
+- **`.env` files are git-ignored by root `.gitignore`.** Only `*.env.example` is committed.
 
 ## 3. HTTP API (JSON; all errors are `{"error": {"code": str, "message": str}}`)
 Base: `https://<vultr-ip>.sslip.io` in production, `http://localhost:8000` in development. CORS allows `ALLOWED_ORIGINS`, plus `null` for the `file://` build.
@@ -43,8 +50,8 @@ Base: `https://<vultr-ip>.sslip.io` in production, `http://localhost:8000` in de
 | Method and path | Request | Response | Owner |
 |---|---|---|---|
 | `GET /api/health` | n/a | `{ok, version, engine:"dynamiqs 0.3.7", features:{gemini, elevenlabs, backboard, tiger, chain}}` | P0 |
-| `POST /api/sim/one_mode` | `{alpha, kappa2_scale=1, kappa_a_scale=1, n_th=0, eps_z_over_g2=0, eps_x_over_g2=0, N=30, t_end_us=2, n_t=200, init:"vacuum"\|"coherent"\|"cat_plus"\|"cat_minus", init_alpha?, outputs:["n","parity","re_a","wigner"], wigner_times?:[us]}` | `{t_us[], n[], parity[], re_a[], wigner?:{x[], y[], frames:[{t_us, w:[[...]]}]}, meta:{engine, cached, wall_ms, params_hash}}` | P0 |
-| `POST /api/sim/two_mode` | the same fields, plus `Na≤24, Nb≤8, t_end_us≤5, n_t≤400, outputs` ⊆ `["na","nb","b_re","b_im","top2_a","top_b","parity","wigner"]` | `{t_us[], na[], nb[], b_re[], b_im[], top2_a[], top_b[], parity[], wigner?, meta}` | P0 |
+| `POST /api/sim/one_mode` | `{alpha, kappa2_scale=1, kappa_a_scale=1, n_th=0, eps_z_over_g2=0, eps_x_over_g2=0, N=30, t_end_us=2, n_t=200, init:"vacuum"\|"coherent"\|"cat_plus"\|"cat_minus", init_alpha?, outputs:["n","parity","re_a","wigner"], wigner_times?:[us], learner_id?, level_id?}` (the last two are used only for Tiger logging) | `{t_us[], n[], parity[], re_a[], wigner?:{x[], y[], frames:[{t_us, w:[[...]]}]}, meta:{engine, cached, wall_ms, params_hash}}` | P0 |
+| `POST /api/sim/two_mode` | `{alpha, g2_scale=1, kappa_b_scale=1, kappa_a_scale=1, n_th=0, eps_z_over_g2=0, eps_x_over_g2=0, Na=16, Nb=5, t_end_us≤3, init, learner_id?, level_id?, outputs}`. κ₂ is derived from g₂ and κ_b, so there's no `kappa2_scale` here. **Live caps:** Na ≤ 20, Nb ≤ 6, `n_t` fixed at 201. `outputs` ⊆ `["na","nb","b_re","b_im","top2_a","top_b","parity","wigner"]` | `{t_us[], na[], nb[], b_re[], b_im[], top2_a[], top_b[], parity[], wigner?, meta}` | P0 |
 | `POST /api/sim/expr` | `{H: ExprTree, jumps: [ExprTree], params:{name: number}, modes:"one"\|"two", N\|Na,Nb, init, t_end_us, n_t, outputs}` | as above, plus `meta.compiled:"<human-readable H>"` | P0 |
 | `POST /api/tutor` | `{learner_id, level_id, message, state:{params, prediction?, misconception_ids:[], last_sim:{summary}, hint_level}}` | `{reply, hint_level, tool_calls:[{name, args, result_summary}], numbers_cited:[...], guard:{passed, removed:[...]}}` | P4 |
 | `POST /api/memory/event` | `{learner_id, level_id, kind:"wrong_prediction"\|"pass"\|"hint", misconception_id?, detail?}` | `{ok}` | P4 |
@@ -55,7 +62,7 @@ Base: `https://<vultr-ip>.sslip.io` in production, `http://localhost:8000` in de
 | `GET /api/leaderboard?challenge=readout_pulse` | n/a | `{rows:[{alias, score, payload_hash, ts}]}` | P5 |
 | `POST /api/leaderboard` | `{challenge, learner_id, alias, score, payload}` (the server recomputes the score; never trust the client) | `{rank}` | P5 |
 | `POST /api/progress` / `GET /api/progress?learner_id=` | `{learner_id, level_id, passed, prediction_correct, attempts}` | `{levels:[...]}` | P5 |
-| `POST /api/chain/credential` | `{learner_id, alias, wallet_pubkey?, levels_passed:[...], score?}` | `{asset_address, tx_sig, explorer_url, custodial: bool}` | P6 |
+| `POST /api/chain/credential` | `{learner_id, alias, wallet_pubkey?, levels_passed:[...], score?, l8_payload_hash?}` | `{asset_address, tx_sig, explorer_url, custodial: bool}` | P6 |
 | `POST /api/chain/anchor` (header `X-Admin-Token`) | `{sha256, label}` | `{tx_sig, explorer_url}` | P6 |
 | `GET /api/chain/anchors` | n/a | `{anchors:[{label, sha256, tx_sig, explorer_url, ts}]}` | P6 |
 
@@ -77,6 +84,7 @@ Base: `https://<vultr-ip>.sslip.io` in production, `http://localhost:8000` in de
   {"op": "mul", "args": [{"op": "num", "value": -1}, {"op": "param", "name": "eps_d"}, {"op": "add", "args": [{"op": "sym", "name": "b"}, {"op": "sym", "name": "bd"}]}]}
 ]}
 ```
+*The example above is abbreviated. A Hermitian H must also contain the h.c. term g₂·a†²·b, as in fixture `h_2ph.json`, and the validator rejects the abbreviated form.*
 - **Symbols (allowlist):**
   - `a` (memory annihilation), `ad` (a†), `b`, `bd` (buffer; two-mode only), `I` (identity), `n_a` (= ad·a).
   - **The complete op list, with shapes:**
@@ -145,12 +153,20 @@ CREATE TABLE sim_runs (
   wall_ms integer, cached boolean
 ) WITH (tsdb.hypertable, tsdb.partition_column = 'ts');
 CREATE TABLE progress (learner_id uuid, level_id text, passed boolean, prediction_correct boolean, attempts int, ts timestamptz DEFAULT now(), PRIMARY KEY (learner_id, level_id));
-CREATE TABLE leaderboard (challenge text, learner_id uuid, alias text, score double precision, payload jsonb, payload_hash text, ts timestamptz DEFAULT now());
+CREATE TABLE leaderboard (challenge text, learner_id uuid, alias text, score double precision, verified boolean DEFAULT false, payload jsonb, payload_hash text, ts timestamptz DEFAULT now());
 CREATE TABLE tutor_events (ts timestamptz DEFAULT now(), learner_id uuid, level_id text, kind text, misconception_id text, hint_level int, tool_calls int, guard_removed int);
-CREATE MATERIALIZED VIEW alpha_choices_5m WITH (timescaledb.continuous) AS
-  SELECT time_bucket('5 minutes', ts) AS t, width_bucket(alpha, 0, 3, 12) AS alpha_bin, count(*) FROM sim_runs GROUP BY 1, 2;
+CREATE MATERIALIZED VIEW alpha_choices_5m WITH (timescaledb.continuous, timescaledb.materialized_only = false) AS
+  SELECT time_bucket('5 minutes', ts) AS t, LEAST(width_bucket(alpha, 0, 3, 12), 12) AS alpha_bin, count(*) FROM sim_runs GROUP BY 1, 2
+  WITH NO DATA;
+SELECT add_continuous_aggregate_policy('alpha_choices_5m', start_offset => INTERVAL '2 hours', end_offset => INTERVAL '1 minute', schedule_interval => INTERVAL '1 minute');
 ```
 - `timestamptz` values are serialized as ISO-8601 UTC.
+- **Run the continuous-aggregate creation in autocommit mode**, not inside a transaction. `LEAST(…, 12)` keeps α = 3.0 in the top bin.
+- **Level 8 challenge constants** (P5 recomputes the score with them, and P2 mirrors them):
+  - T = 1 µs, 20 bins (≤ 50 accepted), amplitude ≤ 3·g₂.
+  - The reference is a square pulse at 0.5·g₂.
+  - Energy budget: 0.25·g₂²·µs.
+  - Prototype values, to be verified by P5 and P1: square SNR ≈ 0.95, SVD-optimal ≈ 4.06.
 - **Don't use pgai** (archived May 2026).
 - If `tsdb.hypertable` syntax fails on the provisioned version, fall back to `SELECT create_hypertable('sim_runs', 'ts');` and record it.
 

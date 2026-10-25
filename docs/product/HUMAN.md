@@ -20,7 +20,8 @@ Then copy `server/.env.example` to `server/.env`, fill it in, and paste the same
 - `ssh root@<ip>`, then:
   - `apt update && apt install -y docker.io docker-compose-v2 git`
   - `git clone` the repo (it's private until Pranav makes it public, so use a deploy key or a token you create yourself)
-  - `cd deploy && docker compose up -d --build`
+  - `cd deploy && docker compose --env-file /opt/academy/.env up -d --build`
+  - The api container reads `/opt/academy/.env`, which has no Solana key. The chain container reads `/opt/academy/chain.env` (CONTRACT §2).
 - Caddy serves `https://<ip-with-dashes>.sslip.io`. Put that URL in the site's `VITE_API_BASE` and in `ALLOWED_ORIGINS`.
 - Smoke test: `curl https://<host>/api/health`.
 

@@ -52,7 +52,7 @@ All are in `routes.py` as `router = APIRouter()` with absolute `/api/...` paths.
 - Field rules:
   - `learner_id`: UUID v4 or null.
   - `level_id`: `L1`–`L8`, `sandbox` or null.
-  - `engine`: `"dynamiqs 0.3.7"` or `"ts-rk4"`.
+  - `engine`: `"dynamiqs 0.3.7"` or `"ts-cn"`.
   - `model`: one of `one_mode | two_mode | expr_one | expr_two | ts_one_mode`.
   - `params`: JSON of at most 4 KB.
   - `alpha` and `eps_z_over_g2`: in [0, 3] or null; all floats finite.
@@ -172,7 +172,7 @@ P0 owns `conftest.py`, so define your fixtures in your own test files: a `client
    - With `TIGER_DATABASE_URL` unset, every endpoint returns 503 `feature_disabled` with the error shape.
    - `store_run({...})` returns `None` and raises nothing.
 4. `test_runs_validation`:
-   - A valid browser row (`engine "ts-rk4"`, `model "ts_one_mode"`) is stored with a server `ts`, and a client `ts` is ignored.
+   - A valid browser row (`engine "ts-cn"`, `model "ts_one_mode"`) is stored with a server `ts`, and a client `ts` is ignored.
    - A bad UUID, `alpha=3.5`, `params` over 4 KB, or an extra `email` field each return 422.
 5. `test_store_run_hook`:
    - Importing `server.app.data.routes` registers the sink, so `cache.store_run(row)` reaches `FakeStore`.
@@ -212,7 +212,7 @@ P0 owns `conftest.py`, so define your fixtures in your own test files: a `client
    - Start uvicorn with no DB URL and curl each endpoint; you should see 503 `feature_disabled`.
 7. **Live check** (only once Harshit has put `TIGER_DATABASE_URL` in `server/.env`; never print it or commit it):
    1. `migrate` (record the TimescaleDB version, and whether the fallback was used).
-   2. `smoke --n 10`: it inserts 10 synthetic runs directly through the store (`level_id "SMOKE"`, `engine "ts-rk4"`, α spread over 0.5–2.5), runs `CALL refresh_continuous_aggregate('alpha_choices_5m', NULL, NULL)` in autocommit, then prints the aggregate rows and the `/api/community/alpha` response.
+   2. `smoke --n 10`: it inserts 10 synthetic runs directly through the store (`level_id "SMOKE"`, `engine "ts-cn"`, α spread over 0.5–2.5), runs `CALL refresh_continuous_aggregate('alpha_choices_5m', NULL, NULL)` in autocommit, then prints the aggregate rows and the `/api/community/alpha` response.
    3. Paste both (no URL) into status.
    4. Then run uvicorn with the env file, run one sim through P0's endpoint, and confirm a new `sim_runs` row exists.
    - The 10 smoke rows stay; they age out of the 60-min window. Don't delete data.
@@ -220,7 +220,7 @@ P0 owns `conftest.py`, so define your fixtures in your own test files: a `client
 ## 7. Outputs
 - **Code:** `server/sql/001_init.sql`, `server/sql/001a_sim_runs_fallback.sql`, and `server/app/data/{__init__,db,fake,routes,challenge,migrate,smoke,recompute}.py`.
 - **Tests:** the three `test_data_*.py` files.
-- **Status:** the live-check transcript; the challenge constants for P2; the run-row contract for P2 (the browser posts TS runs to `/api/runs` with `engine "ts-rk4"`, `model "ts_one_mode"`, and optional `learner_id`/`level_id`); `log_tutor_event` for P4; dependency notes for P0/P7.
+- **Status:** the live-check transcript; the challenge constants for P2; the run-row contract for P2 (the browser posts TS runs to `/api/runs` with `engine "ts-cn"`, `model "ts_one_mode"`, and optional `learner_id`/`level_id`); `log_tutor_event` for P4; dependency notes for P0/P7.
 
 ## 8. Acceptance gates
 1. **Tests and allowlist.**
