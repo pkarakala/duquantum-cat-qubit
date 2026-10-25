@@ -15,11 +15,11 @@ Each frame is computed from a solved state, with the same phase-space coordinate
 
 ## task_1_0a_photon_number
 
-**Single-photon decay.** Mean occupation $\langle n\rangle$ of an initial coherent state $|\alpha_0=2\rangle$. The numerical solution is compared with $|\alpha_0|^2e^{-\kappa t}$ for $\kappa=2\pi\,\mathrm{\mu s}^{-1}$. The Hamiltonian detuning has the same value and does not affect the occupation. The single-mode cutoff is $N=30$.
+**Single-photon decay.** Mean occupation $\langle n\rangle$ of an initial coherent state $|\alpha_0=2\rangle$. The numerical solution is compared with $|\alpha_0|^2e^{-\kappa t}$ for $\kappa=2\pi\mathrm{\mu s}^{-1}$. The Hamiltonian detuning has the same value and does not affect the occupation. The single-mode cutoff is $N=30$.
 
 ## task_1_0a_wigner
 
-**Phase-space evolution under single-photon loss.** Wigner functions of the state in the single-photon decay calculation at the indicated times. The coordinate $\beta$ is the complex phase-space amplitude, so a coherent state $|\alpha\rangle$ is centred at $\beta=\alpha$. All panels share the scale $-2/\pi\leq W\leq2/\pi$, with $\int W(\beta)\,d^2\beta=1$.
+**Phase-space evolution under single-photon loss.** Wigner functions of the state in the single-photon decay calculation at the indicated times. The coordinate $\beta$ is the complex phase-space amplitude, so a coherent state $|\alpha\rangle$ is centred at $\beta=\alpha$. All panels share the scale $-2/\pi\leq W\leq2/\pi$, with $\int W(\beta)\mathrm{d}^2\beta=1$.
 
 ## task_1_0b_two_photon_loss
 
@@ -31,11 +31,11 @@ Each frame is computed from a solved state, with the same phase-space coordinate
 
 ## task_1_0c_wigner
 
-**Cat formation in the effective model.** Wigner functions from vacuum at the nominal rate $\kappa_{2,0}$, at the indicated times. The phase-space coordinate is $\beta=\mathrm{Re}\,\beta+i\,\mathrm{Im}\,\beta$. All panels use the same normalized Wigner convention and color scale, $-2/\pi\leq W\leq2/\pi$; negative values resolve the interference fringes.
+**Cat formation in the effective model.** Wigner functions from vacuum at the nominal rate $\kappa_{2,0}$, at the indicated times. The phase-space coordinate is $\beta=\mathrm{Re}(\beta)+i\mathrm{Im}(\beta)$. All panels use the same normalized Wigner convention and color scale, $-2/\pi\leq W\leq2/\pi$; negative values resolve the interference fringes.
 
 ## task_1_1_inflation
 
-**Two-mode inflation and Fock-space occupation.** (a) Memory and buffer occupations at $(N_a,N_b)=(32,12)$; the dashed memory curve uses $(24,6)$ (start). The dotted curve is the effective one-mode prediction, and the horizontal line marks $\alpha^2$. (b) Full-range top-level probabilities over 0–3 µs, in percent: $p_a^{(2)}$ sums the highest two memory levels and $p_b^{(1)}$ is the highest buffer level. Solid and dashed curves use the same cutoffs as in (a). The dotted line marks the chosen 0.1% tolerance. The $(24,6)$ buffer peak reaches 4.62%, while both $(32,12)$ monitors remain below the tolerance throughout inflation. The buffer monitor is $n_b=5$ for $N_b=6$ and $n_b=11$ for $N_b=12$.
+**Two-mode inflation and Fock-space occupation.** (a) Memory and buffer occupations at $(N_a,N_b)=(32,12)$; the dashed memory curve uses $(24,6)$ (start). The dotted curve is the effective one-mode prediction, and the horizontal line marks $\alpha^2$. (b) Full-range top-level probabilities over 0–3 µs, in percent: $p_a^{(2)}$ sums the probabilities of memory levels $N_a-2$ and $N_a-1$; $p_b^{(1)}$ is the probability of buffer level $N_b-1$. Solid and dashed curves use the same cutoffs as in (a). The dotted line marks our chosen 0.1% tolerance for convergence checks. The $(24,6)$ buffer peak reaches 4.62%, while both $(32,12)$ monitors remain below the tolerance throughout inflation. The buffer monitor is $n_b=5$ for $N_b=6$ and $n_b=11$ for $N_b=12$.
 
 ## task_1_1_wigner
 
@@ -55,15 +55,15 @@ Each frame is computed from a solved state, with the same phase-space coordinate
 
 ## task_1_2_error_grid
 
-**Joint memory-state convergence.** Axes give the retained memory and buffer dimensions $N_a$ and $N_b$. Blue shading shows $D_{\max}=\max_t\tfrac12\|\rho_a(t)-\rho_{a,\mathrm{ref}}(t)\|_1$ relative to $(40,14)$, where $\rho_a$ is the reduced memory state and smaller states are zero-padded. Lighter shades mean smaller differences; the color bar is logarithmic in percent, with a 0.1% display floor. Small circles mark the 36 computed pairs. The black curve is the **$D_{\max}=1\%$ threshold**; the upper-right side satisfies the state-distance criterion. The black ring marks the chosen cutoff $(32,12)$, used throughout Tasks 1.1 and 1.3; the star marks reference $(40,14)$, where $D_{\max}=0$. Background and contour use the same shape-preserving interpolation; cutoff checks use computed values. Each distance is maximized over 301 saved times from 0 to 3 µs.
+**Joint memory-state convergence.** Axes give the retained memory and buffer dimensions $N_a$ and $N_b$. Blue shading shows maximum trace distance $D_{\max}=\max_t\frac{1}{2}\lVert\rho_a(t)-\rho_{a,\mathrm{ref}}(t)\rVert_1$ relative to $(40,14)$, where $\rho_a$ is the density matrix after tracing out the buffer. Smaller states are zero-padded into the reference basis. Lighter shades mean smaller differences; the color bar is logarithmic in percent, with all values at or below 0.1% sharing the lightest shade. Small circles mark the 36 computed pairs. The black curve marks $D_{\max}=0.01$ (1%); its upper-right side passes this state-distance test. Occupation and top-level-probability criteria are checked separately. The ring marks the chosen cutoff $(32,12)$; the star marks reference $(40,14)$, whose self-distance is zero. Background and contour use the same shape-preserving interpolation; cutoff decisions use computed values. Each maximum covers 301 saved times from 0 to 3 µs.
 
 ## task_1_2_convergence
 
-**Transient and steady occupation versus cutoff.** Peak occupation $n_{a,\mathrm{pk}}=\max_t\langle n_a(t)\rangle$ and late-time mean $\bar n_{a,\mathrm{ss}}$ for (a) varying $N_a$ at $N_b=14$ and (b) varying $N_b$ at $N_a=40$. The steady estimate averages the final 20 saved samples, $t=2.81$–$3$ µs. Dotted lines mark $\alpha^2$. Both sweeps start from vacuum.
+**Transient and steady occupation versus cutoff.** Peak occupation $n_{a,\mathrm{pk}}=\max_t\langle n_a(t)\rangle$ and late-time mean $\bar n_{a,\mathrm{ss}}$ for (a) varying $N_a$ at $N_b=14$ and (b) varying $N_b$ at $N_a=40$. The steady estimate averages the final 20 saved samples, 2.81–3 µs. Dotted lines mark $\alpha^2$. Both sweeps start from vacuum.
 
 ## task_1_3a_cat_diagnostics
 
-**Diagnostics of the inflated memory state.** (a) Parity $\langle\Pi\rangle$, $\Pi=(-1)^{a^\dagger a}$; even-cat fidelity $F_+=\langle C_+|\rho_a|C_+\rangle$; and purity $\mathcal{P}=\mathrm{Tr}(\rho_a^2)$. The dashed curve fits parity to $Ae^{-\Gamma t}$ over $1$–$6$ µs, giving $\Gamma=0.513$ µs⁻¹, compared with $2\kappa_a\langle n_a\rangle_{\mathrm{ss}}=0.515$ µs⁻¹. The horizontal guide is $1/2$. (b) Coherent-state matrix element $C=2|\langle\alpha|\rho_a|-\alpha\rangle|$ and mean amplitude $\mathrm{Re}\langle a\rangle$. Because $|\alpha\rangle$ and $|-\alpha\rangle$ overlap, $C$ is not an exactly zero-valued mixture diagnostic. The normalized even cat is $|C_+\rangle\propto|\alpha\rangle+|-\alpha\rangle$; the simulation starts from vacuum at $(32,12)$.
+**Diagnostics of the inflated memory state.** (a) Parity $\langle\Pi\rangle$, $\Pi=(-1)^{a^\dagger a}$; even-cat fidelity $F_+=\langle C_+\rvert\rho_a\lvert C_+\rangle$; and purity $\mathcal{P}=\mathrm{Tr}(\rho_a^2)$. The dashed curve fits parity to $Ae^{-\Gamma t}$ over 1–6 µs, with fitted amplitude $A$ and decay rate $\Gamma=0.513$ µs⁻¹, compared with $2\kappa_a\langle n_a\rangle_{\mathrm{ss}}=0.515$ µs⁻¹. The horizontal guide is $1/2$. (b) Coherent-state matrix element $C=2\lvert\langle\alpha\rvert\rho_a\lvert-\alpha\rangle\rvert$ and mean amplitude $\mathrm{Re}\langle a\rangle$. An equal incoherent mixture gives $C=2e^{-2\alpha^2}$, about 0.00030, because the two coherent states have finite overlap. The normalized even cat is $|C_+\rangle\propto|\alpha\rangle+|-\alpha\rangle$; the simulation starts from vacuum at $(32,12)$.
 
 ## task_1_3a_wigner_fading
 
@@ -71,4 +71,4 @@ Each frame is computed from a solved state, with the same phase-space coordinate
 
 ## task_1_3b_logical_prep
 
-**Preparation of a selected coherent state.** Fidelity is $F_\alpha=\langle\alpha|\rho_a|\alpha\rangle$. (a) Evolution from $|\beta\rangle_a|0\rangle_b$ for real $\beta$. (b) Fidelity at $t=2$ µs after stabilization, compared with the initial overlap $|\langle\alpha|\beta\rangle|^2$, for $\beta=\alpha e^{i\phi}$. Dotted guides mark $F_\alpha=0.99$. (c) Normalized memory amplitude with a drive $i\varepsilon_1(a^\dagger-a)$ applied over the shaded interval, $0$–$0.1$ µs. The control uses $10(a+a^\dagger)$ in the same interval. Drive amplitudes are in µs⁻¹. All simulations use $(N_a,N_b)=(32,12)$ and $\alpha=2.1$.
+**Preparation of a selected coherent state.** Fidelity is $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$. (a) Evolution from $|\beta\rangle_a|0\rangle_b$ for real initial coherent-state amplitude $\beta$. (b) Fidelity at $t=2$ µs after stabilization, compared with the initial overlap $\lvert\langle\alpha\vert\beta\rangle\rvert^2$, for $\beta=\alpha e^{i\phi}$, where $\phi$ is the initial phase error relative to the target. Dotted guides mark $F_\alpha=0.99$. (c) Normalized memory amplitude with a drive $i\varepsilon_1(a^\dagger-a)$ applied over the shaded interval, 0–0.1 µs. The control uses $10(a+a^\dagger)$ in the same interval. $\varepsilon_1$ denotes the memory-drive amplitude in µs⁻¹. For displaced starts, time begins after the idealized pulse. All simulations use $(N_a,N_b)=(32,12)$ and $\alpha=2.1$.

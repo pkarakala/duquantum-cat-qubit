@@ -25,12 +25,12 @@ This file is written for judges, physicists and AI reviewers. Every claim below 
 | 8 | 1.1 buffer transient | peak ⟨n_b⟩ = 1.99 at 0.13 µs | "of order a couple of photons" (prompt) | `task_1_1.json → peak_nb` | `tasks/task_1_1.py` |
 | 9 | 1.1 truncation monitors at 32×12 | max top-2 memory 1.4e-5, max top buffer 1.7e-4 | both ≪ 1e-3 at all times | `task_1_1.json → max_top2_a, max_top_b` | `tasks/task_1_1.py` |
 | 10 | (24, 6) (start) underestimates the peak | 6.115 (−11.3%) | its buffer top level reaches 4.6% | `task_1_1.json → initial_peak_na, initial_max_top_b` | `tasks/task_1_1.py` |
-| 11 | 1.2 steady state vs semiclassics | 4.4026 vs 4.41 (−0.17%) | agreement to < 1%, so physical, not numerical | `task_1_2.json → summary.steady_vs_alpha2_rel` | `tasks/task_1_2.py` |
-| 12 | 1.2 steady state is insensitive to truncation | converged (0.1%) at N_a = 16, N_b = 4 | buffer is nearly empty in steady state | `task_1_2.json → summary.Na_needed_steady, Nb_needed_steady` | `tasks/task_1_2.py` |
+| 11 | 1.2 steady state vs semiclassics | 4.4026 vs 4.41 (−0.17%) | the small offset persists as cutoffs increase, consistent with the finite-loss model | `task_1_2.json → summary.steady_vs_alpha2_rel` | `tasks/task_1_2.py` |
+| 12 | 1.2 steady state is insensitive to truncation | passes 0.1% at N_a = 16 or N_b = 4 in separate sweeps with the other cutoff at its reference value | buffer is nearly empty in steady state | `task_1_2.json → summary.Na_needed_steady, Nb_needed_steady` | `tasks/task_1_2.py` |
 | 13 | 1.2 peak needs N_a ≥ 24, N_b ≥ 10 | to 0.5% of the largest run | memory reaches ~6.9 photons; buffer briefly holds ~2 | `task_1_2.json → summary.Na_needed_peak, Nb_needed_peak` | `tasks/task_1_2.py` |
 | 14 | 1.3a ⟨a⟩ = 0 at all times | max \|Re⟨a⟩\| = 0 | parity symmetry: no preferred well | `task_1_3a.json → max_abs_re_a` | `tasks/task_1_3a.py` |
 | 15 | 1.3a parity decays at 2κ_a n̄ | fit 0.5135 /µs vs 0.5146 predicted (−0.2%) | each lost photon flips parity | `task_1_3a.json → parity_decay_fit_per_us, parity_decay_pred_per_us` | `tasks/task_1_3a.py` |
-| 16 | 1.3a it is a superposition, not a mixture | at 1 µs: coherence 0.63 = parity 0.63; purity 0.69 | a well-separated equal mixture has C ≈ 0, purity ≈ 0.5 | `task_1_3a.json → at_1us` | `tasks/task_1_3a.py` |
+| 16 | 1.3a it is a superposition, not a mixture | at 1 µs: coherence 0.626 ≈ parity 0.629; purity 0.692 | a well-separated equal mixture has C ≈ 0, purity ≈ 0.5 | `task_1_3a.json → at_1us` | `tasks/task_1_3a.py` |
 | 17 | 1.3a parity-decay time | 1.95 µs | 1/(2κ_a α²) = 1.94 µs | `task_1_3a.json → cat_lifetime_us` | `tasks/task_1_3a.py` |
 | 18 | 1.3a approaches a mixture by 6 µs | parity 0.05, coherence 0.05, purity 0.501 | expected after ~3 lifetimes | `task_1_3a.json → at_6us` | `tasks/task_1_3a.py` |
 | 19 | 1.3a parity-decay fit is robust | 0.5135 / 0.5134 / 0.5132 / 0.5129 for fit windows starting at 0.8 / 1.0 / 2.0 / 3.0 µs; nonlinear fit on y gives 0.5139 | spread ≤ 0.12%; the fitted rate differs from the prediction by 0.2% | `task_1_3a.json → gamma_vs_fit_start_us, gamma_nonlinear_fit_per_us` | `tasks/task_1_3a.py` |
@@ -84,7 +84,9 @@ Increasing N_a cannot repair an insufficient N_b. Conversely, a large buffer cut
 
 The metric is **trace distance of the reduced memory density matrices**,
 
-$$D(t)=\tfrac12\|\operatorname{embed}(\rho_a^{(N_a,N_b)}(t))-\rho_a^{(40,14)}(t)\|_1.$$
+```math
+D(t)=\frac12\left\lVert\operatorname{embed}(\rho_a^{(N_a,N_b)}(t))-\rho_a^{(40,14)}(t)\right\rVert_1.
+```
 
 The smaller state is embedded into the reference's 40-level Fock basis by adding zero rows and columns. We retain the entire reference rather than projecting and renormalizing it into the smaller space. For each pair, record the largest D(t) over all saved times, including the transient. The trace norm is the sum of absolute eigenvalues of the Hermitian difference. Solver noise is retained, not clipped away.
 
@@ -141,7 +143,7 @@ Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive,
 
 ## 4b. Task 1.3(b, c): preparing |+α⟩
 
-**Why vacuum can't work, and what must break the symmetry.** H and both dissipators are invariant under a → −a: the memory jump changes sign, but its dissipator does not. Vacuum is invariant as a density matrix, so the evolved state remains symmetric between ±α and Re⟨a⟩ = 0 at all times (claim 14). The buffer drive acts only on b, so no buffer-side control can pick a well. The push has to be odd in a and act on the memory: a displaced initial state, or a memory drive.
+**Why vacuum can't work, and what must break the symmetry.** H and both dissipators are invariant under a → −a: the memory jump changes sign, but its dissipator does not. Vacuum is invariant as a density matrix, so the evolved state remains symmetric between ±α and Re⟨a⟩ = 0 at all times (claim 14). The buffer drive acts only on b, so no buffer-side control can pick a well. We break this symmetry by displacing the memory before stabilization, or by applying a memory drive odd in a. Here β denotes the dimensionless initial coherent-state amplitude (mean photon number |β|²); α = 2.1 is the target amplitude. In method B, ε₁ is the memory-drive amplitude in rad/µs.
 
 All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, read at t = 2 µs. Script `tasks/task_1_3b.py`, results `results/task_1_3b.json`, figure `figures/task_1_3b_logical_prep.png`, notebook `notebooks/05_task_1_3b_logical_prep.ipynb`. Claims are labelled B1–B7 so they don't collide with the numbering on other branches.
 
@@ -150,7 +152,7 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 | B1 | Method A (start in \|β⟩, β real, then pump) prepares \|+α⟩ | F = 0.978 / 0.9988 / 1.000 / 0.9977 for β = 1.0 / 1.5 / 2.1 / 3.0 | the stabilization selects the positive well; β = α starts at the target amplitude, with small memory-loss corrections | `A1_amplitude[*].F_plus_alpha_2us` |
 | B2 | It is fast | F ≥ 0.99 after 0.41 µs (β = 1.5), 0.53 µs (β = 3.0) | comparable to inflation from vacuum (~1 µs) | `A1_amplitude[*].t_F_099_us` |
 | B3 | Small β only partly picks a well | β = 0.5: F = 0.84, Re⟨a⟩/α = 0.69 | a weak push leaves weight in the −α basin | `A1_amplitude[1]` |
-| B4 | Stabilization forgives a phase error in the pulse | F = 0.9995 / 0.9951 / 0.973 at 15° / 30° / 45° (\|β\| = α); the pulse alone gives 0.74 / 0.31 / 0.08 | pulse alone needs \|β − α\|² ≤ 0.01, i.e. ≤ 2.7° for F ≥ 0.99 | `A2_phase[*]`, `phase_window_F099_stabilized_deg` = 30 |
+| B4 | Stabilization forgives a phase error in the pulse | F = 0.9995 / 0.9951 / 0.973 at 15° / 30° / 45° (\|β\| = α); the initial state has fidelity 0.74 / 0.31 / 0.08 | initial-state fidelity ≥ 0.99 requires \|β − α\|² ≤ −ln(0.99) ≈ 0.01005, i.e. phase error ≤ 2.7° at \|β\| = α | `A2_phase[*]`, `phase_window_F099_stabilized_deg` = 30 |
 | B5 | Method B (drive i·ε₁(a† − a) for the first 100 ns, from vacuum) also works if strong | ε₁ = 5 / 10 / 20 rad/µs: F = 0.78 / 0.94 / 0.997 | ε₁T is the bare displacement (0.5 / 1 / 2); the drive competes with the inflation, so it is weaker than A at equal β | `B_drive[*]` |
 | B6 | The other quadrature ε(a + a†) picks no well | Re⟨a⟩ = 0, F = 0.500 | ε(a + a†) generates D(−iεt), a push along the imaginary axis, at right angles to the wells, so the mirror symmetry Re⟨a⟩ → −Re⟨a⟩ survives (it is the 90° end of B4). Once the cat exists, the same drive is the Zeno Z gate | `control_wrong_quadrature` |
 | B7 | Preparation-fidelity cutoff check | every F above agrees between 28×10 and 32×12 to ≤ 3e-4; peak memory top-2 probability 3.11e-5, peak buffer top probability 4.85e-4 | scalar preparation check; the Task 1.2 state-distance bound applies to vacuum inflation | run with `--na 28 --nb 10` |
