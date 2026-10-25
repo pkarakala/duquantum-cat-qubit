@@ -10,10 +10,18 @@ Status: `DONE_WITH_CONCERNS`. The release is local and on GitHub only if the pus
 | `prod/p8-docs` | `a28fae98a14dcca174cf8a9104f21d324c5ca7ec` | Submission text. Base of this release. Already on `origin`. |
 | `prod/backboard` | `0514f95c4719a3d72845c1657ac6cbff2460c19f` | Backboard SDK memory. Merged cleanly. |
 | merge | `6922440991b6f7f5de7c3c4f98e7dbe771b75ab5` | `prod/backboard` into `prod/release` |
-| `prod/release` note | `e0a43140a06a194dca72204bf22fd9733659bc1b` | This note. First push. |
-| `prod/site-shell` | `a28fae98a14dcca174cf8a9104f21d324c5ca7ec` | No commits beyond `prod/p8-docs`. Not merged. |
+| `prod/release` note | `e0a43140a06a194dca72204bf22fd9733659bc1b` | First morning note. |
+| `prod/site-shell` | `4431a3d97a379e092cbc0478d001fe67ef846a7a` | Vite app. Merged. |
+| site merge | `ddeff329ba4e68474272712102c9d3bf27c785d9` | `prod/site-shell` into `prod/release`. |
 
-`prod/site-shell` still has uncommitted files in `.worktrees/prod-site-shell` (`site/package.json`, Vite config, `index.html`, routes, styles). They were left in that worktree. This release does not add a second site implementation.
+The site commit mounts `#/learn` and `#/sandbox`. Research pages are placeholders: `#/inflate`, `#/errors`, `#/readout`, and `#/verify` say the viewers ship with the physics lab and are not in this Academy bundle.
+
+Local dev:
+
+```text
+npm --prefix site run dev
+http://127.0.0.1:5173/#/learn
+```
 
 ## What is live in the code
 
@@ -26,7 +34,7 @@ Status: `DONE_WITH_CONCERNS`. The release is local and on GitHub only if the pus
 
 The API is not on `64.177.55.154`. `GET http://64.177.55.154:8000/api/health` timed out after 10 seconds from this Mac (public IP `152.3.43.41`). Ports 22, 80, and 443 also time out. SSH was not retried. `academy-api` was not created. Nothing was deployed.
 
-The site was not built or hosted. Vultr is not serving the UI. Solana is still demo.
+The site builds on this branch. Vultr is not serving the UI, and the VM was not touched again. Solana is still demo.
 
 ## Firewall to open
 
@@ -52,16 +60,11 @@ vitest site/src/blocks   2 files, 10 passed
 vitest site/src/tutor    2 files, 7 passed
 ```
 
-`npm --prefix site run build` was not possible: `site/package.json` is not on this branch (`ENOENT`). The uncommitted shell in the other worktree was not built.
+`npm --prefix site run build` on this branch after the site merge: exit 0 (`vite v6.4.5`, built in 8.13s). `dist/` stays gitignored. `build:single` was already exit 0 on `4431a3d` and was not run again.
 
 ## Push
 
-GitHub received both branches. No force push.
-
-- `prod/release` → `origin/prod/release` (new branch), tip `e0a43140a06a194dca72204bf22fd9733659bc1b`
-- `prod/backboard` → `origin/prod/backboard` (new branch), tip `0514f95c4719a3d72845c1657ac6cbff2460c19f`
-
-`standard-track`, `main`, and tags were not pushed. A follow-up commit adds this push result.
+GitHub already has `prod/backboard` at `0514f95c4719a3d72845c1657ac6cbff2460c19f` and the earlier `prod/release` note. This commit adds the site merge `ddeff329ba4e68474272712102c9d3bf27c785d9` (`4431a3d`) and is pushed with `prod/site-shell`. No force. `standard-track`, `main`, and tags were not pushed. Vultr was not contacted.
 
 ## Secrets
 
