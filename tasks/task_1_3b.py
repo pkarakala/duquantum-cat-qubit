@@ -13,7 +13,7 @@ has to be broken on the memory, by something odd in a:
 We also test how much the stabilization forgives a miscalibrated pulse (phase and
 amplitude errors on beta), which is the cost question of 1.3(c).
 
-Single-point mode (one job per point for the cloud runner, cloud/research_jobs.txt):
+Single-point mode (one job per point for the cloud runner, cloud/vultr_batch.py):
   python -m tasks.task_1_3b --na 40 --nb 14 --phase 25     # |beta| = alpha, 25 deg phase error
   python -m tasks.task_1_3b --na 40 --nb 14 --beta 1.25    # real beta
 writes results/task_1_3b_points/beta<amp>_phase<deg>_<Na>x<Nb>.json only.

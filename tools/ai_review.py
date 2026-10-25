@@ -10,7 +10,7 @@ results: every number in the README comes from the scripts in tasks/.
     python tools/ai_review.py --dry-run                      # save the prompt, call no API
     python tools/ai_review.py --figures                      # Gemini reads each figure vs its claims
 
-The challenge prompt and TECHNICAL.md are sent as context, so the reviewer
+The challenge prompt and docs/TECHNICAL.md are sent as context, so the reviewer
 knows the tasks, conventions and every claim we make.
 Output goes to reviews/<provider>-<timestamp>.md; we list what we acted on in the README.
 """
@@ -63,7 +63,7 @@ Check specifically, citing file and line:
 def briefing():
     """Bring the reviewer up to speed: the challenge prompt and our technical layer."""
     parts = []
-    for rel in ["docs/challenge_prompt_v4.md", "TECHNICAL.md"]:
+    for rel in ["docs/challenge_prompt_v4.md", "docs/TECHNICAL.md"]:
         p = ROOT / rel
         if p.exists():
             parts.append(f"### {rel}\n{p.read_text()}")
@@ -112,7 +112,7 @@ or noisy. Say 'none' if there is nothing. Be concrete and short.
 
 Figure file: {name}
 
-Our claims tied to this figure (from TECHNICAL.md, with the numbers our scripts computed):
+Our claims tied to this figure (from docs/TECHNICAL.md, with the numbers our scripts computed):
 {claims}
 
 The script's saved results for this task (JSON):
@@ -133,9 +133,9 @@ FIGURE_SCHEMA = {
 
 
 def claims_table():
-    """Rows of the TECHNICAL.md claims table as (number, claim, value, source file)."""
+    """Rows of the docs/TECHNICAL.md claims table as (number, claim, value, source file)."""
     rows = []
-    for line in (ROOT / "TECHNICAL.md").read_text().splitlines():
+    for line in (ROOT / "docs/TECHNICAL.md").read_text().splitlines():
         cells = [c.strip().replace("\\|", "|") for c in re.split(r"(?<!\\)\|", line.strip().strip("|"))]
         if len(cells) == 6 and cells[0].isdigit():
             src = re.search(r"(task_[\w]+?)\.json", cells[4])
@@ -206,14 +206,14 @@ def check_figures(model, dry_run=False):
     md = ROOT / "reviews" / f"figures-{stamp}.md"
     md.write_text(f"# Gemini figure check ({model})\n\n"
                   "Each figure was sent as an image with the claims it supports; "
-                  "verdicts are Gemini's reading of the plot, triaged by us in TECHNICAL.md section 5.\n\n"
+                  "verdicts are Gemini's reading of the plot, triaged by us in docs/TECHNICAL.md section 5.\n\n"
                   "| Figure | Claim | Verdict | Evidence |\n|---|---|---|---|\n" + "\n".join(out) + "\n")
     print("saved", md)
     partial.unlink(missing_ok=True)
     bad = sum(1 for v in raw.values() for c in v["claims"] if c["verdict"] == "contradicted")
     issues = sum(1 for v in raw.values() for i in v["presentation_issues"] if i.strip().lower() != "none")
     log_tool(f"Gemini API (`{model}`, multimodal)",
-             f"Checked {len(raw)} figures as images against their TECHNICAL.md claims (`ai_review.py --figures`)",
+             f"Checked {len(raw)} figures as images against their docs/TECHNICAL.md claims (`ai_review.py --figures`)",
              f"{len(raw)} requests, {USAGE['in']:,} in / {USAGE['out']:,} out tokens",
              f"`reviews/{md.name}`", f"{bad} claims contradicted, {issues} presentation issues; triage pending")
 

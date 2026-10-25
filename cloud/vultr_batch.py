@@ -2,7 +2,7 @@
 
     python cloud/vultr_batch.py grid --servers 3 --plan voc-c-16c-32gb-300s-amd --budget 5
     python cloud/vultr_batch.py jobs.txt --servers 4 --plan <id> --budget 10
-    python cloud/vultr_batch.py cloud/research_jobs.txt --branch research-runs --servers 4 --plan <id> --budget 20
+    python cloud/vultr_batch.py cloud/s2_batch3s.txt --branch main --servers 3 --plan <id> --budget 20
     caffeinate -i python cloud/vultr_batch.py ... --yes --push     # unattended: no prompt, results pushed
 
 --branch runs the committed code of origin/<branch> (fetched first) and reads the jobs file

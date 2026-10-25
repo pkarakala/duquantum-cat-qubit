@@ -1,6 +1,6 @@
 # Figure captions
 
-The figures are exported as 300-dpi PNGs and PDFs, with animated GIFs for the Wigner time series. Time is in µs; rates are in µs⁻¹ with the angular-frequency convention of `src/config.py`. The cutoffs $N_a$ and $N_b$ count retained memory and buffer Fock states. Physical parameters and numerical methods are specified in [TECHNICAL.md](../TECHNICAL.md).
+The figures are exported as 300-dpi PNGs and PDFs, with animated GIFs for the Wigner time series. Time is in µs; rates are in µs⁻¹ with the angular-frequency convention of `src/config.py`. The cutoffs $N_a$ and $N_b$ count retained memory and buffer Fock states. Physical parameters and numerical methods are specified in [docs/TECHNICAL.md](../docs/TECHNICAL.md).
 
 ## Animated Wigner evolution
 

@@ -2,7 +2,7 @@
 
 **DuQuantum 2026 · Alice & Bob challenge.** Section 1 groundwork for our Standard-track submission; the Standard-track results are in [SECTION2.md](SECTION2.md) and the overview in the [README](../README.md).
 
-Completed: **Tasks 1.0(a–c), 1.1, 1.2 and 1.3(a–c)**. We use the supplied parameters with $\alpha=2.1$, time in µs, a single-mode cutoff $N=30$, and two-mode cutoffs $(N_a,N_b)=(32,12)$ unless specified otherwise. [Methods and numerical evidence](../TECHNICAL.md) · [Challenge prompt](challenge_prompt_v4.md)
+Completed: **Tasks 1.0(a–c), 1.1, 1.2 and 1.3(a–c)**. We use the supplied parameters with $\alpha=2.1$, time in µs, a single-mode cutoff $N=30$, and two-mode cutoffs $(N_a,N_b)=(32,12)$ unless specified otherwise. [Methods and numerical evidence](TECHNICAL.md) · [Challenge prompt](challenge_prompt_v4.md)
 
 ## 1.0 — Add dissipation one ingredient at a time
 
