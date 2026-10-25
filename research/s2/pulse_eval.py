@@ -34,6 +34,7 @@ def shapes(alpha, T, n, norm="energy"):
         "svd": linresp.optimal_pulse(alpha, T, n, 1.0)[0],
         "mem": linresp.optimal_pulse_mem(alpha, T, n, 1.0),
         "bang": np.sign(np.cos(wr * t)),
+        "rescos2": np.cos(wr * t) * np.sin(np.pi * t / T) ** 2,   # resonant with smooth on/off
     }
     raw["svdbang"] = np.sign(raw["svd"])     # amplitude-constrained version of the SVD pulse
     dt = T / n

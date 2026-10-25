@@ -93,7 +93,10 @@ Local results (small truncations, to be confirmed on the cloud):
 - Gradient optimization from the bang-bang start improves SNR/P_flip to 1.53× the square pulse after 12 Adam steps
   (α = 1.4, T = 0.5 µs, peak 0.5 g₂), still improving.
 
-**Why it works (working hypothesis, being tested).** The square pulse's sharp edges excite the 3.2 MHz memory–buffer ringing at both turn-on and
-turn-off, and that ringing transiently displaces the memory toward the separatrix without adding information.
-A drive that matches the ring frequency puts its energy where the buffer response is largest, and a shaped
-turn-off returns the system to the well instead of leaving it ringing.
+**Why it works (what we tested so far).** Our first guess was that the square pulse's sharp edges excite the
+3.2 MHz ringing and cause extra flips. A direct test falsified it: at α = 1.4 (T = 1 µs, peak 0.5 g₂) smoothing the
+edges (raised cosine) improves flips-per-SNR by only 7% (0.0252 vs 0.0272), while driving at the ring frequency
+improves it by 36% whether or not the edges are smoothed (0.0174 for both the plain and smooth-edged resonant pulse).
+So what matters is *where the drive's spectrum sits*, not its edges. The resonant drive is amplified by the
+memory–buffer oscillator (Q ≈ 2) in the buffer field, which carries the information, more than in the memory
+excursion that causes the flips. ⟨pending: quadrature-resolved check of this mechanism.⟩
