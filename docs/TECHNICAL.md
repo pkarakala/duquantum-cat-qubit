@@ -24,7 +24,8 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 ### 2.2 Phase flips
 
 - Γ_Z = 0.514559 per µs at α = 2.1 from both the parity-decay fit (`tasks/task_2_2.py`) and the eigenvalue.
-- It follows 2κ_aα² coth 2α² to within 0.1–0.55% from α = 0.8 to 2.6, with slope 0.991 × 2κ_a.
+- It sits 0.1–0.5% below 2κ_aα² coth 2α², because photon loss leaves the cat about 0.007 photons short of α². With the simulated photon number n̄, 2κ_a n̄ coth 2n̄ matches to 3e-4 for α ≥ 1.5.
+- Bias at α = 2.1: Γ_Z/Γ_X = 1.3×10⁶.
 
 ### 2.3 Readout (`research/s2/readout.py`)
 
