@@ -10,6 +10,7 @@ Status: `DONE_WITH_CONCERNS`. The release is local and on GitHub only if the pus
 | `prod/p8-docs` | `a28fae98a14dcca174cf8a9104f21d324c5ca7ec` | Submission text. Base of this release. Already on `origin`. |
 | `prod/backboard` | `0514f95c4719a3d72845c1657ac6cbff2460c19f` | Backboard SDK memory. Merged cleanly. |
 | merge | `6922440991b6f7f5de7c3c4f98e7dbe771b75ab5` | `prod/backboard` into `prod/release` |
+| `prod/release` note | `e0a43140a06a194dca72204bf22fd9733659bc1b` | This note. First push. |
 | `prod/site-shell` | `a28fae98a14dcca174cf8a9104f21d324c5ca7ec` | No commits beyond `prod/p8-docs`. Not merged. |
 
 `prod/site-shell` still has uncommitted files in `.worktrees/prod-site-shell` (`site/package.json`, Vite config, `index.html`, routes, styles). They were left in that worktree. This release does not add a second site implementation.
@@ -55,7 +56,12 @@ vitest site/src/tutor    2 files, 7 passed
 
 ## Push
 
-Recorded after the push attempt, in the commit that updates this section.
+GitHub received both branches. No force push.
+
+- `prod/release` → `origin/prod/release` (new branch), tip `e0a43140a06a194dca72204bf22fd9733659bc1b`
+- `prod/backboard` → `origin/prod/backboard` (new branch), tip `0514f95c4719a3d72845c1657ac6cbff2460c19f`
+
+`standard-track`, `main`, and tags were not pushed. A follow-up commit adds this push result.
 
 ## Secrets
 
