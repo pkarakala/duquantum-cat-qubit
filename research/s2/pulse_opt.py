@@ -93,29 +93,37 @@ def main():
     opt = optax.adam(a.lr)
     st = opt.init(theta)
     hist = []
-    best = (np.inf, None)
+    best = (np.inf, None, None, None)
+    tag = f"opt_a{a.alpha:.2f}_{a.na}x{a.nb}_T{a.T:g}_pk{a.peak:g}_{a.init}_mu{a.mu_scale:g}_s{a.seed}"
+
+    def result(partial):
+        eps_best = emax * np.tanh(best[1])
+        b_snr, b_pf = best[2], best[3]
+        return {"alpha": a.alpha, "na": a.na, "nb": a.nb, "T": a.T, "settle": a.settle, "peak": a.peak,
+                "bins": a.bins, "init": a.init, "mu": mu, "mu_scale": a.mu_scale, "partial": partial,
+                "square": {"snr": snr_sq, "p_flip": p_sq},
+                "best": {"J_over_snr_sq": -best[0], "pulse_over_g2": (eps_best / G2).tolist(), "snr": b_snr,
+                         "p_flip": b_pf, "ratio_vs_square": (b_snr / b_pf) / (snr_sq / p_sq)},
+                "history": hist, "seconds": time.time() - t_start}
+
     for k in range(a.iters + 1):
         (l, (snr, pf)), g = vg(theta)
         hist.append({"iter": k, "J_over_snr_sq": float(-l), "snr": float(snr), "p_flip": float(pf)})
         if float(l) < best[0]:
-            best = (float(l), np.asarray(theta))
+            best = (float(l), np.asarray(theta), float(snr), float(pf))
+            if k < a.iters:
+                save(tag, result(True))          # checkpoint: a run cut off by a time limit keeps its best pulse
         print(f"{k:3d} J/SNRsq {-float(l):+.4f}  SNR {float(snr):.4g} (x{float(snr)/snr_sq:.2f})  "
               f"P_flip {float(pf):.4g} (x{float(pf)/p_sq:.2f})  {time.time()-t_start:.0f}s", flush=True)
         if k == a.iters:
             break
         up, st = opt.update(g, st)
         theta = optax.apply_updates(theta, up)
-    eps_best = emax * np.tanh(best[1])
-    out = {"alpha": a.alpha, "na": a.na, "nb": a.nb, "T": a.T, "settle": a.settle, "peak": a.peak,
-           "bins": a.bins, "init": a.init, "mu": mu, "mu_scale": a.mu_scale,
-           "square": {"snr": snr_sq, "p_flip": p_sq},
-           "best": {"J_over_snr_sq": -best[0], "pulse_over_g2": (eps_best / G2).tolist()},
-           "history": hist, "seconds": time.time() - t_start}
-    b_snr, b_pf = [float(x) for x in metrics(jnp.asarray(eps_best))]
-    out["best"].update({"snr": b_snr, "p_flip": b_pf, "ratio_vs_square": (b_snr / b_pf) / (snr_sq / p_sq)})
-    print(f"best: SNR {b_snr:.4g} (x{b_snr/snr_sq:.2f}), P_flip {b_pf:.4g} (x{b_pf/p_sq:.2f}), "
-          f"SNR/P_flip x{out['best']['ratio_vs_square']:.2f} vs square")
-    save(f"opt_a{a.alpha:.2f}_{a.na}x{a.nb}_T{a.T:g}_pk{a.peak:g}_{a.init}_mu{a.mu_scale:g}_s{a.seed}", out)
+    out = result(False)
+    b = out["best"]
+    print(f"best: SNR {b['snr']:.4g} (x{b['snr']/snr_sq:.2f}), P_flip {b['p_flip']:.4g} (x{b['p_flip']/p_sq:.2f}), "
+          f"SNR/P_flip x{b['ratio_vs_square']:.2f} vs square")
+    save(tag, out)
 
 
 if __name__ == "__main__":
