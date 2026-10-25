@@ -70,11 +70,17 @@ Each minimum must pass together with all larger cutoffs in its sweep, relative t
 
 **Observable convergence.** Peak occupation $n_{a,\mathrm{pk}}=\max_t\langle n_a(t)\rangle$ and late-time mean $\bar n_{a,\mathrm{ss}}$, averaged over 2.81–3 µs, for the same two sweeps. Dotted lines mark $\alpha^2$.
 
-To check the quantum state as well as occupation, we compare all **36 cutoff pairs** with $(40,14)$ using maximum reduced-memory trace distance, after zero-padding the smaller Fock space. This tests both populations and coherence. Requiring $D_{\max}\leq1\%$, the occupation tolerances above, and both monitored top-level populations below 0.1% gives **$(28,12)$ as the smallest tested passing pair**, with $D_{\max}=0.848\%$. Our **chosen cutoff is $(32,12)$**, used throughout Tasks 1.1 and 1.3, with additional margin at $D_{\max}=0.310\%$. Each passing pair must also have all larger tested pairs pass.
+To check the quantum state as well as occupation, we compare all **36 cutoff pairs** with $(40,14)$ using maximum reduced-memory trace distance, after zero-padding the smaller Fock space. This tests both populations and coherence. Requiring $`D_{\max}\leq1\%`$, the occupation tolerances above, and both monitored top-level populations below 0.1% gives **$(28,12)$ as the smallest tested passing pair**, with $`D_{\max}=0.848\%`$. Our **chosen cutoff is $(32,12)$**, used throughout Tasks 1.1 and 1.3, with additional margin at $`D_{\max}=0.310\%`$. Each passing pair must also have all larger tested pairs pass.
 
 ![Joint memory-state convergence](figures/task_1_2_error_grid.png)
 
-**Joint memory-state convergence.** Axes give the retained memory and buffer dimensions $N_a$ and $N_b$. Blue shading shows $D_{\max}=\max_t\tfrac12\|\rho_a(t)-\rho_{a,\mathrm{ref}}(t)\|_1$ relative to $(40,14)$, where $\rho_a$ is the reduced memory state and smaller states are zero-padded. Lighter shades mean smaller differences; the color bar is logarithmic in percent, with a 0.1% display floor. Small circles mark the 36 computed pairs. The black curve is the **$D_{\max}=1\%$ threshold**; the upper-right side satisfies the state-distance criterion. The black ring marks the chosen cutoff $(32,12)$, used throughout Tasks 1.1 and 1.3; the star marks reference $(40,14)$, where $D_{\max}=0$. Background and contour use the same shape-preserving interpolation; cutoff checks use computed values. Each distance is maximized over 301 saved times from 0 to 3 µs.
+**Joint memory-state convergence.** Axes give the retained memory and buffer dimensions $N_a$ and $N_b$. Blue shading shows the maximum trace distance relative to $(40,14)$:
+
+```math
+D_{\max}=\max_t\frac{1}{2}\left\lVert\rho_a(t)-\rho_{a,\mathrm{ref}}(t)\right\rVert_1.
+```
+
+Here $\rho_a$ is the reduced memory state and smaller states are zero-padded. Lighter shades mean smaller differences; the color bar is logarithmic in percent, with a 0.1% display floor. Small circles mark the 36 computed pairs. The black curve marks $`D_{\max}=1\%`$; the upper-right side satisfies this threshold. The black ring marks the chosen cutoff $(32,12)$, used throughout Tasks 1.1 and 1.3; the star marks reference $(40,14)$, where $D_{\max}=0$. Background and contour use the same shape-preserving interpolation; cutoff checks use computed values. Each distance is maximized over 301 saved times from 0 to 3 µs.
 
 ## 1.3(a) — Identify the prepared state and its decay
 
