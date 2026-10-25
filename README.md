@@ -230,17 +230,21 @@ The rate calculations use $(20,6)$ for 2.1 and $(24,8)$ for 2.2, checked against
 
 ## 2.3 — Read the memory bit through the buffer
 
-We add a real memory drive $H_Z=\epsilon_Z(a+a^\dagger)$ to the full two-mode
-model and independently evolve each memory codeword with the buffer in vacuum.
-The chosen drive is **$\epsilon_Z=0.05g_2$**, twenty times below the coupling,
-with $\epsilon_Z/(2\pi)=38.15$ kHz. All supplied parameters and both loss
-channels are retained at $(N_a,N_b)=(32,12)$.
+A weak memory drive transfers the memory's codeword sign into a measurable
+buffer-field quadrature, enabling readout without a transmon. We add
+$H_Z=\epsilon_Z(a+a^\dagger)$ to the full two-mode model and independently
+evolve both codewords with the buffer in vacuum. The chosen drive,
+**$\epsilon_Z=0.05g_2$**, keeps the displacement about the occupied well small
+and probes an approximately linear response. Its frequency scale is
+$\epsilon_Z/(2\pi)=38.15$ kHz, twenty times below $g_2/(2\pi)$. All supplied
+parameters and both loss channels are retained at $(N_a,N_b)=(32,12)$.
 
-The drive displaces the memory along the imaginary axis. Near either occupied
-well, $a^2-\alpha^2\simeq\pm2\alpha\delta a$, so the same displacement gives
-opposite real buffer fields. Define $\beta_s(t)=\langle b\rangle_s(t)$ for
-initial codeword $\lvert s\alpha\rangle$, $s=\pm1$, and $\bar\beta_s$ as its
-3–4 µs mean:
+For initial codeword $\lvert s\alpha\rangle$, $s=\pm1$, write the memory
+amplitude as $A_s=\langle a\rangle_s=s\alpha+\delta a_s$, where $\delta a_s$
+is the displacement from that well. The drive displaces it along the imaginary
+axis. The local relation $A_s^2-\alpha^2\simeq2s\alpha\delta a_s$ then gives
+opposite real buffer responses. Define $\beta_s(t)=\langle b\rangle_s(t)$ and
+$\bar\beta_s$ as its 3–4 µs mean:
 
 | Initial memory | Mean $\mathrm{Re}\langle b\rangle$ | Mean $\mathrm{Im}\langle b\rangle$ |
 |---|---:|---:|
