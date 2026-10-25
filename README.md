@@ -230,63 +230,52 @@ The rate calculations use $(20,6)$ for 2.1 and $(24,8)$ for 2.2, checked against
 
 ## 2.3 — Read the memory bit through the buffer
 
-A weak memory drive transfers the memory's codeword sign into a measurable
-buffer-field quadrature, enabling readout without a transmon. We add
-$H_Z=\epsilon_Z(a+a^\dagger)$ to the full two-mode model and independently
-evolve both codewords with the buffer in vacuum. The chosen drive,
-**$\epsilon_Z=0.05g_2$**, keeps the displacement about the occupied well small
-and probes an approximately linear response. Its frequency scale is
-$\epsilon_Z/(2\pi)=38.15$ kHz, twenty times below $g_2/(2\pi)$. All supplied
-parameters and both loss channels are retained at $(N_a,N_b)=(32,12)$.
+Task 2.3 asks whether the buffer reveals which memory state was prepared,
+using a weak drive, and how long the buffer response takes to settle.
+We add the real memory drive $H_Z=\epsilon_Z(a+a^\dagger)$ to the supplied
+full two-mode model. We evolve each memory state $\lvert\pm\alpha\rangle$
+independently, starting with the buffer in vacuum and retaining both loss channels.
 
-For initial codeword $\lvert s\alpha\rangle$, $s=\pm1$, write the memory
-amplitude as $A_s=\langle a\rangle_s=s\alpha+\delta a_s$, where $\delta a_s$
-is the displacement from that well. The drive displaces it along the imaginary
-axis. The local relation $A_s^2-\alpha^2\simeq2s\alpha\delta a_s$ then gives
-opposite real buffer responses. Define $\beta_s(t)=\langle b\rangle_s(t)$ and
-$\bar\beta_s$ as its 3–4 µs mean:
+**Drive choice.** We use $\epsilon_Z=0.05g_2$, twenty times below $g_2$:
+$\epsilon_Z/(2\pi)=38.15$ kHz. A drive sweep confirms that the response is
+approximately proportional to the drive in this range.
 
-| Initial memory | Mean $\mathrm{Re}\langle b\rangle$ | Mean $\mathrm{Im}\langle b\rangle$ |
+**Readout signal.** The real part of the buffer field, $\mathrm{Re}\langle b\rangle$,
+has opposite signs for the two memory states:
+
+| Initial memory | Simulated final real field | Predicted real field |
 |---|---:|---:|
-| $\lvert+\alpha\rangle$ | −0.01189484 | +0.00311514 |
-| $\lvert-\alpha\rangle$ | +0.01189484 | +0.00311514 |
+| $\lvert+\alpha\rangle$ | −0.01189484 | −0.01190476 |
+| $\lvert-\alpha\rangle$ | +0.01189484 | +0.01190476 |
 
-The **real contrast**, $\Delta\beta_R=\mathrm{Re}(\bar\beta_--\bar\beta_+)$,
-is **0.02378968**, **0.0834% below** the leading estimate
-$\Delta_{\mathrm{lin}}=\epsilon_Z/(\alpha g_2)$. The exact model symmetry is
-$\beta_-=-\beta_+^*$: real fields are opposite and imaginary fields are shared.
-The shared field arises from memory loss; the zero-drive control retains it
-while giving zero real contrast.
+Final values are estimated by averaging 3–4 µs. Their separation is
+**0.02378968**, only **0.0834% below** the prediction
+$\epsilon_Z/(\alpha g_2)$. Measuring this real field therefore provides
+information about which memory state was prepared.
 
 <p align="center">
-  <img src="figures/task_2_3_readout.png" width="860" alt="Memory-bit readout and settling">
+  <img src="figures/task_2_3_readout.png" width="860" alt="Opposite readout signals and the time needed to settle">
 </p>
 
-**Weak-drive buffer response.** (a) Real fields and their leading estimates
-(dotted). (b) Common imaginary field
-$\beta_{\mathrm{com}}=(\beta_++\beta_-)/2$, the zero-drive control, and the
-leading memory-loss estimate. (c) Transient real separation normalized by
-$\Delta_{\mathrm{lin}}$, compared with local semiclassical linearization.
-(d) $r(t)$, the larger complex-field distance from the two plateau means,
-divided by the predicted half contrast $\epsilon_Z/(2\alpha g_2)$; guides mark
-$r=0.01$ and the sustained settling time. Saved times are 2 ns apart.
+**Readout signals and settling.** Each memory codeword $\lvert\pm\alpha\rangle$ starts with the buffer in vacuum. The full two-mode model includes both loss channels, $\alpha=2.1$, $(N_a,N_b)=(32,12)$ and $\epsilon_Z=0.05g_2$. (a) Real buffer fields; their opposite signs distinguish the two memory states. Dotted lines show the predicted values $\mp\epsilon_Z/(2\alpha g_2)$. The oscillations show that the response does not settle monotonically. (b) The larger deviation of the two complex fields from their respective final values, expressed as a percentage of the predicted field magnitude $\epsilon_Z/(2\alpha g_2)=0.01190476$. Final values are estimated by averaging 3–4 µs. From 0.968 µs onward, both deviations remain below 1% through the end of the 4-µs simulation. The first 2 µs are shown; saved times are 2 ns apart.
 
-**The response undergoes damped oscillation.** The first contrast maximum
-occurs at 0.158 µs with **44.3% overshoot**; the measured period is about
-0.313 µs. Settling requires $r(t)\leq0.01$ at every remaining saved time.
-Both fields satisfy this criterion from **0.968 µs** through 4 µs, with the
-last crossing in 0.966–0.968 µs. An 8-µs run and tighter integration with
-1-ns saved spacing confirm the result.
+**Time to settle.** The response oscillates before settling. Its first maximum
+occurs at 0.158 µs, **44.3% above** the final signal magnitude, with an
+oscillation period of about 0.313 µs. Both buffer fields stay within the stated
+1% tolerance from **0.968 µs** through 4 µs. Here 1% means each field differs
+from its final value by at most **0.00011905**, including both real and imaginary
+components. We use the
+last threshold crossing, so earlier crossings during oscillation do not count.
 
-All 15 numerical checks pass, including separate and joint cutoff increases,
-weak-drive linearity and independent QuTiP BDF integration at the same
-production cutoff. [Full derivation, validation and limitations](docs/task_2_3_readout.md)
+All 15 numerical checks pass, including larger cutoffs, tighter integration,
+an independent solver and an 8-µs run.
+[Detailed methods and supporting physics](docs/task_2_3_readout.md)
 · [Executed notebook](notebooks/08_task_2_3_readout.ipynb)
-· [Numerical checks figure](figures/task_2_3_validation.png).
+· [Supporting numerical checks](figures/task_2_3_validation.png).
 
-These are conditional mean fields over a finite interval. Single-shot fidelity
-and integration time require a measurement-noise model; the effect of stronger
-readout on bit-flip protection belongs to Task 2.4.
+These results describe mean buffer fields. The 0.968-µs settling time does not
+determine how long a noisy single-shot measurement must integrate, or its fidelity.
+Readout-strength optimization and its effect on bit-flip protection belong to Task 2.4.
 
 ## Reproduce the results
 

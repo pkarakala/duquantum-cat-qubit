@@ -1,145 +1,122 @@
 # Task 2.3: transmon-free memory-bit readout
 
-The aim is to distinguish the two memory codewords through the emitted buffer
-field. A weak memory drive transfers the codeword sign into opposite real
-buffer amplitudes, providing a readout signal without a transmon.
+The task has three requirements. Each has a direct numerical answer:
 
-At $\epsilon_Z=0.05g_2$, the real-field separation is **0.02378968**,
-**0.0834% below** the leading linear estimate. The response undergoes damped
-oscillation and satisfies a sustained 1% settling criterion from **0.968 µs**.
-The calculation resolves conditional ensemble means over a finite interval.
+| Requirement | Result |
+|---|---|
+| Show that the two memory states give distinguishable buffer fields | Their final real fields are **−0.01189484** and **+0.01189484**. |
+| Use a drive well below $g_2$ | We choose **$\epsilon_Z=0.05g_2$**, twenty times smaller. |
+| Determine the settling time and whether the approach oscillates | The response oscillates, then stays within the specified 1% tolerance from **0.968 µs** through 4 µs. |
 
-## Protocol and observables
+## Simulation and drive choice
 
-Let $a$ and $b$ annihilate a photon in the memory and buffer, respectively.
-With $\hbar=1$, we add a constant, real memory drive to the supplied two-photon
-Hamiltonian:
+Let $a$ and $b$ annihilate a photon in the memory and buffer. We use the supplied
+full two-mode Hamiltonian, adding the real, constant memory drive:
 
 $$
-H=H_{2\mathrm{ph}}+H_Z,\qquad H_Z=\epsilon_Z(a+a^\dagger),
+H=g_2(a^2b^\dagger+a^{\dagger2}b)-\epsilon_d(b+b^\dagger)
++\epsilon_Z(a+a^\dagger),\qquad \epsilon_d=g_2\alpha^2.
 $$
 
-$$
-H_{2\mathrm{ph}}=g_2(a^2b^\dagger+a^{\dagger2}b)-\epsilon_d(b+b^\dagger),
-\qquad \epsilon_d=g_2\alpha^2.
-$$
+Both photon-loss channels, $\sqrt{\kappa_a}a$ and $\sqrt{\kappa_b}b$, are
+retained. Each initial memory state $\lvert\pm\alpha\rangle$, with $\alpha=2.1$,
+is evolved independently with the buffer in vacuum. Preparation errors are excluded.
+All [supplied physical parameters](../TECHNICAL.md#1-model-and-conventions) are retained.
+Production uses $(N_a,N_b)=(32,12)$ retained Fock levels and double-precision
+Tsit5 integration with relative/absolute tolerances $10^{-10}/10^{-12}$.
+The 0–4 µs simulation saves results every 2 ns; this spacing is distinct from
+the solver's adaptive integration steps.
 
-Here $g_2$ is the two-photon exchange coupling, $\epsilon_d$ is the buffer-drive
-amplitude, and $\alpha=2.1$ is the real target memory amplitude. The jump
-operators are $\sqrt{\kappa_a}a$ and $\sqrt{\kappa_b}b$, with $\kappa_a$ and
-$\kappa_b$ the memory and buffer photon-loss rates. All
-[supplied parameters](../TECHNICAL.md#1-model-and-conventions) are retained.
+We choose $\epsilon_Z=0.05g_2=0.23970352$ µs⁻¹ to keep the displacement about
+each occupied memory state small. Its frequency scale is
+$\epsilon_Z/(2\pi)=38.15$ kHz, compared with $g_2/(2\pi)=763$ kHz.
+The drive sweep below checks that the response remains approximately proportional
+to this weak drive. This is a conservative working choice, not an optimized readout.
 
-We choose $\epsilon_Z=0.05g_2=0.23970352\ \mathrm{\mu s}^{-1}$ to probe the
-approximately linear response while keeping the displacement about the occupied
-well small. Its frequency scale, $\epsilon_Z/(2\pi)=38.15$ kHz, is twenty times
-below $g_2/(2\pi)=763$ kHz. The drive sweep below checks linearity; optimizing
-the readout strength and its effect on bit-flip protection belongs to Task 2.4.
+## What signal distinguishes the memory states?
 
-For $s=\pm1$, let $\rho_s(t)$ be the **joint memory–buffer density matrix**
-evolved from $|s\alpha\rangle_a|0\rangle_b$. Both codewords are evolved
-independently. Preparation errors are excluded. Production runs use
-$(N_a,N_b)=(32,12)$ retained Fock levels and double-precision Tsit5 integration
-with relative and absolute tolerances $10^{-10}$ and $10^{-12}$.
-
-Define the memory amplitude and buffer field as
+The drive slightly displaces the memory. The two-photon coupling converts the
+sign of the occupied memory state into the sign of the real buffer field.
+The leading estimate is
 
 $$
-A_s(t)=\mathrm{Tr}(a\rho_s(t)),\qquad
-\beta_s(t)=\mathrm{Tr}(b\rho_s(t)).
+\langle b\rangle_+\simeq-\frac{\epsilon_Z}{2\alpha g_2},\qquad
+\langle b\rangle_-\simeq+\frac{\epsilon_Z}{2\alpha g_2}.
 $$
 
-The drive contributes $\dot A_s=-i\epsilon_Z$, displacing the memory along the
-imaginary axis. At the semiclassical level, write $A_s=s\alpha+\delta a_s$,
-where $\delta a_s$ is the displacement from the occupied well. Then
-$A_s^2-\alpha^2\simeq2s\alpha\delta a_s$: the same displacement produces
-opposite real buffer responses. A phase-referenced measurement of the real
-buffer-output quadrature can therefore distinguish the memory bit.
+The subscripts identify the initial memory state. Final values below are estimated
+by averaging 3–4 µs; they describe the observed interval, rather than an
+infinite-time stationary state.
 
-We simulate 0–4 µs with 2-ns saved spacing. Let $\bar\beta_s$ be each branch's
-complex mean over 3–4 µs. The instantaneous separation, plateau contrast and
-common field are
+| Initial memory | Simulated real field | Predicted real field |
+|---|---:|---:|
+| $\lvert+\alpha\rangle$ | −0.01189484 | −0.01190476 |
+| $\lvert-\alpha\rangle$ | +0.01189484 | +0.01190476 |
 
-$$
-\Delta\beta_R(t)=\mathrm{Re}(\beta_-(t)-\beta_+(t)),\qquad
-\Delta\beta_R=\mathrm{Re}(\bar\beta_--\bar\beta_+),\qquad
-\beta_{\mathrm{com}}(t)=\frac{\beta_+(t)+\beta_-(t)}{2}.
-$$
+The real-field separation is **0.02378968**, **0.0834% below** the predicted
+$\epsilon_Z/(\alpha g_2)=0.02380952$. A phase-referenced measurement of this
+real field can therefore distinguish the two memory states.
 
-Settling is measured using the normalized full-complex residual
+## How long does the response take to settle?
 
-$$
-r(t)=\frac{\max_{s=\pm1}|\beta_s(t)-\bar\beta_s|}
-{\epsilon_Z/(2\alpha g_2)}.
-$$
+The response **oscillates before settling**. Its first maximum occurs at
+0.158 µs, **44.3% above** the final signal magnitude. The oscillation period
+measured from successive maxima is approximately **0.313 µs**.
 
-The settling time $t_{\mathrm{set}}$ is the first saved time after which
-**$r(t)\leq0.01$ at every remaining sample through 4 µs**. This uses both
-quadratures and excludes early crossings followed by further ringing.
-The 1% tolerance is relative to the predicted half contrast, rather than to
-the instantaneous field. Adaptive integration steps are distinct from saved
-times. An 8-µs run checks the result against a later 7–8 µs mean. Zero drive has
-no signal-relative settling time, represented by JSON null.
+We call the response settled when **both complex buffer fields stay within
+0.00011905 of their respective final values at every remaining saved time
+through 4 µs**. This absolute tolerance is 1% of the predicted field magnitude
+$\epsilon_Z/(2\alpha g_2)=0.01190476$. Including both real and imaginary parts
+checks that the whole field has settled. The final values are the 3–4 µs means.
 
-## Numerical results
+Both fields meet this criterion from **0.968 µs** onward. The last threshold
+crossing lies in **[0.966, 0.968] µs**. Earlier crossings followed by further
+oscillation do not count. Tighter integration with 1-ns saved spacing and an
+8-µs run using a later 7–8 µs mean give the same settling time.
 
-At the nominal drive, the plateau fields are
+<p align="center">
+  <img src="../figures/task_2_3_readout.png" width="860" alt="Opposite readout signals and the time needed to settle">
+</p>
 
-$$
-\bar\beta_+=-0.01189484+0.00311514i,\qquad
-\bar\beta_-=+0.01189484+0.00311514i.
-$$
+**Readout signals and settling.** Each memory codeword $\lvert\pm\alpha\rangle$ starts with the buffer in vacuum. The full two-mode model includes both loss channels, $\alpha=2.1$, $(N_a,N_b)=(32,12)$ and $\epsilon_Z=0.05g_2$. (a) Real buffer fields; their opposite signs distinguish the two memory states. Dotted lines show the predicted values $\mp\epsilon_Z/(2\alpha g_2)$. The oscillations show that the response does not settle monotonically. (b) The larger deviation of the two complex fields from their respective final values, expressed as a percentage of the predicted field magnitude $\epsilon_Z/(2\alpha g_2)=0.01190476$. Final values are estimated by averaging 3–4 µs. From 0.968 µs onward, both deviations remain below 1% through the end of the 4-µs simulation. The first 2 µs are shown; saved times are 2 ns apart.
 
-Their real parts are opposite; their common imaginary component is a
-memory-loss response. With no memory drive, both branches give
-$\bar\beta=0.00304907i$ and zero real contrast.
+The figure answers the task directly: panel (a) shows opposite signals and
+oscillation; panel (b) shows when the response stays within the chosen tolerance.
 
-Neglecting memory loss, the leading local estimate is
+## Checks on the weak-drive choice
 
-$$
-\beta_s\simeq-\frac{s\epsilon_Z}{2\alpha g_2},\qquad
-\Delta_{\mathrm{lin}}=\frac{\epsilon_Z}{\alpha g_2}=0.02380952.
-$$
-
-The simulated real contrast, **$\Delta\beta_R=0.02378968$**, is **0.0834% below**
-this estimate. The weak-drive sweep confirms proportional response:
-
-| $\epsilon_Z/g_2$ | Real separation | Leading estimate | Relative difference | 1% settling (µs) |
+| $\epsilon_Z/g_2$ | Real-field separation | Leading estimate | Relative difference | 1% settling (µs) |
 |---:|---:|---:|---:|---:|
 | 0 | 0 | 0 | — | — |
 | 0.025 | 0.01189512 | 0.01190476 | −0.0810% | 0.976 |
 | **0.050** | **0.02378968** | **0.02380952** | **−0.0834%** | **0.968** |
 | 0.100 | 0.04757483 | 0.04761905 | −0.0929% | 0.966 |
 
-Contrast per unit drive varies by only 0.0119% over the nonzero sweep.
+The separation per unit drive varies by only 0.0119% over the nonzero sweep.
 At 4 µs, fidelity with the initial coherent codeword is 0.99986 and the signed
-real memory amplitude divided by $\alpha$ is 0.99916 for either branch.
-These checks support a weak local response over the simulated interval;
-they do not establish a long-time switching rate.
+real memory amplitude divided by $\alpha$ is 0.99916 for either initial state.
+These checks support a small perturbation over the simulated interval; they
+do not establish a long-time switching rate.
 
-The approach is **oscillatory**. The first contrast maximum occurs at
-0.158 µs, with **44.3% overshoot** and an approximately **0.313-µs**
-peak-spacing period. Both complex fields satisfy the sustained 1% criterion
-from **0.968 µs** through 4 µs. The final crossing lies in
-**[0.966, 0.968] µs**. Tighter integration with a 1-ns output grid and the
-extended run's 7–8 µs plateau both give the same settling time.
-
-<p align="center">
-  <img src="../figures/task_2_3_readout.png" width="860" alt="Conditional buffer fields and settling">
-</p>
-
-**Buffer response at $\epsilon_Z/g_2=0.05$.** (a) Real fields from the two
-initial codewords; dotted lines mark the leading estimates. (b) Common
-imaginary field, its zero-drive control, and the leading memory-loss estimate.
-(c) Transient real separation divided by $\Delta_{\mathrm{lin}}$, compared
-with the local semiclassical response. (d) Residual $r(t)$; dotted and dashed
-lines mark the 1% criterion and $t_{\mathrm{set}}=0.968$ µs, respectively.
-
-## Local response and common field
+## Supporting physics: the imaginary field and the oscillation
 
 The buffer-fluorescence readout mechanism and leading local estimate follow
 [Réglade et al., Supplement S8.5](https://arxiv.org/html/2307.06617v2).
-The derivation below explains the common imaginary field and damped transient.
+The following details explain the physics but are not additional Task 2.3
+requirements. They are separate from the two plots needed to show the readout
+signal and its settling time.
+
+Write $\beta_s(t)=\langle b\rangle_s(t)$ and $A_s(t)=\langle a\rangle_s(t)$,
+where $s=\pm1$ labels the initial memory state. Write $\bar\beta_s$ for the
+3–4 µs mean of $\beta_s(t)$. The simulated final buffer fields are
+$-0.01189484+0.00311514i$ and $+0.01189484+0.00311514i$.
+The imaginary part describes the field component 90° out of phase with the real
+part. It has the same value for both states, so it does not distinguish the
+memory bit. Memory loss generates this background. With zero memory drive it
+remains $0.00304907i$, while the real-field separation vanishes.
+
+The exact symmetry and local approximation below explain that shared background
+and why the response oscillates. Neither introduces a new readout observable.
 
 For this real-parameter model, the antiunitary transformation
 $\rho\mapsto\Pi_a\Pi_b\rho^*\Pi_b\Pi_a$, where $\Pi_a$ and $\Pi_b$ are the
@@ -220,13 +197,13 @@ The task script runs these checks before reporting success:
 - Trace throughout the trajectory, final-state Hermiticity and minimum
   eigenvalue. Small signed numerical residuals are retained.
 
-Field differences are normalized by the predicted half contrast,
+Field differences are divided by the predicted field magnitude,
 $\epsilon_Z/(2\alpha g_2)$. The required maximum differences are 0.1% for cutoff
 and horizon comparisons and 0.001% for solver comparisons. These are numerical
 criteria, not detector performance specifications. The exact thresholds and
 all pass/fail results are stored with the data.
 
-| Comparison against $(32,12)$ production | Difference / predicted half contrast |
+| Comparison against $(32,12)$ production | Difference / predicted field magnitude |
 |---|---:|
 | Smaller cutoff $(24,8)$ | $1.02\times10^{-5}$ |
 | Memory increase $(40,12)$ | $6.53\times10^{-8}$ |
@@ -251,11 +228,7 @@ logarithmic diagnostic are not evidence of additional physical oscillations.
   <img src="../figures/task_2_3_validation.png" width="860" alt="Readout controls and numerical comparisons">
 </p>
 
-**Linearity and numerical agreement.** (a) Plateau contrast versus drive;
-dashes give the leading prediction. (b) $d(t)$ is the largest complex-field
-difference between a reference and the production trajectory over both
-codewords, divided by the nominal predicted half contrast. The references
-check the integration method, tolerance and joint cutoff increase.
+**Supporting checks: drive strength and numerical accuracy.** (a) Real-field separation between the two memory states, averaged over 3–4 µs, versus $\epsilon_Z/g_2$. Dashes show the prediction $\epsilon_Z/(\alpha g_2)$. This checks that the chosen weak drive gives approximately proportional response. (b) Largest complex-field difference between each reference calculation and the production result, over both initial memory states, divided by the nominal predicted field magnitude $\epsilon_Z/(2\alpha g_2)$. References use independent QuTiP BDF and tighter Tsit5 integration at $(32,12)$, and a larger $(40,14)$ cutoff. These check that the reported signal and settling are numerically reliable. Separate memory/buffer cutoff increases and an 8-µs run are recorded in the numerical table.
 
 ~~~bash
 pip install -r requirements.txt
@@ -277,8 +250,8 @@ results by default and can rerun the calculation.
 
 ## Measurement interpretation
 
-The coherent signal flux carried by the opposite real fields is
-$\kappa_b(\Delta\beta_R/2)^2=0.002311$ photons/µs. It excludes the common field
+Let $\Delta\beta_R=\mathrm{Re}(\bar\beta_--\bar\beta_+)$ denote the separation between the two final real fields. The coherent signal flux carried by these opposite fields is
+$\kappa_b(\Delta\beta_R/2)^2=0.002311$ photons/µs. It excludes the shared imaginary component
 and incoherent emission, and sets the scale of the coherent readout signal.
 
 The reported time is the turn-on settling time of the conditional **mean**

@@ -20,7 +20,7 @@ from src import config as C
 from src.analysis import top_projector
 from src.model import two_mode
 from src.plotting import panel, save as save_fig
-from src.readout import field_summary, linearized_buffer
+from src.readout import field_summary
 from src.results import RES_DIR, save as save_res
 
 T_END, SAVE_STEP, TAIL_START = 4.0, 0.002, 3.0
@@ -273,42 +273,26 @@ def plot(out, data):
     s = out["drive_summaries"][nominal_index]
     scale = parameters["nominal_drive_ratio"]/(2*parameters["alpha"])
     plateau = np.array([complex(*s[key]) for key in ("beta_plus", "beta_minus")])
-    linear = linearized_buffer(t, parameters["epsilon_z"], parameters["alpha"],
-                               parameters["g2"], parameters["kappa_a"], parameters["kappa_b"])
-    fig, axes = plt.subplots(2, 2, figsize=(8.3, 5.6), layout="constrained")
+    fig, axes = plt.subplots(1, 2, figsize=(8.3, 3.3), layout="constrained")
     for i, label in enumerate((r"$|+\alpha\rangle$", r"$|-\alpha\rangle$")):
-        axes[0, 0].plot(t, beta[i].real, label=label)
-        axes[0, 0].axhline((-1 if i == 0 else 1)*scale,
+        axes[0].plot(t, beta[i].real, label=label)
+        axes[0].axhline((-1 if i == 0 else 1)*scale,
                            color=f"C{i}", ls=":", lw=1)
-    axes[0, 0].set(xlabel=r"$t$ (µs)", ylabel=r"$\mathrm{Re}\,\beta_s$",
+    axes[0].set(xlabel="Time (µs)", ylabel=r"$\mathrm{Re}\langle b\rangle$",
                     xlim=(0, 2))
-    axes[0, 0].legend()
-    axes[0, 1].plot(t, ((beta[0]+beta[1])/2).imag, label="Driven")
-    zero = e[0, :, 1].mean(axis=0)
-    axes[0, 1].plot(t, zero.imag, "--", label="No memory drive")
-    axes[0, 1].axhline(parameters["kappa_a"]/(4*parameters["g2"]), color="black", ls=":", lw=1,
-                       label=r"$\kappa_a/(4g_2)$")
-    axes[0, 1].set(xlabel=r"$t$ (µs)", ylabel=r"$\mathrm{Im}\,\beta_{\mathrm{com}}$",
-                    xlim=(0, 2))
-    axes[0, 1].legend()
-    axes[1, 0].plot(t, (beta[1]-beta[0]).real/(2*scale), label="Full model")
-    axes[1, 0].plot(t, (linear[1]-linear[0]).real/(2*scale),
-                    "--", label="Local linearization")
-    axes[1, 0].axhline(1, color="gray", ls=":", lw=1)
-    axes[1, 0].set(xlabel=r"$t$ (µs)", ylabel=r"$\Delta\beta_R/\Delta_{\mathrm{lin}}$",
-                    xlim=(0, 1.5))
-    axes[1, 0].legend()
-    residual = np.max(np.abs(beta-plateau[:, None]), axis=0)/scale
-    axes[1, 1].semilogy(t, np.where(residual > 0, residual, np.nan))
-    axes[1, 1].axhline(s["settle_tolerance_fraction"], color="black", ls=":",
-                       label=f"{100*s['settle_tolerance_fraction']:g}% criterion")
-    axes[1, 1].axvline(s["settling_time_us"], color="gray", ls="--",
-                       label=rf"$t_{{\mathrm{{set}}}}={s['settling_time_us']:.3f}$ µs")
-    axes[1, 1].set(xlabel=r"$t$ (µs)", ylabel=r"$r(t)$",
-                    xlim=(0, parameters["T_end_us"]), ylim=(1e-7, 2))
-    axes[1, 1].legend()
-    for letter, ax in zip("abcd", axes.flat):
-        panel(ax, letter)
+    axes[0].legend()
+    error_percent = 100*np.max(np.abs(beta-plateau[:, None]), axis=0)/scale
+    axes[1].semilogy(t, np.where(error_percent > 0, error_percent, np.nan))
+    axes[1].axhline(100*s["settle_tolerance_fraction"], color="black", ls=":",
+                    label=f"{100*s['settle_tolerance_fraction']:g}% tolerance")
+    axes[1].axvline(s["settling_time_us"], color="gray", ls="--",
+                    label=f"Settled from {s['settling_time_us']:.3f} µs")
+    axes[1].set(xlabel="Time (µs)", ylabel="Deviation from final field (%)",
+                xlim=(0, 2), ylim=(0.01, 200), yticks=[0.01, 0.1, 1, 10, 100],
+                yticklabels=["0.01", "0.1", "1", "10", "100"])
+    axes[1].legend()
+    for letter, title, ax in zip("ab", ("Readout signals", "Time to settle"), axes):
+        panel(ax, letter, title)
         ax.grid()
     save_fig(fig, "task_2_3_readout")
     plt.close(fig)
@@ -318,7 +302,7 @@ def plot(out, data):
     contrasts = [r["real_separation"] for r in out["drive_summaries"]]
     axes[0].plot(ratios, contrasts, "o", ms=4, label="Full model")
     axes[0].plot(ratios, ratios/parameters["alpha"], "--", label=r"$\epsilon_Z/(\alpha g_2)$")
-    axes[0].set(xlabel=r"$\epsilon_Z/g_2$", ylabel=r"$\Delta\beta_R$")
+    axes[0].set(xlabel=r"$\epsilon_Z/g_2$", ylabel="Real-field separation")
     axes[0].legend()
     nominal = beta
     comparisons = [
@@ -331,11 +315,11 @@ def plot(out, data):
         interp = fields_on_grid(t, times, fields)
         err = np.max(np.abs(nominal-interp), axis=0)/scale
         axes[1].semilogy(t, np.where(err > 0, err, np.nan), label=label, color=color)
-    axes[1].set(xlabel=r"$t$ (µs)", ylabel=r"$d(t)$",
+    axes[1].set(xlabel="Time (µs)", ylabel="Relative numerical difference",
                 xlim=(0, parameters["T_end_us"]), ylim=(1e-12, 1e-6))
     axes[1].legend(fontsize=7)
-    for letter, ax in zip("ab", axes):
-        panel(ax, letter)
+    for letter, title, ax in zip("ab", ("Response versus drive strength", "Numerical agreement"), axes):
+        panel(ax, letter, title)
         ax.grid()
     save_fig(fig, "task_2_3_validation")
     plt.close(fig)

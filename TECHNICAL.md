@@ -223,8 +223,12 @@ The task scripts export five GIFs alongside the static Wigner panels. Single-pho
 
 ## Task 2.3: conditional buffer readout
 
-The [readout report](docs/task_2_3_readout.md) derives the drive convention,
-codeword conjugation symmetry, memory-loss common field and local transient.
+The [readout report](docs/task_2_3_readout.md) first answers the task's three
+requirements: opposite readout signals, a weak drive and the time to settle.
+Its main figure has two panels, showing the real fields and their deviation
+from final values in percent. The 1% threshold means an absolute field distance
+of 0.00011905. The symmetry, shared imaginary component and local transient
+derivation follow as supporting physics.
 `tasks/task_2_3.py` adds the real drive $\epsilon_Z(a+a^\dagger)$ to the supplied
 full two-mode Hamiltonian. Both coherent codewords are independently evolved
 with the buffer in vacuum, both supplied loss channels, $(32,12)$ cutoffs and
