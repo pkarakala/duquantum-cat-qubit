@@ -1,5 +1,5 @@
 /**
- * Schrö's panel. A failed fetch, a 12 s timeout or a 503 becomes a canned or scripted hint.
+ * Schrö's panel. A failed fetch, a 30 s timeout or a 503 becomes a canned or scripted hint.
  * Spoken answers go through /api/voice/tts. The voice agent uses the same client tools.
  */
 
@@ -18,7 +18,7 @@ export type { AcademyBridge, MountOptions, TutorReply } from "./types";
 export async function askTutor(message: string, bridge: AcademyBridge, opts: MountOptions): Promise<TutorReply> {
   const state = toTutorState(bridge.getState());
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 12_000);
+  const timer = setTimeout(() => controller.abort(), 30_000);
   try {
     const response = await fetch(`${opts.apiBase}/api/tutor`, {
       method: "POST",

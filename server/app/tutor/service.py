@@ -14,7 +14,7 @@ from server.app.tutor.llm import FINAL_SCHEMA
 from server.app.tutor.prompt import build_prompt
 from server.app.tutor.tools import DECLARATIONS, ToolSession
 
-TURN_DEADLINE_S = 10.0
+TURN_DEADLINE_S = 25.0
 
 
 class SystemClock:
