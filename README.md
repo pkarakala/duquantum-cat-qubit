@@ -101,17 +101,23 @@ The fitted rate is **$\Gamma=0.5135$ µs⁻¹**, compared with $2\kappa_a\langle
 
 ## 1.3(b) — Prepare a definite logical state
 
-A real memory displacement breaks the symmetry between $\pm\alpha$. Starting from $\lvert\beta\rangle_a\lvert0\rangle_b$ with $\beta>0$ and then enabling stabilization selects $\lvert+\alpha\rangle$. Buffer-only control preserves the memory parity symmetry and cannot select a sign from vacuum.
+**We propose to displace the memory first, then stabilize it into $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$.** The demonstrated procedure is:
 
-We also apply $i\varepsilon_1(a^\dagger-a)$ during the first 0.1 µs of inflation. The orthogonal drive $\varepsilon_1(a+a^\dagger)$ serves as a control.
+1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
+2. Apply a resonant memory pulse, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$.
+3. Switch off the memory pulse and enable the two-photon exchange pump and buffer drive at the supplied parameters, targeting $\alpha=2.1$. Keep stabilization on to bring the memory toward $\lvert+\alpha\rangle$.
 
-| Protocol | $F_\alpha(2\,\mathrm{\mu s})$ | $\mathrm{Re}\langle a\rangle/\alpha$ at 2 µs | $t_{99}$ (µs) |
+The initial displacement breaks the symmetry between the two signs. Buffer-only control preserves that symmetry and cannot select a sign from vacuum. With this procedure, the full two-mode simulation gives **99.878% fidelity at 2 µs**, with fidelity remaining above 99% from **0.41 µs** through the end of the simulation. The displacement is modeled as an initial coherent state; these times exclude the pulse duration.
+
+For comparison, we also test a memory drive $i\varepsilon_1(a^\dagger-a)$ during the first 0.1 µs of inflation, starting from vacuum. The orthogonal drive $\varepsilon_1(a+a^\dagger)$ over the same interval serves as a control.
+
+| Protocol | $F_\alpha$ at 2 µs | $\mathrm{Re}\langle a\rangle/\alpha$ at 2 µs | $t_{99}$ (µs) |
 |---|---:|---:|---:|
-| Displace first, $\beta=1.5$ | **0.99878** | 0.99679 | **0.41** |
+| **Proposed: displace first**, $\beta=1.5$ | **0.99878** | 0.99679 | **0.41** |
 | Drive during inflation, $\varepsilon_1=20$ µs⁻¹ | 0.99681 | 0.99290 | 0.67 |
 | Orthogonal drive, $\varepsilon_1=10$ µs⁻¹ | 0.49999 | 0 | — |
 
-Here $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$; $t_{99}$ is the first saved time after which fidelity stays above 0.99 through 2 µs. For displaced starts, the clock begins after the idealized displacement pulse.
+Here $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$; $t_{99}$ is the first saved time after which fidelity stays above 0.99 through 2 µs. All simulations include memory single-photon loss and use $(N_a,N_b)=(32,12)$.
 
 ![Logical-state preparation](figures/task_1_3b_logical_prep.png)
 
