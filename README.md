@@ -1,7 +1,7 @@
 # Cat qubits: bit flips, phase flips and a better readout
 
 **DuQuantum 2026 · Alice & Bob challenge · Standard Track**
-Team: Pranav <!-- add full names -->
+Team: Pranav Reddy, Harshit Aggarwal, Halo Kwok, Xuanyu Zhu
 
 > **Two layers.** This README and the figures are the human layer: plain words, the main results, and pictures.
 > The detailed layer for judges, reviewers and AI agents (every claim, the number behind it, the file that produced it, and how we checked it) is [`docs/SECTION2.md`](docs/SECTION2.md) for the Standard-track tasks and [`TECHNICAL.md`](TECHNICAL.md) for the Section 1 groundwork.
