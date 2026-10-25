@@ -62,3 +62,7 @@ Following the user’s review, the report now includes all five core Task 2.4 fi
 Enlargement is explicitly motivated by the undriven-storage-rate constraint, with plateau rates included in the result table. Its figure now reads controls → information: stacked control axes avoid a dual-axis overlay, followed by the full-cycle signal comparison. The existing blue/orange/gray palette, shared typography, centered placement, PNG/PDF exports and concise mathematical labels are retained. No simulation results or comparison windows changed.
 
 Verification for this revision: notebook 09 executes from saved data; all five embedded figures match their PNGs; 57 local links resolve; four imported cycles reproduce their recorded information and logical populations. GitHub Markdown preserves 273 report and 116 notebook formulas; no rejected operator-name macro remains. The revised enlargement layout was visually inspected.
+
+## Compact enlargement layout
+
+At the user’s request, panel (a) now combines both controls on matched left/right axes above panel (b), the information comparison. True-duration shaded stages I–IV and dotted boundaries mark enlargement, readout, return and recovery; captions define each stage and duration. Display width is 560 px in both report and notebook. Notebook 09 was re-executed, the PNG/PDF inspected, and the saved-data assertions passed. This supersedes the earlier side-by-side layout with separate control axes.
