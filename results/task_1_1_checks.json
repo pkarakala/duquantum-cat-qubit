@@ -1,0 +1,118 @@
+{
+  "metadata": {
+    "parameters": {
+      "Na": 32,
+      "Nb": 12,
+      "g2": 4.7940703893780245,
+      "eps_d": 21.141850417157087,
+      "kappa_a": 0.058433623356770145,
+      "kappa_b": 16.336281798666924,
+      "alpha": 2.1
+    },
+    "dynamiqs": "0.3.7",
+    "qutip": "5.3.1",
+    "solver_infos": {
+      "baseline": {
+        "method": "Tsit5(rtol=1e-08, atol=1e-10)"
+      },
+      "dense": {
+        "method": "Tsit5(rtol=1e-08, atol=1e-10)",
+        "infos": "1698 steps (1688 accepted, 10 rejected)"
+      },
+      "tight": {
+        "method": "Tsit5(rtol=1e-10, atol=1e-12)",
+        "infos": "1712 steps (1701 accepted, 11 rejected)"
+      },
+      "fixed_1ns": {
+        "method": "Rouchon3(dt=0.001)",
+        "infos": "3000 steps over 0\u20133 us"
+      },
+      "fixed_0_5ns": {
+        "method": "Rouchon3(dt=0.0005)",
+        "infos": "1600 steps over 0\u20130.8 us"
+      },
+      "qutip": {
+        "method": "BDF(rtol=1e-10, atol=1e-12, max_step=0.001)"
+      }
+    },
+    "origin": "Fresh numerical experiments on 2026-10-24; separate drivers before consolidating the audit module."
+  },
+  "errors_vs_independent_bdf": {
+    "baseline": {
+      "max_abs_photon_error": 5.0288234909601215e-08,
+      "max_abs_memory_photon_error": 5.0288234909601215e-08,
+      "max_abs_boundary_error": 1.487072481813836e-07
+    },
+    "dense": {
+      "max_abs_photon_error": 5.0288234909601215e-08,
+      "max_abs_memory_photon_error": 5.0288234909601215e-08,
+      "max_abs_boundary_error": 1.487072481813836e-07
+    },
+    "tight": {
+      "max_abs_photon_error": 2.439289659150745e-09,
+      "max_abs_memory_photon_error": 2.439289659150745e-09,
+      "max_abs_boundary_error": 1.7772061424264205e-10
+    },
+    "fixed_1ns": {
+      "max_abs_photon_error": 0.00034220242683513646,
+      "max_abs_memory_photon_error": 0.00034220242683513646,
+      "max_abs_boundary_error": 2.8334533894455803e-07
+    },
+    "fixed_0_5ns": {
+      "max_abs_photon_error": 4.141147125347189e-05,
+      "max_abs_memory_photon_error": 4.141147125347189e-05,
+      "max_abs_boundary_error": 3.38397611805164e-08
+    }
+  },
+  "max_shared_save_grid_photon_difference": 0.0,
+  "max_baseline_vs_tight_photon_difference": 5.027228500154024e-08,
+  "fixed_step_common_window_us": [
+    0,
+    0.8
+  ],
+  "fixed_1ns_memory_error_0_8us": 0.00034220242683513646,
+  "fixed_0_5ns_memory_error_0_8us": 4.141147125347189e-05,
+  "fixed_step_error_reduction": 8.263469431949888,
+  "dense_peak_na": 6.908425532730938,
+  "dense_t_peak_us": 0.23500000000000001,
+  "observed_peak_times_us": [
+    0.23500000000000001,
+    0.557,
+    0.87,
+    1.183,
+    1.497
+  ],
+  "observed_ring_periods_us": [
+    0.32200000000000006,
+    0.31299999999999994,
+    0.31300000000000006,
+    0.31400000000000006
+  ],
+  "near_well_period_estimate_us": 0.3186268456514625,
+  "near_well_amplitude_decay_time_us": 0.2439810571293379,
+  "late_signed_boundary_values_2_3us": {
+    "baseline": {
+      "memory_top2_min": -1.2375643339357052e-07,
+      "memory_top2_max": 1.4871527410556265e-07,
+      "buffer_top_min": -1.7279057216074386e-08,
+      "buffer_top_max": 1.4483220708057994e-08
+    },
+    "tight": {
+      "memory_top2_min": -2.4493897470520277e-11,
+      "memory_top2_max": 3.9856712595227324e-11,
+      "buffer_top_min": -1.4108682280685654e-10,
+      "buffer_top_max": 4.695549154125143e-10
+    },
+    "qutip": {
+      "memory_top2_min": 3.3103853664994434e-12,
+      "memory_top2_max": 3.8394298537595074e-11,
+      "buffer_top_min": 2.5124047406707827e-11,
+      "buffer_top_max": 3.5650465294021855e-10
+    }
+  },
+  "checks": {
+    "save_grid_does_not_change_photon_solution": true,
+    "tight_solver_matches_independent_bdf": true,
+    "fixed_step_halving_reduces_error": true
+  }
+}

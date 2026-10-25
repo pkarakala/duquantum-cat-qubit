@@ -2,7 +2,7 @@
 
 Replaces the Gemini multimodal check (`ai_review.py --figures`), which stopped on the Gemini
 free-tier daily quota. Claude read each of the 12 figures in `figures/` as an image and
-compared what is drawn against the claims in TECHNICAL.md and the numbers in `results/*.json`
+compared what is drawn against the claims in docs/TECHNICAL.md and the numbers in `results/*.json`
 (figures and results identical to the committed ones at `881d7f1`). Same method as the Gemini
 prompt: read values off the axes, then list what a judge would notice. Triage pending.
 
@@ -57,7 +57,7 @@ everything else supported. 7 presentation issues, none affecting a number.
 
 ## Triage (same evening)
 
-Acted on all of the above: TECHNICAL.md claims 11, 16, 18, 20, B7 and §4 corrected or
+Acted on all of the above: docs/TECHNICAL.md claims 11, 16, 18, 20, B7 and §4 corrected or
 sourced; Wigner panels now carry their times; the grid prints every cell in percent; the
 1.1 monitor axis stops at 1e-9 and its title names the solver-noise wiggles; `ρ_a`, `κ_a`
 render as math. The B5 figure still plots Re⟨a⟩/α (F stays in the table). All figures were
