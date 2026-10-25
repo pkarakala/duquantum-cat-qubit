@@ -19,7 +19,7 @@ pre{background:var(--surface);border:1px solid var(--line);padding:12px;overflow
 <p>Methods, headline numbers and checks. Each task's notebook in <a href="https://github.com/pkarakala/duquantum-cat-qubit/blob/main/notebooks/"><code>notebooks/</code></a> has the figures and full captions. Every number is in a JSON under <code>results/</code>.</p>
 <p><strong>Model.</strong> Exactly as in the prompt. Two-mode H = g₂(a²b† + a†²b) − ε_d(b + b†), jumps √κ_b b and √κ_a a, α² = ε_d/g₂. Parameters: g₂/2π = 0.763 MHz, κ_b/2π = 2.6 MHz, κ_a/2π = 9.3 kHz, α = 2.1. Units: ħ = 1, µs, rad/µs, with every 2π applied once in <code>src/config.py</code>. Numerics: dynamiqs 0.3.7, float64, Tsit5 with rtol 1e-8 to 1e-11.</p>
 <h2 id="section-2-standard-track">Section 2 (standard track)</h2>
-<p><strong>Two methods.</strong> Brute force first: <code>tasks/task_2_1.py</code> and <code>tasks/task_2_2.py</code> integrate the full model in the time domain and fit the decay (details in <a href="task_2.md">Task 2</a> and notebooks 06–07). But a time domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (<code>src/spectral.py</code>) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree: to 1e-8 for Γ_X at equal truncation, and to five digits for Γ_Z.</p>
+<p><strong>Two methods.</strong> Brute force first: <code>tasks/task_2_1.py</code> and <code>tasks/task_2_2.py</code> integrate the full model in the time domain and fit the decay (details in <a href="task_2.html">Task 2</a> and notebooks 06–07). But a time domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (<code>src/spectral.py</code>) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree: to 1e-8 for Γ_X at equal truncation, and to five digits for Γ_Z.</p>
 <h3 id="21-bit-flips-taskstask_2_1py-researchs2gx_eigpy">2.1 Bit flips (<code>tasks/task_2_1.py</code>, <code>research/s2/gx_eig.py</code>)</h3>
 <table>
 <thead>
@@ -115,7 +115,7 @@ pre{background:var(--surface);border:1px solid var(--line);padding:12px;overflow
 </tr>
 </tbody>
 </table>
-<p>P_flip here is the recovered amplitude-loss proxy δ_X = (A_ref − A_pulse)/(2A_ref) after the drive, not a logical-projector measurement, and SNR is the information 𝓘 in <a href="task_2.md#c-test-resonant-modulation-and-temporary-enlargement">Task 2.4(c)</a>. So ε_ro is an estimate.</p>
+<p>P_flip here is the recovered amplitude-loss proxy δ_X = (A_ref − A_pulse)/(2A_ref) after the drive, not a logical-projector measurement, and SNR is the information 𝓘 in <a href="task_2.html#c-test-resonant-modulation-and-temporary-enlargement">Task 2.4(c)</a>. So ε_ro is an estimate.</p>
 <ul>
 <li>Why the resonant drive wins: it drives the 3.2 MHz oscillator in step, so the buffer amplifies it. Smoothing the pulse edges alone gains only 8–14%.</li>
 <li><strong>Optimizer</strong> (<code>pulse_opt.py</code>, jax.grad through dynamiqs, started from sgn(cos ω_r t), objective SNR − μ P_flip). It beats a square pulse by 1.26–1.71× in SNR per flip in all 9 converged settings (α 1.4 to 2.1, T 0.5 to 1 µs). Most of that comes from the resonant start; over its start it gains 0.98–1.16×. It lowers ε_ro against its start at α ≤ 1.8 but not at α = 2.1.</li>
@@ -131,7 +131,7 @@ pre{background:var(--surface);border:1px solid var(--line);padding:12px;overflow
 <p>Notebook 09 recomputes the counted information and recovered wrong-logical populations from the retained raw observables. The readout information budget ends at the exact drive-end sample; the complete-cycle duration includes return and recovery. Populations use orthonormal combinations of the even and odd cats at the original storage amplitude, with leakage reported separately and no postselection.</p>
 <p>The selected enlarged cycle uses $(38,16)$ and its plateau-rate estimate $(40,16)$. The final tested cycle increment changes the wrong-logical population by 0.78%; separate last memory and buffer increments change the rate by 0.70% and 0.53%. Original solver and independent-implementation comparisons accompany the bundle. These are empirical checks, not a proof of infinite-cutoff convergence or global spectral dominance. The source commit contains the full simulation workflow; the submission imports only the evidence needed for this complementary result.</p>
 <h2 id="section-1-groundwork">Section 1 (groundwork)</h2>
-<p>Full write-up with figures: <a href="task_1.md">task_1.md</a>.</p>
+<p>Full write-up with figures: <a href="task_1.html">task_1.md</a>.</p>
 <table>
 <thead>
 <tr>
@@ -226,4 +226,4 @@ python -m research.s2.circuit_sim --na 12 --nb 5 --T 0.15 --dp -23    # full cir
 <p>To regenerate notebook 09's tables and figures from the selected saved data, run:</p>
 <pre><code class="language-bash">jupyter nbconvert --execute --to notebook --inplace notebooks/09_task_2_4_better_readout.ipynb
 </code></pre>
-<p>Big sweeps ran on Vultr with <code>cloud/vultr_batch.py</code> and the job lists in <code>cloud/s2_batch*.txt</code>. Costs are in <a href="tools-log.md"><code>tools-log.md</code></a>. <code>results/s2/SUMMARY.md</code> has every Section 2 table.</p></main></body></html>
+<p>Big sweeps ran on Vultr with <code>cloud/vultr_batch.py</code> and the job lists in <code>cloud/s2_batch*.txt</code>. Costs are in <a href="https://github.com/pkarakala/duquantum-cat-qubit/blob/main/docs/tools-log.md"><code>tools-log.md</code></a>. <code>results/s2/SUMMARY.md</code> has every Section 2 table.</p></main></body></html>
