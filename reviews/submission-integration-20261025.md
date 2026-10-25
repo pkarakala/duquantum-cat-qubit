@@ -15,7 +15,7 @@ Status: review complete. Delivery branch: `XZ-main`, as subsequently requested b
 - `README.md`: report entry points.
 - `docs/task_1.md`: retained Task 1 report.
 - `docs/task_2.md`: consolidated Task 2 answers, following Task 1's result/definition/figure-caption structure.
-- `docs/TECHNICAL.md`: model, methods, source/data map and reproduction; old rate/readout doc paths now redirect to the consolidated report.
+- `docs/TECHNICAL.md`: model, methods, source/data map and reproduction. The obsolete rate/readout redirect files were removed at the user’s request; all final Task 2 answers are in `docs/task_2.md`.
 - `notebooks/01–05`: Task 1 calculations; only notebook 05's broken technical link changed.
 - `notebooks/06–08`: merged Task 2.1–2.3 analyses retained, with surgical correctness/math repairs.
 - `notebooks/09_task_2_4_better_readout.ipynb`: rewritten (a)–(d), executes saved evidence and regenerates its figures.
@@ -46,3 +46,7 @@ No missing XZ scientific updates were found through 2.3. Main adds two valid inf
 Conditional-mean signal metrics do not establish single-shot fidelity. The 2-µs pulse examples lack a matching larger-cutoff replicate; the separate 0.5-µs comparison has one. Circuit calibration is a short, closed-system diagnostic; corrected-circuit rare switching and full protocols remain unverified. The selected imported enlargement result is an ideal cubic-model witness, not a global optimum.
 
 The user subsequently requested publication on `XZ-main`. The reviewed changes are committed together on that branch, based on main commit `b722159`; the original XZ checkout is unchanged. Git history records the delivery commit.
+
+## Final documentation cleanup
+
+Removed the two obsolete redirect files after confirming that Task 2.1–2.4 are fully consolidated and no maintained links reference those files. The current reports are `docs/task_1.md` and `docs/task_2.md`.
