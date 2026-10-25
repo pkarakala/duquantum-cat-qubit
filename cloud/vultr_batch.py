@@ -99,7 +99,8 @@ def run_vm(k, iid, cmds, jobs_per_vm, deadline, status, dest):
     subprocess.run(SSH + [f"root@{ip}", "cat > repo/jobs.txt"], input=lines.encode(), check=True)
     par = f"{jobs_per_vm}" if jobs_per_vm else "$(( $(nproc) / 4 > 0 ? $(nproc) / 4 : 1 ))"
     # a failing job does not stop the others: xargs keeps going, and the pipe's status is tee's
-    remote = (f"cd repo && ./cloud/setup_vm.sh && mkdir -p results figures && "
+    # PATH as well, so `python` resolves to the venv even after an `ENV=1 python ...` prefix
+    remote = (f"cd repo && ./cloud/setup_vm.sh && mkdir -p results figures && export PATH=$PWD/.venv/bin:$PATH && "
               f"xargs -P {par} -d '\\n' -I CMD sh -c 's=$(date +%s); CMD; "
               f"echo \"JOB $? $(( $(date +%s) - s ))s CMD\"' < jobs.txt 2>&1 | tee results/batch-vm{k}.log")
     status[k] = "running"
