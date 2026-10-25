@@ -129,9 +129,11 @@ The displacement is produced by a resonant memory drive with Hamiltonian $i\vare
 2. Apply this memory pulse with area $\beta=1.5$, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
 3. Switch off the memory pulse and enable the two-photon exchange pump and buffer drive at the supplied parameters, targeting $\alpha=2.1$. Keep stabilization on to bring the memory toward $\lvert+\alpha\rangle$.
 
-Using $\beta=1.5\lt\alpha=2.1$ tests amplitude correction: fidelity rises from **69.77% initially to 99.878% at 2 µs**, remaining above 99% from **0.41 µs** onward through 2 µs. The pulse ends before stabilization, avoiding simultaneous memory driving. It is modeled as an initial coherent state; reported times exclude its duration.
+Using $\beta=1.5\lt\alpha=2.1$ tests amplitude correction: fidelity rises from **69.77% initially to 99.878% at 2 µs**, remaining above 99% from **0.41 µs** onward through 2 µs. For this calculation, we initialize the memory directly in $\lvert\beta=1.5\rangle$ and simulate the subsequent stabilization. The preparation pulse itself is idealized; reported times start when stabilization is enabled.
 
-For comparison, we apply **the same drive while stabilization is active**, during the first 0.1 µs of inflation from vacuum. This pulse is simulated explicitly, whereas the first protocol starts from its idealized post-pulse state. The orthogonal control, $\varepsilon_1(a+a^\dagger)$, shifts the drive phase by 90° and displaces along the imaginary axis, favoring neither codeword.
+For comparison, we start from vacuum and include the same memory-drive Hamiltonian during the first 0.1 µs while stabilization is active. This calculation follows the pulse and stabilization together.
+
+To check why the pulse phase matters, we repeat this test with a 90° phase shift, using $\varepsilon_1(a+a^\dagger)$. This drive displaces along the imaginary axis, perpendicular to the real axis containing $\pm\alpha$; this is what we mean by “orthogonal.” It cannot choose between the two codewords and gives approximately 50% target fidelity.
 
 We report fidelity $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$ and normalized mean amplitude $\mathrm{Re}\langle a\rangle/\alpha$, which is near $+1$ for the desired state and zero for an equal, symmetric occupation of the two signs. The time $t_{99}$ is the first saved time after which fidelity stays above 0.99 through 2 µs.
 
