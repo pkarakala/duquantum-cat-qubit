@@ -95,6 +95,7 @@ export async function plot(el: HTMLElement, series: PlotSeries[], opts: PlotOpti
         legend: { orientation: 'h', font: { size: 11 } },
         shapes,
         width: Math.max(240, el.clientWidth || 0),
+        height: 320,
         autosize: true,
       },
       { displayModeBar: false, responsive: true },

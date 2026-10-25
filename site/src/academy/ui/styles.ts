@@ -215,6 +215,7 @@ export const ACADEMY_CSS = `
   max-width: 100% !important; min-width: 0 !important;
 }
 .academy .plot { min-height: 0; }
+.academy .plot.js-plotly-plot, .academy .js-plotly-plot .plot-container, .academy .js-plotly-plot .svg-container { height: 320px !important; max-height: 320px; }
 .academy canvas { width: 100%; background: #0b1020; border-radius: 12px; display: block; }
 .academy .axis, .academy .legend { color: var(--muted); font-size: 0.86rem; margin: 6px 0 0; }
 .academy .hist { margin: 0; }
