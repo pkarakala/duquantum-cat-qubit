@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#312e81" />
     <title>Cat Qubit Academy</title>
   </head>
   <body>
     <a class="skip" href="#app">Skip to content</a>
-    <header>
-      <p class="brand">Cat Qubit Academy</p>
+    <header class="topbar">
+      <div class="topbar-inner">
+      <p class="brand"><span class="brand-mark" aria-hidden="true">|C&#x27E9;</span><span class="brand-name">Cat Qubit Academy</span></p>
       <nav aria-label="Pages">
         <span class="nav-label">Academy</span>
         <a href="#/learn">Learn</a>
@@ -22,6 +25,7 @@
         <span class="nav-label">About</span>
         <a href="#/about">About</a>
       </nav>
+      </div>
     </header>
     <main id="app" tabindex="-1"></main>
     <script type="module" src="/src/main.ts"></script>

@@ -377,7 +377,14 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
       });
     }
 
-    root.append(header, badgeHost, conceptHost, layout, checkHost, hintHost, ahaHost, codeHost, tutor, credential, board);
+    // Two-column lesson: left = concept, predict, controls, check, hints, aha; right = badge, views, tutor.
+    side.prepend(conceptHost);
+    side.append(checkHost, hintHost, ahaHost, codeHost);
+    main.prepend(badgeHost);
+    main.append(tutor);
+    side.classList.add('lesson-main');
+    main.classList.add('lesson-aside');
+    root.append(header, layout, credential, board);
     paintLocal(run);
 
     async function launch(active: LevelRun) {

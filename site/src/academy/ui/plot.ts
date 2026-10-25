@@ -62,6 +62,7 @@ function svgFallback(el: HTMLElement, series: PlotSeries[], opts: PlotOptions): 
 export async function plot(el: HTMLElement, series: PlotSeries[], opts: PlotOptions = {}): Promise<void> {
   const fg = cssVar(el, '--fg', '#1c1917');
   const muted = cssVar(el, '--muted', '#57534e');
+  const grid = cssVar(el, '--grid', muted);
   try {
     const Plotly = (await import('plotly.js-dist-min')).default;
     const data = series.map((s, i) => ({
@@ -89,8 +90,8 @@ export async function plot(el: HTMLElement, series: PlotSeries[], opts: PlotOpti
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: { color: fg, family: 'ui-sans-serif, system-ui, sans-serif' },
         margin: { l: 48, r: 16, t: 12, b: 40 },
-        xaxis: { title: opts.xlabel ?? '', gridcolor: muted, zeroline: false },
-        yaxis: { title: opts.ylabel ?? '', type: opts.ylog ? 'log' : 'linear', gridcolor: muted, zeroline: false },
+        xaxis: { title: opts.xlabel ?? '', gridcolor: grid, zeroline: false },
+        yaxis: { title: opts.ylabel ?? '', type: opts.ylog ? 'log' : 'linear', gridcolor: grid, zeroline: false },
         legend: { orientation: 'h', font: { size: 11 } },
         shapes,
         width: Math.max(240, el.clientWidth || 0),
