@@ -50,9 +50,9 @@ def bit_flips():
     ag = np.linspace(al.min(), al.max(), 200)
     ax[0].axvspan(0, max(c["alpha2"] for c in td), color="0.93", zorder=0)
     ax[0].semilogy(ag**2, S.gamma_x_channel1(ag, KAPPA_A), ":", color="C2", lw=1.3,
-                   label=r"$2\kappa_a\alpha^2 e^{-4\alpha^2}$")
+                   label="lose one photon")
     ax[0].semilogy(ag**2, S.gamma_x_channel2(ag, KAPPA_A, KAPPA_2), "-.", color="C3", lw=1.3,
-                   label=r"$(\kappa_a^2/\kappa_2)\, e^{-2\alpha^2}$")
+                   label="lose two photons")
     ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label=r"$-\lambda_{\rm odd}$ (eigenvalue)")
     ax[0].plot([c["alpha2"] for c in td], [c["fit"]["gamma_per_us"] for c in td], "ks", ms=6, mfc="none", mew=1.2,
                label="time-domain fit")
