@@ -178,3 +178,22 @@ the envelope.
 - Eigen vs time domain: Γ_X at 4 values of α (≤ 4e-8), Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
 - Known limits: Γ_X at α ≥ 2.6 is not converged in our truncations; the circuit simulation is a 150 ns window
   without loss (enough to see the conversion rate and the Stark-shift detuning, not the steady state).
+
+## Reproduce
+Every number above is in a JSON under `results/s2/`; nothing needs re-running to check a claim.
+
+```bash
+python -m research.s2.summarize        # all tables -> results/s2/SUMMARY.md, figures/s2/*.png
+python -m research.s2.slide_figs       # slide figures -> figures/s2/slide_*.png
+python -m research.s2.fidelity         # SNR -> readout error (results/s2/fidelity_eta1.json)
+# one point of each kind (minutes on a laptop):
+python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --model two          # Gamma_X, Gamma_Z eigenvalues
+python -m research.s2.gx_time --alpha 1.0 --na 20 --nb 8 --T 60                # time-domain cross-check
+python -m research.s2.readout --alpha 2.1 --na 32 --nb 8 --T 4                 # buffer readout traces
+python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 0.5 --norm peak --energies 0.25,0.5
+python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 15 --rtol 1e-9   # ~20 min
+python -m research.s2.circuit_sim --na 12 --nb 5 --T 0.15 --dp -23                      # full ATS circuit, retuned pump
+```
+
+The large sweeps ran on Vultr (`cloud/s2_batch1b.txt`, `s2_batch2.txt`, `s2_batch3s.txt` with
+`cloud/vultr_batch.py`; costs in `docs/tools-log.md`). Each batch log is in `results/batch-vm*.log`.

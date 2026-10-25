@@ -33,6 +33,12 @@ We simulated how that trap forms, starting from the simplest possible model and 
 ![Logical state preparation](figures/task_1_3b_logical_prep.png)
 *Left: starting from a displaced state, the memory settles into |+α⟩. Middle: with stabilization (blue) the result barely depends on the push's aiming error; the push alone (orange) would need to be almost perfect. Right: pushing during inflation also works if the push is strong; the wrong drive direction (dashed) picks no valley.*
 
+## Section 2 (Standard track)
+
+Bit-flip and phase-flip rates as Liouvillian eigenvalues, readout through the buffer, and a readout pulse that gives
+40% more signal with 10% fewer bit flips than a square pulse. Full write-up, numbers and checks:
+[`docs/SECTION2.md`](docs/SECTION2.md); code in [`research/s2/`](research/s2/), results in `results/s2/`.
+
 ## Run it yourself
 
 ```bash
