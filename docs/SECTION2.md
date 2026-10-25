@@ -142,6 +142,26 @@ flips on more signal. At peak 1.0 g₂ it reached 1.40× the square pulse's SNR 
 flips (30×8; 26×6 gave 1.42× and 0.89×), and at α = 1.4, T = 1 µs, peak 0.5 g₂ it gave 1.13× the SNR with 0.71× the
 flips (22×8). A square pulse is never the best choice.
 
+**From SNR to readout error** (`research/s2/fidelity.py`). Homodyne with a matched filter separates the two
+outcome distributions by 2√SNR standard deviations, so the error is ½erfc(√(SNR/2)) plus the probability that the
+readout flipped the memory. With a constant drive and Γ_X(ε_Z) from the eigen-solver, the best achievable error is
+25%, 11%, 2.3% and 0.44% at α = 1.0, 1.4, 1.8 and 2.1 (unit efficiency; 0.80% at α = 2.1 with η = 0.5): larger cats
+are better readout targets because the flip cost falls faster than the signal. Directly simulated 2 µs pulses at
+α = 2.1 (30×8, `results/s2/pulse_a2.10_30x8_T2_peak.json`):
+
+| pulse, best peak | SNR | P_flip | readout error |
+|---|---|---|---|
+| square, 1.0 g₂ | 7.5 | 8.1e-3 | 1.12% |
+| bang-bang resonant, 0.75 g₂ | 12.8 | 9.2e-3 | 0.94% |
+| resonant cosine, 0.75 g₂ | 8.2 | 4.4e-3 | **0.65%** |
+
+So in the same 2 µs the resonant drive cuts the readout error by 1.7×.
+
+**Ringing costs extra flips.** Integrating the static Γ_X(ε_Z(t))/2 over the pulse predicts the simulated P_flip
+of a square pulse to within 4–14% at every α, but it under-predicts resonant and bang-bang pulses at α = 2.1 by
+1.7–2.7×: the transient memory swing, not the drive level, sets the flip cost there. That is the term the gradient
+optimizer learns to manage.
+
 **Why it works.** We first guessed that the square pulse's sharp edges cause extra flips by
 kicking the ringing. Smoothing the edges alone (raised cosine) helps only 8–14%, so that is not the main effect.
 What matters is *where the drive's spectrum sits* (resonant with or without smooth edges: 0.73–0.79). Our interpretation: the memory and buffer form a damped oscillator at 2g₂α
