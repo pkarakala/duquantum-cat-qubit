@@ -4,12 +4,12 @@
 
 | Field | Value |
 |---|---|
-| State | `IN_PROGRESS (paused: waiting for l0-core merge)` |
+| State | `IN_PROGRESS` (l0-core merged; production truncation raised to 40×18) |
 | Branch | `std/l4a-readout` |
-| Agent / model | Cursor agent, Grok 4.7 (resumed after the previous agent stopped at `614132a`) |
+| Agent / model | Cursor agent, Grok 4.7 |
 | Started (EDT) | Sat Oct 24 2026, 18:30 |
-| Last update (EDT) | 19:05 |
-| Last commit | `ea3dcd2` [l4a-readout] Task 2.3 readout script and notebook, paused for l0-core |
+| Last update (EDT) | Sun Oct 25 2026, 09:45 |
+| Last commit | (this commit) raise production truncation to 40×18 for the 1e-6 edge cut |
 
 ## Milestones
 - [x] Read brief, CONTRACT, RESEARCH, RUNBOOK (18:30; re-read 18:50)
@@ -17,13 +17,13 @@
 - [x] **linresp ready** (18:40, commit `614132a`): `src/linresp.py`. API for L4c / L4b / L6 matches CONTRACT §9.
 - [x] `tasks/task_2_3.py` written against CONTRACT §3/§6/§7 (`two_mode(..., eps_z=)`, `coherent2`, `cat2`, `code_basis`, `record`, `sweep`, `convergence_block`, `trunc_for`). Not executed: those names are not on this branch yet.
 - [x] Notebook `notebooks/08_task_2_3_readout.ipynb` written (linresp cell, record cells, three figures, production line commented). Not executed.
-- [ ] `--quick` run — blocked on the l0-core merge
-- [ ] Production run(s) — blocked on the l0-core merge
-- [ ] Gates 2–7 (need the two-mode records)
+- [x] l0-core is on this branch (`2715fc7` merges `standard-track`, which contains `9b5bb21` merge l0-core).
+- [x] Edge scan, not a record (Sun 09:30). `signals` short window, +α only. 28×8 top buffer **4.956e-3** is the ε=3 g₂ readout ring (`prep_top_b` = 2e-8). 40×16 full ε grid, 0.8 µs: top buffer **2.422e-6** (still ε=3; ε≤2 is ≤2.4e-7). 40×18 with ε ∈ {0.1, 3}: top buffer **1.955e-7**, top-2 memory **1.77e-7**. Production is therefore Na=40, Nb=18. The 1e-6 cut is not loosened. Sweeps are the neighbor pairs (32, 40) at Nb=18 and (14, 18) at Na=40, so the reported point is inside the sweep.
+- [ ] Production records (signals, then dephasing) at 40×18. Not started: waiting on `duq-heavy.lock` (held by l1-spectral at 09:35).
 - [x] Explain-back questions drafted (below; unchanged from the brief)
 
-## Why paused
-`git -C $MAIN log --oneline standard-track | grep -m1 "merge l0-core"` printed nothing (19:00 EDT). `standard-track` is at `0a2040b`. `std/l0-core` is DONE at `effc210` and is not merged. RUNBOOK §4: do not invent the l0-core APIs and do not merge `std/l0-core` myself. Two-mode `mesolve`, `record()`, and `provenance.dirty == false` outputs wait for `git merge --no-edit standard-track` after that merge commit exists.
+## Truncation
+`C.trunc_for(2.1, "steady")` = 28×8 fails gate 6. Measured top-buffer population at ε_Z = 3 g₂ is 4.956e-3. The same population is 2.42e-6 at 40×16 and 1.95e-7 at 40×18. Top-2 memory at 40×18 is 1.8e-7. Both limits stay 1e-6. `tasks/task_2_3.py` uses `NA_PROD, NB_PROD = 40, 18` and refuses to write records if either edge is ≥ 1e-6.
 
 ## Acceptance gates (brief §8)
 | Gate | Result | Evidence (command → key output) |

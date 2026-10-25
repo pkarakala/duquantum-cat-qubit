@@ -30,7 +30,14 @@ T_PREP, T_ON, N_T = 3.0, 3.0, 1501                   # 2 ns grid
 SS_WINDOW = (2.5, 3.0)                               # residual transient e^{-kappa_b/4 * 2.5} ~ 4e-5
 FIT_WINDOW = (0.05, 2.0)
 T_DEPH, N_T_DEPH, T0_DEPH = 6.0, 3001, 1.5
-NA_SWEEP, NB_SWEEP, NA_SWEEP_DEPH = (20, 24, 28, 32), (6, 8, 10), (24, 28, 32)
+# trunc_for(alpha, "steady") is 28x8. That basis fails the 1e-6 Fock-edge cut:
+# at eps_z = 3 g2 the top buffer level holds 4.956e-3 (the readout ring, not the
+# preparation). 40x16 is still 2.42e-6; 40x18 is 1.95e-7, and the top two memory
+# levels are 1.8e-7. Each sweep keeps one cheaper neighbor so this point is the
+# larger of a two-point sweep, not a point outside the sweep.
+NA_PROD, NB_PROD = 40, 18
+NA_SWEEP, NB_SWEEP, NA_SWEEP_DEPH = (32, 40), (14, 18), (32, 40)
+EDGE_LIMIT = 1e-6
 REL_TOL = {"b_ss": 1e-3, "ring_freq": 1e-3, "settle": 1e-2, "dephasing": 1e-2}
 QUICK = dict(na=16, nb=5, t_prep=1.0, t_on=1.5, eps=(0.1, 1.0), eps_deph=(0.0, 0.5), t_deph=3.0)
 
@@ -299,10 +306,20 @@ class _Cache:
         return self.rows[(Na, Nb)]
 
 
+def _axis_values(values, chosen):
+    """Sweep values at or below the truncation we actually report, always including it."""
+    vals = tuple(v for v in values if v <= chosen)
+    if chosen not in vals:
+        vals = tuple(sorted(set(vals) | {chosen}))
+    if len(vals) < 2:
+        raise ValueError(f"sweep for chosen={chosen} has only {vals}; need a neighbor")
+    return vals
+
+
 def _sweeps(cache, na_values, nb_values, na_fixed, nb_fixed):
     sweep = _l0()["sweep"]
-    rows_na = sweep(cache, "Na", na_values, {"Nb": nb_fixed})
-    rows_nb = sweep(cache, "Nb", nb_values, {"Na": na_fixed})
+    rows_na = sweep(cache, "Na", _axis_values(na_values, na_fixed), {"Nb": nb_fixed})
+    rows_nb = sweep(cache, "Nb", _axis_values(nb_values, nb_fixed), {"Na": na_fixed})
     return {"Na": ({"Nb": nb_fixed}, rows_na), "Nb": ({"Na": na_fixed}, rows_nb)}
 
 
@@ -348,8 +365,7 @@ def part_signals(quick=False, na=None, nb=None, conv=True):
         Na, Nb = na or QUICK["na"], nb or QUICK["nb"]
         grid, t_prep, t_on = QUICK["eps"], QUICK["t_prep"], QUICK["t_on"]
     else:
-        Na0, Nb0 = C.trunc_for(C.ALPHA, "steady")
-        Na, Nb = na or Na0, nb or Nb0
+        Na, Nb = na or NA_PROD, nb or NB_PROD
         grid, t_prep, t_on = EPS_GRID, T_PREP, T_ON
     ss_window = (t_on - 0.5, t_on)
     fit_window = (FIT_WINDOW[0], min(FIT_WINDOW[1], t_on))
@@ -362,13 +378,22 @@ def part_signals(quick=False, na=None, nb=None, conv=True):
     print(f"  production run: {wall_main:.1f} s", flush=True)
     t, x = s["t"], s["eps_over_g2"]
     met = signal_metrics(s, ss_window=ss_window, fit_window=fit_window)
+    # Edge populations before the sweeps: a failing cutoff should not spend the neighbor runs.
+    max_top2_a = max(max(float(s[w]["top_a"].max()), s[w]["prep_top_a"]) for w in (+1, -1))
+    max_top_b = max(max(float(s[w]["top_b"].max()), s[w]["prep_top_b"]) for w in (+1, -1))
+    print(f"  edge populations: top2_a={max_top2_a:.3e} top_b={max_top_b:.3e}", flush=True)
+    if not quick and max(max_top2_a, max_top_b) >= EDGE_LIMIT:
+        raise SystemExit(
+            f"Fock edge at {Na}x{Nb} is above {EDGE_LIMIT:.0e} "
+            f"(top2_a={max_top2_a:.3e}, top_b={max_top_b:.3e}). "
+            "Raise NA_PROD/NB_PROD; do not loosen the cut.")
 
     sw = None
     if conv and not quick:
         cache = _Cache(lambda Na_, Nb_: signal_metrics(signals(Na_, Nb_, grid, wells=(+1,), **kw),
                                                        ss_window=ss_window, fit_window=fit_window))
         cache.rows[(Na, Nb)] = {**met, "wall_s": wall_main}
-        sw = _sweeps(cache, NA_SWEEP, NB_SWEEP, 28, 8)
+        sw = _sweeps(cache, NA_SWEEP, NB_SWEEP, Na, Nb)
     chosen = {"Na": Na, "Nb": Nb}
     trunc = {"Na": Na, "Nb": Nb}
     conv_note = "" if sw is not None else (" quick" if quick else " no convergence sweep (--no-conv)")
@@ -378,8 +403,6 @@ def part_signals(quick=False, na=None, nb=None, conv=True):
     sym_b = float(np.max(np.abs(s[-1]["b"] + np.conj(s[+1]["b"]))))
     sym_a = float(np.max(np.abs(s[-1]["a"] + np.conj(s[+1]["a"]))))
     sym = max(sym_b, sym_a)
-    max_top2_a = max(max(float(s[w]["top_a"].max()), s[w]["prep_top_a"]) for w in (+1, -1))
-    max_top_b = max(max(float(s[w]["top_b"].max()), s[w]["prep_top_b"]) for w in (+1, -1))
 
     wall = time.time() - t_start
     params_x = lambda xv: R.std_params(alpha=C.ALPHA, eps_z=xv * C.G2)
@@ -487,8 +510,7 @@ def part_dephasing(quick=False, na=None, nb=None, conv=True):
         Na, Nb = na or QUICK["na"], nb or QUICK["nb"]
         grid, t_end = QUICK["eps_deph"], QUICK["t_deph"]
     else:
-        Na0, Nb0 = C.trunc_for(C.ALPHA, "steady")
-        Na, Nb = na or Na0, nb or Nb0
+        Na, Nb = na or NA_PROD, nb or NB_PROD
         grid, t_end = EPS_DEPH, T_DEPH
     n_t = int(round(t_end / 0.002)) + 1
     print(f"dephasing: {Na}x{Nb}, eps/g2 = {grid}", flush=True)
@@ -505,7 +527,7 @@ def part_dephasing(quick=False, na=None, nb=None, conv=True):
     if conv and not quick:
         cache = _Cache(lambda Na_, Nb_: deph_metrics(dephasing_traces(Na_, Nb_, grid, t_end=t_end, n_t=n_t)))
         cache.rows[(Na, Nb)] = {**deph_metrics(d), "wall_s": wall_main}
-        sw = _sweeps(cache, NA_SWEEP_DEPH, NB_SWEEP, 28, 8)
+        sw = _sweeps(cache, NA_SWEEP_DEPH, NB_SWEEP, Na, Nb)
     chosen = {"Na": Na, "Nb": Nb}
     conv_note = "" if sw is not None else (" quick" if quick else " no convergence sweep (--no-conv)")
     wall = time.time() - t_start
