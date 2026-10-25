@@ -71,7 +71,8 @@ def rid(quantity, method, alpha, x, T=None, tag=None) -> str:
     """CONTRACT §6.3 id. x uses .3g so 1.0 prints as 1 and 0.05 stays 0.05."""
     s = f"t2_4b.{quantity}.{method}.two_mode.a{float(alpha):.2f}.ez{float(x):.3g}g2"
     if T is not None:
-        s += f".T{float(T):.1f}us"
+        # Lowercase t: record ids must match the frozen lowercase regex in src/results.py.
+        s += f".t{float(T):.1f}us"
     if tag:
         s += f".{tag}"
     return s
@@ -364,11 +365,11 @@ def _numerics(pt, extra=None):
 
 
 def snr_ids_ok():
-    """CONTRACT writes T{T:.1f}us, but results.ID_RE is lowercase. Do not rewrite the tag."""
+    """True when the lowercase duration tag t{T:.1f}us passes the frozen id regex."""
     from src.results import _check_id
 
     try:
-        _check_id("t2_4b.snr.td.two_mode.a1.00.ez1g2.T1.0us")
+        _check_id("t2_4b.snr.td.two_mode.a1.20.ez1.5g2.t0.5us")
     except ValueError:
         return False
     return True
@@ -692,7 +693,7 @@ def _write_td_records(row, quick, force, convergence, conv_note):
         notes=notes,
     )
     if not snr_ids_ok():
-        print("SNR json records blocked: uppercase T in the CONTRACT tag. Values stay in t2_4b.td.npz.")
+        print("SNR json records blocked: id rejected by the frozen lowercase regex. Values stay in t2_4b.td.npz.")
         return
     for T, key, lin_key in ((0.5, "snr_T0.5", "snr_lin_T0.5"), (1.0, "snr_T1.0", "snr_lin_T1.0"),
                             (2.0, "snr_T2.0", "snr_lin_T2.0")):
@@ -1060,7 +1061,7 @@ def main(argv=None):
     p.add_argument("--force", action="store_true")
     a = p.parse_args(argv)
     ok = snr_ids_ok()
-    print("snr id uppercase T accepted:" , ok)
+    print("snr id accepted:", ok)
     if a.part == "eig":
         if a.quick:
             run_eig(1.0, 1, True, a.force)

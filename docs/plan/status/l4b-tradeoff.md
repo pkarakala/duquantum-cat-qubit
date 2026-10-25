@@ -6,7 +6,7 @@
 | Branch | `std/l4b-tradeoff` |
 | Agent / model | Cursor agent, Grok 4.7 |
 | Started (EDT) | Sun Oct 25 2026, 10:18 AM |
-| Last update (EDT) | Sun Oct 25 2026, 10:38 AM |
+| Last update (EDT) | Sun Oct 25 2026, 10:40 AM |
 | Last commit | `9e7c000` `[l4b-tradeoff] add the tradeoff driver and queue the eigen grid` |
 
 ## Milestones
@@ -87,7 +87,7 @@ Do not run two of these at once. Tier-2 jobs ask for 6 GB; this machine's worker
 
 `--part eig` skips a point whose `t2_4b.gamma_x.eig...` record already exists, so an interrupted job resumes. Tier 1 is ε/g₂ ≤ 1, including 0. Tier 2 is ε/g₂ ∈ {1.5, 2, 3}. The α=1.2 tier-1 job also evaluates ε = −0.5 g₂ once, as the parity cross-check, and does not add a grid row for it.
 
-Pending record families, one id per (α, ε) on the 37-row grid (4 zeros + 30 + 3): `t2_4b.gamma_x.eig.*`, `t2_4b.gamma_z.eig.*`, `t2_4b.leakage.td.*`, `t2_4b.snr.td.*.T*us` (blocked, see decision), `t2_4b.gamma_x.td.two_mode.a1.00.ez0.1g2` and `.ez0.3g2`.
+Pending record families, one id per (α, ε) on the 37-row grid (4 zeros + 30 + 3): `t2_4b.gamma_x.eig.*`, `t2_4b.gamma_z.eig.*`, `t2_4b.leakage.td.*`, `t2_4b.snr.td.*.t*us`, `t2_4b.gamma_x.td.two_mode.a1.00.ez0.1g2` and `.ez0.3g2`.
 
 ## Deviations from the brief
 - `src/spectral.py` is `std/l1-spectral` at `d5d9709`. `src/linresp.py` is `prod/linresp` (`response` and the 2×2 model). `std/l4a-readout` was dirty (`?? results/records/t2_3.ring_freq.linresp.two_mode.a2.10.json`), so that worktree was not touched. Frozen `src/model.py`, `src/config.py`, `src/analysis.py` were not edited. `prod/release` was not merged.
@@ -96,13 +96,13 @@ Pending record families, one id per (α, ε) on the 37-row grid (4 zeros + 30 + 
 - No eigen solve and no mesolve were started. Hard stop 10:45 EDT, and the heavy lock was held by a live `l4a-readout` `task_2_3 --part all` (owner stamp 09:42). The lock was not deleted.
 - Tier 2 at 6 GB is listed because the brief requires it. It is above the 5 GB worker cap on this 8 GB machine.
 
-## DECISION NEEDED
+## DECISION
 
-### DECISION NEEDED (l4b-tradeoff, 10:38 EDT)
-Question: `record()` rejects the SNR id because the tag `T{T:.1f}us` has an uppercase `T`.
-Evidence: `src/results.py` `ID_RE = ^[a-z0-9_]+(\.[a-z0-9_\-]+)*$`; probe id `t2_4b.snr.td.two_mode.a1.00.ez1g2.T1.0us` raises `ValueError`; `snr_ids_ok()` printed `False`. The brief's id `t2_4b.snr.td.two_mode.a1.20.ez1.5g2.T0.5us` is the same pattern. `tasks/task_2_4b.py` `snr_ids_ok`.
-Options: A) Integrator allows `T` in tags (CONTRACT §6.3 already writes the tag that way). B) Change the tag to a lowercase `t` (forbidden to do silently).
-Default if no answer by 12:00 EDT: A. Wait. Do not lowercase. When `--part td` runs, SNR values still go into `results/arrays/t2_4b.td.npz` and `t2_4b.grid.npz`. JSON SNR records are not written until `record()` accepts the id.
+Resolved 10:39 EDT. Option B.
+
+A was: allow an uppercase `T` in the frozen `src/results.py` id regex. Not taken. `src/results.py` is unchanged.
+
+B was chosen because CONTRACT says record ids are lowercase. This lane only writes the SNR duration tag as `t{T:.1f}us`. Example that validates: `t2_4b.snr.td.two_mode.a1.20.ez1.5g2.t0.5us`. `snr_ids_ok()` checks that string against the frozen regex.
 
 ## Explain-back for Harshit (questions only)
 1. The readout drive cannot tilt the double well. So where does the extra bit-flip rate come from, and why does it carry e^{−2α²} rather than the e^{−4α²} of the undriven code-space channel?

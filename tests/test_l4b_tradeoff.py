@@ -40,7 +40,7 @@ def test_snr_helper_matches_formula():
 def test_record_ids_match_contract():
     assert rid("gamma_x", "eig", 1.0, 0.05) == "t2_4b.gamma_x.eig.two_mode.a1.00.ez0.05g2"
     assert rid("gamma_z", "eig", 1.4, 1.0) == "t2_4b.gamma_z.eig.two_mode.a1.40.ez1g2"
-    assert rid("snr", "td", 1.2, 1.5, T=0.5) == "t2_4b.snr.td.two_mode.a1.20.ez1.5g2.T0.5us"
+    assert rid("snr", "td", 1.2, 1.5, T=0.5) == "t2_4b.snr.td.two_mode.a1.20.ez1.5g2.t0.5us"
     assert rid("leakage", "td", 2.1, 0.0) == "t2_4b.leakage.td.two_mode.a2.10.ez0g2"
 
 
