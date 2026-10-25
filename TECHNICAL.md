@@ -82,7 +82,7 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 | B4 | Stabilization forgives a phase error in the pulse | F = 0.9995 / 0.9951 / 0.973 at 15° / 30° / 45° (\|β\| = α); the pulse alone gives 0.74 / 0.31 / 0.08 | pulse alone needs \|β − α\|² ≤ 0.01, i.e. ≤ 2.7° for F ≥ 0.99 | `A2_phase[*]`, `phase_window_F099_stabilized_deg` = 30 |
 | B5 | Method B (drive i·ε₁(a† − a) for the first 100 ns, from vacuum) also works if strong | ε₁ = 5 / 10 / 20 rad/µs: F = 0.78 / 0.94 / 0.997 | ε₁T is the bare displacement (0.5 / 1 / 2); the drive competes with the inflation, so it is weaker than A at equal β | `B_drive[*]` |
 | B6 | The other quadrature ε(a + a†) picks no well | Re⟨a⟩ = 0, F = 0.500 | ε(a + a†) generates D(−iεt), a push along the imaginary axis, at right angles to the wells, so the mirror symmetry Re⟨a⟩ → −Re⟨a⟩ survives (it is the 90° end of B4). Once the cat exists, the same drive is the Zeno Z gate | `control_wrong_quadrature` (it is not inert: a spot check at 20×6 shows it drives parity from 0.63 to 0.03 by 1 µs, the Zeno Z rotation; parity is not stored in this JSON) |
-| B7 | Converged | every F above agrees between 28×10 and 32×12 to ≤ 3e-04; max memory top-2 population ≤ 3.1e-05, buffer top level ≤ 5e-04 | Task 1.2 rule | `task_1_3b_28x10.json` vs `task_1_3b.json` |
+| B7 | Converged | every F above agrees between 28×10 and 32×12 to ≤ 3.3e-04; max memory top-2 population ≤ 3.1e-05, buffer top level ≤ 5e-04 | Task 1.2 rule | `task_1_3b_28x10.json` vs `task_1_3b.json` |
 | B8 | Finer grid at 40×14 (cloud batch): the F ≥ 0.99 windows | phase: 0.9998 / 0.9989 / 0.9975 / 0.9951 / 0.9908 / 0.984 at 10 / 20 / 25 / 30 / 35 / 40°, so ±35°; amplitude (real β): 0.978 / 0.994 / 0.9988 / 0.9977 / 0.987 at β = 1.0 / 1.25 / 1.5 / 3.0 / 3.5, so β ≈ 1.25–3.0 | the 8 points shared with the 32×12 table agree to ≤ 2.4e-5 in F; max memory top-2 population 2e-7, buffer top level ≤ 1.6e-5 | `results/task_1_3b_points/*_40x14.json` → `F_plus_alpha_2us` |
 
 **Why the full model forgives less than the effective one.** The effective one-mode model puts the F = 0.99 edge at 44.8°; the two-mode model on a 5° grid puts it at **35.5°** (`research/explore/phase_gap.py`). The gap is the slow buffer, the same cause as the 1.1 overshoot: raising κ_b at fixed κ₂ moves the edge to 37.0 / 38.3 / 40.2 / 41.4° for κ_b ×2 / 4 / 8 / 16. With κ_b < 8g₂α the exchange is underdamped, the memory swings past the well (to |a| ≈ 1.35α at 45°) and part of the state leaks permanently into the −α basin. Pre-filling the buffer makes it worse, and both models share the Re a = 0 boundary, so neither is the cause. So stabilization widens the phase tolerance about 13× (35° vs 2.7°), not the 16× the effective model suggests. The 40×14 fine grid (B8) confirms the ±35° window.
@@ -129,6 +129,11 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 | `cloud/vultr_run.py` | Vultr API: creates the VM, uploads the code, runs the sweep, downloads results, deletes the VM |
 | `docs/tools-log.md` | every external tool and sponsor service used: when, what for, cost, evidence |
 | `tools/ai_review.py` | optional LLM code review (Gemini or Grok); `--dry-run` saves the prompt only |
+| `src/spectral.py` | Section 2: sparse Liouvillian, parity sectors, shift-invert eigensolver |
+| `research/s2/*.py` | Section 2 scripts, one JSON per run in `results/s2/` (prefixes in `results/s2/README.md`) |
+| `research/s2/summarize.py` | rebuilds `results/s2/SUMMARY.md` and `figures/s2/` from the saved JSON, in seconds |
+| `tasks/task_2_2.py` | Γ_Z from the time-domain parity decay of \|C₊⟩, the cross-check of the eigenvalue result |
+| `cloud/s2_batch*.txt` | the Section 2 job lists run on Vultr |
 
 ## 7. Reproduce
 
