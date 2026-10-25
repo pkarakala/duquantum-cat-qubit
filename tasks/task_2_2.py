@@ -115,6 +115,9 @@ def summary():
     import json
     rows = [json.loads((RES_DIR / f"task_2_2_a{a:.2f}.json").read_text()) for a in ALPHAS
             if (RES_DIR / f"task_2_2_a{a:.2f}.json").exists()]
+    if len(rows) < 2:
+        print("summary needs at least two alphas; run with --summary once all are done")
+        return
     al = [r["alpha"] for r in rows]
     gz = [r["gamma_z"] for r in rows]
     sig = [max(r["uncertainty"], 1e-12) for r in rows]
