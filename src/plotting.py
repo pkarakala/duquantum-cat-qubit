@@ -33,9 +33,6 @@ def _wigner_origin(ax):
     halo = [path_effects.withStroke(linewidth=1.5, foreground="white")]
     ax.plot(0, 0, "+", color="black", ms=4, mew=0.7, zorder=5,
             path_effects=halo)
-    ax.annotate("0", (0, 0), xytext=(4, 4), textcoords="offset points",
-                fontsize=7, color="black", ha="left", va="bottom", zorder=5,
-                path_effects=halo)
 
 
 def wigner_panels(states, times, *, xmax=4, nrows=1):
@@ -114,7 +111,7 @@ def wigner_gif(states, times, name, *, xmax=4, fps=25):
     metadata = {"times_us": times.round(12).tolist(), "fps": fps,
                 "durations_ms": durations, "xmax": xmax, "npixels": 151,
                 "wigner_limits": [-2/np.pi, 2/np.pi], "state_dim": states.shape[-2],
-                "origin": [0, 0], "origin_label": "0"}
+                "origin": [0, 0], "origin_marker": "+"}
     FIG_DIR.mkdir(exist_ok=True)
     path = FIG_DIR / f"{name}.gif"
     frames[0].save(path, save_all=True, append_images=frames[1:], loop=0,

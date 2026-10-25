@@ -14,7 +14,7 @@ The figures are exported as 300-dpi PNGs and PDFs, with animated GIFs for the Wi
 
 Each frame is computed from a solved state, with the same phase-space coordinates and fixed color scale as the static panels below. The displayed clock is simulated time. GIFs play at 25 frames/s, pause for 0.8 s at each endpoint, and loop. A shared palette keeps colors consistent between frames.
 
-Every Wigner panel and animation marks the phase-space origin with a small cross and the label 0.
+Every Wigner panel and animation marks the phase-space origin with a small cross.
 
 ## task_1_0a_photon_number
 
