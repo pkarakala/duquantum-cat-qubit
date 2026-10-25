@@ -1,6 +1,6 @@
-# Technical layer
+# Technical layer: Section 1 groundwork
 
-This file is written for judges, physicists and AI reviewers. Every claim below names the number, the JSON file and key it comes from, the script that produced it, and the check we used. The short human version is [`README.md`](README.md).
+We are judged on the Standard track; its technical layer is [`docs/SECTION2.md`](docs/SECTION2.md). This file covers the Section 1 tasks we ran as the setup check the prompt recommends. It is written for judges, physicists and AI reviewers. Every claim below names the number, the JSON file and key it comes from, the script that produced it, and the check we used. The short human version is [`README.md`](README.md).
 
 ## 1. Model and conventions
 
@@ -109,6 +109,7 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
   | Coherence normalization: 2\|⟨α\|ρ\|−α⟩\| = 1 − O(e^(−2α²)) for \|C₊⟩ | ≈ 1 − 1.5e-4, agrees with our derivation | No change |
   | Scope: 1.3(b)/(c) not implemented | True at review time | Done afterwards: Task 1.3b |
 - **Figure check and second code review** ([`reviews/claude-figures-20261024-1900.md`](reviews/claude-figures-20261024-1900.md), [`reviews/claude-code-20261024-1900.md`](reviews/claude-code-20261024-1900.md)). The planned Gemini multimodal check (`ai_review.py --figures`) stopped on the free-tier daily quota, so Claude read all 12 figures as images against this table and the results JSON, and re-read `src/` and `tasks/` against the same checklist. No physics or convention errors. It found one wrong bound (claim 20 said 1e-5 at N_a = 20; the grid has 2.9e-5) and one rounded-down bound (B7), both corrected above; we also labelled the doubled coherence in claims 16 and 18, saved the inflation purity dip, made `settle_time` report "never" instead of the run length, and fixed figure labels (Wigner times, one unit in the grid, the solver-noise floor in the 1.1 monitors). Every task was then re-run on a second machine (Apple M2 laptop, ~10 min for 1.0–1.3b): every reported quantity reproduced to ≤ 1e-10 relative, and the solver-noise-level ones (truncation monitors, the 1e-11 error in claim 1) to ≤ 2e-6.
+- **Section 2.** Claude wrote most of `research/s2/` and `src/spectral.py` and drafted `docs/SECTION2.md` from our direction. Every rate there is computed two independent ways (Liouvillian eigenvalue and time-domain fit), every headline number at two or more truncations and, for time-domain runs, two solver tolerances. A final pass checked each number in the write-up against its JSON; it corrected a pulse-table row that mixed two drive amplitudes, the γ fit range, and the precision quoted for the time-domain agreement.
 - What we caught ourselves that an AI would easily miss: the default ODE tolerance produced ~1e-4 noise in the truncation monitors, which would have hidden a real truncation problem. We tightened the tolerance and confirmed the results didn't change beyond it.
 
 ## 6. File map
