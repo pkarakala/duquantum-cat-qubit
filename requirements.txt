@@ -6,3 +6,4 @@ scipy
 matplotlib
 pandas
 jupyter
+optax==0.2.8
