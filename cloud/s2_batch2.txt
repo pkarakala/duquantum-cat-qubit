@@ -1,37 +1,11 @@
-# Section 2, batch 2 (small, ~15 min on 3 x 16 cores): amplitude-limited pulses. Is P_flip / SNR shape-independent?
-1.7	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 0.25 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-9
-2.0	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 0.5 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-9
-2.7	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 1.0 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-9
-2.8	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 0.25 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-3.3	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 0.5 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-4.4	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 1.0 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-3.8	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 0.25 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-4.5	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 0.5 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-6.0	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 1.0 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-4.9	python -m research.s2.pulse_eval --alpha 2.4 --na 36 --nb 8 --T 0.25 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-5.9	python -m research.s2.pulse_eval --alpha 2.4 --na 36 --nb 8 --T 0.5 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-7.8	python -m research.s2.pulse_eval --alpha 2.4 --na 36 --nb 8 --T 1.0 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-12	python -m research.s2.pulse_eval --alpha 2.1 --na 36 --nb 12 --T 0.5 --norm peak --energies 0.25,0.5,1.0 --families square,res,bang,svd,svdbang --rtol 1e-11
-
-# Gradient-optimized pulses on the full model (J = SNR - mu P_flip; square scores 0)
-8	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 0.5 --peak 0.5 --iters 60 --rtol 1e-9
-8	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 0.5 --peak 1.0 --iters 60 --rtol 1e-9
-11	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 1.0 --peak 0.5 --iters 60 --rtol 1e-9
-11	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 1.0 --peak 1.0 --iters 60 --rtol 1e-9
-8	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 0.5 --peak 1.0 --iters 60 --mu-scale 0.5 --rtol 1e-9
-8	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 0.5 --peak 1.0 --iters 60 --mu-scale 2.0 --rtol 1e-9
-8	python -m research.s2.pulse_opt --alpha 1.4 --na 24 --nb 8 --T 0.5 --peak 1.0 --iters 60 --init random --seed 1 --rtol 1e-9
-14	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 0.5 --peak 0.5 --iters 50 --rtol 1e-11
-14	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 0.5 --peak 1.0 --iters 50 --rtol 1e-11
-19	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 1.0 --peak 0.5 --iters 50 --rtol 1e-11
-19	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 1.0 --peak 1.0 --iters 50 --rtol 1e-11
-14	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 0.5 --peak 1.0 --iters 50 --mu-scale 0.5 --rtol 1e-11
-14	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 0.5 --peak 1.0 --iters 50 --mu-scale 2.0 --rtol 1e-11
-14	python -m research.s2.pulse_opt --alpha 1.8 --na 28 --nb 8 --T 0.5 --peak 1.0 --iters 50 --init random --seed 1 --rtol 1e-11
-25	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 0.5 --iters 25 --rtol 1e-11
-25	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 25 --rtol 1e-11
-33	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 1.0 --peak 0.5 --iters 25 --rtol 1e-11
-33	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 1.0 --peak 1.0 --iters 25 --rtol 1e-11
-25	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 25 --mu-scale 0.5 --rtol 1e-11
-25	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 25 --mu-scale 2.0 --rtol 1e-11
-25	python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 25 --init random --seed 1 --rtol 1e-11
+# Section 2, batch 2: pulse optimizer (needs optax). First line is a 1-minute smoke test.
+0.5	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 14 --nb 4 --T 0.3 --peak 0.5 --iters 1 --bins 10
+8	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 0.5 --peak 0.5 --iters 40 --rtol 1e-9
+8	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 0.5 --peak 1.0 --iters 40 --rtol 1e-9
+8	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 1.0 --peak 0.5 --iters 40 --rtol 1e-9
+12	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 0.5 --iters 30 --rtol 1e-9
+12	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 1.0 --iters 30 --rtol 1e-9
+12	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 1.0 --peak 0.5 --iters 30 --rtol 1e-9
+15	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 0.5 --iters 15 --rtol 1e-9
+15	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 15 --rtol 1e-9
+15	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 1.0 --peak 0.5 --iters 15 --rtol 1e-9
