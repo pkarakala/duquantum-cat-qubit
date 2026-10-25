@@ -45,7 +45,7 @@ def best_by_alpha(rows, key):
     return res
 
 
-ALPHA_CONVERGED = 2.4
+ALPHA_CONVERGED = 2.5
 
 
 def gamma_x(md):

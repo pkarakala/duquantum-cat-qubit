@@ -1,8 +1,8 @@
 # Section 2 (Standard track): bit flips, phase flips and a better readout
 
-Sat Oct 24 2026. Every number below comes from a JSON in `results/s2/` written by a script in
+Oct 24–25 2026. Every number below comes from a JSON in `results/s2/` written by a script in
 `research/s2/`. `python -m research.s2.summarize` rebuilds `results/s2/SUMMARY.md` (all tables) and
-`figures/s2/`. Cloud runs: `cloud/s2_batch1b.txt`, `cloud/s2_batch2.txt` (Vultr, logged in `docs/tools-log.md`).
+`figures/s2/`. Cloud runs: `cloud/s2_batch1b.txt`, `s2_batch2.txt`, `s2_batch3s.txt` (Vultr, logged in `docs/tools-log.md`).
 Model and parameters exactly as in the prompt (two-mode H_2ph, κ_b, κ_a; ħ = 1, µs, rad/µs; double precision).
 
 ## The one idea behind all four tasks
@@ -16,8 +16,9 @@ slowest eigenvalue is Γ_X, with no zero mode to deflate). A sparse shift-invert
 with a reverse-Cuthill–McKee ordering that halves the LU fill, gives Γ_X at α = 2.1 on the full two-mode model in
 under a minute (28×8), however small Γ_X is.
 
-**Validation.** Where the time domain is feasible the two methods agree to 1e-8 (α = 0.8, 1.0, 1.2, 1.4; Re⟨a⟩(t)
-fitted over 40–400 µs). They also agree with the readout drive on (α = 1.4, ε_Z = 0.3 g₂: 2e-6). The one-mode values
+**Validation.** Where the time domain is feasible the two methods agree to ≤ 2.3e-8 relative (α = 0.8, 1.0, 1.2, 1.4; Re⟨a⟩(t)
+fitted over 40–400 µs). They also agree with the readout drive on (≤ 2.4e-6 at three points; 1.5e-3 at α = 1.0,
+ε_Z = g₂, where Γ_X ≈ 2.8 /µs is no longer well separated from the other decay rates). The one-mode values
 reproduce the earlier independent anchors to all printed digits (2.2819e-3, 1.0744e-4, 2.0693e-6, 1.1699e-7).
 
 Code: `src/spectral.py`, `research/s2/gx_eig.py`, `research/s2/gx_time.py`.
@@ -34,7 +35,7 @@ Convergence: changing Na by +4 or Nb from 8 → 10 → 12 moves Γ_X by < 1.5% u
 (α = 2.1: 3.883e-7 (28×8), 3.854e-7 (28×10), 3.849e-7 (28×12)). At α = 2.6 the truncations disagree by ~20%,
 so we stop the curve at 2.5.
 
-**Scaling.** A single log-linear fit over α = 1.0–2.5 gives γ ≈ 2.2, but the slope is not constant:
+**Scaling.** A single log-linear fit over α = 1.0–2.5 gives γ = 2.30, but the slope is not constant:
 local γ = 3.1 (α = 1.0–1.4), 2.65 (1.4–1.8), 2.0 (1.8–2.1), 1.86 (2.1–2.4). So "γ ≲ 2" holds only at large α.
 
 **Why the slope runs: two bit-flip channels.**
@@ -175,7 +176,7 @@ the envelope.
 - Precision: float64 throughout; Tsit5 rtol 1e-8–1e-11 (pulse results checked at two tolerances).
 - Every headline number is checked at ≥ 2 truncations; the population in the top Fock level is ≤ 1e-6 in all
   readout and pulse runs (columns `max_top_a`).
-- Eigen vs time domain: Γ_X at 4 values of α (≤ 4e-8), Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
+- Eigen vs time domain: Γ_X at 4 values of α (≤ 2.3e-8 relative), Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
 - Known limits: Γ_X at α ≥ 2.6 is not converged in our truncations; the circuit simulation is a 150 ns window
   without loss (enough to see the conversion rate and the Stark-shift detuning, not the steady state).
 

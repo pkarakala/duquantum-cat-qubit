@@ -2,7 +2,7 @@
 
 ## Task 2.1 Γ_X (two-mode Liouvillian gap)
 
-Log-linear fit for α ≥ 1.0: γ = 2.36. Local γ = −d lnΓ_X/dα² runs from 2.78 (α = 0.8) to 1.86 (α = 2.4).
+Log-linear fit for α ≥ 1.0: γ = 2.30. Local γ = −d lnΓ_X/dα² runs from 2.78 (α = 0.8) to 1.80 (α = 2.5).
 
 | α | Γ_X (1/µs) | T_X | truncation spread | Na×Nb | ch1 | ch2 |
 |---|---|---|---|---|---|---|
@@ -23,7 +23,7 @@ Log-linear fit for α ≥ 1.0: γ = 2.36. Local γ = −d lnΓ_X/dα² runs from
 | 2.2 | 1.7180e-07 | 5.82e+06 µs | 1.0e-02 | 30×10 | 2.21e-09 | 3.79e-08 |
 | 2.3 | 7.4552e-08 | 1.34e+07 µs | 1.2e-02 | 30×10 | 3.99e-10 | 1.54e-08 |
 | 2.4 | 3.1153e-08 | 3.21e+07 µs | 1.5e-02 | 32×10 | 6.64e-11 | 6.02e-09 |
-| 2.5 | 1.2897e-08 | 7.75e+07 µs | 1.3e-02 (not converged, excluded from fits) | 32×10 | 1.01e-11 | 2.26e-09 |
+| 2.5 | 1.2897e-08 | 7.75e+07 µs | 1.3e-02 | 32×10 | 1.01e-11 | 2.26e-09 |
 | 2.6 | 6.1867e-09 | 1.62e+08 µs | 1.9e-01 (not converged, excluded from fits) | 32×10 | 1.43e-12 | 8.15e-10 |
 
 Time-domain cross-checks (Re⟨a⟩ fit vs eigen):
