@@ -24,9 +24,9 @@ DOCS = [
     ("methodology", "Methodology and checks", "docs/TECHNICAL.md"),
 ]
 
-KATEX = """<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+KATEX = """<link rel="stylesheet" href="katex/katex.min.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/contrib/auto-render.min.js"
   onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>"""
 
 STYLE = """<style>
@@ -43,10 +43,11 @@ pre{background:var(--surface);border:1px solid var(--line);padding:12px;overflow
 </style>"""
 
 
-def shell(title: str, body: str) -> str:
+def shell(title: str, body: str, up: str = "") -> str:
+    katex = KATEX.replace("katex/", f"{up}katex/")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} · Cat Qubit Academy</title>
-{STYLE}{KATEX}</head><body><main><p class="crumb"><a href="../#/research">← Research</a> · <a href="../#/">Home</a></p>
+{STYLE}{katex}</head><body><main><p class="crumb"><a href="../#/research">← Research</a> · <a href="../#/">Home</a></p>
 {body}</main></body></html>"""
 
 
@@ -95,6 +96,7 @@ def main() -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "notebooks").mkdir(parents=True)
+    shutil.copytree(Path(__file__).resolve().parent / "vendor" / "katex", OUT / "katex")
     figures: set = set()
     for slug, title, path in DOCS:
         body = render_md((SRC / path).read_text(), figures)
