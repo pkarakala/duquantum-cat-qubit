@@ -1,14 +1,14 @@
 # Task 1: stabilizing and characterizing a cat qubit
 
-**DuQuantum 2026 · Alice & Bob challenge · Section 1** · Write-up and figures by Xuanyu Zhu · [Model, parameters and numerical checks](TECHNICAL.md)
+**DuQuantum 2026 · Alice & Bob challenge · Section 1**  [Model, parameters and numerical checks](TECHNICAL.md)
 
-The memory stores the state; the lossy buffer provides two-photon stabilization. Their annihilation operators are $a$ and $b$, and their mean photon numbers are $\langle n_a\rangle=\langle a^\dagger a\rangle$ and $\langle n_b\rangle=\langle b^\dagger b\rangle$. We use the supplied target amplitude $\alpha=2.1$, corresponding to $\alpha^2=4.41$ photons. The coupling $g_2$ exchanges two memory photons with one buffer photon; $\epsilon_d$ drives the buffer; $\kappa_a$ and $\kappa_b$ are single-photon loss rates.
+The memory stores the state. The lossy buffer provides two photon stabilization. Their annihilation operators are $a$ and $b$, and their mean photon numbers are $\langle n_a\rangle=\langle a^\dagger a\rangle$ and $\langle n_b\rangle=\langle b^\dagger b\rangle$. We use the supplied target amplitude $\alpha=2.1$, corresponding to $\alpha^2=4.41$ photons. The coupling $g_2$ exchanges two memory photons with one buffer photon; $\epsilon_d$ drives the buffer; $\kappa_a$ and $\kappa_b$ are single photon loss rates.
 
-Time is in µs; rates use the challenge's angular-frequency convention, with quoted frequencies multiplied by $2\pi$. A cutoff $N$ retains photon-number (Fock) states $\lvert0\rangle$ through $\lvert N-1\rangle$. We use $N=30$ for the single-mode calculations and $(N_a,N_b)=(32,12)$ for memory and buffer unless stated otherwise.
+Time is in µs; rates use the challenge's angular frequency convention, with quoted frequencies multiplied by $2\pi$. A cutoff $N$ retains photon number (Fock) states $\lvert0\rangle$ through $\lvert N-1\rangle$. We use $N=30$ for the single mode calculations and $(N_a,N_b)=(32,12)$ for memory and buffer unless stated otherwise.
 
 ## 1.0 — Add dissipation one ingredient at a time
 
-Here $n=a^\dagger a$ is the single-mode photon-number operator. Parts (a) and (b) start from the coherent state $\lvert\alpha_0=2\rangle$, with four photons on average; part (c) starts from vacuum. In (a), the loss rate and Hamiltonian detuning are both $2\pi$ µs⁻¹. In (b,c), the nominal two-photon loss rate is $\kappa_{2,0}=4g_2^2/\kappa_b$.
+Here $n=a^\dagger a$ is the single mode photon number operator. Parts (a) and (b) start from the coherent state $\lvert\alpha_0=2\rangle$, with four photons on average; part (c) starts from vacuum. In (a), the loss rate and Hamiltonian detuning are both $2\pi$ µs⁻¹. In (b,c), the nominal two photon loss rate is $\kappa_{2,0}=4g_2^2/\kappa_b$.
 
 | Task | Prediction | Numerical result |
 |---|---|---|
@@ -16,9 +16,9 @@ Here $n=a^\dagger a$ is the single-mode photon-number operator. Parts (a) and (b
 | **(b) Two-photon loss** | $\lvert0\rangle$ and $\lvert1\rangle$ cannot lose another photon pair. Even photon numbers decay to $\lvert0\rangle$ and odd ones to $\lvert1\rangle$, giving $\langle n\rangle_\infty=(1-e^{-8})/2$. | $\langle n\rangle_\infty=0.49983227$, with final probabilities $p_0=0.50016773$ and $p_1=0.49983227$. |
 | **(c) Two-photon stabilization** | From vacuum, occupation approaches $\alpha^2=4.41$ and the Wigner function develops two lobes with interference. | At the nominal rate, $\langle n\rangle=4.404$ at 2 µs. |
 
-Here $p_0$ and $p_1$ are the probabilities of zero and one photon. The two-photon-loss plateau is set by the initial even/odd probabilities, because removing pairs preserves parity.
+Here $p_0$ and $p_1$ are the probabilities of zero and one photon. The two photon loss plateau is set by the initial even/odd probabilities, because removing pairs preserves parity.
 
-For $\kappa_2/\kappa_{2,0}=1/4,1,4$, the times to reach 90% of each run's occupation at 2 µs are **0.610, 0.155 and 0.040 µs**, respectively. Increasing the two-photon rate therefore speeds up stabilization. The curves nearly coincide when plotted against $\kappa_2t$: this scaling would be exact at $\kappa_a=0$, while the fixed memory-loss rate produces small differences.
+For $\kappa_2/\kappa_{2,0}=1/4,1,4$, the times to reach 90% of each run's occupation at 2 µs are **0.610, 0.155 and 0.040 µs**, respectively. Increasing the two photon rate therefore speeds up stabilization. The curves nearly coincide when plotted against $\kappa_2t$: this scaling would be exact at $\kappa_a=0$, while the fixed memory-loss rate produces small differences.
 
 <p align="center">
   <img src="../figures/task_1_0c_kappa2_sweep.png" width="860" alt="Effective-model stabilization">
@@ -37,15 +37,15 @@ For $\kappa_2/\kappa_{2,0}=1/4,1,4$, the times to reach 90% of each run's occupa
   </tr>
 </table>
 
-**Wigner evolution.** Left: coherent-state decay over 0–1 µs. Right: cat formation at nominal $\kappa_2$ over 0–2 µs. The Wigner function $W(\beta)$ displays the state over the complex amplitude coordinate $\beta$; a coherent state's center gives its amplitude. Red and blue denote positive and negative values; all animations share the fixed scale $[-2/\pi,2/\pi]$ and display simulated time. [Static panels](../notebooks/01_task_1_0_warmup.ipynb).
+**Wigner evolution.** Left: coherent state decay over 0–1 µs. Right: cat formation at nominal $\kappa_2$ over 0–2 µs. The Wigner function $W(\beta)$ displays the state over the complex amplitude coordinate $\beta$; a coherent state's center gives its amplitude. Red and blue denote positive and negative values. All animations share the fixed scale $[-2/\pi,2/\pi]$ and display simulated time. [Static panels](../notebooks/01_task_1_0_warmup.ipynb).
 
 ## 1.1 — Inflate the memory in the full two-mode model
 
-Starting from vacuum in both modes, the memory occupation overshoots its target and oscillates before settling. The effective single-mode model instead rises smoothly. Replacing the buffer by an instantaneous two-photon dissipation channel requires $\kappa_b\gg g_2,\epsilon_d$; the supplied parameters do not satisfy this condition:
+Starting from vacuum in both modes, the memory occupation overshoots its target and oscillates before settling. The effective single mode model instead rises smoothly. Replacing the buffer by an instantaneous two photon dissipation channel requires $\kappa_b\gg g_2,\epsilon_d$; the supplied parameters do not satisfy this condition:
 
 $$g_2/\kappa_b=0.293,\qquad \epsilon_d/\kappa_b=1.294.$$
 
-The buffer fills and exchanges photon pairs with the memory before dissipating them, producing the overshoot and ringdown. We simulate 0–3 µs; peaks below are sampled every 0.01 µs, and the late-time occupation is averaged over 2.81–3 µs.
+The buffer fills and exchanges photon pairs with the memory before dissipating them, producing the overshoot and ringdown. We simulate 0–3 µs. Peaks below are sampled every 0.01 µs, and the late time occupation is averaged over 2.81–3 µs.
 
 | Quantity | Result |
 |---|---:|
@@ -58,7 +58,7 @@ The buffer fills and exchanges photon pairs with the memory before dissipating t
   <img src="../figures/task_1_1_inflation.png" width="860" alt="Two-mode inflation">
 </p>
 
-**Two-mode inflation.** (a) Memory and buffer occupations at $(32,12)$, with the memory at $(24,6)$ (start) dashed and the effective model dotted. The horizontal line marks $\alpha^2$. (b) Top-level probabilities in percent: $p_a^{(2)}$ sums the probabilities of memory levels $N_a-2$ and $N_a-1$; $p_b^{(1)}$ is the probability of buffer level $N_b-1$. Solid curves use $(32,12)$ and dashed curves $(24,6)$. The dotted line marks our **0.1% tolerance**, chosen for the convergence study. The $(24,6)$ buffer reaches **4.62%** at level 5; both $(32,12)$ monitors remain below the tolerance throughout inflation. At $N_b=12$, the monitored buffer level is 11.
+**Two-mode inflation.** (a) Memory and buffer occupations at $(32,12)$, with the memory at $(24,6)$ (start) dashed and the effective model dotted. The horizontal line marks $\alpha^2$. (b) Top level probabilities in percent: $p_a^{(2)}$ sums the probabilities of memory levels $N_a-2$ and $N_a-1$; $p_b^{(1)}$ is the probability of buffer level $N_b-1$. Solid curves use $(32,12)$ and dashed curves $(24,6)$. The dotted line marks our **0.1% tolerance**, chosen for the convergence study. The $(24,6)$ buffer reaches **4.62%** at level 5; both $(32,12)$ monitors remain below the tolerance throughout inflation. At $N_b=12$, the monitored buffer level is 11.
 
 The occupation ringdown persists under tighter tolerances, smaller integration steps and an independent solver, supporting its physical origin. Tiny late-time fluctuations in the supplementary log-scale probabilities are numerical residuals; [numerical audit](../figures/task_1_1_numerical_checks.png).
 
@@ -70,9 +70,9 @@ The occupation ringdown persists under tighter tolerances, smaller integration s
 
 ## 1.2 — Check semiclassical agreement and convergence
 
-The reference calculation at $(40,14)$ gives a late-time occupation of **4.4026**, only **0.167% below** $\epsilon_d/g_2=4.41$. This agreement persists as the cutoffs increase. The remaining small difference is consistent with the finite-loss quantum model; steady occupation is much less sensitive to truncation than the transient peak.
+The reference calculation at $(40,14)$ gives a late time occupation of **4.4026**, only **0.167% below** $\epsilon_d/g_2=4.41$. This agreement persists as the cutoffs increase. The remaining small difference is consistent with the finite loss quantum model. Steady occupation is much less sensitive to truncation than the transient peak.
 
-We test $N_a=16,20,24,28,32,40$ and $N_b=4,6,8,10,12,14$. Both the trajectory sweeps and the occupation-convergence plot hold the other cutoff at its largest tested value: vary $N_a$ at **$N_b=14$**, then vary $N_b$ at **$N_a=40$**. Relative errors are absolute differences divided by the corresponding $(40,14)$ reference value. The steady estimate averages 2.81–3 µs; the peak is the largest saved memory occupation over 0–3 µs.
+We test $N_a=16,20,24,28,32,40$ and $N_b=4,6,8,10,12,14$. Both the trajectory sweeps and the occupation convergence plot hold the other cutoff at its largest tested value: vary $N_a$ at **$N_b=14$**, then vary $N_b$ at **$N_a=40$**. Relative errors are absolute differences divided by the corresponding $(40,14)$ reference value. The steady estimate averages 2.81–3 µs. The peak is the largest saved memory occupation over 0–3 µs.
 
 <p align="center">
   <img src="../figures/task_1_2_cutoff_sweeps.png" width="860" alt="Separate cutoff sweeps">
@@ -101,7 +101,7 @@ D_{\max}=\max_t\frac{1}{2}\left\lVert\rho_a(t)-\rho_{a,\mathrm{ref}}(t)\right\rV
 
 Here $\rho_{a,\mathrm{ref}}$ is the $(40,14)$ reference state. The trace norm $\lVert\cdot\rVert_1$ sums the absolute eigenvalues of the density-matrix difference. A trace distance of 1% bounds any memory measurement's probability difference from the reference by one percentage point, up to solver error. The reference is a finite calculation, so this is a comparison with $(40,14)$ rather than an exact error bound.
 
-We require maximum trace distance $`D_{\max}\leq1\%`$, relative peak and steady errors at most 0.5% and 0.1%, respectively, and both monitored top-level probabilities staying at most 0.1% throughout 0–3 µs. All these conditions must also hold for every tested pair with both cutoffs at least as large. **$(28,12)$ is the passing pair with the smallest dimension $N_aN_b$**, with $`D_{\max}=0.848\%`$. We use **$(32,12)$ throughout Tasks 1.1 and 1.3** for additional margin, with $`D_{\max}=0.310\%`$. The state-distance test covers vacuum inflation at the supplied parameters; it does not certify different initial states or drives.
+We require maximum trace distance $`D_{\max}\leq1\%`$, relative peak and steady errors at most 0.5% and 0.1%, respectively, and both monitored top level probabilities staying at most 0.1% throughout 0–3 µs. All these conditions must also hold for every tested pair with both cutoffs at least as large. **$(28,12)$ is the passing pair with the smallest dimension $N_aN_b$**, with $`D_{\max}=0.848\%`$. We use **$(32,12)$ throughout Tasks 1.1 and 1.3** for additional margin, with $`D_{\max}=0.310\%`$. The state-distance test covers vacuum inflation at the supplied parameters; it does not certify different initial states or drives.
 
 <p align="center">
   <img src="../figures/task_1_2_error_grid.png" width="520" alt="Joint memory-state convergence">
@@ -142,7 +142,7 @@ Inflation from vacuum prepares a superposition of both codewords. **To initializ
 
 A resonant memory drive with Hamiltonian $i\varepsilon_1(t)(a^\dagger-a)$ produces displacement along the real axis containing the codewords $\lvert\pm\alpha\rangle$. Here $\varepsilon_1$ is the real drive amplitude in µs⁻¹. Rotating the drive phase by 90° gives the Hamiltonian $\varepsilon_1(t)(a+a^\dagger)$ and displacement along the perpendicular imaginary axis. This orthogonal drive provides a control for the phase dependence of codeword selection.
 
-An ideal real-axis pulse applied before stabilization prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
+An ideal real axis pulse applied before stabilization prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
 
 1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
 2. Apply this memory pulse with area $\beta=1.5$, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
@@ -160,7 +160,7 @@ We report fidelity $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$ and n
 | Drive during inflation, $\varepsilon_1=20$ µs⁻¹ | 0.99681 | 0.99290 | 0.67 |
 | Orthogonal drive, $\varepsilon_1=10$ µs⁻¹ | 0.49999 | 0 | — |
 
-All simulations include memory single-photon loss and use $(N_a,N_b)=(32,12)$.
+All simulations include memory single photon loss and use $(N_a,N_b)=(32,12)$.
 
 <p align="center">
   <img src="../figures/task_1_3b_logical_prep.png" width="860" alt="Logical-state preparation">
