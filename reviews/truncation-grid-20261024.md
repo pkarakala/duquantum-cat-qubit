@@ -232,3 +232,13 @@ label are included in animation metadata. All six embedded notebook images match
 the updated exports byte for byte. The static mosaic and representative frames
 from every movie were visually checked. Source syntax and whitespace checks pass.
 The change is complete locally; no commit or push was performed.
+
+## Delivery — 2026-10-25
+
+At the user's request, implementation commit `7fd4e7ecfd7010005de158276d9c6705313b1ad5` was pushed to
+`origin/XZ-codex-intro-review` and verified against the remote branch. It includes
+the validated Task 2.3 study and review fixes, logical-preparation Wigner snapshots
+and GIF, centered report figures, and origin labels across every maintained
+Wigner sequence. The final pre-push suite passed all 33 tests; Task 2.3 source
+hashes match its analysis record and all 15 numerical checks pass. This section
+is a delivery-only follow-up to that implementation commit.
