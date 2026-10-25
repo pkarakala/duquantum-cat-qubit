@@ -11,12 +11,14 @@ Team: Pranav Reddy, Harshit Aggarwal, Halo Kwok, Xuanyu Zhu
 |---|---|
 | **Task 1**: stabilize a cat qubit, check convergence, prepare a logical state | [docs/task_1.md](docs/task_1.md) |
 | **Task 2**: bit flips, phase flips, buffer readout, a better readout | [notebooks 06–09](notebooks/) · [docs/TECHNICAL.md](docs/TECHNICAL.md) |
+| **Cat Qubit Academy**: 8 interactive levels to the readout design, plus our Task 2 results live | [site/](site/) · [server/](server/) |
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt
 ./run_all.sh      # every number is also saved as JSON in results/
+npm --prefix site ci && npm --prefix site run dev   # Cat Qubit Academy: http://localhost:5173
 ```
 
 ## How we used AI and tools
@@ -25,6 +27,6 @@ pip install -r requirements.txt
 - **Codex** helped with Section 1 validation, convergence analysis, figures and the brute force Task 2.1/2.2 simulations.
 - **Gemini** checked the physics in the code and validated the plots (`tools/ai_review.py`; log in [`reviews/`](reviews/)).
 - **Vultr** ran our large simulation batches in the cloud in total ([tools log](docs/tools-log.md)).
-- **Cursor** and a **Groq**-powered bot are used for the product layer.
+- **Grok** (our Grok bot) and **Cursor** agents built the product layer, Cat Qubit Academy. Claude Code helped connect it to our results.
 
 We checked every result against a hand prediction or a second method.
