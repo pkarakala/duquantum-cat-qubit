@@ -7,7 +7,7 @@
 | Agent / model | Cursor Grok 4.7 |
 | Started (EDT) | 2026-10-25 00:27 |
 | Last update (EDT) | 2026-10-25 00:58 |
-| Last commit | filled after the solver commit |
+| Last commit | `515d00b` `[p1-ts-sim] Add the offline one-mode Crank–Nicolson solver.` |
 
 ## Milestones
 - [x] Read brief, CONTRACT, RESEARCH
