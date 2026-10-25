@@ -18,6 +18,7 @@ import dynamiqs as dq
 from src import config as C
 from src.model import two_mode, vacuum2
 from src.analysis import top_projector
+from src.convergence import converged_at
 from src.plotting import save as save_fig
 from src.results import save as save_res
 
@@ -42,15 +43,6 @@ def run(Na, Nb):
         "peak_nb": float(e[1].max()),
         "max_top2_a": float(e[2].max()), "max_top_b": float(e[3].max()),
     }
-
-
-def converged_at(rows, key, var, tol):
-    """Smallest value of `var` whose result is within tol of the largest-N result."""
-    ref = rows[-1][key]
-    for r in rows:
-        if all(abs(s[key] - ref) <= tol * abs(ref) for s in rows if s[var] >= r[var]):
-            return r[var]
-    return rows[-1][var]
 
 
 def main(quick=False):

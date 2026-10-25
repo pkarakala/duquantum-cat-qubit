@@ -1,0 +1,61 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_3a.gamma_z.td.two_mode.a2.10",
+  "task": "1.3a",
+  "quantity": "gamma_z",
+  "value": 0.5134564726057531,
+  "uncertainty": null,
+  "units": "1/us",
+  "method": "mesolve_parity_fit",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 32,
+    "Nb": 12
+  },
+  "convergence": null,
+  "numerics": {
+    "fit_window_us": [
+      1.0,
+      6.0
+    ]
+  },
+  "cross_check": [
+    {
+      "method": "analytic_2kappa_a_n",
+      "ref_id": null,
+      "value": 0.5145525434761521,
+      "rel_diff": 0.002130143722532739,
+      "tol": 0.01,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_3a.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_3a.json; parity decay rate from a pure-exponential fit (no offset) over t in [1, 6] us after inflation from vacuum; the flat JSON stores no fit stderr. convergence null: single truncation >= task_1_2 needed; superseded by t2_2.gamma_z.td.two_mode.a2.10",
+  "provenance": {
+    "script": "tasks/task_1_3a.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}

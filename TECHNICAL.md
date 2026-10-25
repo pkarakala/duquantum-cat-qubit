@@ -33,6 +33,7 @@ This file is written for judges, physicists and AI reviewers. Every claim below 
 | 16 | 1.3a it is a superposition, not a mixture | at 1 µs: coherence 0.63 = parity 0.63; purity 0.69 | a mixture has coherence 0, purity 0.5 | `task_1_3a.json → at_1us` | `tasks/task_1_3a.py` |
 | 17 | 1.3a cat lifetime | 1.95 µs | 1/(2κ_a α²) = 1.94 µs | `task_1_3a.json → cat_lifetime_us` | `tasks/task_1_3a.py` |
 | 18 | 1.3a becomes a mixture by 6 µs | parity 0.05, coherence 0.05, purity 0.501 | expected after ~3 lifetimes | `task_1_3a.json → at_6us` | `tasks/task_1_3a.py` |
+| 19 | 1.3a parity-decay fit is robust | 0.5135 / 0.5134 / 0.5132 / 0.5129 for fit windows starting at 0.8 / 1.0 / 2.0 / 3.0 µs; nonlinear fit on y gives 0.5139 | spread ≤ 0.12%, well below the 0.2% gap to the prediction | `task_1_3a.json → gamma_vs_fit_start_us, gamma_nonlinear_fit_per_us` | `tasks/task_1_3a.py` |
 
 ## 3. Convergence study (Task 1.2)
 
@@ -54,10 +55,40 @@ We varied each truncation separately (N_a ∈ {16, 20, 24, 28, 32, 40} at N_b = 
 
 Memory parity P = e^{iπa†a} commutes with a²b†, a†²b, the buffer drive, and the buffer loss. Only √κ_a a changes it. The initial vacuum has P = +1, so without κ_a the memory would stay in the even-parity subspace. In the code space that subspace contains just |C₊⟩. In the code space, the coherence 2|⟨α|ρ_a|−α⟩| equals ⟨P⟩, and the data show this (0.626 vs 0.629 at 1 µs). So the state is the even cat diluted only by parity flips from photon loss, with no extra dephasing. The purity dips to ~0.6 at 0.3 µs while the memory is entangled with the filling buffer, then follows the parity-flip mixture. Fidelity with |C₊⟩ peaks at 0.85 around 0.6 µs. It's limited by the parity already lost during inflation (~0.3 µs at an elevated n̄) and by the residual overshoot deformation.
 
+## 4b. Task 1.3(b, c): preparing |+α⟩
+
+**Why vacuum can't work, and what must break the symmetry.** H and both jump operators are unchanged by a → −a, and so is |0⟩, so the evolved state is symmetric between ±α and Re⟨a⟩ = 0 at all times (claim 14). The buffer drive acts only on b, so no buffer-side control can pick a well. The push has to be odd in a and act on the memory: a displaced initial state, or a memory drive.
+
+All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, read at t = 2 µs. Script `tasks/task_1_3b.py`, results `results/task_1_3b.json`, figure `figures/task_1_3b_logical_prep.png`, notebook `notebooks/05_task_1_3b_logical_prep.ipynb`. Claims are labelled B1–B7 so they don't collide with the numbering on other branches.
+
+| # | Claim | Value | Prediction / check | Source (`task_1_3b.json` →) |
+|---|---|---|---|---|
+| B1 | Method A (start in \|β⟩, β real, then pump) prepares \|+α⟩ | F = 0.978 / 0.9988 / 1.000 / 0.9977 for β = 1.0 / 1.5 / 2.1 / 3.0 | the dissipation pulls \|β⟩ into the nearest well; β = α is already a dark state | `A1_amplitude[*].F_plus_alpha_2us` |
+| B2 | It is fast | F ≥ 0.99 after 0.41 µs (β = 1.5), 0.53 µs (β = 3.0) | comparable to inflation from vacuum (~1 µs) | `A1_amplitude[*].t_F_099_us` |
+| B3 | Small β only partly picks a well | β = 0.5: F = 0.84, Re⟨a⟩/α = 0.69 | a weak push leaves weight in the −α basin | `A1_amplitude[1]` |
+| B4 | Stabilization forgives a phase error in the pulse | F = 0.9995 / 0.9951 / 0.973 at 15° / 30° / 45° (\|β\| = α); the pulse alone gives 0.74 / 0.31 / 0.08 | pulse alone needs \|β − α\|² ≤ 0.01, i.e. ≤ 2.7° for F ≥ 0.99 | `A2_phase[*]`, `phase_window_F099_stabilized_deg` = 30 |
+| B5 | Method B (drive i·ε₁(a† − a) for the first 100 ns, from vacuum) also works if strong | ε₁ = 5 / 10 / 20 rad/µs: F = 0.78 / 0.94 / 0.997 | ε₁T is the bare displacement (0.5 / 1 / 2); the drive competes with the inflation, so it is weaker than A at equal β | `B_drive[*]` |
+| B6 | The other quadrature ε(a + a†) picks no well | Re⟨a⟩ = 0, F = 0.500 | ε(a + a†) generates D(−iεt), a push along the imaginary axis, at right angles to the wells, so the mirror symmetry Re⟨a⟩ → −Re⟨a⟩ survives (it is the 90° end of B4). Once the cat exists, the same drive is the Zeno Z gate | `control_wrong_quadrature` |
+| B7 | Converged | every F above agrees between 28×10 and 32×12 to ≤ 3e-4; max memory top-2 population ≤ 3e-5, buffer top level ≤ 5e-4 | Task 1.2 rule | run with `--na 28 --nb 10` |
+
+**Note on the one-mode research estimate.** An earlier one-mode (effective model) calculation gave F ≥ 0.99 up to a ~45° phase error. The two-mode model is less forgiving: F ≥ 0.99 holds at 30° but not at 45° (0.973). We quote the two-mode number. A finer phase grid at 40×14 is queued for the cloud.
+
+### Task 1.3(c): what the method costs
+
+- **Hardware.** One resonant drive on the memory. Alice & Bob already need it for the Zeno Z gate, so it is reused rather than added.
+- **Calibration.** The pump fixes the wells only up to a sign (α² = ε_d/g₂), so the pulse phase must be locked to half the pump phase. Thanks to the stabilization this lock is loose: ±30° (B4) instead of ±2.7° without it. The amplitude is also loose: anything from β ≈ 1.5 to ≥ 3 gives F ≥ 0.99 (B1).
+- **Interaction with the stabilization.** A memory drive applied *while* pumping competes with the dissipation. The wrong quadrature is a Z rotation that leaves Re⟨a⟩ = 0 (B6). The right quadrature also deepens the overshoot (peak ⟨n_a⟩ 8.5 for ε₁ = 20, vs 6.9 from vacuum), which needs a larger simulation and, in hardware, more photons in the memory. So the clean recipe is push first, then pump (method A), the order used by Réglade et al.
+- **Time and errors.** About 0.4–0.5 µs to F ≥ 0.99. During that time single-photon loss still acts, but on a coherent state it only causes a slow phase drift, not a bit flip, so it barely affects F.
+
 ## 5. AI use
 
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
+- **Gemini review log** (`reviews/gemini-20261024-1632.md`, gemini-3.8-flash, run on the full code plus the prompt and this file):
+  - 2π conversions, √rate jump operators, the α² = +ε_d/g₂ sign, the truncation monitors, and the analytic checks: no issues found.
+  - Possible challenge 1, "the fit window starts at 1.0 µs, before the 1.07 µs settle time": Gemini *asserted* the effect was < 0.1% without running anything. **We checked it**: moving the start from 0.8 to 3.0 µs changes Γ by at most 0.12% (claim 19).
+  - Possible challenge 2, "the coherence normalization": confirmed. For an exact |C₊⟩ the metric is 1 − O(e^{−2α²}) ≈ 1 − 1.5e-4.
+  - Possible challenge 3, "a log-linear fit weights small values more": **we added a nonlinear fit on y**, which gives 0.5139 vs 0.5135 (claim 19).
 - What we caught ourselves that an AI would easily miss: the default ODE tolerance produced ~1e-4 noise in the truncation monitors, which would have hidden a real truncation problem. We tightened the tolerance and confirmed the results didn't change beyond it.
 
 ## 6. File map
@@ -79,4 +110,4 @@ pip install -r requirements.txt        # dynamiqs 0.3.7, double precision
 python -m src.config                   # units check: kappa_2/2pi = 0.896 MHz
 ./run_all.sh
 ```
-Run times on 4 CPU cores: Task 1.0 ~20 s, 1.1 ~1 min, 1.2 ~12 min, 1.3a ~2 min.
+Run times on 4 CPU cores: Task 1.0 ~20 s, 1.1 ~1 min, 1.2 ~12 min, 1.3a ~2 min, 1.3b ~13 min.

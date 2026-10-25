@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+    branches: [main, standard-track, 'std/**']
+  pull_request:
+
+jobs:
+  fast-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      JAX_PLATFORMS: cpu
+      MPLBACKEND: Agg
+      XLA_FLAGS: "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=2"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # test_wrap_intro_records compares provenance.git_commit with `git log`
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      # jax==0.12.0.1 pulls jaxlib automatically on Linux; if resolution fails, replace with pip install "jax[cpu]==0.12.0.1" (RESEARCH §3).
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest scipy
+      # python -m (not bare pytest) puts the repo root on sys.path for src/, tools/ and tasks/.
+      - name: Fast tests
+        run: python -m pytest -m "not slow" -q
