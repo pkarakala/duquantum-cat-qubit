@@ -1,4 +1,8 @@
 {
+ "source": {
+  "repo": "https://github.com/pkarakala/duquantum-cat-qubit",
+  "commit": "4438a02e4bc16b1787e055354356614a91414618"
+ },
  "docs": [
   {
    "slug": "task_1",
