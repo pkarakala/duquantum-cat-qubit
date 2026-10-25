@@ -39,11 +39,11 @@ Our one idea: every decay rate is an **eigenvalue** of the Lindblad equation, so
 
 | Step | What we did | What we found |
 |---|---|---|
-| **1.0** Warm-up | One resonator: add photon leakage, then pair leakage, then pair pumping | All three match the hand predictions exactly. Pair leakage stalls at 0.4998 photons, because pairs can never remove the last odd photon. |
+| **1.0** Warm-up | One resonator: add photon leakage, then pair leakage, then pair pumping | Photon loss and pair loss match the hand formulas to 10⁻¹¹ or better; pair pumping settles within 0.5% of the prediction. Pair leakage stalls at 0.4998 photons, because pairs can never remove the last odd photon. |
 | **1.1** Real circuit | Add the second "buffer" resonator that creates the pair leak in hardware | The photon number **overshoots by ~56%** before settling, because the buffer is too slow for the simple model's shortcut. It still settles at the right value (4.40 photons). |
 | **1.2** Can we trust it? | Make the simulation bigger, one resonator at a time, until the answer stops changing | The starter settings get the final value right but **miss the overshoot by 11%**. The buffer needs **10+ levels** instead of 6, because it briefly holds ~2 photons. |
-| **1.3a** What did we make? | Track parity, fidelity, purity and coherence | We made the **even cat** (both valleys at once, not one or the other). Photon loss fades it into a plain mixture in **~1.9 µs**, as predicted. |
-| **1.3b/c** One definite state | Give the memory a short push toward +α before the pump turns on | Lands in the **+α** valley with **99.9%** fidelity (above 99% in under half a microsecond). The stabilization forgives a sloppy push: a 30° aiming error still gives 99.5%, where the push alone would give 31%. Pushing in the wrong direction picks no valley at all. |
+| **1.3a** What did we make? | Track parity, fidelity, purity and coherence | We made the **even cat** (both valleys at once, not one or the other). Photon loss fades it toward a plain mixture with a **1.95 µs** lifetime (predicted 1.94 µs); by 6 µs it is essentially a mixture. |
+| **1.3b/c** One definite state | Give the memory a short push toward +α before the pump turns on | Lands in the **+α** valley: above **99%** fidelity within 0.4–0.5 µs, and **99.9%** by 2 µs. The stabilization forgives a sloppy push: a 30° aiming error still gives 99.5% (the push alone would give 31%), and the 99% limit is about ±35°. Pushing in the wrong direction picks no valley at all. |
 
 ![Two-mode inflation](figures/task_1_1_inflation.png)
 *Left: the memory photon number overshoots, then settles at α² = 4.41 (grey line). The simple one-mode model (dotted) rises smoothly. The starter simulation size (dashed) underestimates the overshoot. Right: how much population leaks into the highest levels the computer keeps. Smaller is better.*
@@ -58,7 +58,7 @@ Our one idea: every decay rate is an **eigenvalue** of the Lindblad equation, so
 
 ```bash
 pip install -r requirements.txt
-./run_all.sh              # every figure and number, ~15-25 min on a laptop
+./run_all.sh              # every figure and number, ~30-40 min on a 4-core laptop
 ```
 
 Section 2 results are all saved as JSON, so checking a claim needs no re-run. `python -m research.s2.summarize` rebuilds every Section 2 table and figure from them in about a minute. The commands for re-running each kind of computation are in [`docs/SECTION2.md`](docs/SECTION2.md#reproduce).
