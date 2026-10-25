@@ -6,7 +6,10 @@ biased (about -55% at alpha = 1). Compare Gamma_Z with 2 kappa_a alpha^2 coth(2 
 """
 import argparse
 import time
+import warnings
 from pathlib import Path
+
+from scipy.optimize import OptimizeWarning
 
 import matplotlib
 matplotlib.use("Agg")  # headless: the macOS backend aborts without a window server
@@ -120,6 +123,32 @@ def _p0_parity(alpha, n_th, parity):
     return (pred, 1.0 - c0, c0)
 
 
+def _nbar_from_trace(t, n_a, pred, n_guess):
+    """Steady <n_a> from an offset fit. gamma_from_n is 0 when the slope is not a rate."""
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", OptimizeWarning)
+        try:
+            nfit = fit_exp_offset(t, n_a, p0=(pred, float(n_a[0] - n_guess), n_guess))
+        except (RuntimeError, ValueError):
+            nfit = None
+    if nfit is None or not np.isfinite(nfit["C"]):
+        return float(np.mean(n_a)), 0.0
+    # |A| < 1e-6: the brief says use the window mean. A huge gamma with a tiny
+    # slope is the same failure (flat <n> at large alpha); keep C, drop gamma.
+    rate_ok = (
+        abs(nfit["A"]) >= 1e-6
+        and np.isfinite(nfit["gamma"])
+        and np.isfinite(nfit["gamma_stderr"])
+        and nfit["gamma_stderr"] < max(abs(nfit["gamma"]), 1e-6)
+        and 0.0 < nfit["gamma"] < 10.0 * pred
+    )
+    if abs(nfit["A"]) < 1e-6:
+        return float(np.mean(n_a)), 0.0
+    if not rate_ok:
+        return float(nfit["C"]), 0.0
+    return float(nfit["C"]), float(nfit["gamma"])
+
+
 def run_td(alpha, Na, Nb, n_th=0.0, t_end=None, n_t=N_T, t0=0.0) -> dict:
     """Parity decay from |C+> x |0>_b. Fit A exp(-Gamma t) + C on t >= t0."""
     if t_end is None:
@@ -149,21 +178,9 @@ def run_td(alpha, Na, Nb, n_th=0.0, t_end=None, n_t=N_T, t0=0.0) -> dict:
         gamma_late = float(fit_exp_offset(t[late], parity[late], p0=p0)["gamma"])
     else:
         gamma_late = float(fit["gamma"])
-    # <n_a> settles at nbar. If the cat already sits there, the amplitude is noise:
-    # use the window mean and do not trust that gamma.
-    n_guess = nbar_ss(alpha)
-    try:
-        nfit = fit_exp_offset(
-            t[m], n_a[m], p0=(p0[0], float(n_a[m][0] - n_guess), n_guess),
-        )
-    except (RuntimeError, ValueError):
-        nfit = None
-    if nfit is None or abs(nfit["A"]) < 1e-6:
-        nbar_meas = float(np.mean(n_a[m]))
-        gamma_from_n = 0.0 if nfit is None else float(nfit["gamma"])
-    else:
-        nbar_meas = float(nfit["C"])
-        gamma_from_n = float(nfit["gamma"])
+    # <n_a> settles at nbar. If the cat already sits there, gamma is not identified
+    # (a flat line makes curve_fit report a huge rate). Keep the offset, drop the rate.
+    nbar_meas, gamma_from_n = _nbar_from_trace(t[m], n_a[m], p0[0], nbar_ss(alpha))
     print(
         f"  solve a={float(alpha):.2f} Na={Na} Nb={Nb} n_th={n_th:g} "
         f"gamma={fit['gamma']:.6f} wall={wall:.1f}s",
@@ -343,6 +360,8 @@ def run_td_study(alpha, quick=False, n_th=0.0, grid=None) -> dict:
     )
     if n_ext:
         notes += f" Extended Na by +4, {n_ext} time(s), because gamma or the Fock tail had not settled."
+    if chosen["gamma_from_n"] == 0.0:
+        notes += " gamma_from_n is 0: <n_a> does not move enough to identify a rate; nbar_meas is the offset or the window mean."
     if n_th:
         notes += " Thermal jumps on; prediction 2 kappa_a [(1+2 n_th) nbar + n_th] = 0.5728 at this point."
     checks = _td_checks(alpha, gamma, chosen["nbar_meas"], n_th)
