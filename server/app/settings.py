@@ -66,7 +66,8 @@ def demo_sponsors() -> list[str]:
 
 
 def timeout_one_mode_s() -> float:
-    return float(os.environ.get("SIM_TIMEOUT_ONE_MODE_S", "8"))
+    # A cold one-mode compile exceeds 8s. 15s is the cap; SIM_TIMEOUT_ONE_MODE_S still overrides.
+    return float(os.environ.get("SIM_TIMEOUT_ONE_MODE_S", "15"))
 
 
 def timeout_two_mode_s() -> float:

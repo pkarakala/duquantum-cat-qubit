@@ -40,12 +40,23 @@ def notify_p5(row: dict) -> None:
         return
 
 
-def scripted(level: dict, state: dict) -> dict:
+def scripted(level: dict, state: dict, tool_log: list | None = None) -> dict:
     hint = max(1, min(int(state.get("hint_level") or 1), 4))
+    # A turn that gives up after the grounding sim still has to report that call.
+    # An LLM failure passes no log, so tool_calls stays empty.
+    calls = [
+        {
+            "name": item["name"],
+            "args": item["args"],
+            "result_summary": item.get("result_summary") or "",
+            "source": item.get("source") or "state",
+        }
+        for item in (tool_log or [])
+    ]
     return {
         "reply": level["hints"][hint - 1],
         "hint_level": hint,
-        "tool_calls": [],
+        "tool_calls": calls,
         "numbers_cited": [],
         "guard": {"passed": True, "removed": []},
         "source": "scripted",
@@ -199,7 +210,7 @@ async def _turn(payload, *, llm, clock, deadline, catalog, level, store, client,
     ground = await session.dispatch(ground_name, ground_args)
     tool_log.append(_logged(ground_name, ground_args, ground))
     if clock.monotonic() >= deadline:
-        return scripted(level, state)
+        return scripted(level, state, tool_log)
 
     messages = [
         {"role": "user", "text": prompt + "\n\nLearner: " + payload["message"]},
@@ -213,7 +224,7 @@ async def _turn(payload, *, llm, clock, deadline, catalog, level, store, client,
     try:
         for round_index in range(4):
             if clock.monotonic() >= deadline:
-                return scripted(level, state)
+                return scripted(level, state, tool_log)
             want_tools = session.calls < 3
             response = llm.complete(
                 messages,
@@ -226,7 +237,7 @@ async def _turn(payload, *, llm, clock, deadline, catalog, level, store, client,
                 responses = []
                 for call in response.function_calls:
                     if clock.monotonic() >= deadline:
-                        return scripted(level, state)
+                        return scripted(level, state, tool_log)
                     session.remaining_s = max(0.0, deadline - clock.monotonic())
                     result = await session.dispatch(call.get("name"), call.get("args") or {})
                     tool_log.append(_logged(call.get("name"), call.get("args") or {}, result))

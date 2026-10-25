@@ -6,6 +6,7 @@ demo mode until their credentials exist. Gemini, ElevenLabs, and Tiger Data are
 live when their env keys are set.
 """
 import asyncio
+import copy
 import importlib.util
 import logging
 import os
@@ -61,6 +62,8 @@ limiter = Limiter(key_func=get_remote_address, headers_enabled=False)
 _POOL: ProcessPoolExecutor | None = None
 _ORIG = {"one": sim.run_one_mode, "two": sim.run_two_mode, "expr": sim.run_expr}
 _CHAIN = {"ok": False, "at": 0.0}
+# One live sim per params hash. A timed-out waiter leaves the task running so the result can be cached.
+_INFLIGHT: dict[str, asyncio.Task] = {}
 
 
 class APIError(Exception):
@@ -114,6 +117,10 @@ async def _run_inline(fn, payload):
             error = exc
 
         def finish():
+            # wait_for may already have given up. Dropping the result on the floor
+            # made the next identical call recompute instead of hitting the cache.
+            if future.done():
+                return
             if error is not None:
                 future.set_exception(error)
             else:
@@ -129,15 +136,35 @@ async def _run_inline(fn, payload):
     return await future
 
 
-async def _dispatch(kind: str, payload: dict, timeout: float) -> dict:
+async def _dispatch(kind: str, payload: dict) -> dict:
     current = {"one": sim.run_one_mode, "two": sim.run_two_mode, "expr": sim.run_expr}[kind]
     inprocess = os.environ.get("ACADEMY_INPROCESS") == "1" or current is not _ORIG[kind]
     if inprocess:
-        task = asyncio.create_task(_run_inline(current, payload))
-    else:
-        loop = asyncio.get_running_loop()
-        task = asyncio.wrap_future(loop.run_in_executor(_process_pool(), sim.pool_worker, kind, payload))
-    return await asyncio.wait_for(task, timeout)
+        return await _run_inline(current, payload)
+    loop = asyncio.get_running_loop()
+    return await loop.run_in_executor(_process_pool(), sim.pool_worker, kind, payload)
+
+
+def _release_inflight(key: str, task: asyncio.Task) -> None:
+    if _INFLIGHT.get(key) is task:
+        _INFLIGHT.pop(key, None)
+
+
+async def _compute(kind: str, physics: dict, key: str, audit: dict) -> dict:
+    try:
+        result = await _dispatch(kind, physics)
+    except Exception:
+        _release_inflight(key, asyncio.current_task())
+        raise
+    result.setdefault("meta", {})
+    result["meta"]["engine"] = ENGINE
+    result["meta"]["cached"] = False
+    result["meta"]["params_hash"] = key
+    result["meta"].setdefault("wall_ms", 0)
+    cache.put(key, result)
+    cache.store_run(_audit_row(kind, physics, audit, result, False))
+    _release_inflight(key, asyncio.current_task())
+    return result
 
 
 def _audit_row(kind: str, physics: dict, audit: dict, result: dict, cached: bool) -> dict:
@@ -166,22 +193,26 @@ async def _serve(kind: str, physics: dict, timeout: float, audit: dict) -> dict:
         hit["meta"]["params_hash"] = key
         cache.store_run(_audit_row(kind, physics, audit, hit, True))
         return hit
+    task = _INFLIGHT.get(key)
+    owner = task is None
+    if owner:
+        task = asyncio.create_task(_compute(kind, physics, key, audit))
+        _INFLIGHT[key] = task
     try:
-        result = await _dispatch(kind, physics, timeout)
+        result = await asyncio.wait_for(asyncio.shield(task), timeout)
     except asyncio.TimeoutError as exc:
+        # The compute task keeps running and stores the result when it finishes.
         raise APIError(504, "sim_timeout", f"{kind} simulation exceeded {timeout:g}s") from exc
     except ExprError as exc:
         raise APIError(422, "invalid_expr", str(exc)) from exc
     except SimInputError as exc:
         raise APIError(422, "validation_error", str(exc)) from exc
-    result.setdefault("meta", {})
-    result["meta"]["engine"] = ENGINE
-    result["meta"]["cached"] = False
-    result["meta"]["params_hash"] = key
-    result["meta"].setdefault("wall_ms", 0)
-    cache.put(key, result)
-    cache.store_run(_audit_row(kind, physics, audit, result, False))
-    return result
+    if owner:
+        return result
+    joined = copy.deepcopy(result)
+    joined["meta"]["cached"] = True
+    cache.store_run(_audit_row(kind, physics, audit, joined, True))
+    return joined
 
 
 def _physics(body, kind: str) -> tuple[dict, dict]:
