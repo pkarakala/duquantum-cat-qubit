@@ -95,7 +95,7 @@ The steady offset $\Pi_\infty$ is fitted along with the amplitude and rate. Remo
 
 ```math
 \Gamma_Z^{(1)}=2\kappa_a\alpha^2\coth(2\alpha^2),\qquad
-\Pi_\infty^{(1)}=\operatorname{sech}(2\alpha^2).
+\Pi_\infty^{(1)}=\mathrm{sech}(2\alpha^2).
 ```
 
 For well-separated cats, these approach **$\Gamma_Z=2\kappa_a\alpha^2$** and zero offset: a larger cat loses photons faster and therefore loses parity faster.
@@ -304,7 +304,7 @@ The memory and buffer form an underdamped system. Neglecting the small memory lo
 \omega_r/2\pi=3.14\ \mathrm{MHz}\quad(\alpha=2.1).
 ```
 
-We compare a square drive with a cosine at $\omega_r$ and an alternating-sign drive proportional to $\operatorname{sgn}(\cos\omega_rt)$. The pulses last **2 µs**, followed by **2.5 µs of recovery during which output is still collected**. The observation window is therefore 4.5 µs. A shorter, jointly checked 0.5-µs comparison is reported below.
+We compare a square drive with a cosine at $\omega_r$ and an alternating-sign drive proportional to $\mathrm{sgn}(\cos\omega_rt)$. The pulses last **2 µs**, followed by **2.5 µs of recovery during which output is still collected**. The observation window is therefore 4.5 µs. A shorter, jointly checked 0.5-µs comparison is reported below.
 
 For each pulse we calculate conditional-mean information and recovered amplitude loss:
 

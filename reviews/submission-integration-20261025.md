@@ -50,3 +50,7 @@ The user subsequently requested publication on `XZ-main`. The reviewed changes a
 ## Final documentation cleanup
 
 Removed the two obsolete redirect files after confirming that Task 2.1–2.4 are fully consolidated and no maintained links reference those files. The current reports are `docs/task_1.md` and `docs/task_2.md`.
+
+## GitHub math compatibility correction
+
+Replaced four uses of the unsupported operator-name macro with upright `\mathrm` notation in the Task 2 report and notebooks 07/09. The earlier Markdown API check verified formula preservation, not GitHub’s client-side macro allowlist. A repository-wide Markdown/notebook scan now confirms that no uses of the rejected macro remain. Only mathematical presentation changed; numerical outputs are untouched.
