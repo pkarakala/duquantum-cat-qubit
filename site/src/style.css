@@ -518,3 +518,43 @@ a.button.primary:hover { background: var(--accent-strong); }
 .task-table { display: table; border-collapse: collapse; width: 100%; background: var(--surface); border-radius: var(--r-lg); }
 .task-table th, .task-table td { padding: var(--s-2) var(--s-3); border-bottom: 1px solid var(--line); text-align: left; }
 .task-table th { font-size: var(--text-sm); color: var(--muted); }
+
+/* ---------- home = the talk ---------- */
+.talk { gap: 0; position: relative; }
+.talk-slide {
+  min-height: calc(100vh - 64px); padding: var(--s-7) 0; display: flex; flex-direction: column;
+  justify-content: center; gap: var(--s-5); border-bottom: 1px solid var(--line); scroll-margin-top: 64px;
+}
+.talk-slide:last-child { border-bottom: 0; }
+.talk-cover { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: var(--s-6); }
+.talk-cover h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.05; letter-spacing: -0.025em; margin: var(--s-3) 0 var(--s-4); }
+.team { color: var(--muted); font-weight: 600; margin: 0 0 var(--s-5); }
+.cover-art { margin: 0; }
+.cover-art img, .slide-fig img {
+  display: block; width: 100%; height: auto; background: #fff; border-radius: var(--r-lg);
+  border: 1px solid var(--line); box-shadow: var(--shadow-2);
+}
+.slide-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin: var(--s-2) 0 var(--s-3); }
+.slide-claim { font-size: var(--text-lg); color: var(--muted); max-width: 75ch; margin: 0; }
+.slide-fig { margin: 0; }
+.slide-fig.with-extra { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr); gap: var(--s-4); align-items: center; }
+.slide-fig .slide-eq { box-shadow: none; }
+.slide-stats { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.slide-stats .stat { padding: var(--s-3) var(--s-4); }
+.slide-stats .stat strong { font-size: var(--text-lg); }
+.slide-notes { color: var(--muted); max-width: 75ch; margin: 0; font-size: var(--text-sm); }
+.talk-dots { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 5; }
+.talk-dots a { width: 10px; height: 10px; border-radius: 50%; background: var(--line); border: 1px solid var(--muted); }
+.talk-dots a:hover { background: var(--accent); }
+@media (max-width: 860px) {
+  .talk-cover, .slide-fig.with-extra { grid-template-columns: 1fr; }
+  .talk-slide { min-height: 0; padding: var(--s-6) 0; }
+  .talk-dots { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .talk-slide { animation: talk-in 400ms ease both; }
+}
+@keyframes talk-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.slide-fig img { max-height: 60vh; width: auto; max-width: 100%; margin: 0 auto; }
+.slide-fig.with-extra img { width: 100%; }
+.slide-stats .stat strong { font-family: var(--font-sans); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
