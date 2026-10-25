@@ -512,7 +512,8 @@ def create_app() -> FastAPI:
             "integrations": integration_modes(),
             "demo_mode": demo_sponsors(),
             "demo_label": (
-                "Vultr and Solana are demo mode behind their production interfaces. "
+                f"Vultr is {'live (this API runs on it)' if os.environ.get('VULTR_HOSTED') == '1' else 'demo'}. "
+                "Solana is demo mode behind its production interface. "
                 f"Backboard is {'live' if flags['backboard'] else 'demo'}. "
                 "Gemini, ElevenLabs, and Tiger Data use configured credentials."
             ),

@@ -67,8 +67,8 @@ function idleNote(id: LevelId, engine: string, hasApi: boolean): string {
   if (engine === 'ts') return 'Not run yet. A finished run is computed in this browser and is not badged MOCK.';
   if (id === 'L6') {
     return hasApi
-      ? 'Not run yet. If the API answers, the badge names that server result. If it fails, the badge says MOCK. Vultr is not deployed for this demo.'
-      : 'Not run yet. No API is configured, so Run shows a stored build and the badge says MOCK. Vultr is not deployed for this demo.';
+      ? 'Not run yet. If the API answers, the badge names that server result. If it fails, the badge says MOCK.'
+      : 'Not run yet. No API is configured, so Run shows a stored build and the badge says MOCK.';
   }
   if (engine === 'records') return 'Not run yet. No live record bundle is loaded, so Run shows the stored snapshot and the badge says MOCK.';
   return 'Not run yet.';
@@ -228,7 +228,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     if (spec.id === 'L6') {
       const blocksNote = document.createElement('p');
       blocksNote.className = 'blocks-note';
-      blocksNote.append(document.createTextNode('This lesson runs four stored builds. Without a live API the badge says MOCK. Vultr is not hosting this demo. '));
+      blocksNote.append(document.createTextNode('This lesson runs four stored builds. Without a live API the badge says MOCK. '));
       const sandbox = document.createElement('a');
       sandbox.href = '#/sandbox';
       sandbox.textContent = 'Open the block editor';

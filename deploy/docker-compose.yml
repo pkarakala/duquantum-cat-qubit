@@ -11,6 +11,7 @@ services:
     environment:
       JAX_COMPILATION_CACHE_DIR: /cache/jax
       ACADEMY_WARMUP: "1"
+      VULTR_HOSTED: "1"
       CHAIN_HEALTH_URL: http://chain:8100/api/chain/health
     volumes:
       - jax-cache:/cache/jax

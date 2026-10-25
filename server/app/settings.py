@@ -1,8 +1,8 @@
 """Environment for the Academy API.
 
 Gemini, ElevenLabs, Tiger Data, and Backboard are live when their keys are set.
-Backboard with no key uses the labeled demo adapter. Vultr and Solana stay in
-demo mode behind the same interfaces the real services use.
+Backboard with no key uses the labeled demo adapter. Vultr is live when the
+compose file sets VULTR_HOSTED=1. Solana stays in demo mode.
 """
 import os
 from pathlib import Path
@@ -54,7 +54,7 @@ def integration_modes() -> dict:
         "gemini": "live" if flags["gemini"] else "off",
         "elevenlabs": "live" if flags["elevenlabs"] else "off",
         "tiger": "live" if flags["tiger"] else "off",
-        "vultr": "demo",
+        "vultr": "live" if os.environ.get("VULTR_HOSTED") == "1" else "demo",
         "solana": "demo",
         "backboard": "live" if flags["backboard"] else "demo",
     }

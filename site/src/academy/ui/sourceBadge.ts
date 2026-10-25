@@ -15,7 +15,7 @@ function kindOf(text: string): Kind {
 function glossFor(text: string): string {
   if (/MOCK/i.test(text)) return 'Stored demo. Not a measurement from this run.';
   if (text.includes('Vultr')) {
-    return 'The API returned a dynamiqs result. Vultr is not deployed for this demo, so the label is not proof of that host.';
+    return 'Live dynamiqs result from our API on Vultr.';
   }
   if (text.includes('In-browser')) return 'Computed in this browser. Not a live two-mode lab run.';
   if (text.includes('Verified records')) return 'Taken from the committed record bundle.';
