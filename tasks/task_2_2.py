@@ -24,18 +24,23 @@ def plot(out, arrays):
         ax[0].plot(t, e[1], color=color, label=rf"${row['alpha']:g}$")
         mask = t >= row["fit"]["fit_start_us"]
         ax[0].plot(t[mask], fitted_curve(t[mask], row["fit"]), "k--", lw=.7, alpha=.7)
-        ax[1].plot(row["alpha2"], row["fit"]["gamma_per_us"], "o", color=color, ms=5, zorder=3)
+        # Gamma_Z / (2 kappa_a alpha^2): data, ideal cat, ideal cat with the simulated photon number
+        u, nbar = row["alpha2"], float(np.real(e[2][-1]))
+        ax[1].plot(u, row["fit"]["gamma_per_us"]/(2*C.KAPPA_A*u), "o", color=color, ms=6, zorder=3)
+        ax[1].plot(u, nbar/np.tanh(2*nbar)/u, "kx", ms=6, mew=1.2, zorder=4)
     ax[0].set(xlabel=r"$t$ (µs)", ylabel=r"$\langle\Pi\rangle$", ylim=(0, 1.03),
               xlim=(0, max(r["fit"]["fit_end_us"] for r in out["cases"])))
     ax[0].legend(title=r"$\alpha$", ncol=2, loc="upper right")
+    panel(ax[0], "a", r"Parity decay $\langle\Pi(t)\rangle$")
     u = np.linspace(ALPHAS[0]**2, ALPHAS[-1]**2, 301)
-    fit = out["scaling_fit"]
-    ax[1].plot(u, fit["slope_per_us"]*u+fit["intercept_per_us"], "k-", label="Linear fit")
-    ax[1].plot(u, 2*C.KAPPA_A*u, color="0.55", ls="--", label=r"$2\kappa_a\alpha^2$")
-    ax[1].set(xlabel=r"$\alpha^2$", ylabel=r"$\Gamma_Z$ (µs$^{-1}$)")
-    ax[1].legend(loc="upper left")
-    for letter, axis in zip("ab", ax):
-        panel(axis, letter)
+    ax[1].plot(u, 1/np.tanh(2*u), color="0.55", ls="--", label=r"ideal cat: $\coth 2\alpha^2$")
+    ax[1].axhline(1, color="0.8", lw=.8)
+    ax[1].plot([], [], "o", color="C0", label="simulation")
+    ax[1].plot([], [], "kx", mew=1.2, label=r"ideal cat with simulated $\bar n$")
+    ax[1].set(xlabel=r"$\alpha^2$", ylabel=r"$\Gamma_Z\,/\,2\kappa_a\alpha^2$", ylim=(0.993, 1.008))
+    ax[1].legend(loc="upper right")
+    panel(ax[1], "b", r"$\Gamma_Z$ relative to $2\kappa_a\alpha^2$")
+    for axis in ax:
         axis.grid()
     save_fig(fig, "task_2_2_phase_flips")
     plt.close(fig)

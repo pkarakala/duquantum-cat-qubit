@@ -1,4 +1,4 @@
-"""Task 2.1: time-domain bit-flip decay, suppression and numerical validation."""
+"""Task 2.1: time domain bit flip decay, suppression and numerical validation."""
 import argparse
 import json
 import numpy as np
@@ -8,7 +8,7 @@ import scipy
 from src import config as C
 from src.rates import exponential_scaling, fitted_curve, projected_rates
 from src.rate_solver import decay_eigenvalue
-from src.plotting import panel, save as save_fig
+from src.plotting import save as save_fig
 from src.results import RES_DIR, save as save_res
 from tasks.task_2_common import analyze_case, OBSERVABLES
 
@@ -17,27 +17,18 @@ NA, NB = 20, 6
 
 
 def plot(out, arrays):
-    fig, ax = plt.subplots(1, 2, figsize=(8.6, 3.3), layout="constrained")
+    fig, ax = plt.subplots(figsize=(4.6, 3.3), layout="constrained")
     colors = plt.get_cmap("Blues")(np.linspace(.4, .95, len(out["cases"])))
     for i, (row, color) in enumerate(zip(out["cases"], colors)):
         t, e = arrays[f"t_{i}"], arrays[f"e_{i}"]
         alpha = row["alpha"]
-        ax[0].plot(t[t >= 1], e[0, t >= 1]/alpha, color=color, label=rf"${alpha:g}$")
+        ax.plot(t[t >= 1], e[0, t >= 1]/alpha, color=color, label=rf"${alpha:g}$")
         mask = t >= row["fit"]["fit_start_us"]
-        ax[0].plot(t[mask], fitted_curve(t[mask], row["fit"])/alpha, "k--", lw=.7, alpha=.7)
-        ax[1].plot(alpha**2, row["fit"]["gamma_per_us"], "o", color=color, ms=5, zorder=3)
-    ax[0].set(xscale="log", xlabel=r"$t$ (µs)", ylabel=r"$\mathrm{Re}\langle a\rangle/\alpha$",
-              xlim=(1, max(row["fit"]["fit_end_us"] for row in out["cases"])), ylim=(0, 1.03))
-    ax[0].legend(title=r"$\alpha$", ncol=2, loc="lower left")
-    u = np.linspace(ALPHAS[0]**2, ALPHAS[-1]**2, 301)
-    fit = out["scaling_fit"]
-    ax[1].semilogy(u, fit["prefactor_per_us"]*np.exp(-fit["exponent"]*u), "k-", label="Exponential fit")
-    ax[1].semilogy(u, 2*C.KAPPA_A*u*np.exp(-4*u), color="0.55", ls="--", label="Direct-overlap estimate")
-    ax[1].set(xlabel=r"$\alpha^2$", ylabel=r"$\Gamma_X$ (µs$^{-1}$)")
-    ax[1].legend(loc="upper right")
-    for letter, axis in zip("ab", ax):
-        panel(axis, letter)
-        axis.grid()
+        ax.plot(t[mask], fitted_curve(t[mask], row["fit"])/alpha, "k--", lw=.7, alpha=.7)
+    ax.set(xscale="log", xlabel=r"$t$ (µs)", ylabel=r"$\mathrm{Re}\langle a\rangle/\alpha$",
+           xlim=(1, max(row["fit"]["fit_end_us"] for row in out["cases"])), ylim=(0, 1.03))
+    ax.legend(title=r"$\alpha$", ncol=2, loc="lower left")
+    ax.grid()
     save_fig(fig, "task_2_1_bit_flips")
     plt.close(fig)
 

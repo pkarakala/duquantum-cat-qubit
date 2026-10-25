@@ -55,15 +55,15 @@ def bit_flips():
                    label="lose two photons")
     ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label=r"$-\lambda_{\rm odd}$ (eigenvalue)")
     ax[0].plot([c["alpha2"] for c in td], [c["fit"]["gamma_per_us"] for c in td], "ks", ms=6, mfc="none", mew=1.2,
-               label="time-domain fit")
+               label="time domain fit")
     g21 = two[2.1]["gamma_x"]
     ax[0].plot(2.1**2, g21, "o", ms=10, mfc="none", mec="k", mew=1.2)
-    ax[0].annotate(rf"$\alpha=2.1$: $\Gamma_X={g21 / 10**np.floor(np.log10(g21)):.1f}\times10^{{{int(np.floor(np.log10(g21)))}}}\,\mu$s$^{{-1}}$"
-                   "\n" r"$1/\Gamma_X \approx 2.6$ s", (2.1**2, g21), (2.75, 1.5e-9), fontsize=8,
+    ax[0].annotate(rf"$\alpha^2=4.41$: $\Gamma_X={g21 / 10**np.floor(np.log10(g21)):.2f}\times10^{{{int(np.floor(np.log10(g21)))}}}\,\mu$s$^{{-1}}$"
+                   "\n" r"one flip every 2.6 s", (2.1**2, g21), (3.9, 6e-6), fontsize=8,
                    arrowprops=dict(arrowstyle="-", color="k", lw=0.7))
-    ax[0].text(0.55, 1e-10, "brute force\nreaches here", fontsize=8, color=GREY)
+    ax[0].text(0.55, 2e-9, "time domain\nruns", fontsize=8, color=GREY)
     ax[0].set(xlabel=r"$\alpha^2$ (mean photon number)", ylabel=r"$\Gamma_X$ ($\mu$s$^{-1}$)",
-              xlim=(0.4, 6.4), ylim=(3e-11, 3e-2))
+              xlim=(0.4, 6.4), ylim=(1e-9, 3e-2))
     ax[0].legend(loc="upper right")
     P.panel(ax[0], "a", r"Bit flip rate $\Gamma_X$ vs cat size")
     # kappa_a sweep: Gamma_X ~ kappa_a^s; s = 1 one photon lost, s = 2 two photons lost
