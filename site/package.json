@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@elevenlabs/client": "1.30.0",
     "blockly": "13.4.0",
     "plotly.js-dist-min": "^4.1.2"
   },

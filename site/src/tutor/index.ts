@@ -9,6 +9,7 @@ import { renderTurn } from "./panel";
 import { makeClientTools } from "./tools";
 import type { AcademyBridge, MountOptions, TutorReply } from "./types";
 import { startVoice } from "./voice";
+import { agentId } from "./voice-sdk";
 
 export { bridgeFromController, connectAcademy, stubBridge, toTutorState } from "./bridge";
 export { makeClientTools } from "./tools";
@@ -108,16 +109,51 @@ export function mountTutor(root: HTMLElement, bridge: AcademyBridge, opts: Mount
     input.value = "";
   });
 
-  root.querySelector('[data-testid="voice"]')?.addEventListener("click", () => {
-    const starter =
-      options.startSession ??
-      ((session) => {
-        const spec = "./voice-sdk.ts";
-        return import(/* @vite-ignore */ spec).then((mod: { startElevenSession: (tools: Record<string, unknown>) => Promise<unknown> }) =>
-          mod.startElevenSession(session.clientTools),
-        );
-      });
-    void startVoice(starter as Parameters<typeof startVoice>[0], tools as unknown as Record<string, unknown>);
+  let failed = 0;
+  bridge.on("check", (payload) => {
+    if (payload.passed === false) failed += 1;
+  });
+  const voiceButton = root.querySelector('[data-testid="voice"]') as HTMLButtonElement | null;
+  type Call = { endSession?: () => Promise<void> };
+  let call: Call | null = null;
+  if (voiceButton && !options.startSession && !agentId()) voiceButton.hidden = true;
+  const learnerVars = () => {
+    const s = toTutorState(bridge.getState(), failed);
+    return {
+      level: s.level_id,
+      level_title: document.querySelector("#app h1, #app h2")?.textContent?.trim().slice(0, 80) || s.level_id,
+      hint_level: String(s.hint_level ?? 1),
+      failed_attempts: String(failed),
+      recap: recap.textContent?.replace(/^Welcome back…\s*/, "") || "new learner, no history yet",
+      last_sim: s.last_sim?.summary || "none yet",
+      params: JSON.stringify(s.params ?? {}).slice(0, 200),
+    };
+  };
+  voiceButton?.addEventListener("click", async () => {
+    if (call) {
+      await call.endSession?.().catch(() => undefined);
+      call = null;
+      voiceButton.textContent = "Talk";
+      return;
+    }
+    voiceButton.textContent = "Connecting…";
+    const status = (st: string) => {
+      if (!call && st !== "connecting") return;
+      voiceButton.textContent = st.startsWith("error") || st === "disconnected" ? "Talk" : `End call · ${st}`;
+      if (st === "disconnected") call = null;
+    };
+    try {
+      if (options.startSession) {
+        call = (await startVoice(options.startSession as Parameters<typeof startVoice>[0], tools as unknown as Record<string, unknown>)) as unknown as Call;
+      } else {
+        const mod = await import("./voice-sdk");
+        call = (await mod.startElevenSession(tools as never, mod.agentId(), { dynamicVariables: learnerVars(), onStatus: status })) as unknown as Call;
+      }
+      voiceButton.textContent = "End call · listening";
+    } catch {
+      call = null;
+      voiceButton.textContent = "Talk (mic or agent unavailable)";
+    }
   });
 
   return { tools, askTutor: (message: string) => askTutor(message, bridge, options) };
