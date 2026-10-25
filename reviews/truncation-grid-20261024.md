@@ -149,3 +149,13 @@ This follow-up is complete; no physical or numerical-analysis parameters changed
 - Regenerated PNG/PDF exports and executed notebooks 02 and 03 successfully. Map legend entries were checked against Sampled / Chosen (32,12) / Reference (40,14). Main/log/map layouts were visually inspected. The Task 1.1 numerical report reproduced within 1e-12 and its original bytes were preserved; the Task 1.2 report stayed byte-identical. All 15 embedded notebook figures and captions match current files; source parsing, README links and git diff --check pass.
 
 This follow-up is complete; physical parameters and numerical criteria/results are unchanged.
+
+
+## Follow-up: Wigner GIFs in the README
+
+- Added animations for all four existing Wigner mosaics: single-photon loss (201 frames, 5 ns), effective stabilization (201 frames, 10 ns), two-mode inflation (301 frames, 10 ns), and interference decay over 1–6 µs (201 frames, 25 ns). These are actual solved states; the existing saved-state resolution already resolves the motion, so integration methods, physical parameters and analysis grids remain unchanged.
+- Added a shared GIF renderer with fixed phase-space axes, normalized color limits ±2/π, one global palette, a simulated-time clock and 25-fps playback with endpoint holds. The GIF comments preserve physical frame times and display durations. Wigner calculations run in small batches to bound temporary memory.
+- Embedded the four GIFs in README, with the two warm-up movies side by side at bounded widths, and retained static-panel links. Static figures remain embedded in the notebooks for printable comparisons; links beside them open the animations. Updated captions, technical instructions, reproduction comments and the explicit Pillow dependency. GitHub's official documentation confirms GIF display and relative image-path support.
+- Validation: 10 tests pass, including GIF round-trip timing, fixed-colorbar preservation and rejection of nonuniform time grids. Three updated notebooks executed successfully, all 15 static notebook figures/captions still match their exports, and all numeric JSON reports are byte-identical to the prior commit. Checked all 904 encoded frames for timing, physical-time metadata, dimensions, fixed display range and persistent colorbar/labels; representative frames were visually inspected as a contact sheet. Lossless delta-frame encoding reduced GIF sizes to 1.84, 1.30, 2.44 and 0.95 MiB; every decoded pixel and duration was verified against the original encoding. Static PDF exports were preserved to avoid metadata-only churn.
+
+The GIF update is ready for delivery on the existing XZ-codex-intro-review branch.

@@ -12,7 +12,7 @@ import dynamiqs as dq
 
 from src import config as C
 from src.model import one_mode
-from src.plotting import save as save_fig, panel, wigner_panels
+from src.plotting import save as save_fig, panel, wigner_panels, wigner_gif
 from src.results import RES_DIR, save as save_res
 
 N = C.N_SINGLE
@@ -38,6 +38,7 @@ def part_a():
     save_fig(fig, "task_1_0a_photon_number")
     fig_w = wigner_panels(res.states[::40], np.asarray(t[::40]), xmax=3.5, nrows=2)
     save_fig(fig_w, "task_1_0a_wigner")
+    wigner_gif(res.states, np.asarray(t), "task_1_0a_wigner", xmax=3.5)
     return {"max_abs_error_vs_analytic": err}
 
 
@@ -95,6 +96,7 @@ def part_c():
     indices = np.linspace(0, len(t)-1, 6, dtype=int)
     fig_w = wigner_panels(nominal[indices], np.asarray(t)[indices], nrows=2)
     save_fig(fig_w, "task_1_0c_wigner")
+    wigner_gif(nominal[::2], np.asarray(t[::2]), "task_1_0c_wigner")
     RES_DIR.mkdir(exist_ok=True)   # Task 1.1 overlays this reference curve
     np.save(RES_DIR / "task_1_0c_nominal.npy", np.stack([np.asarray(t), n[1]]))
 

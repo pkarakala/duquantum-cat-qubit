@@ -1,6 +1,17 @@
 # Figure captions
 
-The figures are exported as 300-dpi PNGs and PDFs. Time is in µs; rates are in µs⁻¹ with the angular-frequency convention of `src/config.py`. The cutoffs $N_a$ and $N_b$ count retained memory and buffer Fock states. Physical parameters and numerical methods are specified in [TECHNICAL.md](../TECHNICAL.md).
+The figures are exported as 300-dpi PNGs and PDFs, with animated GIFs for the Wigner time series. Time is in µs; rates are in µs⁻¹ with the angular-frequency convention of `src/config.py`. The cutoffs $N_a$ and $N_b$ count retained memory and buffer Fock states. Physical parameters and numerical methods are specified in [TECHNICAL.md](../TECHNICAL.md).
+
+## Animated Wigner evolution
+
+| GIF | Simulated interval (µs) | Frames | Frame interval (ns) |
+|---|---:|---:|---:|
+| [Single-photon loss](task_1_0a_wigner.gif) | 0–1 | 201 | 5 |
+| [Effective stabilization](task_1_0c_wigner.gif) | 0–2 | 201 | 10 |
+| [Two-mode inflation](task_1_1_wigner.gif) | 0–3 | 301 | 10 |
+| [Interference decay](task_1_3a_wigner_fading.gif) | 1–6 | 201 | 25 |
+
+Each frame is computed from a solved state, with the same phase-space coordinates and fixed color scale as the static panels below. The displayed clock is simulated time. GIFs play at 25 frames/s, pause for 0.8 s at each endpoint, and loop. A shared palette keeps colors consistent between frames.
 
 ## task_1_0a_photon_number
 

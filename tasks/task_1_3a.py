@@ -15,7 +15,7 @@ import dynamiqs as dq
 from src import config as C
 from src.model import two_mode, vacuum2
 from src.analysis import memory_extras, memory_state, fit_exp_decay
-from src.plotting import save as save_fig, panel, wigner_panels
+from src.plotting import save as save_fig, panel, wigner_panels, wigner_gif
 from src.results import save as save_res
 
 T_END, N_T, T_FIT = 6.0, 241, 1.0     # fit parity only after the inflation transient
@@ -63,6 +63,8 @@ def main(Na, Nb):
     idx = [np.argmin(np.abs(t - s)) for s in (1.0, 2.0, 4.0, 6.0)]
     fig_w = wigner_panels(rho_a[jnp.array(idx)], t[idx])
     save_fig(fig_w, "task_1_3a_wigner_fading")
+    fading = np.flatnonzero(t >= 1)
+    wigner_gif(rho_a[fading], t[fading], "task_1_3a_wigner_fading")
 
     i1 = int(np.argmin(np.abs(t - 1.0)))
     out = {

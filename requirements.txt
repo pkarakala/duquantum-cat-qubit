@@ -4,5 +4,6 @@ jax==0.12.0.1
 numpy
 scipy
 matplotlib
+pillow
 pandas
 jupyter

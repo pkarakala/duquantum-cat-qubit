@@ -20,6 +20,12 @@ For $\kappa_2/\kappa_{2,0}=1/4,1,4$, the times to reach 90% of the final occupat
 
 **Effective-model stabilization.** Occupation versus (a) time and (b) scaled time. Colors identify $\kappa_2/\kappa_{2,0}$; the dotted line marks $\alpha^2$. [Decay checks and Wigner snapshots](notebooks/01_task_1_0_warmup.ipynb).
 
+| Single-photon loss | Two-photon stabilization |
+|:---:|:---:|
+| <img src="figures/task_1_0a_wigner.gif" width="360" alt="Coherent-state decay"> | <img src="figures/task_1_0c_wigner.gif" width="360" alt="Effective-model cat formation"> |
+
+**Wigner evolution.** Left: coherent-state decay over 0–1 µs. Right: cat formation at nominal $\kappa_2$ over 0–2 µs. The coordinate $\beta$ is the complex phase-space amplitude. Red and blue denote positive and negative $W(\beta)$; all animations share the fixed scale $[-2/\pi,2/\pi]$ and display simulated time. [Static panels](notebooks/01_task_1_0_warmup.ipynb).
+
 ## 1.1 — Inflate the memory in the full two-mode model
 
 The memory overshoots and rings down, while the effective model rises smoothly. The adiabatic-elimination condition is poorly satisfied:
@@ -39,7 +45,9 @@ The buffer retains a finite response time: it fills during inflation and exchang
 
 **Two-mode inflation.** (a) Memory and buffer occupations at $(32,12)$, with the memory at $(24,6)$ (start) dashed and the effective model dotted. The horizontal line marks $\alpha^2$. (b) Full-range top-level probabilities over 0–3 µs: $p_a^{(2)}$ sums the highest two memory levels; $p_b^{(1)}$ is the highest buffer level. Solid curves use $(32,12)$ and dashed curves $(24,6)$. The dotted line marks the chosen **0.1% tolerance**. The $(24,6)$ buffer reaches **4.62%**; both $(32,12)$ monitors remain below the tolerance throughout inflation.
 
-[Memory Wigner snapshots](figures/task_1_1_wigner.png) show the initial vacuum stretching and splitting into two lobes with interference. Independent integration and timestep checks reproduce the ringdown; [numerical audit](figures/task_1_1_numerical_checks.png).
+![Two-mode memory inflation](figures/task_1_1_wigner.gif)
+
+**Memory phase-space evolution.** The reduced memory state at $(32,12)$ evolves from vacuum into two lobes with interference over 0–3 µs, with a fixed color scale. [Static snapshots](figures/task_1_1_wigner.png). Independent integration and timestep checks reproduce the ringdown; [numerical audit](figures/task_1_1_numerical_checks.png).
 
 ## 1.2 — Check semiclassical agreement and convergence
 
@@ -77,11 +85,11 @@ Memory parity $\Pi=(-1)^{a^\dagger a}$ commutes with the two-photon Hamiltonian 
 | 1 | 0.629 | 0.811 | 0.692 | 0.626 |
 | 6 | 0.0483 | 0.524 | 0.501 | 0.0484 |
 
-At 1 µs, the large matrix element $C$ and [Wigner interference fringes](figures/task_1_3a_wigner_fading.png) demonstrate coherence between the lobes. An equal incoherent mixture has $C=2e^{-2\alpha^2}\approx0.00030$. By 6 µs the state approaches that mixture.
+At 1 µs, the large matrix element $C$ and [Wigner interference fringes](figures/task_1_3a_wigner_fading.gif) demonstrate coherence between the lobes. An equal incoherent mixture has $C=2e^{-2\alpha^2}\approx0.00030$. By 6 µs the state approaches that mixture.
 
-![Memory-state diagnostics](figures/task_1_3a_cat_diagnostics.png)
+![Decay of memory-state interference](figures/task_1_3a_wigner_fading.gif)
 
-**State diagnostics.** (a) Parity, even-cat fidelity and purity $\mathcal P$; the dashed curve fits $Ae^{-\Gamma t}$ to parity over 1–6 µs and the horizontal guide is $1/2$. (b) Coherent-state matrix element $C$ and mean amplitude. The reduced memory state is $\rho_a=\mathrm{Tr}_b\rho$.
+**Interference decay.** Reduced-memory Wigner evolution over 1–6 µs at $(32,12)$. The fixed color scale makes the declining fringe contrast directly comparable. [Static snapshots](figures/task_1_3a_wigner_fading.png) · [Diagnostic curves](figures/task_1_3a_cat_diagnostics.png).
 
 The fitted rate is **$\Gamma=0.5135$ µs⁻¹**, compared with $2\kappa_a\langle n_a\rangle_{\mathrm{ss}}=0.5146$ µs⁻¹. The corresponding parity-decay time is **1.95 µs**; interference weakens continuously over this timescale.
 
@@ -117,7 +125,7 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-The full cutoff grid resumes cached calculations. Redraw its figures with `python -m tasks.task_1_2 --plot-only`. [Notebooks](notebooks/) provide one walkthrough per task; notebooks 03 and 05 load saved results by default. [Figure captions](figures/CAPTIONS.md) accompany all 15 PNG/PDF pairs. Reported values are stored in [results/](results/).
+The full cutoff grid resumes cached calculations. Redraw its figures with `python -m tasks.task_1_2 --plot-only`. [Notebooks](notebooks/) provide one walkthrough per task; notebooks 03 and 05 load saved results by default. [Figure captions](figures/CAPTIONS.md) accompany all 15 PNG/PDF pairs and four animated GIFs. The task scripts regenerate the GIFs from solved states; static panels remain available at the links above. Reported values are stored in [results/](results/).
 
 ## AI use
 
