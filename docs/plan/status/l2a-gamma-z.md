@@ -7,7 +7,7 @@
 | Agent / model | Cursor agent, Grok 4.7 |
 | Started (EDT) | 2026-10-25 09:25 |
 | Last update (EDT) | 2026-10-25 10:05 |
-| Last commit | results commit on this branch (provenance of every record is `24782e5`) |
+| Last commit | results `6b19fb4`; record provenance `24782e5` |
 
 `src/spectral.py` is **not** on this branch. Time-domain parity fits and the analytic checks are done. `--eig` and `--summary` are under Jobs to queue. That is why the state is `DONE_WITH_CONCERNS`: no even-block eigenvalues, and the slope record plus both production figures are produced by the queued `--summary`.
 
