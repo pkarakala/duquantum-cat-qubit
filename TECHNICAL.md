@@ -225,8 +225,10 @@ The task scripts export five GIFs alongside the static Wigner panels. Single-pho
 
 The [readout report](docs/task_2_3_readout.md) first answers the task's three
 requirements: opposite readout signals, a weak drive and the time to settle.
-Its main figure has two panels, showing the real fields and their deviation
-from final values in percent. The 1% threshold means an absolute field distance
+Its main figure has two panels, showing the real fields and a linear-scale
+zoom of their distance from final values in percent. A shaded tolerance band,
+open markers for temporary entries, and a filled marker for the final entry
+show how the settling time is selected. The 1% threshold means an absolute field distance
 of 0.00011905. The symmetry, shared imaginary component and local transient
 derivation follow as supporting physics.
 `tasks/task_2_3.py` adds the real drive $\epsilon_Z(a+a^\dagger)$ to the supplied

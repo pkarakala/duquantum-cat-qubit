@@ -282,16 +282,30 @@ def plot(out, data):
                     xlim=(0, 2))
     axes[0].legend()
     error_percent = 100*np.max(np.abs(beta-plateau[:, None]), axis=0)/scale
-    axes[1].semilogy(t, np.where(error_percent > 0, error_percent, np.nan))
-    axes[1].axhline(100*s["settle_tolerance_fraction"], color="black", ls=":",
-                    label=f"{100*s['settle_tolerance_fraction']:g}% tolerance")
-    axes[1].axvline(s["settling_time_us"], color="gray", ls="--",
-                    label=f"Settled from {s['settling_time_us']:.3f} µs")
-    axes[1].set(xlabel="Time (µs)", ylabel="Deviation from final field (%)",
-                xlim=(0, 2), ylim=(0.01, 200), yticks=[0.01, 0.1, 1, 10, 100],
-                yticklabels=["0.01", "0.1", "1", "10", "100"])
-    axes[1].legend()
-    for letter, title, ax in zip("ab", ("Readout signals", "Time to settle"), axes):
+    tolerance_percent = 100*s["settle_tolerance_fraction"]
+    # A linear zoom makes temporary entries and the final entry distinguishable.
+    axes[1].axhspan(0, tolerance_percent, color="#009E73", alpha=0.14)
+    axes[1].plot(t, error_percent)
+    axes[1].axhline(tolerance_percent, color="#555555", ls=":", lw=1.2)
+    entries = np.flatnonzero((error_percent[:-1] > tolerance_percent)
+                             & (error_percent[1:] <= tolerance_percent)) + 1
+    earlier = entries[t[entries] < s["settling_time_us"]]
+    axes[1].plot(t[earlier], error_percent[earlier], "o", ms=4, mfc="white",
+                 mec="#0072B2", label="Temporary entry")
+    settled_index = np.searchsorted(t, s["settling_time_us"])
+    axes[1].axvline(s["settling_time_us"], color="#555555", ls="--", lw=1)
+    axes[1].plot(t[settled_index], error_percent[settled_index], "o", ms=5,
+                 color="#D55E00", zorder=5)
+    axes[1].annotate(f"Final entry: {s['settling_time_us']:.3f} µs",
+                     xy=(t[settled_index], error_percent[settled_index]),
+                     xytext=(1.08, 2.1), fontsize=8,
+                     arrowprops={"arrowstyle": "->", "color": "#555555", "lw": 0.9})
+    axes[1].text(1.29, 0.75*tolerance_percent, f"Within {tolerance_percent:g}% tolerance",
+                 ha="center", va="center", fontsize=8, color="#006B50")
+    axes[1].set(xlabel="Time (µs)", ylabel="Distance from final field (%)",
+                xlim=(0.65, 1.5), ylim=(0, 5), yticks=[0, 1, 2, 3, 4, 5])
+    axes[1].legend(loc="upper right")
+    for letter, title, ax in zip("ab", ("Readout signals", "Settling: final tolerance crossing"), axes):
         panel(ax, letter, title)
         ax.grid()
     save_fig(fig, "task_2_3_readout")

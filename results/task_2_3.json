@@ -316,6 +316,6 @@
   },
   "analysis_source_sha256": {
     "src/readout.py": "8a75081bff5a0240f73b5124e72a075a69bbbef69a6489e0d049166bf377be6c",
-    "tasks/task_2_3.py": "740fe3e2f582ede2e2b1d7cb8bd9b2a3126b21e02c31366c7245ad73cf18526e"
+    "tasks/task_2_3.py": "142c9338d59e74bdda661ddbd2d4e2945017f36f2a59adcaf2dc6f06f7146f70"
   }
 }
