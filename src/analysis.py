@@ -21,6 +21,25 @@ def cat_plus(N, alpha):
     return dq.unit(dq.coherent(N, alpha) + dq.coherent(N, -alpha))
 
 
+def memory_trace_distance(states, reference):
+    """Trace distance at each time after zero-padding the smaller Fock space.
+
+    Inputs have shape (time, N, N). Keep the entire reference state: projecting
+    and renormalizing it would hide missing population. Retain solver noise.
+    """
+    states, reference = np.asarray(states), np.asarray(reference)
+    if (states.ndim != 3 or reference.ndim != 3
+            or states.shape[0] != reference.shape[0]
+            or states.shape[1] != states.shape[2]
+            or reference.shape[1] != reference.shape[2]
+            or states.shape[1] > reference.shape[1]):
+        raise ValueError("Expected equal-time square states with N <= reference N")
+    extra = reference.shape[1] - states.shape[1]
+    delta = np.pad(states, ((0, 0), (0, extra), (0, extra))) - reference
+    delta = (delta + delta.conj().swapaxes(-1, -2)) / 2
+    return 0.5 * np.abs(np.linalg.eigvalsh(delta)).sum(axis=-1)
+
+
 def memory_extras(Na, Nb, alpha):
     """save_extra callback: memory-only quantities at every saved time, without storing
     the full two-mode density matrix (which is large for converged truncations)."""

@@ -21,12 +21,16 @@ EPS_D = ALPHA**2 * G2          # buffer drive, so alpha^2 = eps_d / g2
 KAPPA_2 = 4 * G2**2 / KAPPA_B  # effective two-photon dissipation (adiabatic elimination)
 
 N_SINGLE = 30                  # truncation for the one-mode warm-up (Task 1.0)
-NA_START, NB_START = 24, 6     # starter truncations from the prompt (not converged, see Task 1.2)
-NA, NB = 32, 12                # converged truncations chosen in Task 1.2
+NA_START, NB_START = 24, 6     # initial cutoffs from the prompt (see Task 1.2)
+NA, NB = 32, 12                # chosen cutoff throughout; minimum passing grid pair is (28, 12)
+BOUNDARY_POPULATION_TOLERANCE = 1e-3  # 0.1% maximum top-level population
 
 # The default solver tolerance leaves ~1e-4 noise in small populations (the truncation
 # monitors) and biases the steady buffer population, so tighten it everywhere.
 METHOD = dq.method.Tsit5(rtol=1e-8, atol=1e-10)
+# Task 1.1 resolves tiny boundary populations; the ringing audit justifies these
+# tighter tolerances without changing the physical parameters or the other tasks.
+INFLATION_METHOD = dq.method.Tsit5(rtol=1e-10, atol=1e-12)
 
 if __name__ == "__main__":
     print(f"kappa_2/2pi = {KAPPA_2 / TWO_PI:.3f} MHz (expect 0.896)")
