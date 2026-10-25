@@ -59,9 +59,9 @@ class GeminiLLM:
 
         client = genai.Client(
             api_key=self.api_key,
-            # Milliseconds. One attempt, so a dead model cannot blow the 25 s turn.
-            # The API rejects a server deadline under 10s. One attempt keeps a failure inside the turn.
-            http_options=types.HttpOptions(timeout=20000, retry_options=types.HttpRetryOptions(attempts=1)),
+            # Milliseconds. Two attempts ride out transient 503s; the 25 s turn deadline still caps it.
+            # The API rejects a server deadline under 10s.
+            http_options=types.HttpOptions(timeout=12000, retry_options=types.HttpRetryOptions(attempts=2)),
         )
         contents = _contents(messages, images, types)
         config = _config(types, tools, schema, together=GeminiLLM.phase == "one-phase")
