@@ -1,6 +1,6 @@
 # Task 2.4: circuit-aware readout optimization
 
-This is the detailed enlargement-study record. The [merged final report](task_2_4_final.md) selects and interprets evidence from both this study and the fixed-size cloud campaign. Use the [dedicated README](task_2_4_README.md) for submission artifacts and reproduction.
+This is the detailed enlargement-study record. The [merged final report](task_2_4_report.md) selects and interprets evidence from both this study and the fixed-size cloud campaign. Use the [dedicated README](task_2_4_README.md) for submission artifacts and reproduction.
 
 **Result.** Temporarily increasing the target amplitude from 2.1 to 2.6 and
 using $\epsilon_Z=0.1g_2$ raises the buffer contrast by **1.62×** while lowering

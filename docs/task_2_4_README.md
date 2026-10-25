@@ -3,7 +3,9 @@
 This file is the dedicated entry point for Task 2.4(a–d).
 
 - [Final scientific PDF](../output/pdf/task_2_4_final_report.pdf)
-- [Final report source](task_2_4_final.md)
+- [Main report in Markdown: parts (a)-(d)](task_2_4_report.md)
+- [Supporting appendices in Markdown](task_2_4_appendices.md)
+- [Full PDF source](task_2_4_final.md)
 - [Executed synthesis notebook](../notebooks/10_task_2_4_final_synthesis.ipynb)
 - [Executed detailed study](../notebooks/09_task_2_4_optimization.ipynb)
 - [Evidence index with source hashes](../results/task_2_4_final_summary.json)
@@ -12,8 +14,9 @@ This file is the dedicated entry point for Task 2.4(a–d).
 
 **Proposal: enlarge, measure, restore.** Increase the cat amplitude from 2.1 to 2.6
 using the buffer drive, read at $\epsilon_Z/g_2=0.1$, then restore 2.1 and recover.
-The six-page main report answers (a)-(d) directly; circuit refinements, detailed
-validation and alternative pulse studies are in appendices.
+The main report follows a single argument: derive the controls, establish the
+fixed-size trade-off, test enlargement, then check speed and protection separately.
+Circuit refinements and alternative pulse studies are supporting appendices.
 
 At the same ideal homodyne information target, the complete cycle takes
 **47.40 µs versus 110.22 µs** for the specified weak reference. Its estimated
@@ -37,8 +40,11 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 python tools/check_task_2_4_reference.py
 MPLBACKEND=Agg python tools/plot_task_2_4_baseline.py
+MPLBACKEND=Agg python tools/plot_task_2_4_drive_tradeoff.py
+MPLBACKEND=Agg python tools/plot_task_2_4_protocol_summary.py
 MPLBACKEND=Agg python tools/plot_task_2_4_campaign_synthesis.py
 python tools/synthesize_task_2_4.py
+python tools/export_task_2_4_markdown.py
 MPLBACKEND=Agg python tools/plot_task_2_4_model_validation.py
 jupyter nbconvert --execute --to notebook --inplace \
   notebooks/10_task_2_4_final_synthesis.ipynb

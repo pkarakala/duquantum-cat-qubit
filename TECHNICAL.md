@@ -269,9 +269,9 @@ Those need a measurement model and the separate Task 2.4 trade-off analysis.
 
 ## Task 2.4: circuit-aware readout optimization
 
-The [merged scientific report](docs/task_2_4_final.md) answers parts (a–d), with
+The [merged scientific report](docs/task_2_4_report.md) answers parts (a–d), with
 [notebook 10](notebooks/10_task_2_4_final_synthesis.ipynb) integrating the local
-and cloud evidence. The main (a)-(d) answer is six pages; supplementary
+and cloud evidence. The main (a)-(d) answer follows one protocol; supplementary
 controls and detailed validations are appendices. The [detailed enlargement study](docs/task_2_4_optimization.md)
 and [notebook 09](notebooks/09_task_2_4_optimization.ipynb) retain its methods.
 `src/circuit.py` derives the calibrated resonant exchange; `src/circuit_corrections.py`

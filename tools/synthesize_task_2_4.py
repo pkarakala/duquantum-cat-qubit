@@ -130,7 +130,8 @@ def build():
     paths += sorted(campaign.glob('jobs/*/summary.json'))
     paths += [campaign/'jobs/pulse_0b35816270623dda/trajectories.npz']
     paths += [ROOT/'tools/synthesize_task_2_4.py', ROOT/'tools/plot_task_2_4_model_validation.py']
-    paths += [ROOT/'tools/check_task_2_4_reference.py', ROOT/'reviews/task_2_4_reference_checks.json']
+    paths += [ROOT/'tools/check_task_2_4_reference.py', ROOT/'reviews/task_2_4_reference_checks.json',
+              ROOT/'tools/plot_task_2_4_drive_tradeoff.py', ROOT/'tools/plot_task_2_4_protocol_summary.py']
     with tarfile.open(campaign/'source_snapshot.tar.gz', 'r:gz') as frozen:
         source_hashes = read('results/task_2_4_campaign/manifest.json')['source_sha256']
         for name, expected in source_hashes.items():

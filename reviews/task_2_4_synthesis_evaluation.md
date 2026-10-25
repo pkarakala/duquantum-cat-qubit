@@ -1,4 +1,4 @@
-The latest presentation revision is documented in [the reference audit](task_2_4_reference_review.md). It narrows the main answer to six pages covering(a)-(d), with the additional material below retained in appendices. This file records the earlier merge assessment.
+The latest presentation revision is documented in [the reference audit](task_2_4_reference_review.md). It separates the main answer covering(a)-(d) from the additional material retained in appendices. This file records the earlier merge assessment.
 
 # Task 2.4: synthesis and editorial evaluation
 

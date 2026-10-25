@@ -1,14 +1,14 @@
 {
-  "recorded_utc": "2026-10-25T12:34:15.985691+00:00",
-  "scope": "Reference-driven(a-d) rewrite: six-page main answer, supplementary appendices; independent retained-algebra checks; no new master-equation simulations",
+  "recorded_utc": "2026-10-25T13:41:59.238150+00:00",
+  "scope": "Causal-story cleanup: five-page core, explicit speed/protection benchmarks, separate static-rate and full-cycle population tests; unchanged numerical results",
   "pdf": {
     "path": "output/pdf/task_2_4_final_report.pdf",
-    "sha256": "d7e0d9a38b95c2f6907e6546f257a09914bf66d320d633c0b96ee10a5e02b461",
-    "source_sha256": "c51134f62643118d4a1ecd611a68d8be24ed0333cd03f7303ab7cd118eb820b7",
+    "sha256": "0adc43bbbd04f086475cc2c3bc2d9bb26342c6ccbe66801baaedeec50d171840",
+    "source_sha256": "501ba6b4e313de47c31a5906a209102e7649b4195faab10b844b26062fae0109",
     "page_count": 14,
     "machine_checks_pass": true,
-    "agent_visual_review": "All main pages and appendix renders inspected; no clipping, missing glyphs, overfull boxes or broken local links observed",
-    "main_answer_pages": 6
+    "agent_visual_review": "Main pages and all appendix renders inspected; no clipping, overfull boxes, missing glyphs or broken local links",
+    "main_answer_pages": 5
   },
   "repository_tests": {
     "command": "python -m unittest discover -s tests -q",
@@ -19,7 +19,7 @@
   },
   "synthesis_notebook": {
     "path": "notebooks/10_task_2_4_final_synthesis.ipynb",
-    "sha256": "1309b9205991ebc3a0d4721e9fd23dfa0f18d204869876cfb76a754e01e0013d",
+    "sha256": "58a6613dc7741b3ffb0cea38d9a243018a235a36e1bf06aaefd5fbb40dc40323",
     "executed_code_cells": 6,
     "error_outputs": 0
   },
@@ -28,9 +28,9 @@
   "supplemental_joint_cutoff_backend_checks_passed": 2,
   "cloud_workers": "Inactive at prior delivery; no cloud computations launched in this revision",
   "review_type": "AI-assisted scientific and visual review; no human scientific approval implied",
-  "superseded_pdf_sha256": "1124ce7f374e30456d26700632b5c8d23037e9258f09681d664f3ddc2d212d46",
+  "superseded_pdf_sha256": "d7e0d9a38b95c2f6907e6546f257a09914bf66d320d633c0b96ee10a5e02b461",
   "merged_evidence": {
-    "source_file_hashes_verified": 118,
+    "source_file_hashes_verified": 120,
     "matched_figure_hashes": 7,
     "local_pdf_links_valid": true,
     "new_derived_metrics": "plateau switching per information, complete-cycle population ratio, local-rate/cloud-pulse diagnostic, quantum fluctuation energy",
@@ -50,5 +50,12 @@
     "predicted_coherent_output_decay_exponent_per_us": 0.2592,
     "coherence_exponent_is_not_a_logical_bit_flip_rate": true,
     "all_checks_pass": true
-  }
+  },
+  "story_cleanup": [
+    "Only controls needed for the proposed protocol in the main story",
+    "Fixed-size trade-off plotted before introducing enlargement",
+    "Weak-readout speed benchmark distinct from undriven-storage rate benchmark",
+    "Static rate does not substitute for recovered whole-cycle error",
+    "Supplementary methods, alternative controls and matched-idle check remain in appendices"
+  ]
 }

@@ -6,8 +6,8 @@ The reference has a useful derivation order: circuit bias, cubic term, resonance
 physical drive, then contrast and error mechanisms. That structure is clearer
 than leading with a broad survey of optimization studies. Its repeated preliminary
 caveats and separate conclusions are unnecessary in a final submission once
-executed evidence is available. The final main answer now follows (a)-(d) in six
-pages; detailed support is retained in explicitly labeled appendices.
+executed evidence is available. The main answer follows (a)-(d) directly; detailed support is retained in
+explicitly labeled appendices.
 
 ## What was borrowed, corrected or excluded
 

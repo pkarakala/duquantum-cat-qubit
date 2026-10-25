@@ -155,3 +155,27 @@ photons. These quantities do not by themselves establish nonclassical photon
 statistics. Reproduce the evidence index with `tools/synthesize_task_2_4.py`,
 then draw with `tools/plot_task_2_4_model_validation.py`. Exact job IDs,
 parameters and raw-trajectory SHA256 are indexed in the final summary.
+
+
+## task_2_4_drive_tradeoff
+
+**The fixed-size trade-off before introducing the proposed control.** At alpha2.1,
+(a) the executed real-field contrast increases with memory-drive strength, close
+to the weak-drive guide at small drive; (b) the estimated static logical
+population-relaxation exponent also increases. Contrast averages3-4us from32x12
+trajectories. The rate sweep uses28x10, and the dashed idle reference uses32x12.
+The plot does not compare total finite-pulse error at a fixed information target.
+Reproduce with `python tools/plot_task_2_4_drive_tradeoff.py`; all values come
+from `results/task_2_4.json`.
+
+
+## task_2_4_protocol_summary
+
+**The control sequence and fair timing comparison.** Left: target amplitude
+from the declared quintic buffer-drive ramps, with the memory readout force
+on the orange right axis. Right: information accumulated from saved raw cycle
+outputs during the declared measurement interval. Dashed horizontal segments
+count return/recovery time without adding post-readout emission to the target.
+Markers are full-cycle endpoints47.40us and110.22us. The plot uses the selected
+cycle, not the optional fast variant. Reproduce with
+`python tools/plot_task_2_4_protocol_summary.py`.

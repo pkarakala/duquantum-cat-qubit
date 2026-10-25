@@ -117,10 +117,12 @@
     "results/task_2_4_campaign/jobs/spectrum_fbeda74d38bbf399/summary.json": "6891802eadb8886082e120d6bede501c9c4d2a33913b4218fe5cfd715dc4240b",
     "results/task_2_4_campaign/jobs/spectrum_ff9f21f0a6f5ccda/summary.json": "5ef87ee8db643749cdeac50d2263fa80598c7b2d23c35ef4b769ed21d0695c97",
     "results/task_2_4_campaign/jobs/pulse_0b35816270623dda/trajectories.npz": "7d870a356535a7c1375f57f74c947986a82ba03feeccbe0da287438febe03f33",
-    "tools/synthesize_task_2_4.py": "978f110cf332427aae8fafb4fb44a77ba6171a65aeb207b731c24a2cc371888f",
+    "tools/synthesize_task_2_4.py": "6383c13774e48a09b6632149513673d50388a747e45d6ae66ba84fed01b989c8",
     "tools/plot_task_2_4_model_validation.py": "a7a247402d9172a86b299d137504316f068a976859cd3920cac5330458a90b25",
     "tools/check_task_2_4_reference.py": "2ffdfb0b59bbf9369894effc8c08085d506ca436d5f027791fcb8e31fbdc3ce5",
-    "reviews/task_2_4_reference_checks.json": "426c78f38b14d7a6b8e322c84d5ec1f1a0a02333a615bd6ec9b002bc2d6ce620"
+    "reviews/task_2_4_reference_checks.json": "426c78f38b14d7a6b8e322c84d5ec1f1a0a02333a615bd6ec9b002bc2d6ce620",
+    "tools/plot_task_2_4_drive_tradeoff.py": "f557fc25a9098c55197f2ee4b008d43e9f43466b31c16f77364401dd9c4a387d",
+    "tools/plot_task_2_4_protocol_summary.py": "317a1c76898e4abaeb98f26485fca3b06212758cc40bed833b52127cefcab2d8"
   },
   "cycles": {
     "baseline": {

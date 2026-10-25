@@ -5,7 +5,7 @@
       "page": 1,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 1775,
+      "text_characters": 1756,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-001.png",
       "fonts": [
@@ -39,7 +39,7 @@
       "page": 2,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2089,
+      "text_characters": 2203,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-002.png",
       "fonts": [
@@ -73,7 +73,7 @@
       "page": 3,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2205,
+      "text_characters": 2214,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-003.png",
       "fonts": [
@@ -105,7 +105,7 @@
           18,
           "ttf",
           "Type0",
-          "CURQBO+ArialMT",
+          "LTRWAX+ArialMT",
           "F1",
           "Identity-H"
         ],
@@ -113,7 +113,7 @@
           25,
           "ttf",
           "Type0",
-          "FQVEAQ+DejaVuSans-Oblique",
+          "FMVPRO+DejaVuSans-Oblique",
           "F2",
           "Identity-H"
         ],
@@ -121,16 +121,8 @@
           32,
           "ttf",
           "Type0",
-          "FAWPJR+DejaVuSans",
+          "EVZUOS+DejaVuSans",
           "F3",
-          "Identity-H"
-        ],
-        [
-          39,
-          "ttf",
-          "Type0",
-          "BLLDWP+STIXNonUnicode-Italic",
-          "F4",
           "Identity-H"
         ]
       ]
@@ -139,7 +131,7 @@
       "page": 4,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2661,
+      "text_characters": 2375,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-004.png",
       "fonts": [
@@ -166,6 +158,38 @@
           "IXFAWU+LatinModernMath-Regular-Identity-H",
           "F5",
           "Identity-H"
+        ],
+        [
+          50,
+          "ttf",
+          "Type0",
+          "CTBPOL+ArialMT",
+          "F1",
+          "Identity-H"
+        ],
+        [
+          57,
+          "ttf",
+          "Type0",
+          "DJWVBB+DejaVuSans-Oblique",
+          "F2",
+          "Identity-H"
+        ],
+        [
+          64,
+          "ttf",
+          "Type0",
+          "BYOONE+DejaVuSans",
+          "F3",
+          "Identity-H"
+        ],
+        [
+          71,
+          "ttf",
+          "Type0",
+          "BLLDWP+STIXNonUnicode-Italic",
+          "F4",
+          "Identity-H"
         ]
       ]
     },
@@ -173,7 +197,7 @@
       "page": 5,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 1782,
+      "text_characters": 2559,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-005.png",
       "fonts": [
@@ -200,38 +224,6 @@
           "IXFAWU+LatinModernMath-Regular-Identity-H",
           "F5",
           "Identity-H"
-        ],
-        [
-          64,
-          "ttf",
-          "Type0",
-          "LSERJA+ArialMT",
-          "F1",
-          "Identity-H"
-        ],
-        [
-          71,
-          "ttf",
-          "Type0",
-          "BJAQPJ+DejaVuSans-Oblique",
-          "F2",
-          "Identity-H"
-        ],
-        [
-          78,
-          "ttf",
-          "Type0",
-          "DJOSTJ+DejaVuSans",
-          "F3",
-          "Identity-H"
-        ],
-        [
-          85,
-          "ttf",
-          "Type0",
-          "BLLDWP+STIXNonUnicode-Italic",
-          "F4",
-          "Identity-H"
         ]
       ]
     },
@@ -239,7 +231,7 @@
       "page": 6,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 1672,
+      "text_characters": 2683,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-006.png",
       "fonts": [
@@ -273,7 +265,7 @@
       "page": 7,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2683,
+      "text_characters": 2218,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-007.png",
       "fonts": [
@@ -300,6 +292,30 @@
           "IXFAWU+LatinModernMath-Regular-Identity-H",
           "F5",
           "Identity-H"
+        ],
+        [
+          93,
+          "ttf",
+          "Type0",
+          "LMOWDN+ArialMT",
+          "F1",
+          "Identity-H"
+        ],
+        [
+          100,
+          "ttf",
+          "Type0",
+          "EOZMHI+DejaVuSans-Oblique",
+          "F2",
+          "Identity-H"
+        ],
+        [
+          107,
+          "ttf",
+          "Type0",
+          "CBAEHE+DejaVuSans",
+          "F3",
+          "Identity-H"
         ]
       ]
     },
@@ -307,7 +323,7 @@
       "page": 8,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2260,
+      "text_characters": 2524,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-008.png",
       "fonts": [
@@ -320,14 +336,6 @@
           "Identity-H"
         ],
         [
-          6,
-          "ttf",
-          "Type0",
-          "BZIVMZ+DejaVuSerif-Bold",
-          "F3",
-          "Identity-H"
-        ],
-        [
           8,
           "cid",
           "Type0",
@@ -336,27 +344,35 @@
           "Identity-H"
         ],
         [
-          107,
+          6,
           "ttf",
           "Type0",
-          "LMOWDN+ArialMT",
+          "BZIVMZ+DejaVuSerif-Bold",
+          "F3",
+          "Identity-H"
+        ],
+        [
+          124,
+          "ttf",
+          "Type0",
+          "GXJAQG+ArialMT",
           "F1",
           "Identity-H"
         ],
         [
-          114,
+          131,
           "ttf",
           "Type0",
-          "EOZMHI+DejaVuSans-Oblique",
-          "F2",
+          "TZFJKJ+DejaVuSans-Oblique",
+          "F3",
           "Identity-H"
         ],
         [
-          121,
+          138,
           "ttf",
           "Type0",
-          "CBAEHE+DejaVuSans",
-          "F3",
+          "CQNSSJ+DejaVuSans",
+          "F2",
           "Identity-H"
         ]
       ]
@@ -365,7 +381,7 @@
       "page": 9,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2192,
+      "text_characters": 2538,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-009.png",
       "fonts": [
@@ -378,14 +394,6 @@
           "Identity-H"
         ],
         [
-          8,
-          "cid",
-          "Type0",
-          "IXFAWU+LatinModernMath-Regular-Identity-H",
-          "F5",
-          "Identity-H"
-        ],
-        [
           6,
           "ttf",
           "Type0",
@@ -394,27 +402,11 @@
           "Identity-H"
         ],
         [
-          138,
-          "ttf",
+          8,
+          "cid",
           "Type0",
-          "GXJAQG+ArialMT",
-          "F1",
-          "Identity-H"
-        ],
-        [
-          145,
-          "ttf",
-          "Type0",
-          "TZFJKJ+DejaVuSans-Oblique",
-          "F3",
-          "Identity-H"
-        ],
-        [
-          152,
-          "ttf",
-          "Type0",
-          "CQNSSJ+DejaVuSans",
-          "F2",
+          "IXFAWU+LatinModernMath-Regular-Identity-H",
+          "F5",
           "Identity-H"
         ]
       ]
@@ -423,7 +415,7 @@
       "page": 10,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2579,
+      "text_characters": 2773,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-010.png",
       "fonts": [
@@ -436,14 +428,6 @@
           "Identity-H"
         ],
         [
-          8,
-          "cid",
-          "Type0",
-          "IXFAWU+LatinModernMath-Regular-Identity-H",
-          "F5",
-          "Identity-H"
-        ],
-        [
           6,
           "ttf",
           "Type0",
@@ -452,7 +436,15 @@
           "Identity-H"
         ],
         [
-          169,
+          8,
+          "cid",
+          "Type0",
+          "IXFAWU+LatinModernMath-Regular-Identity-H",
+          "F5",
+          "Identity-H"
+        ],
+        [
+          158,
           "ttf",
           "Type0",
           "DKFAQO+ArialMT",
@@ -460,7 +452,7 @@
           "Identity-H"
         ],
         [
-          176,
+          165,
           "ttf",
           "Type0",
           "EOSFWO+DejaVuSans-Oblique",
@@ -468,7 +460,7 @@
           "Identity-H"
         ],
         [
-          183,
+          172,
           "ttf",
           "Type0",
           "LHGUMT+DejaVuSans",
@@ -481,7 +473,7 @@
       "page": 11,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 3325,
+      "text_characters": 2939,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-011.png",
       "fonts": [
@@ -515,7 +507,7 @@
       "page": 12,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2721,
+      "text_characters": 2530,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-012.png",
       "fonts": [
@@ -544,7 +536,7 @@
           "Identity-H"
         ],
         [
-          204,
+          193,
           "ttf",
           "Type0",
           "OHYJEM+ArialMT",
@@ -552,7 +544,7 @@
           "Identity-H"
         ],
         [
-          211,
+          200,
           "ttf",
           "Type0",
           "DOUVPM+DejaVuSans-Oblique",
@@ -560,10 +552,42 @@
           "Identity-H"
         ],
         [
-          218,
+          207,
           "ttf",
           "Type0",
           "DGLFOX+DejaVuSans",
+          "F2",
+          "Identity-H"
+        ],
+        [
+          220,
+          "ttf",
+          "Type0",
+          "BUIQUO+ArialMT",
+          "F1",
+          "Identity-H"
+        ],
+        [
+          227,
+          "ttf",
+          "Type0",
+          "ZHVROF+DejaVuSans-Oblique",
+          "F4",
+          "Identity-H"
+        ],
+        [
+          234,
+          "ttf",
+          "Type0",
+          "DACOAU+DejaVuSans",
+          "F3",
+          "Identity-H"
+        ],
+        [
+          241,
+          "ttf",
+          "Type0",
+          "BLLDWP+STIXNonUnicode-Italic",
           "F2",
           "Identity-H"
         ]
@@ -573,7 +597,7 @@
       "page": 13,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2630,
+      "text_characters": 3007,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-013.png",
       "fonts": [
@@ -586,14 +610,6 @@
           "Identity-H"
         ],
         [
-          6,
-          "ttf",
-          "Type0",
-          "BZIVMZ+DejaVuSerif-Bold",
-          "F3",
-          "Identity-H"
-        ],
-        [
           8,
           "cid",
           "Type0",
@@ -602,35 +618,11 @@
           "Identity-H"
         ],
         [
-          234,
+          6,
           "ttf",
           "Type0",
-          "BUIQUO+ArialMT",
-          "F1",
-          "Identity-H"
-        ],
-        [
-          241,
-          "ttf",
-          "Type0",
-          "ZHVROF+DejaVuSans-Oblique",
-          "F4",
-          "Identity-H"
-        ],
-        [
-          248,
-          "ttf",
-          "Type0",
-          "DACOAU+DejaVuSans",
+          "BZIVMZ+DejaVuSerif-Bold",
           "F3",
-          "Identity-H"
-        ],
-        [
-          255,
-          "ttf",
-          "Type0",
-          "BLLDWP+STIXNonUnicode-Italic",
-          "F2",
           "Identity-H"
         ]
       ]
@@ -639,7 +631,7 @@
       "page": 14,
       "width_pt": 595.280029296875,
       "height_pt": 841.8900146484375,
-      "text_characters": 2279,
+      "text_characters": 875,
       "images": 0,
       "render": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/task_2_4_pdf_review/render/page-014.png",
       "fonts": [
@@ -660,7 +652,7 @@
           "Identity-H"
         ],
         [
-          276,
+          263,
           "ttf",
           "Type0",
           "TQTHRL+DejaVuSansMono",
@@ -668,7 +660,7 @@
           "Identity-H"
         ],
         [
-          278,
+          265,
           "ttf",
           "Type0",
           "YEUUOC+DejaVuSerif-Italic",
@@ -686,18 +678,18 @@
   "dpi": 110,
   "visual_review": "Required: inspect every rendered page before final delivery",
   "source": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/docs/task_2_4_final.md",
-  "source_sha256": "c51134f62643118d4a1ecd611a68d8be24ed0333cd03f7303ab7cd118eb820b7",
+  "source_sha256": "501ba6b4e313de47c31a5906a209102e7649b4195faab10b844b26062fae0109",
   "assets": [
     {
-      "source": "../figures/task_2_4_tradeoff.png",
-      "selected_file": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/figures/task_2_4_tradeoff.pdf",
-      "sha256": "e7ab3e04e37e42d84c25628541aae925b1e8f491266a11047b51f8558f0a46d2",
+      "source": "../figures/task_2_4_drive_tradeoff.png",
+      "selected_file": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/figures/task_2_4_drive_tradeoff.pdf",
+      "sha256": "7871331f8f3e7b4fda2553124c8e83ee7b5d04c299a9c7a23c5e02804516f998",
       "vector_pdf": true
     },
     {
-      "source": "../figures/task_2_4_protocol.png",
-      "selected_file": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/figures/task_2_4_protocol.pdf",
-      "sha256": "0b5474063a4a7add40cb3af4fb8349df42a53c164a982fad6ebb80f9f2a01312",
+      "source": "../figures/task_2_4_protocol_summary.png",
+      "selected_file": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/figures/task_2_4_protocol_summary.pdf",
+      "sha256": "db3c69321a81d3a657fe4444a794c8573f5b1ed368e4d3be446691e77e2257e5",
       "vector_pdf": true
     },
     {
@@ -731,7 +723,7 @@
       "vector_pdf": true
     }
   ],
-  "generated_utc": "2026-10-25T12:29:40.939270+00:00",
+  "generated_utc": "2026-10-25T13:30:49.110186+00:00",
   "builder_sha256": "a11e433400592f4f9626525f3b9c777932c7d7c584f2ab36e4c359933bb37e18",
   "overfull_hbox_pt": [],
   "overfull_vbox_messages": [],
@@ -742,5 +734,5 @@
   "tectonic_version": "Tectonic 0.17.0",
   "machine_checks_pass": true,
   "output": "/Users/xuz144/Workspace/DuQuantum/project/duquantum-cat-qubit/output/pdf/task_2_4_final_report.pdf",
-  "pdf_sha256": "d7e0d9a38b95c2f6907e6546f257a09914bf66d320d633c0b96ee10a5e02b461"
+  "pdf_sha256": "0adc43bbbd04f086475cc2c3bc2d9bb26342c6ccbe66801baaedeec50d171840"
 }
