@@ -1,0 +1,73 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t2_1.wall_s.eig.two_mode.a2.10.na28nb8",
+  "task": "2.1",
+  "quantity": "wall_s",
+  "value": 226.57920574999298,
+  "uncertainty": null,
+  "units": "s",
+  "method": "liouvillian_eig_odd_sector",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 28,
+    "Nb": 8
+  },
+  "convergence": null,
+  "numerics": {
+    "rel_residual": 3.672472322120599e-07,
+    "edge_weight": 1.5515682426271958e-10,
+    "cond_est": 6.738664049913632,
+    "sector": "odd",
+    "sigma": 0.0,
+    "k": 2,
+    "dim": 25088,
+    "nnz": 236936,
+    "lu_nnz": 60524327,
+    "build_s": 0.4051069999986794,
+    "lu_s": 140.9802527500142,
+    "eigs_s": 85.08412920800038,
+    "peak_rss_gb": 2.5378350019454956,
+    "gamma_x": 3.883122418135581e-07,
+    "blas_threads": 2,
+    "permc": "COLAMD",
+    "proc_wall_s": 232.33514195898897
+  },
+  "cross_check": [
+    {
+      "method": "cost_model",
+      "ref_id": null,
+      "value": 14.125,
+      "rel_diff": 15.041005716813663,
+      "tol": 1.0,
+      "agree": false
+    }
+  ],
+  "artifacts": {
+    "figure": "figures/task_2_1_spectral_cost.png",
+    "arrays": "results/arrays/t2_1.wall_s.eig.two_mode.a2.10.profile.npz"
+  },
+  "notes": "cost profile; wall time is a property of this truncation, not a converged physics quantity, so convergence is null. peak_rss_gb is macOS phys_footprint in GiB. Ordering COLAMD.",
+  "provenance": {
+    "script": "tasks/task_spectral_profile.py",
+    "git_commit": "f796cf5",
+    "git_branch": "std/l1-spectral",
+    "dirty": false,
+    "dynamiqs": "0.3.7",
+    "jax": "0.12.0.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "python": "3.12.13",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "cpu_count": 8,
+    "wall_s": 226.57920574999298,
+    "timestamp": "2026-10-25T13:40:37Z"
+  }
+}
