@@ -1,10 +1,10 @@
-# Stabilizing and preparing a cat qubit
+# Stabilizing and characterizing a cat qubit
 
-**DuQuantum 2026 · Alice & Bob challenge · Introductory Track**
+**DuQuantum 2026 · Alice & Bob challenge · Introductory and Standard Tracks**
 
 Team: Pranav
 
-Completed: **Tasks 1.0(a–c), 1.1, 1.2 and 1.3(a–c)**. [Challenge prompt](docs/challenge_prompt_v4.md) · [Model, parameters and numerical checks](TECHNICAL.md)
+Completed: **Tasks 1.0(a–c), 1.1, 1.2, 1.3(a–c), 2.1 and 2.2**. [Challenge prompt](docs/challenge_prompt_v4.md) · [Model, parameters and numerical checks](TECHNICAL.md)
 
 The memory stores the state; the lossy buffer provides two-photon stabilization. Their annihilation operators are $a$ and $b$, and their mean photon numbers are $\langle n_a\rangle=\langle a^\dagger a\rangle$ and $\langle n_b\rangle=\langle b^\dagger b\rangle$. We use the supplied target amplitude $\alpha=2.1$, corresponding to $\alpha^2=4.41$ photons. The coupling $g_2$ exchanges two memory photons with one buffer photon; $\epsilon_d$ drives the buffer; $\kappa_a$ and $\kappa_b$ are single-photon loss rates.
 
@@ -156,18 +156,55 @@ All simulations include memory single-photon loss and use $(N_a,N_b)=(32,12)$.
 - **Time:** for $\beta=1.5$, preparation takes the displacement-pulse duration plus **0.41 µs of stabilization** to reach 99% fidelity. The pulse is idealized as an initial coherent state, so its duration and errors during the pulse are not included in this simulation.
 - **Interaction with stabilization:** the proposed sequence ends the memory pulse before stabilization begins. Applying the drive during inflation changes the transient: the tested $\varepsilon_1=20$ µs⁻¹ pulse raises the sampled memory peak to **8.51 photons**, compared with 6.89 from vacuum without a memory drive.
 
+## 2.1 — Measure bit-flip relaxation
+
+We initialize $\lvert\alpha\rangle_a\lvert0\rangle_b$ and fit the decay of $\mathrm{Re}\langle a\rangle$ after 2 µs. The buffer drive follows $\epsilon_d=g_2\alpha^2$; all supplied loss rates and couplings remain fixed. We define $\Gamma_X=1/T_X$ from the observable decay. In the well-separated-codeword limit, this is twice the symmetric one-way switching rate.
+
+| $\alpha$ | $\Gamma_X$ (µs⁻¹) | $T_X$ (µs) |
+|---:|---:|---:|
+| 0.7 | 0.00954424 | 104.78 |
+| 0.85 | 0.00511995 | 195.31 |
+| 1 | 0.00230066 | 434.66 |
+| 1.15 | 0.000863556 | 1158.00 |
+| 1.3 | 0.000275644 | 3627.87 |
+| 1.4 | 0.0001202 | 8319.46 |
+
+A log-linear fit gives **$\gamma=2.994$** in $\Gamma_X=C_Xe^{-\gamma\alpha^2}$, with fitted prefactor $C_X=0.04382$ µs⁻¹ and $R^2=0.99946$. This is an effective exponent over $0.7\leq\alpha\leq1.4$. It exceeds the challenge's approximate $\gamma\lesssim2$ benchmark; the supplied zero-temperature model omits the thermal channels included in the reference experiment. [Experimental model](https://arxiv.org/html/2307.06617v2#S4.SS3).
+
+The naive Golden-Rule estimate uses $\langle-\alpha\rvert a\lvert\alpha\rangle=\alpha e^{-2\alpha^2}$ and gives $\Gamma_X^{\mathrm{GR}}\simeq2\kappa_a\alpha^2e^{-4\alpha^2}$. Its prefactor matters: fitting this expression over the same interval gives $\gamma=3.087$, rather than four. It captures the suppression but underestimates the full rate by **33.30% at $\alpha=1.4$**. The loss-strength check supports a higher-order correction from finite stabilization; [second-order theory](https://arxiv.org/html/2407.17299v2) identifies an additional leakage-and-return contribution. [Derivation and numerical evidence](docs/task_2_rates.md).
+
+![Bit-flip relaxation](figures/task_2_1_bit_flips.png)
+
+**Bit-flip relaxation and exponential suppression.** Full two-mode dynamics from $\lvert\alpha\rangle_a\lvert0\rangle_b$ at $(N_a,N_b)=(20,6)$. Colors identify $\alpha$; the buffer drive is set to $\epsilon_d=g_2\alpha^2$ for each trajectory. (a) Normalized real memory amplitude; colored curves are integrated trajectories and black dashes are exponential fits from 2 µs onward. The logarithmic time axis resolves the different lifetimes and shows times from 1 µs onward. (b) Fitted relaxation rates $\Gamma_X$ versus $\alpha^2$. The black line is the log-linear fit $C_Xe^{-\gamma\alpha^2}$ over $0.7\leq\alpha\leq1.4$; gray dashes show the direct-overlap estimate $2\kappa_a\alpha^2e^{-4\alpha^2}$. Rates are inverse observable decay times, twice symmetric one-way switching rates in the well-separated-codeword limit.
+
+## 2.2 — Measure phase-flip relaxation
+
+We initialize the even cat $\lvert C_+\rangle_a\lvert0\rangle_b$ and fit parity from 1 µs onward to $\Pi_\infty+Ae^{-\Gamma_Z(t-t_{\mathrm{fit}})}$, with $t_{\mathrm{fit}}=1$ µs. The fitted amplitude $A$ and steady parity $\Pi_\infty$ accommodate the initial transient and finite coherent-state overlap. At $\alpha=1.2$, $\Pi_\infty=0.11496$; forcing this offset to zero would underestimate the rate by 45.0%.
+
+At the physical target **$\alpha=2.1$**, we obtain **$\Gamma_Z=0.514559$ µs⁻¹** and **$T_Z=1.9434$ µs**. Across $\alpha=1.2,1.5,1.8,2.1,2.4$, a free-intercept linear fit gives slope **0.116685 µs⁻¹**, compared with **$2\kappa_a=0.116867$ µs⁻¹**, a difference of 0.156%.
+
+A photon loss reverses parity, so a loss-event rate near $\kappa_a\alpha^2$ produces parity decay at approximately twice that rate. Increasing cat size therefore suppresses bit-flip relaxation exponentially while increasing phase-flip relaxation approximately linearly.
+
+![Phase-flip relaxation](figures/task_2_2_phase_flips.png)
+
+**Phase-flip relaxation and cat-size scaling.** Full two-mode dynamics from the even cat $\lvert C_+\rangle_a\lvert0\rangle_b$ at $(N_a,N_b)=(24,8)$, with $\epsilon_d=g_2\alpha^2$. Colors identify $\alpha$. (a) Memory parity $\langle\Pi\rangle$, with $\Pi=(-1)^{a^\dagger a}$; black dashes fit $\Pi_\infty+Ae^{-\Gamma_Z(t-t_{\mathrm{fit}})}$ from $t_{\mathrm{fit}}=1$ µs. The fitted offset $\Pi_\infty$ accommodates the finite steady parity of overlapping codewords. (b) Fitted $\Gamma_Z$ versus $\alpha^2$; the black line is a free-intercept linear regression and gray dashes show $2\kappa_a\alpha^2$ using the supplied memory-loss rate. The physical target $\alpha=2.1$ is included. Cutoff, fitting-window, solver and independent Dynamiqs checks are recorded with the numerical results.
+
+The rate calculations use $(20,6)$ for 2.1 and $(24,8)$ for 2.2, checked against $(24,8)$ and $(28,10)$, respectively, at every amplitude. The largest rate changes are 0.00424% and 0.00025%. These initial code states avoid the large vacuum-inflation transient of Task 1.1. Full Dynamiqs integrations, tighter tolerances, fit-window variations and decay eigenvalues independently check the extraction. [Methods and complete results](docs/task_2_rates.md).
+
 ## Reproduce the results
 
 ```bash
 pip install -r requirements.txt
 ./run_all.sh
+python -m tasks.task_2_1
+python -m tasks.task_2_2
 python -m unittest discover -s tests -v
 ```
 
 The commands regenerate the main results and figures. To reproduce the independent integration audit as well, install `qutip==5.3.1` and run `python -m tasks.task_1_1_checks`.
 
-The full cutoff grid resumes cached calculations. Redraw its figures with `python -m tasks.task_1_2 --plot-only`. [Notebooks](notebooks/) provide one walkthrough per task; notebooks 03 and 05 load saved results by default. [Figure captions](figures/CAPTIONS.md) accompany all 15 PNG/PDF pairs and four animated GIFs. The task scripts regenerate the GIFs from solved states; static panels remain available at the links above. Reported values are stored in [results/](results/).
+The full cutoff grid resumes cached calculations. Redraw its figures with `python -m tasks.task_1_2 --plot-only`. [Notebooks](notebooks/) provide task walkthroughs; notebooks 03 and 05–07 load saved results by default. [Figure captions](figures/CAPTIONS.md) accompany the maintained PNG/PDF pairs and four animated GIFs. The task scripts regenerate the GIFs from solved states; static panels remain available at the links above. Reported values are stored in [results/](results/).
 
 ## AI use
 
-Claude assisted with background and the initial implementation. Codex assisted with validation, convergence analysis and figure/report preparation. The [independent Gemini review](reviews/gemini-20261024-1632.md) and [technical record](TECHNICAL.md#5-ai-use) document review findings and numerical checks.
+Claude assisted with background and the initial implementation. Codex assisted with rate implementation, numerical validation, convergence analysis and figure/report preparation. The [independent Gemini review](reviews/gemini-20261024-1632.md) and [technical record](TECHNICAL.md#5-ai-use) document review findings and numerical checks.

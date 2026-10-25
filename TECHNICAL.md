@@ -167,6 +167,7 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 ## 5. AI use
 
 - **Codex** implemented the full cutoff grid, trace-distance comparisons, gradient plots, threshold contours, cached trajectories, and analytic validation tests.
+- **Codex** implemented Tasks 2.1 and 2.2, including sparse full-model rate dynamics, independent Dynamiqs checks, cutoff studies, rate fits, figures, notebook walkthroughs and the rate report.
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
 - **Gemini review log** (`reviews/gemini-20261024-1632.md`, gemini-3.8-flash, run on the full code plus the prompt and this file):
@@ -184,8 +185,9 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 | `src/model.py` | `one_mode()`, `two_mode()`, `vacuum2()` |
 | `src/analysis.py` | partial trace, projectors, cat state, `memory_extras` (parity, fidelity, purity, coherence, Re⟨a⟩ at every time step without storing the full ρ), fits |
 | `tasks/task_1_*.py` | task scripts and the optional Task 1.1 numerical audit; write reproducible figures and results |
+| `src/rates.py`, `src/rate_solver.py`, `tasks/task_2_common.py` | rate extraction, sparse full-model dynamics and numerical checks for Tasks 2.1/2.2 |
 | `notebooks/0*_task_*.ipynb` | one notebook per task: plain-language explanation, the task code, and its outputs |
-| `run_all.sh` | reproduces everything in order |
+| `run_all.sh` | introductory task sequence; rate commands are listed below |
 | `tools/ai_review.py` | optional LLM code review (Gemini or Grok) |
 
 ## 7. Reproduce
@@ -194,13 +196,15 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 pip install -r requirements.txt        # dynamiqs 0.3.7, double precision
 python -m src.config                   # units check: kappa_2/2pi = 0.896 MHz
 ./run_all.sh
+python -m tasks.task_2_1
+python -m tasks.task_2_2
 ```
 Run times on 4 CPU cores: Task 1.0 ~20 s, 1.1 ~1 min, 1.2 ~12 min, 1.3a ~2 min, 1.3b ~13 min.
 
 
 ## Figure presentation
 
-The 15 maintained task figures use shared sans-serif typography, consistent symbols and units, concise panel labels, and short legends. Definitions, protocol details and interpretation are collected in [figures/CAPTIONS.md](figures/CAPTIONS.md), reproduced beside the corresponding notebook figures. Wigner panels show individual times, complex phase-space axes and a fixed shared color scale. All figures have 300-dpi PNG and PDF exports. The PDF line plots retain vector paths and embedded TrueType fonts; Wigner images remain raster layers.
+The maintained task figures use shared sans-serif typography, consistent symbols and units, concise panel labels, and short legends. Definitions, protocol details and interpretation are collected in [figures/CAPTIONS.md](figures/CAPTIONS.md), reproduced beside the corresponding notebook figures. Wigner panels show individual times, complex phase-space axes and a fixed shared color scale. All figures have 300-dpi PNG and PDF exports. The PDF line plots retain vector paths and embedded TrueType fonts; Wigner images remain raster layers.
 
 
 ### Wigner animations
@@ -208,3 +212,7 @@ The 15 maintained task figures use shared sans-serif typography, consistent symb
 The task scripts export four GIFs alongside the static Wigner panels. Single-photon loss uses all 201 solved states at 5-ns spacing; effective stabilization uses 201 states at 10-ns spacing; two-mode inflation uses all 301 reduced-memory states at 10-ns spacing; interference decay uses the 201 states from 1–6 µs at 25-ns spacing. These intervals already resolve the displayed motion; no solver tolerance, integration method or analysis output grid changes are required.
 
 `src.plotting.wigner_gif` computes Wigner functions in batches of 16 on a 151×151 spatial grid. Every frame uses actual saved states, fixed axes, the shared normalized range ±2/π, and a fixed 256-color palette. The display clock reports simulated time to 1 ns. Playback is 25 frames/s with 0.8-s endpoint holds; playback speed is a viewing choice. Physical frame times and display durations are embedded in GIF comments for verification. The README embeds GIFs using relative image paths, supported by [GitHub's image renderer](https://docs.github.com/en/repositories/working-with-files/using-files/working-with-non-code-files), and links the static snapshots as alternatives.
+
+## Tasks 2.1 and 2.2: rate characterization
+
+[The rate report](docs/task_2_rates.md) defines the observable-rate convention, derives the direct-overlap and finite-cat predictions, and records the amplitude sweeps, fits, cutoff changes, solver comparisons and loss-strength check. The maintained scripts are `tasks/task_2_1.py` and `tasks/task_2_2.py`; `src/rates.py` handles fits and `src/rate_solver.py` integrates the full two-mode generator in a sparse representation. Walkthroughs are notebooks 06 and 07. The introductory results remain unchanged.
