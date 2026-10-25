@@ -6,9 +6,9 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 
 ## Section 2 (standard track)
 
-**Core method.** A time-domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. Instead we use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (`src/spectral.py`) gives Γ_X at α = 2.1 in under a minute. Where time-domain fits are still affordable (α = 0.8 to 1.4), the two methods agree to 2.3e-8.
+**Two methods.** Brute force first: `tasks/task_2_1.py` and `tasks/task_2_2.py` integrate the full model in the time domain and fit the decay (details in [`task_2_rates.md`](task_2_rates.md)). But a time-domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (`src/spectral.py`) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree to 4e-5 or better.
 
-### 2.1 Bit flips (`research/s2/gx_eig.py`, `gx_time.py`)
+### 2.1 Bit flips (`tasks/task_2_1.py`, `research/s2/gx_eig.py`)
 
 | α | 1.0 | 1.4 | 1.8 | 2.1 | 2.4 |
 |---|---|---|---|---|---|
@@ -23,7 +23,7 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 
 ### 2.2 Phase flips
 
-- Γ_Z = 0.51455 per µs at α = 2.1, and the parity-decay fit (`tasks/task_2_2.py`) gives 0.51456.
+- Γ_Z = 0.514559 per µs at α = 2.1 from both the parity-decay fit (`tasks/task_2_2.py`) and the eigenvalue.
 - It follows 2κ_aα² coth 2α² to within 0.1–0.55% from α = 0.8 to 2.6, with slope 0.991 × 2κ_a.
 
 ### 2.3 Readout (`research/s2/readout.py`)
@@ -81,7 +81,7 @@ Why ±35° and not the one-mode model's ±45°: the slow buffer makes the memory
 ## AI use
 
 - **Claude Code** wrote most of `src/`, `tasks/` and `research/s2/` under our direction.
-- **Codex** built the Task 1.2 grid, the trace-distance metric and the tests.
+- **Codex** built the Task 1.2 grid, the trace-distance metric, the brute force Task 2.1/2.2 runs and their tests.
 - **Gemini** (`tools/ai_review.py`, log in [`reviews/`](../reviews/)) reviewed the physics in the code and checked the plots against our claims. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.
 - No AI output was accepted unchecked. Every number has a hand prediction, a second method or a convergence test.
 - One catch of our own: the default solver tolerance put about 1e-4 of noise into the truncation monitors, which could have hidden a real truncation problem.
