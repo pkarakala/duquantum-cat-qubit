@@ -4,7 +4,7 @@ Every research run is listed here with its command, where it ran, and what it fo
 
 ## Cloud batch, Oct 24 2026, 6:42 to 7:27 PM EDT
 
-`cloud/vultr_batch.py` ran `cloud/research_jobs.txt` with 41 jobs on 3 VMs (voc-c-16c-32gb-300s-amd). Wall time was 45 min and the cost about $0.99. All jobs exited 0. The VM logs are in `results/batch-vm{0,1,2}.log`. Summaries come from `python -m research.merge_cloud`.
+`cloud/vultr_batch.py` ran `cloud/research_jobs.txt` with 41 jobs on 3 VMs (voc-c-16c-32gb-300s-amd). Wall time was 45 min and the cost about $0.99. All jobs exited 0. The VM logs were in `results/batch-vm{0,1,2}.log` (overwritten by later batches; `results/logs/` keeps the last Section 2 batch). Summaries come from `python -m research.merge_cloud`.
 
 | Study | Command (module) | Truncation (convergence pair) | Result |
 |---|---|---|---|

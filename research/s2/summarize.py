@@ -255,9 +255,9 @@ def optimizer(md):
         md.append(f"| {d['alpha']} | {d['na']}×{d['nb']} | {d['T']} | {d['peak']} | {d['init']} | {d['mu_scale']} | {b['snr']/q['snr']:.2f} | {b['p_flip']/q['p_flip']:.2f} | {b['ratio_vs_square']:.2f} |")
     fig, ax = plt.subplots(figsize=(6, 3.5))
     for d in os_:
-        if d["alpha"] == 2.1 or len(os_) < 4:
+        if (d["alpha"] == 2.1 and d["nb"] >= 8) or len(os_) < 4:   # converged runs only
             t = np.linspace(0, d["T"], d["bins"], endpoint=False) + d["T"] / d["bins"] / 2
-            ax.step(t, d["best"]["pulse_over_g2"], where="mid", label=f"α={d['alpha']} T={d['T']} pk={d['peak']}")
+            ax.step(t, d["best"]["pulse_over_g2"], where="mid", label=f"α={d['alpha']}, T = {d['T']:g} µs, peak {d['peak']:g} g₂ ({d['na']}×{d['nb']})")
     ax.set_xlabel("t (µs)"); ax.set_ylabel("ε_Z / g₂"); ax.legend(fontsize=6); ax.set_title("optimized readout pulses")
     fig.tight_layout(); fig.savefig(F / "optimized_pulses.png", dpi=150); plt.close(fig)
     md.append("")

@@ -141,7 +141,22 @@ square pulse:
 The same ordering holds at α = 1.4 and 1.8 (resonant: 0.64–0.74 flips per SNR) and for T = 0.25–1 µs. At peak 0.5 g₂ the optimizer does not beat the resonant pulse on flips per unit SNR; it spends the extra
 flips on more signal. At peak 1.0 g₂ it reached 1.40× the square pulse's SNR with 0.90× its
 flips (30×8; 26×6 gave 1.42× and 0.89×), and at α = 1.4, T = 1 µs, peak 0.5 g₂ it gave 1.13× the SNR with 0.71× the
-flips (22×8). A square pulse is never the best choice.
+flips (22×8). A square pulse is never the best choice. The optimizer was run at every converged setting we could afford (`results/s2/opt_*.json`):
+
+| α | T (µs) | peak (g₂) | Na×Nb | Adam steps | SNR vs square | flips vs square | SNR per flip vs square |
+|---|---|---|---|---|---|---|---|
+| 1.4 | 0.5 | 0.5 | 22×8 | 25 | 0.89 | 0.58 | 1.55 |
+| 1.4 | 0.5 | 1 | 22×8 | 25 | 0.94 | 0.57 | 1.66 |
+| 1.4 | 1 | 0.5 | 22×8 | 40 | 1.13 | 0.71 | 1.59 |
+| 1.8 | 0.5 | 0.5 | 26×8 | 20 | 1.27 | 0.93 | 1.36 |
+| 1.8 | 0.5 | 1 | 26×8 | 20 | 1.13 | 0.66 | 1.71 |
+| 1.8 | 1 | 0.5 | 26×8 | 20 | 1.88 | 1.42 | 1.32 |
+| 2.1 | 0.5 | 0.5 | 30×8 | 15 | 1.51 | 1.20 | 1.26 |
+| 2.1 | 0.5 | 1 | 30×8 | 15 | 1.40 | 0.90 | 1.56 |
+| 2.1 | 1 | 0.5 | 30×8 | 10 | 1.71 | 1.31 | 1.30 |
+
+In all 9 cases the optimized pulse carries **1.26–1.71× more signal per bit flip** than the square pulse. It chooses where on the
+frontier to sit: at low peak and long windows it buys signal (up to 1.88×), at high peak it cuts flips (down to 0.57×).
 
 **From SNR to readout error** (`research/s2/fidelity.py`). Homodyne with a matched filter separates the two
 outcome distributions by 2√SNR standard deviations, so the error is ½erfc(√(SNR/2)) plus the probability that the
@@ -197,4 +212,4 @@ python -m research.s2.circuit_sim --na 12 --nb 5 --T 0.15 --dp -23              
 ```
 
 The large sweeps ran on Vultr (`cloud/s2_batch1b.txt`, `s2_batch2.txt`, `s2_batch3s.txt` with
-`cloud/vultr_batch.py`; costs in `docs/tools-log.md`). Each batch log is in `results/batch-vm*.log`.
+`cloud/vultr_batch.py`; costs in `docs/tools-log.md`). The last batch's VM logs are in `results/logs/`; the launcher writes each new batch to `results/batch-vm*.log`.

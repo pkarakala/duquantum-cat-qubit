@@ -45,7 +45,7 @@ python -m research.merge_cloud      # after the results are copied back
 ```
 
 41 jobs, ~4.6 h of compute in total. The four GRAPE jobs (~45 min each) are the longest; every
-other job is under ~8 min. Estimates are scaled from the Task 1.2 grid timings (`results/grid.log`).
+other job is under ~8 min. Estimates are scaled from the Task 1.2 grid timings (`results/logs/grid.log`).
 
 ## Smoke tests
 
