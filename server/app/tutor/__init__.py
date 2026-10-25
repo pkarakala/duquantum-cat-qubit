@@ -1,1 +1,1 @@
-"""Tutor routes belong to lane p4-tutor. This package stays empty until then."""
+"""Schrö, the Academy cat tutor. Routers are auto-included by the server."""

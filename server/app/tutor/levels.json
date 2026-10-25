@@ -1,0 +1,1180 @@
+{
+  "union": [
+    2.1,
+    4.41,
+    4.0,
+    0.5,
+    1.386,
+    0.693,
+    0.49983,
+    0.45,
+    1.07,
+    0.896,
+    0.9,
+    1.0,
+    8.56,
+    3.0,
+    60.0,
+    200.0,
+    56.0,
+    0.29,
+    11.0,
+    6.89,
+    3.14,
+    1.13,
+    0.73,
+    2.46,
+    20.0
+  ],
+  "misconceptions": {
+    "M1": {
+      "misconception": "A superposition is just a 50/50 mixture",
+      "fix": "The fringes (negative regions) exist only for the superposition. A mixture shows two blobs and no stripes."
+    },
+    "M2": {
+      "misconception": "The Wigner function is a probability",
+      "fix": "It can go negative. Negativity is the quantum fingerprint."
+    },
+    "M3": {
+      "misconception": "Dissipation always destroys quantum information",
+      "fix": "Engineered *two-photon* dissipation creates the cat and protects it."
+    },
+    "M4": {
+      "misconception": "More photons protect against every error",
+      "fix": "Bit flips drop exponentially, but phase flips grow linearly."
+    },
+    "M5": {
+      "misconception": "Losing a photon causes a bit flip",
+      "fix": "It flips parity, which is a **phase** flip. The blob stays in its well."
+    },
+    "M6": {
+      "misconception": "Reading a qubit is instant and free",
+      "fix": "The buffer rings and takes about 1 µs to settle. Measuring dephases the qubit."
+    },
+    "M7": {
+      "misconception": "The relative phase (the sign) is unobservable",
+      "fix": "C₊ and C₋ differ only by a sign, and their fringes (parity) are opposite."
+    }
+  },
+  "levels": {
+    "L1": {
+      "id": "L1",
+      "title": "A box of light",
+      "minutes": 5,
+      "engine": "ts",
+      "concept": "a superconducting resonator holds microwave photons. A *coherent state* |α⟩ is the quantum version of a steady swing. Its average photon number is |α|², but each measurement gives a different count. The Wigner map shows it as a round blob at distance α from the centre.",
+      "predict": {
+        "question": "For α = 2, what is the average number of photons?",
+        "options": [
+          {
+            "id": "A",
+            "text": "2. Feedback: \"Close, but the photon number goes as α².\"",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "B",
+            "text": "4 (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "C",
+            "text": "Exactly 4, every time. This is the \"number is definite\" error. Feedback: \"On average 4, but each count varies (Poisson).\"",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "D",
+            "text": "0.",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"For α = 2, what is the average number of photons?\"\n  - A) 2. Feedback: \"Close, but the photon number goes as α².\"\n  - **B) 4** (correct).\n  - C) Exactly 4, every time. This is the \"number is definite\" error. Feedback: \"On average 4, but each count varies (Poisson).\"\n  - D) 0."
+      },
+      "check_text": "\"Make a state with an average of 4.41 photons.\" Pass if |α| is in [2.08, 2.12].",
+      "aha": "\"Amplitude and phase are sharp; the photon count is fuzzy. That round blob *is* a coherent state, and α = 2.1 is Alice & Bob's operating point.\"",
+      "solution": [
+        "⟨n⟩ = |α|².",
+        "4.41 = 2.1²."
+      ],
+      "hints": [
+        "What do you predict?",
+        "Watch the histogram's centre as you move α.",
+        "Compare α = 1 and α = 2.",
+        "⟨n⟩ = α²: solve α² = 4.41."
+      ],
+      "allowed_constants": [
+        {
+          "value": 2.1,
+          "unit": null
+        },
+        {
+          "value": 4.41,
+          "unit": null
+        },
+        {
+          "value": 4.0,
+          "unit": null
+        }
+      ],
+      "preset": "L1",
+      "sources": [],
+      "narrationKey": "concept_L1",
+      "guard_extra": [],
+      "controls": {
+        "alpha": [
+          0,
+          3
+        ],
+        "n": [
+          0,
+          6
+        ]
+      },
+      "answer_patterns": [
+        "α\\s*[=≈]\\s*2\\.1",
+        "alpha\\s*[=≈]\\s*2\\.1"
+      ],
+      "leak_example": "α = 2.1",
+      "run_sim": {
+        "mode": "one",
+        "timeout_s": 4
+      },
+      "text_constants": [
+        {
+          "value": 2.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.41,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 2.08,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 2.12,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 2.1,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": null,
+          "source": "level_text"
+        }
+      ]
+    },
+    "L2": {
+      "id": "L2",
+      "title": "The leaky box",
+      "minutes": 6,
+      "engine": "ts",
+      "concept": "real resonators leak single photons at rate κ.\n  - The Hamiltonian H = Δa†a makes the blob rotate. Here Δ/2π = 1 MHz, so one turn per µs.\n  - The jump operator √κ·a removes one photon at a time.",
+      "predict": {
+        "question": "Start at α = 2 and turn on loss. What happens to the blob?",
+        "options": [
+          {
+            "id": "A",
+            "text": "It shrinks and stays round (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "B",
+            "text": "It gets lopsided (M3).",
+            "correct": false,
+            "misconception": "M3"
+          },
+          {
+            "id": "C",
+            "text": "It splits in two.",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "D",
+            "text": "Nothing.",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"Start at α = 2 and turn on loss. What happens to the blob?\"\n  - **A) It shrinks and stays round** (correct).\n  - B) It gets lopsided (M3).\n  - C) It splits in two.\n  - D) Nothing."
+      },
+      "check_text": "\"Pick κ so that ⟨n⟩ halves at t = 0.5 µs.\" Pass if κ is in [1.32, 1.46] rad/µs, i.e. ln 2/0.5 = 1.386 rad/µs (κ/2π ≈ 0.22 MHz).",
+      "aha": "\"A coherent state stays coherent while it leaks: losing a photon doesn't change it, it just shrinks. This matches our Task 1.0a check to 1e-11.\"",
+      "solution": [
+        "⟨n⟩ = 4e^{−κt}.",
+        "Halving needs κt = ln 2."
+      ],
+      "hints": [
+        "Predict first.",
+        "Look at the dashed analytic curve.",
+        "Compare κ = 0 and a large κ.",
+        "Set e^{−κ·0.5} = ½."
+      ],
+      "allowed_constants": [
+        {
+          "value": 4.0,
+          "unit": null
+        },
+        {
+          "value": 0.5,
+          "unit": null
+        },
+        {
+          "value": 1.386,
+          "unit": null
+        },
+        {
+          "value": 0.693,
+          "unit": null
+        }
+      ],
+      "preset": "L2",
+      "sources": [
+        "t1_0.max_abs_error.td.one_mode.a2.00"
+      ],
+      "narrationKey": "concept_L2",
+      "guard_extra": [],
+      "controls": {
+        "kappa": [
+          0,
+          6.283185307179586
+        ]
+      },
+      "answer_patterns": [
+        "1\\.3[89]"
+      ],
+      "leak_example": "set κ to 1.386",
+      "run_sim": {
+        "mode": "one",
+        "timeout_s": 4
+      },
+      "text_constants": [
+        {
+          "value": 1.0,
+          "unit": "MHz",
+          "source": "level_text"
+        },
+        {
+          "value": 2.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.5,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 1.32,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.46,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.5,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.386,
+          "unit": "rad/µs",
+          "source": "level_text"
+        },
+        {
+          "value": 0.22,
+          "unit": "MHz",
+          "source": "level_text"
+        },
+        {
+          "value": 1e-11,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.0,
+          "unit": null,
+          "source": "level_text"
+        }
+      ]
+    },
+    "L3": {
+      "id": "L3",
+      "title": "Two at a time",
+      "minutes": 6,
+      "engine": "ts",
+      "concept": "what if the box can only lose photons **in pairs**? The jump operator is √κ₂·a², where κ₂/2π = 0.896 MHz.",
+      "predict": {
+        "question": "Start at α = 2 with pair-loss only. Where does ⟨n⟩ end up?",
+        "options": [
+          {
+            "id": "A",
+            "text": "0 (M3).",
+            "correct": false,
+            "misconception": "M3"
+          },
+          {
+            "id": "B",
+            "text": "About 0.5 (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "C",
+            "text": "It stays at 4.",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "D",
+            "text": "2.",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"Start at α = 2 with pair-loss only. Where does ⟨n⟩ end up?\"\n  - A) 0 (M3).\n  - **B) About 0.5** (correct).\n  - C) It stays at 4.\n  - D) 2."
+      },
+      "check_text": "\"Make the plateau land at 0.45.\" Pass if the plateau is in [0.43, 0.47].\n  - Plateau = (1 − e^{−2α²})/2, so this needs α ≈ 1.07.",
+      "aha": "\"Pairs can't remove the last odd photon. Photon-number **parity is frozen**. That is the secret ingredient of a cat qubit. (Our Task 1.0b plateau: 0.49983, which matches theory to 1e-14.)\"",
+      "solution": [
+        "a² maps n → n−2, so parity is conserved.",
+        "The odd part of |α⟩ ends in |1⟩ and the even part in |0⟩.",
+        "⟨n⟩_∞ = P_odd = (1 − e^{−2α²})/2."
+      ],
+      "hints": [
+        "Predict.",
+        "Watch the parity meter.",
+        "Try starting in Fock |3⟩: where does it end?",
+        "Use the plateau formula."
+      ],
+      "allowed_constants": [
+        {
+          "value": 0.5,
+          "unit": null
+        },
+        {
+          "value": 0.49983,
+          "unit": null
+        },
+        {
+          "value": 0.45,
+          "unit": null
+        },
+        {
+          "value": 1.07,
+          "unit": null
+        },
+        {
+          "value": 0.896,
+          "unit": null
+        }
+      ],
+      "preset": "L3",
+      "sources": [
+        "t1_0.n_plateau.td.one_mode.a2.00"
+      ],
+      "narrationKey": "concept_L3",
+      "guard_extra": [],
+      "controls": {
+        "alpha": [
+          0.5,
+          2.5
+        ],
+        "kappa2_scale": [
+          0.25,
+          4
+        ]
+      },
+      "answer_patterns": [
+        "1\\.07"
+      ],
+      "leak_example": "start near 1.07",
+      "run_sim": {
+        "mode": "one",
+        "timeout_s": 4
+      },
+      "text_constants": [
+        {
+          "value": 0.896,
+          "unit": "MHz",
+          "source": "level_text"
+        },
+        {
+          "value": 2.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.5,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.45,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.43,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.47,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.07,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.49983,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 3.0,
+          "unit": null,
+          "source": "level_text"
+        }
+      ]
+    },
+    "L4": {
+      "id": "L4",
+      "title": "The cat appears",
+      "minutes": 7,
+      "engine": "ts",
+      "concept": "remove pairs **and** add pairs. The jump operator becomes √κ₂(a² − α²). It is balanced at ±α: two valleys, which are our |0⟩ and |1⟩. Start from the empty box.",
+      "predict": {
+        "question": "Starting empty, what will the Wigner map look like?",
+        "options": [
+          {
+            "id": "A",
+            "text": "One blob.",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "B",
+            "text": "Two blobs, no stripes (M1).",
+            "correct": false,
+            "misconception": "M1"
+          },
+          {
+            "id": "C",
+            "text": "Two blobs plus stripes between them (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "D",
+            "text": "A ring.",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"Starting empty, what will the Wigner map look like?\"\n  - A) One blob.\n  - B) Two blobs, no stripes (M1).\n  - **C) Two blobs plus stripes between them** (correct).\n  - D) A ring."
+      },
+      "check_text": "\"Grow a cat with ⟨n⟩ ≈ 4.41 and parity > 0.9 at t = 1 µs, with loss off.\" Pass if ⟨n⟩ is in [4.3, 4.5] and parity > 0.9.\n\"Turn loss on. What fades first?\" The answer is the fringes and the parity.",
+      "aha": "- \"The stripes go negative, so this is a true superposition: an even cat (M1, M2).\"\n  - \"The empty box is even, so you always get the *even* cat (M7).\"\n  - \"Losing one photon flips parity: that's a **phase flip**, not a bit flip (M5).\"",
+      "solution": [
+        "Pair processes conserve parity, and vacuum has P = +1, so the state goes to C₊.",
+        "With κ_a on, parity decays at about 2κ_aα²."
+      ],
+      "hints": [
+        "Predict.",
+        "Look between the blobs.",
+        "Compare a 50/50 mixture (toggle).",
+        "Parity = +1 means even photon numbers only."
+      ],
+      "allowed_constants": [
+        {
+          "value": 4.41,
+          "unit": null
+        },
+        {
+          "value": 0.9,
+          "unit": null
+        },
+        {
+          "value": 1.0,
+          "unit": null
+        }
+      ],
+      "preset": "L4",
+      "sources": [
+        "t1_3a.gamma_z.td.two_mode.a2.10",
+        "t1_0.final_n.td.one_mode.a2.10"
+      ],
+      "narrationKey": "concept_L4",
+      "guard_extra": [],
+      "controls": {
+        "alpha": [
+          1,
+          2.5
+        ]
+      },
+      "answer_patterns": [
+        "C[+₊]"
+      ],
+      "leak_example": "vacuum goes to C₊",
+      "run_sim": {
+        "mode": "one",
+        "timeout_s": 4
+      },
+      "text_constants": [
+        {
+          "value": 0.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.41,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.9,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 4.3,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.5,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 50.0,
+          "unit": null,
+          "source": "level_text"
+        }
+      ]
+    },
+    "L5": {
+      "id": "L5",
+      "title": "Flip vs flip",
+      "minutes": 6,
+      "engine": "records",
+      "concept": "- A bit flip means hopping from one valley to the other. Bigger cats sit in valleys that are farther apart, so bit flips become exponentially rarer.\n  - A phase flip happens every time a photon leaks. Bigger cats hold more photons, so phase flips grow linearly.",
+      "predict": {
+        "question": "Double the photon number. Bit flips become…",
+        "options": [
+          {
+            "id": "A",
+            "text": "About 2× rarer.",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "B",
+            "text": "Vastly rarer, orders of magnitude (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "C",
+            "text": "More common (M4).",
+            "correct": false,
+            "misconception": "M4"
+          }
+        ],
+        "raw": "\"Double the photon number. Bit flips become…\"\n  - A) About 2× rarer.\n  - **B) Vastly rarer, orders of magnitude** (correct).\n  - C) More common (M4).\n  - Follow-up question: \"…and phase flips?\" The answer is \"more common\"."
+      },
+      "check_text": "\"Design a qubit with T_X > 1 ms **and** T_Z > 1 µs.\" The pass window is computed from records at runtime. T_Z = 1/(2κ_aα²) > 1 µs means α² < 8.56; the T_X bound comes from the Γ_X records.",
+      "aha": "\"Noise bias is a design choice. That's why Alice & Bob only need a simple repetition code (Felis: 60–200× fewer qubits). Our two-mode model flips about 3× faster than the simple model at α = 2.1, which is real hardware physics (Ferrari et al. 2026).\"",
+      "solution": [
+        "Γ_X ≈ 2κ_aα²e^{−4α²} + (κ_a²/κ₂)e^{−2α²}.",
+        "Γ_Z = 2κ_aα² coth 2α².",
+        "Pick α² inside both bounds."
+      ],
+      "hints": [
+        "Predict.",
+        "Read both curves at your α².",
+        "Try α² = 1 vs 5.",
+        "T_Z = 1/(2κ_aα²)."
+      ],
+      "allowed_constants": [
+        {
+          "value": 8.56,
+          "unit": null
+        },
+        {
+          "value": 1.0,
+          "unit": "ms"
+        },
+        {
+          "value": 1.0,
+          "unit": "µs"
+        },
+        {
+          "value": 3.0,
+          "unit": null
+        },
+        {
+          "value": 60.0,
+          "unit": null
+        },
+        {
+          "value": 200.0,
+          "unit": null
+        }
+      ],
+      "preset": "L5",
+      "sources": [
+        "t2_1.gamma_x.eig.*",
+        "t2_2.gamma_z.td.*"
+      ],
+      "narrationKey": "concept_L5",
+      "guard_extra": [],
+      "controls": {
+        "alpha2": [
+          1,
+          9
+        ]
+      },
+      "answer_patterns": [
+        "α²\\s*<\\s*8\\.56",
+        "alpha\\^2\\s*<\\s*8\\.56"
+      ],
+      "leak_example": "pick α² < 8.56",
+      "run_sim": {
+        "mode": "redirect",
+        "grid": "gamma_x_vs_alpha2"
+      },
+      "text_constants": [
+        {
+          "value": 2.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1000.0,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 8.56,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 60.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 200.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 3.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 2.1,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 2026.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 5.0,
+          "unit": null,
+          "source": "level_text"
+        }
+      ]
+    },
+    "L6": {
+      "id": "L6",
+      "title": "Build the machine",
+      "minutes": 8,
+      "engine": "server-expr",
+      "concept": "in hardware, a second leaky resonator (the **buffer**, b) makes the pairs.\n  - The coupling g₂ swaps 2 memory photons for 1 buffer photon.\n  - A buffer drive ε_d pumps pairs in.\n  - Buffer loss κ_b dumps them.\n  - Build it from blocks.",
+      "predict": {
+        "question": "Will the memory fill smoothly like L4?",
+        "options": [
+          {
+            "id": "A",
+            "text": "Yes, smoothly.",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "B",
+            "text": "It overshoots, then settles (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "C",
+            "text": "It never fills.",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"Will the memory fill smoothly like L4?\"\n  - A) Yes, smoothly.\n  - **B) It overshoots, then settles** (correct).\n  - C) It never fills."
+      },
+      "check_text": "\"Your blocks stabilize a cat.\" Pass if the steady ⟨n_a⟩ is within 2% of 4.41.\n  - **This works at the live size Na = 16, Nb = 5.** The steady state already converges at Na = 16, Nb = 4 to 0.1% (Task 1.2: steady 4.4026). The transient peak does **not** converge at 16×5 (about 6.4 vs 6.89 converged), and the truncation meter shows exactly that, which is a convergence lesson.\n  - Never widen the window.\n  - Common wrong builds get tutor explanations:\n    - ε(a+a†) instead of the buffer drive. It pushes along the separatrix and can't make a cat (RESEARCH §4.1).\n    - Missing √κ_b·b, so nothing dissipates.\n    - Swapping a²b† for a b†².",
+      "aha": "- \"Real hardware overshoots by about 56%, because the buffer isn't fast enough (κ_b ≫ g₂ is violated: g₂/κ_b = 0.29).\"\n  - \"And the textbook simulation size (6 buffer levels) underestimates the peak by 11%. Convergence matters (our Task 1.2).\"",
+      "solution": [
+        "H = g₂(a²b† + a†²b) − ε_d(b+b†), with jumps √κ_b·b and √κ_a·a.",
+        "α² = ε_d/g₂.",
+        "A slow buffer causes the overshoot."
+      ],
+      "hints": [
+        "Predict.",
+        "Which block lets energy leave?",
+        "Compare with/without √κ_b·b.",
+        "Two memory photons ↔ one buffer photon: a²b†."
+      ],
+      "allowed_constants": [
+        {
+          "value": 4.41,
+          "unit": null
+        },
+        {
+          "value": 56.0,
+          "unit": "%"
+        },
+        {
+          "value": 0.29,
+          "unit": null
+        },
+        {
+          "value": 11.0,
+          "unit": "%"
+        },
+        {
+          "value": 6.89,
+          "unit": null
+        },
+        {
+          "value": 1.07,
+          "unit": "µs"
+        }
+      ],
+      "preset": "L6",
+      "sources": [
+        "t1_1.peak_na.td.two_mode.a2.10",
+        "t1_1.steady_na.td.two_mode.a2.10"
+      ],
+      "narrationKey": "concept_L6",
+      "guard_extra": [],
+      "controls": {},
+      "answer_patterns": [
+        "a²b†",
+        "a\\^?2\\s*b†",
+        "a@a@b\\.dag"
+      ],
+      "leak_example": "the coupling is a²b†",
+      "run_sim": {
+        "mode": "two_or_preset",
+        "timeout_s": 6,
+        "min_remaining_s": 8
+      },
+      "text_constants": [
+        {
+          "value": 2.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 2.0,
+          "unit": "%",
+          "source": "level_text"
+        },
+        {
+          "value": 4.41,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 16.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 5.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.1,
+          "unit": "%",
+          "source": "level_text"
+        },
+        {
+          "value": 1.2,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.4026,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 6.4,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 6.89,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.1,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 56.0,
+          "unit": "%",
+          "source": "level_text"
+        },
+        {
+          "value": 0.29,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 6.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 11.0,
+          "unit": "%",
+          "source": "level_text"
+        }
+      ]
+    },
+    "L7": {
+      "id": "L7",
+      "title": "Read the cat",
+      "minutes": 7,
+      "engine": "records",
+      "concept": "to read 0 or 1 without a transmon, nudge the memory with a small drive ε_Z. The buffer field then leans **opposite ways** for the two valleys.",
+      "predict": {
+        "question": "After switching the readout on, the buffer signal…",
+        "options": [
+          {
+            "id": "A",
+            "text": "Settles smoothly (M6). Feedback: \"It actually rings for about 1 µs. Reading takes time.\"",
+            "correct": false,
+            "misconception": "M6"
+          },
+          {
+            "id": "B",
+            "text": "Rings, then settles (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "C",
+            "text": "Stays zero. Feedback: \"The two valleys push the buffer opposite ways, so there is a signal.\"",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"After switching the readout on, the buffer signal…\"\n  - A) Settles smoothly (M6). Feedback: \"It actually rings for about 1 µs. Reading takes time.\"\n  - **B) Rings, then settles** (correct).\n  - C) Stays zero. Feedback: \"The two valleys push the buffer opposite ways, so there is a signal.\""
+      },
+      "check_text": "\"Get an SNR ≥ 1 within 1 µs.\" Pass is read from the grid.",
+      "aha": "- \"It rings at 3.14 MHz and needs about 1.1 µs to settle, because memory and buffer form a lightly damped pair (8g₂α > κ_b).\"\n  - \"Reading costs something. Measuring dephases the qubit at 2ε_Z²/(κ₂α²), so harder driving reads faster but disturbs the cat.\"",
+      "solution": [
+        "b_ss = ∓ε_Z/(2αg₂).",
+        "λ² + (κ_b/2)λ + 4g₂²α² = 0, giving λ = −4.08 ± 19.7i /µs."
+      ],
+      "hints": [
+        "Predict.",
+        "Watch the first 0.5 µs.",
+        "Compare the two valleys.",
+        "Signal size goes as ε_Z/(2αg₂)."
+      ],
+      "allowed_constants": [
+        {
+          "value": 3.14,
+          "unit": "MHz"
+        },
+        {
+          "value": 1.13,
+          "unit": "µs"
+        },
+        {
+          "value": 0.73,
+          "unit": "µs"
+        },
+        {
+          "value": 2.46,
+          "unit": null
+        }
+      ],
+      "preset": "L7",
+      "sources": [
+        "t2_3.*"
+      ],
+      "narrationKey": "concept_L7",
+      "guard_extra": [],
+      "controls": {
+        "eps_z_over_g2": [
+          0.05,
+          3
+        ]
+      },
+      "answer_patterns": [
+        "4\\.08"
+      ],
+      "leak_example": "the pole sits at 4.08",
+      "run_sim": {
+        "mode": "redirect",
+        "grid": "readout_signals"
+      },
+      "text_constants": [
+        {
+          "value": 0.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 3.14,
+          "unit": "MHz",
+          "source": "level_text"
+        },
+        {
+          "value": 1.1,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 0.5,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 2.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.08,
+          "unit": null,
+          "source": "level_text"
+        }
+      ]
+    },
+    "L8": {
+      "id": "L8",
+      "title": "Design challenge",
+      "minutes": 8,
+      "engine": "ts",
+      "concept": "design the readout pulse. You get 20 bars of drive strength over 1 µs. Maximize signal (SNR) without spending more than the bit-flip budget.",
+      "predict": {
+        "question": "Which beats a flat (square) pulse at the same budget?",
+        "options": [
+          {
+            "id": "A",
+            "text": "Nothing: square is best.",
+            "correct": false,
+            "misconception": null
+          },
+          {
+            "id": "B",
+            "text": "A shaped pulse (correct).",
+            "correct": true,
+            "misconception": null
+          },
+          {
+            "id": "C",
+            "text": "A bigger square pulse. That breaks the budget.",
+            "correct": false,
+            "misconception": null
+          }
+        ],
+        "raw": "\"Which beats a flat (square) pulse at the same budget?\"\n  - A) Nothing: square is best.\n  - **B) A shaped pulse** (correct).\n  - C) A bigger square pulse. That breaks the budget."
+      },
+      "check_text": "\"Beat the square pulse at equal budget.\" Pass when `snr(yours) > snr(square)` and `cost(yours) ≤ cost(square)`.\n  - Constants (CONTRACT §6): T = 1 µs, 20 bins, amplitude ≤ 3·g₂, square reference 0.5·g₂, energy budget 0.25·g₂²·µs.\n  - Prototype: square SNR ≈ 0.95 vs SVD-optimal ≈ 4.06. Verify before quoting.",
+      "aha": "\"Our provably optimal pulse is the top singular vector of the system's response. It puts its energy near the 3.14 MHz ring. You just did optimal control.\" The page then compares with our SVD pulse from `t2_4c`.",
+      "solution": [
+        "SNR = κ_b∫|Δb|²dt.",
+        "Response is linear in ε.",
+        "Optimum = top singular vector at fixed energy."
+      ],
+      "hints": [
+        "Predict.",
+        "Look at the spectrum.",
+        "Try a ramp vs a square.",
+        "Put energy near the ring frequency."
+      ],
+      "allowed_constants": [
+        {
+          "value": 3.14,
+          "unit": "MHz"
+        },
+        {
+          "value": 20.0,
+          "unit": null
+        },
+        {
+          "value": 1.0,
+          "unit": "µs"
+        }
+      ],
+      "preset": "L8",
+      "sources": [
+        "t2_4c.*"
+      ],
+      "narrationKey": "concept_L8",
+      "guard_extra": [],
+      "controls": {},
+      "answer_patterns": [
+        "top singular vector"
+      ],
+      "leak_example": "use the top singular vector",
+      "run_sim": {
+        "mode": "linresp",
+        "timeout_s": 1
+      },
+      "text_constants": [
+        {
+          "value": 20.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 1.0,
+          "unit": "µs",
+          "source": "level_text"
+        },
+        {
+          "value": 6.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 3.0,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.5,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.25,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 0.95,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 4.06,
+          "unit": null,
+          "source": "level_text"
+        },
+        {
+          "value": 3.14,
+          "unit": "MHz",
+          "source": "level_text"
+        }
+      ]
+    }
+  }
+}

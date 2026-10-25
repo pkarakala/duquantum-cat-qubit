@@ -1,0 +1,62 @@
+{
+  "narrationKey": {
+    "L1": "concept_L1",
+    "L2": "concept_L2",
+    "L3": "concept_L3",
+    "L4": "concept_L4",
+    "L5": "concept_L5",
+    "L6": "concept_L6",
+    "L7": "concept_L7",
+    "L8": "concept_L8"
+  },
+  "guard_extra": {
+    "L1": [],
+    "L2": [],
+    "L3": [],
+    "L4": [],
+    "L5": [],
+    "L6": [],
+    "L7": [],
+    "L8": []
+  },
+  "controls": {
+    "L1": {"alpha": [0, 3], "n": [0, 6]},
+    "L2": {"kappa": [0, 6.283185307179586]},
+    "L3": {"alpha": [0.5, 2.5], "kappa2_scale": [0.25, 4]},
+    "L4": {"alpha": [1, 2.5]},
+    "L5": {"alpha2": [1, 9]},
+    "L6": {},
+    "L7": {"eps_z_over_g2": [0.05, 3]},
+    "L8": {}
+  },
+  "answer_patterns": {
+    "L1": ["α\\s*[=≈]\\s*2\\.1", "alpha\\s*[=≈]\\s*2\\.1"],
+    "L2": ["1\\.3[89]"],
+    "L3": ["1\\.07"],
+    "L4": ["C[+₊]"],
+    "L5": ["α²\\s*<\\s*8\\.56", "alpha\\^2\\s*<\\s*8\\.56"],
+    "L6": ["a²b†", "a\\^?2\\s*b†", "a@a@b\\.dag"],
+    "L7": ["4\\.08"],
+    "L8": ["top singular vector"]
+  },
+  "leak_example": {
+    "L1": "α = 2.1",
+    "L2": "set κ to 1.386",
+    "L3": "start near 1.07",
+    "L4": "vacuum goes to C₊",
+    "L5": "pick α² < 8.56",
+    "L6": "the coupling is a²b†",
+    "L7": "the pole sits at 4.08",
+    "L8": "use the top singular vector"
+  },
+  "run_sim": {
+    "L1": {"mode": "one", "timeout_s": 4},
+    "L2": {"mode": "one", "timeout_s": 4},
+    "L3": {"mode": "one", "timeout_s": 4},
+    "L4": {"mode": "one", "timeout_s": 4},
+    "L5": {"mode": "redirect", "grid": "gamma_x_vs_alpha2"},
+    "L6": {"mode": "two_or_preset", "timeout_s": 6, "min_remaining_s": 8},
+    "L7": {"mode": "redirect", "grid": "readout_signals"},
+    "L8": {"mode": "linresp", "timeout_s": 1}
+  }
+}

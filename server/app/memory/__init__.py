@@ -1,1 +1,1 @@
-"""Backboard memory routes belong to lane p4-tutor. Empty until that lane adds routes.py."""
+"""Per-learner memory. One Backboard thread, or a labeled demo adapter when no key is set."""
