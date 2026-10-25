@@ -481,8 +481,9 @@ def create_app() -> FastAPI:
             "integrations": integration_modes(),
             "demo_mode": demo_sponsors(),
             "demo_label": (
-                "Vultr, Solana, and Backboard are demo mode behind their production "
-                "interfaces. Gemini, ElevenLabs, and Tiger Data use configured credentials."
+                "Vultr and Solana are demo mode behind their production interfaces. "
+                f"Backboard is {'live' if flags['backboard'] else 'demo'}. "
+                "Gemini, ElevenLabs, and Tiger Data use configured credentials."
             ),
         }
 

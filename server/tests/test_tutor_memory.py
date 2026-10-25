@@ -1,13 +1,12 @@
-"""Backboard events and recaps. The HTTP client is fake; the real paths are checked with a mock transport."""
+"""Backboard events and recaps. The SDK is faked, so these tests never open a socket."""
 
-import json
-
-import httpx
+import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from server.app.memory.client import BackboardClient, UpstreamError
+from server.app.memory.client import BackboardClient, DemoBackboardClient, UpstreamError
 from server.app.memory.routes import router
+from server.app.memory.service import build_client
 from server.app.memory.store import AcademyStore
 from server.app.tutor.build_levels import main
 
@@ -108,30 +107,70 @@ def test_no_key_is_503_and_timeout_is_502(monkeypatch, tmp_path):
     assert timed.json()["error"]["code"] == "upstream_error"
 
 
-def test_real_client_posts_memory_modes_and_reuses_a_thread(tmp_path):
-    seen = []
+class _FakeSdk:
+    """Stand-in for backboard.BackboardClient. send_message never touches the network."""
 
-    def handler(request: httpx.Request) -> httpx.Response:
-        path = request.url.path
-        if path.endswith("/assistants"):
-            return httpx.Response(200, json={"assistant_id": "asst-1"})
-        if path.endswith("/assistants/asst-1/threads"):
-            seen.append("thread")
-            return httpx.Response(200, json={"thread_id": "th-1"})
-        body = json.loads(request.content.decode())
-        seen.append(body["memory"])
-        return httpx.Response(200, json={"content": "Noted M3.", "thread_id": "th-1"})
+    def __init__(self):
+        self.calls = []
 
+    async def send_message(self, text, memory="off", thread_id=None, **kwargs):
+        self.calls.append({"text": text, "memory": memory, "thread_id": thread_id, **kwargs})
+        return _FakeReply("Noted M3." if memory == "Readonly" else "stored", thread_id or "th-1")
+
+
+class _FakeReply:
+    def __init__(self, content, thread_id):
+        self.content = content
+        self.thread_id = thread_id
+        self.assistant_id = "asst-1"
+
+
+class _DownSdk:
+    async def send_message(self, *args, **kwargs):
+        raise TimeoutError("timed out")
+
+
+def test_sdk_client_send_message_reuses_a_thread(monkeypatch, tmp_path):
+    try:
+        import backboard
+    except ImportError:
+        backboard = None
+    else:
+        monkeypatch.setattr(
+            backboard,
+            "BackboardClient",
+            lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("real SDK constructed")),
+        )
+    sdk = _FakeSdk()
     store = AcademyStore(tmp_path / "memory.sqlite")
-    client = BackboardClient("test-key", transport=httpx.MockTransport(handler), store=store)
-    thread = client.ensure_thread("learner")
+    client = BackboardClient("test-key", sdk=sdk, store=store)
+    missing = client.ensure_thread("learner")
+    client.add_message(missing, "L3: wrong prediction, M3: dissipation", memory="Auto")
     again = client.ensure_thread("learner")
-    client.add_message(thread, "L3: wrong prediction, M3: dissipation", memory="Auto")
     text = client.ask(again, memory="Readonly")
-    assert thread == again == "th-1"
-    assert seen.count("thread") == 1
-    assert "Auto" in seen and "Readonly" in seen
+    assert missing == ""
+    assert again == "th-1"
+    assert [item["memory"] for item in sdk.calls] == ["Auto", "Readonly"]
+    assert sdk.calls[0]["thread_id"] is None
+    assert sdk.calls[1]["thread_id"] == "th-1"
+    assert "M3" in sdk.calls[0]["text"]
     assert "M3" in text
+    assert store.get_thread("learner") == "th-1"
+
+
+def test_sdk_timeout_is_upstream_and_unkeyed_stays_demo(monkeypatch, tmp_path):
+    store = AcademyStore(tmp_path / "memory.sqlite")
+    client = BackboardClient("test-key", sdk=_DownSdk(), store=store)
+    with pytest.raises(UpstreamError):
+        client.add_message("", "Hello", memory="Auto")
+
+    monkeypatch.delenv("BACKBOARD_API_KEY", raising=False)
+    monkeypatch.delenv("BACKBOARD_MODE", raising=False)
+    assert isinstance(build_client(store), DemoBackboardClient)
+    monkeypatch.setenv("BACKBOARD_API_KEY", "test-key")
+    live = build_client(store)
+    assert isinstance(live, BackboardClient)
+    assert live._sdk is None
 
 
 def test_demo_adapter_is_labeled(monkeypatch, tmp_path):
