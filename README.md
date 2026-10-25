@@ -121,15 +121,15 @@ We quantify $\rho_a$ using even-cat fidelity $F_+=\langle C_+\rvert\rho_a\lvert 
 
 ## 1.3(b) — Prepare a definite logical state
 
-Task 1.3(a) establishes that inflation creates a superposition of the two logical codewords. **To initialize a chosen computational-basis value, we must also be able to prepare one codeword:** $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$ or $\lvert1_L\rangle\equiv\lvert-\alpha\rangle$. Stabilization supports both signs equally, so starting from symmetric vacuum gives no preference for either. A memory displacement supplies that preference; stabilization then brings the amplitude toward the selected codeword.
+Inflation from vacuum prepares a superposition of both codewords. **To initialize $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$, we first displace the memory toward positive amplitude, then stabilize it.** The displacement selects the sign; stabilization restores the target amplitude.
 
-**We propose to displace the memory first, then stabilize it into $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$.** We introduce $\beta$ for the dimensionless amplitude of the initial coherent state $\lvert\beta\rangle$, whose mean photon number is $\lvert\beta\rvert^2$. The target amplitude remains $\alpha=2.1$. The demonstrated procedure is:
+We introduce $\beta$ for the dimensionless amplitude of the initial coherent state $\lvert\beta\rangle$, whose mean photon number is $\lvert\beta\rvert^2$. The target amplitude remains $\alpha=2.1$. The demonstrated procedure is:
 
 1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
 2. Apply a resonant memory pulse, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
 3. Switch off the memory pulse and enable the two-photon exchange pump and buffer drive at the supplied parameters, targeting $\alpha=2.1$. Keep stabilization on to bring the memory toward $\lvert+\alpha\rangle$.
 
-The choice $\beta=1.5$ tests whether stabilization can correct a displacement smaller than the target $\alpha=2.1$. The initial fidelity with $\lvert+\alpha\rangle$ is **69.77%**; the full two-mode simulation gives **99.878% at 2 µs**, with fidelity remaining above 99% from **0.41 µs** through the end of the simulation. Applying the displacement before inflation lets it select the sign without a continuing memory drive competing with stabilization. Buffer-only control preserves the sign symmetry and cannot perform this selection from vacuum. The displacement is modeled as an initial coherent state; these times exclude the pulse duration.
+Using $\beta=1.5\lt\alpha=2.1$ tests amplitude correction: fidelity rises from **69.77% initially to 99.878% at 2 µs**, remaining above 99% from **0.41 µs** onward through 2 µs. The pulse ends before stabilization, avoiding simultaneous memory driving. It is modeled as an initial coherent state; reported times exclude its duration.
 
 For comparison, we also test a resonant memory drive with Hamiltonian $i\varepsilon_1(a^\dagger-a)$ during the first 0.1 µs of inflation, starting from vacuum. Here $\varepsilon_1$ is the drive amplitude in µs⁻¹; this phase pushes the memory toward positive real amplitude. The orthogonal drive $\varepsilon_1(a+a^\dagger)$ pushes along the imaginary axis and serves as a control. It does not favor either real-amplitude state.
 
