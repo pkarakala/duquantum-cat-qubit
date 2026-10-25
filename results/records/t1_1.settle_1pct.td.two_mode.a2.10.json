@@ -1,0 +1,56 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_1.settle_1pct.td.two_mode.a2.10",
+  "task": "1.1",
+  "quantity": "settle_1pct",
+  "value": 1.07,
+  "uncertainty": null,
+  "units": "us",
+  "method": "mesolve_settle",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 32,
+    "Nb": 12
+  },
+  "convergence": null,
+  "numerics": null,
+  "cross_check": [
+    {
+      "method": "linresp_analytic",
+      "ref_id": null,
+      "value": 1.13,
+      "rel_diff": 0.053097345132743216,
+      "tol": 0.1,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_1.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_1.json; time after which <n_a> stays within 1% of alpha^2 (10 ns save grid). convergence null: not swept in task_1_2; same run as converged peak/steady",
+  "provenance": {
+    "script": "tasks/task_1_1.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}

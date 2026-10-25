@@ -1,0 +1,56 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_3a.cat_lifetime.td.two_mode.a2.10",
+  "task": "1.3a",
+  "quantity": "cat_lifetime",
+  "value": 1.9475847581102153,
+  "uncertainty": null,
+  "units": "us",
+  "method": "inverse_parity_fit",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 32,
+    "Nb": 12
+  },
+  "convergence": null,
+  "numerics": null,
+  "cross_check": [
+    {
+      "method": "analytic_inverse_2kappa_a_alpha2",
+      "ref_id": null,
+      "value": 1.9403028195685048,
+      "rel_diff": 0.0037529907539534677,
+      "tol": 0.01,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_3a.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_3a.json; 1 / parity_decay_fit_per_us. convergence null: single truncation >= task_1_2 needed; superseded by t2_2.gamma_z.td.two_mode.a2.10",
+  "provenance": {
+    "script": "tasks/task_1_3a.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}
