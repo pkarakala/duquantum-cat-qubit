@@ -1,0 +1,52 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t2_4c.snr.linresp.two_mode.a1.00.psvd.t0.5us",
+  "task": "2.4c",
+  "quantity": "snr",
+  "value": 0.09206444747949254,
+  "uncertainty": null,
+  "units": "1",
+  "method": "linresp",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 1.0,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.14606930743969393,
+    "eps_x_over_g2": 0.0,
+    "pulse": "svd",
+    "T_us": 0.5
+  },
+  "truncation": null,
+  "convergence": null,
+  "numerics": {
+    "gain_energy": 1.2912706251225174,
+    "gain_leakage": 1.0268095826284258,
+    "gain_cost": 1.2912706251225174,
+    "fft_peak_MHz": 2.0000000000000004,
+    "drive_energy": 0.11491555449155585,
+    "leakage_proxy": 0.0015233992236492616
+  },
+  "cross_check": null,
+  "artifacts": {
+    "figure": "figures/task_2_4c_comparison.png",
+    "arrays": "results/arrays/t2_4c.frontier.npz"
+  },
+  "notes": "linear response, truncation-free. SNR value is at drive energy matched to the reference square (amp = 0.1 g2). gain_cost uses the analytic proxy; two-mode cross-check was not run this turn (hard stop). illustrative: analytic cost proxy until l4b grid lands. Dubovitskii per-direction (2 eps^2/(kappa_2 alpha^2)) exp(-2 alpha^2), doubled to our Gamma_X. Under this proxy C_X \u221d drive energy, so matched cost (iii) equals matched cost (i).",
+  "provenance": {
+    "script": "tasks/task_2_4c_pulses.py",
+    "git_commit": "247af45",
+    "git_branch": "std/l4c-capstone",
+    "dirty": false,
+    "dynamiqs": "0.3.7",
+    "jax": "0.12.0.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "python": "3.12.13",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "cpu_count": 8,
+    "wall_s": null,
+    "timestamp": "2026-10-25T14:36:24Z"
+  }
+}

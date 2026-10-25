@@ -7,14 +7,14 @@
 | Agent / model | Cursor agent, Grok 4.7 |
 | Started (EDT) | 2026-10-25 10:18 |
 | Last update (EDT) | 2026-10-25 10:40 |
-| Last commit | filled after the output commit |
+| Last commit | code `247af45`; outputs in the following commit |
 
 ## Milestones
 - [x] Read brief, CONTRACT, RESEARCH, runbook
 - [x] Tests written first (`test_pulse_shapes_and_energy`, `test_snr_known_signal`, `test_svd_gain_ge_square_gain_equal_energy`, `test_generalized_pulse_ratio_ge_square`, `test_svd_pulse_spectrum_reported`; slow tests written, not run)
 - [x] `src/pulses.py` and `tasks/task_2_4c_pulses.py` (linear response)
 - [x] `--quick` run passes (≤ 2 min)
-- [ ] Production linear-response records (run immediately after the code commit, so `provenance.dirty` is false)
+- [x] Production linear-response records (`provenance.dirty == false`, commit `247af45`)
 - [ ] Two-mode validation — not started (hard stop)
 - [x] Explain-back questions drafted
 
@@ -28,7 +28,7 @@
 | Matched cost (iii) | PASS, illustrative | l4b grid absent. Analytic Dubovitskii proxy, notes contain `illustrative: analytic cost proxy until l4b grid lands`. Proxy ∝ ε², so gain_C = gain_E = **4.494** for SVD. C_X of the matched pulse at α=2.1 is **5.473e-6** (dimensionless). |
 | Flip check | NOT RUN | Would be a 40 µs train. Queued below. `tasks/task_2_4c_verify.py` was not written, so the command is not runnable yet. |
 | Verdict | concerns | No two-mode win is claimed. In linear response the SVD pulse beats the square by 4.494× in SNR at equal analytic C_X. |
-| dirty, figures, notebook, quick | partial | Notebook exists. Pulse and comparison figures are produced. Validation figure was not (no two-mode traces). `--quick` Python wall 3.66 s (process 23 s) ≤ 2 min. Production records are written only after the code commit. |
+| dirty, figures, notebook, quick | partial | Notebook, pulse figure, and comparison figure exist. Validation figure does not. `--quick` script wall 3.66 s. Production `t2_4c.snr.linresp.two_mode.a2.10.psvd.t1.0us` has `provenance.dirty == false` and `git_commit == 247af45`. |
 
 ## Square versus SVD (linear response, α = 2.1, T = 1 µs)
 
@@ -49,6 +49,10 @@ The square SNR 0.0382 sits next to the RESEARCH §7 anchor ≈ 0.04 at ε = 0.1 
 
 ## Commands run (most recent first)
 ```text
+"$DUQ_PY" -m tasks.task_2_4c_pulses
+# after commit 247af45; wall_s 4.89; dirty false on t2_4c.snr.linresp.two_mode.a2.10.psvd.t1.0us
+# SQUARE_SNR 0.03816329 SVD_SNR 0.17150701 GAIN_E 4.494031 GAIN_C 4.494031
+
 "$DUQ_PY" -m tasks.task_2_4c_pulses --quick
 # wall_s 3.66 inside the script; /usr/bin/time real 22.78
 # SQUARE_SNR 0.03816329 SVD_SNR 0.17150701 GAIN_E 4.494031 GAIN_L 0.235748 GAIN_C 4.494031
