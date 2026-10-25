@@ -82,9 +82,22 @@ def parity_sector_index(dims, sector):
 
 
 def slowest(L, k=3, sigma=0.0, which="LM"):
-    """k eigenvalues of L closest to sigma (shift-invert), sorted by |Re|."""
-    vals = spla.eigs(L, k=k, sigma=sigma, which=which, return_eigenvectors=False,
-                     tol=1e-12, maxiter=5000)
+    """k eigenvalues of L closest to sigma (shift-invert), sorted by |Re|.
+
+    The LU factorization dominates the cost. A reverse Cuthill-McKee ordering followed by a
+    natural-order LU has ~2x less fill than SuperLU's default COLAMD on these Liouvillians
+    (20x8 odd block: 12M vs 20M nonzeros), so we factor (L - sigma) ourselves in that ordering.
+    """
+    from scipy.sparse.csgraph import reverse_cuthill_mckee
+    n = L.shape[0]
+    M = (L - sigma * sp.identity(n, format="csc")).tocsc()
+    perm = reverse_cuthill_mckee((abs(M) + abs(M.T)).tocsr(), symmetric_mode=True)
+    inv = np.empty_like(perm)
+    inv[perm] = np.arange(n)
+    lu = spla.splu(M[perm][:, perm].tocsc(), permc_spec="NATURAL")
+    op = spla.LinearOperator((n, n), matvec=lambda x: lu.solve(x[perm])[inv], dtype=complex)
+    mu = spla.eigs(op, k=k, which="LM", return_eigenvectors=False, tol=1e-12, maxiter=5000)
+    vals = sigma + 1.0 / mu
     return vals[np.argsort(np.abs(vals.real))]
 
 
