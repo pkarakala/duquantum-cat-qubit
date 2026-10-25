@@ -8,6 +8,7 @@ import argparse
 
 import jax.numpy as jnp
 import numpy as np
+from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import dynamiqs as dq
 
@@ -34,6 +35,13 @@ def main(Na, Nb):
     m = t >= T_FIT
     gamma, amp = fit_exp_decay(t[m], q["parity"][m])
     gamma_pred = 2 * C.KAPPA_A * n_ss
+
+    # Robustness (raised by the Gemini review): the fit should not depend on where the
+    # window starts or on fitting log(y) instead of y directly.
+    window_check = {f"{t0:.1f}": fit_exp_decay(t[t >= t0], q["parity"][t >= t0])[0]
+                    for t0 in (0.8, 1.0, 1.5, 2.0, 3.0)}
+    popt, _ = curve_fit(lambda x, A, g: A * np.exp(-g * x), t[m], q["parity"][m], p0=(amp, gamma))
+    gamma_nonlinear = float(popt[1])
 
     fig, ax = plt.subplots(1, 2, figsize=(11, 3.8))
     ax[0].plot(t, q["parity"], lw=2, label="parity $\\langle P\\rangle$")
@@ -65,6 +73,8 @@ def main(Na, Nb):
         "parity_decay_fit_per_us": gamma, "parity_decay_pred_per_us": gamma_pred,
         "fit_rel_error": gamma / gamma_pred - 1,
         "cat_lifetime_us": 1 / gamma,
+        "gamma_vs_fit_start_us": window_check,
+        "gamma_nonlinear_fit_per_us": gamma_nonlinear,
     }
     print(out)
     save_res("task_1_3a", out)
