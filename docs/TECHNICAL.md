@@ -27,11 +27,12 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 - It sits 0.1–0.5% below 2κ_aα² coth 2α², because photon loss leaves the cat about 0.007 photons short of α². With the simulated photon number n̄, 2κ_a n̄ coth 2n̄ matches to 3e-4 for α ≥ 1.5.
 - Bias at α = 2.1: Γ_Z/Γ_X = 1.3×10⁶.
 
-### 2.3 Readout (`research/s2/readout.py`)
+### 2.3 Readout (`tasks/task_2_3.py`; drive sweep `research/s2/readout.py`)
 
-- Contrast: ⟨b⟩ = ∓ε_Z/(2αg₂) to 1% up to ε_Z = 0.5 g₂. Stronger drives flip the qubit, and the contrast collapses.
-- The signal rings at 3.21 MHz with Q ≈ 2.05 and settles in 0.97 µs. Memory and buffer form a damped oscillator at 2g₂α, underdamped because κ_b < 8g₂α. This is the same physics as the Task 1.1 overshoot.
-- Truncations 36×10 and 32×8 agree to 6e-6.
+- Contrast: Re⟨b⟩ = ∓ε_Z/(2αg₂). At ε_Z = 0.05 g₂ two independent codes give 0.9992 of it, agreeing to 3e-6.
+- Linear to 1% up to ε_Z ≈ 0.6 g₂ at α = 2.1 (0.05 g₂ at α = 1.4, 1.1 g₂ at α = 2.4). Stronger drives flip the qubit, and the contrast collapses.
+- The signal rings (period 0.313 µs, Q ≈ 2) and stays within 1% from 0.97 µs. Memory and buffer form a damped oscillator at 2g₂α, underdamped because κ_b < 8g₂α; it predicts 0.319 µs and Q 2.5. This is the same physics as the Task 1.1 overshoot.
+- Checks: QuTiP BDF, tighter tolerances, truncations up to 40×14 and an 8 µs run all agree to 2e-5 of the signal or better.
 
 ### 2.4 Better readout
 

@@ -1,4 +1,4 @@
-"""Section 2 figures for notebooks 06, 08 and 09, in the shared Section 1 style (src/plotting.py).
+"""Section 2 figures for notebooks 06 and 09, in the shared Section 1 style (src/plotting.py).
 
     python -m research.s2.notebook_figs
 
@@ -87,29 +87,6 @@ def bit_flips():
     return P.save(fig, "s2/task_2_1_large_cats")
 
 
-def readout():
-    fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.4), layout="constrained")
-    for name, ls in (("readout_a2.10_36x10_T4.json", "-"), ("readout_a2.10_32x8_T4.json", "--")):
-        d = load(name)[0]; t = np.array(d["t"])
-        for r, c in zip([r for r in d["runs"] if r["eps_over_g2"] in (0.1, 0.5)], ("C0", "C1")):
-            ax[0].plot(t, np.array(r["b_re"]) / abs(r["b_ss_linear"]), ls, color=c, lw=1.4 if ls == "-" else 1,
-                       label=f"drive {r['eps_over_g2']:g} g₂" if ls == "-" else None)
-    ax[0].axhline(-1, ls=":", color=GREY)
-    ax[0].plot([], [], "k--", lw=1, label="smaller simulation")
-    ax[0].set(xlabel="t (µs)", ylabel="buffer signal / linear prediction", xlim=(0, 2.5))
-    ax[0].legend(loc="upper right")
-    P.panel(ax[0], "a", "The signal rings, then settles")
-    for d, c in zip([load(f"readout_a{a:.2f}_*_T4.json")[-1] for a in (1.4, 1.8, 2.1, 2.4)], ("C2", "C4", "C0", "C3")):
-        e = np.array([r["eps_over_g2"] for r in d["runs"]])
-        ax[1].semilogx(e, [abs(r["b_ss"][0]) for r in d["runs"]], "o-", color=c, ms=4, label=f"α = {d['alpha']:g}")
-        ax[1].semilogx(e, [abs(r["b_ss_linear"]) for r in d["runs"]], ":", color=c, lw=0.8)
-    ax[1].plot([], [], "k:", lw=0.8, label="linear prediction")
-    ax[1].set(xlabel="drive strength (× g₂)", ylabel="steady buffer signal")
-    ax[1].legend(loc="upper left")
-    P.panel(ax[1], "b", "Contrast vs drive")
-    return P.save(fig, "s2/task_2_3_readout")
-
-
 def better_readout():
     fig, ax = plt.subplots(2, 2, figsize=(9.2, 6.6), layout="constrained")
     for dp, c, lab in ((0, "C3", "real circuit, nominal pump"), (-23, "C0", "real circuit, pump −23 MHz")):
@@ -148,7 +125,7 @@ def better_readout():
 
 
 def main():
-    for fn in (bit_flips, readout, better_readout):
+    for fn in (bit_flips, better_readout):
         fn()
 
 
