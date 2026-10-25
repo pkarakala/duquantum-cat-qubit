@@ -66,3 +66,7 @@ Verification for this revision: notebook 09 executes from saved data; all five e
 ## Compact enlargement layout
 
 At the user’s request, panel (a) now combines both controls on matched left/right axes above panel (b), the information comparison. True-duration shaded stages I–IV and dotted boundaries mark enlargement, readout, return and recovery; captions define each stage and duration. Display width is 560 px in both report and notebook. Notebook 09 was re-executed, the PNG/PDF inspected, and the saved-data assertions passed. This supersedes the earlier side-by-side layout with separate control axes.
+
+## Shared time axis and endpoint interpretation
+
+Both enlargement panels now share the same 0–115 µs elapsed-time axis, with a geometry assertion confirming identical horizontal extents. Panel (a) ends its control trajectory at 47.40 µs and marks the later region as cycle complete. Panel (b) labels the enlargement and weak-reference cycle endpoints at 47.40 and 110.22 µs. Solid curves collect information until drive end; dashed flat segments cover return/recovery without further counted emission. The extra axis interval is display spacing, not missing data or a failed solve. Stages are numbered 1–4, with leaders for the two narrow final stages. The layout preserves true durations.
