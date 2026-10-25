@@ -313,7 +313,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
         const note = document.createElement('p');
         note.textContent = 'Demo mode: no Solana key, so this credential was not broadcast.';
         const link = document.createElement('a');
-        link.href = '#/inflate';
+        link.href = '#/research';
         link.textContent = 'Unlock Real Research';
         credential.append(note, link);
         return;
@@ -325,7 +325,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
         levelsPassed: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'],
       });
       const link = document.createElement('a');
-      link.href = '#/inflate';
+      link.href = '#/research';
       link.textContent = 'Unlock Real Research';
       credential.append(link);
     }

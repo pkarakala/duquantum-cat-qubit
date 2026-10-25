@@ -514,3 +514,7 @@ a.button.primary:hover { background: var(--accent-strong); }
 .badge.live { background: var(--ok-soft); color: var(--ok); }
 .badge.demo { background: var(--warn-soft); color: var(--warn); }
 .muted { color: var(--muted); font-size: var(--text-sm); }
+.table-scroll { overflow-x: auto; }
+.task-table { display: table; border-collapse: collapse; width: 100%; background: var(--surface); border-radius: var(--r-lg); }
+.task-table th, .task-table td { padding: var(--s-2) var(--s-3); border-bottom: 1px solid var(--line); text-align: left; }
+.task-table th { font-size: var(--text-sm); color: var(--muted); }

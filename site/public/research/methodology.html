@@ -1,0 +1,221 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Methodology and checks · Cat Qubit Academy</title>
+<style>
+:root{--bg:#f4f6fb;--fg:#0f172a;--muted:#475569;--line:#d8deea;--accent:#0f766e;--surface:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--fg:#e7ecf6;--muted:#a6b2c8;--line:#2a3654;--accent:#2dd4bf;--surface:#131a2d}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:920px;margin:0 auto;padding:24px 16px 64px}
+a{color:var(--accent)} img{max-width:100%;height:auto;background:#fff;border-radius:8px}
+table{border-collapse:collapse;display:block;overflow-x:auto;margin:16px 0}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+pre,code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em}
+pre{background:var(--surface);border:1px solid var(--line);padding:12px;overflow-x:auto;border-radius:8px}
+.crumb{font-size:.875rem;color:var(--muted)} .math-display{overflow-x:auto}
+</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script></head><body><main><p class="crumb"><a href="../#/research">← Research</a> · <a href="../#/">Home</a></p>
+<h1 id="technical-details">Technical details</h1>
+<p>Methods, headline numbers and checks. Each task's notebook in <a href="https://github.com/pkarakala/duquantum-cat-qubit/blob/main/notebooks/"><code>notebooks/</code></a> has the figures and full captions. Every number is in a JSON under <code>results/</code>.</p>
+<p><strong>Model.</strong> Exactly as in the prompt. Two-mode H = g₂(a²b† + a†²b) − ε_d(b + b†), jumps √κ_b b and √κ_a a, α² = ε_d/g₂. Parameters: g₂/2π = 0.763 MHz, κ_b/2π = 2.6 MHz, κ_a/2π = 9.3 kHz, α = 2.1. Units: ħ = 1, µs, rad/µs, with every 2π applied once in <code>src/config.py</code>. Numerics: dynamiqs 0.3.7, float64, Tsit5 with rtol 1e-8 to 1e-11.</p>
+<h2 id="section-2-standard-track">Section 2 (standard track)</h2>
+<p><strong>Two methods.</strong> Brute force first: <code>tasks/task_2_1.py</code> and <code>tasks/task_2_2.py</code> integrate the full model in the time domain and fit the decay (details in <a href="task_2_rates.md"><code>task_2_rates.md</code></a>). But a time domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (<code>src/spectral.py</code>) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree: to 1e-8 for Γ_X at equal truncation, and to five digits for Γ_Z.</p>
+<h3 id="21-bit-flips-taskstask_2_1py-researchs2gx_eigpy">2.1 Bit flips (<code>tasks/task_2_1.py</code>, <code>research/s2/gx_eig.py</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>α</th>
+<th>1.0</th>
+<th>1.4</th>
+<th>1.8</th>
+<th>2.1</th>
+<th>2.4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Γ_X (1/µs)</td>
+<td>2.30e-3</td>
+<td>1.20e-4</td>
+<td>4.07e-6</td>
+<td>3.85e-7</td>
+<td>3.12e-8</td>
+</tr>
+<tr>
+<td>time per flip</td>
+<td>0.43 ms</td>
+<td>8.3 ms</td>
+<td>0.25 s</td>
+<td>2.6 s</td>
+<td>32 s</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Two escape routes. Direct: Γ ≈ 2κ_aα²e^{−4α²}. Out of the code space and back: Γ ≈ (κ_a²/κ₂)e^{−2α²}.</li>
+<li>Proof: sweeping κ_a gives a slope d lnΓ_X/d lnκ_a of 1.06, 1.28, 1.78, 2.00 and 2.05 at α = 1.0, 1.4, 1.8, 2.1 and 2.4. That is the handover from one photon loss to two.</li>
+<li>The full model flips 3.3× faster than the one-mode model at α = 2.1, because the buffer is slow.</li>
+<li>Thermal photons with n_th = 0.01 multiply Γ_X by 3.8.</li>
+<li>Converged to &lt; 1.5% up to α = 2.4. At α = 2.6 truncations disagree by 20%, so the curve stops at 2.5.</li>
+</ul>
+<h3 id="22-phase-flips">2.2 Phase flips</h3>
+<ul>
+<li>Γ_Z = 0.514559 per µs at α = 2.1 from both the parity-decay fit (<code>tasks/task_2_2.py</code>) and the eigenvalue.</li>
+<li>It sits 0.1–0.5% below 2κ_aα² coth 2α², because photon loss leaves the cat about 0.007 photons short of α². With the simulated photon number n̄, 2κ_a n̄ coth 2n̄ matches to 3e-4 for α ≥ 1.5.</li>
+<li>Bias at α = 2.1: Γ_Z/Γ_X = 1.3×10⁶.</li>
+</ul>
+<h3 id="23-readout-taskstask_2_3py-drive-sweep-researchs2readoutpy">2.3 Readout (<code>tasks/task_2_3.py</code>; drive sweep <code>research/s2/readout.py</code>)</h3>
+<ul>
+<li>Contrast: Re⟨b⟩ = ∓ε_Z/(2αg₂). At ε_Z = 0.05 g₂ two independent codes give 0.9992 of it, agreeing to 3e-6.</li>
+<li>Linear to 1% up to ε_Z ≈ 0.6 g₂ at α = 2.1 (0.05 g₂ at α = 1.4, 1.1 g₂ at α = 2.4). Stronger drives flip the qubit, and the contrast collapses.</li>
+<li>The signal rings (period 0.313 µs, Q ≈ 2) and stays within 1% from 0.97 µs. Memory and buffer form a damped oscillator at 2g₂α, underdamped because κ_b &lt; 8g₂α; it predicts 0.319 µs and Q 2.5. This is the same physics as the Task 1.1 overshoot.</li>
+<li>Checks: QuTiP BDF, tighter tolerances, truncations up to 40×14 and an 8 µs run all agree to 2e-5 of the signal or better.</li>
+</ul>
+<h3 id="24-better-readout">2.4 Better readout</h3>
+<ul>
+<li><strong>Circuit</strong> (<code>rwa_terms.py</code>, <code>circuit_sim.py</code>):</li>
+<li>Only the a²b† family is resonant, which needs ε_p = 0.037.</li>
+<li>In the full ATS circuit without the RWA, the pump at its nominal frequency fails to pair photons, because Stark shifts detune it.</li>
+<li>Retuning the pump by −23 MHz restores pairing, about 15% slower than the RWA model: the photon number mismatch drops from 0.43 to 0.07.</li>
+<li>Converged at 12×5 and 14×6. 150 ns, no loss.</li>
+<li><strong>Trade-off:</strong> SNR and P_flip both scale as ε_Z², so each pulse shape has an optimal strength and only the shape changes SNR per flip. The flip coefficient falls as e^{−2.03α²}.</li>
+<li><strong>Pulses</strong> (<code>pulse_eval.py</code>). Readout error ε_ro = ½erfc(√(η SNR/2)) + P_flip, at α = 2.1 in a 2 µs window:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>pulse (best peak)</th>
+<th>SNR</th>
+<th>P_flip</th>
+<th>ε_ro (η = 1)</th>
+<th>ε_ro (η = 0.5)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>square, 1.0 g₂</td>
+<td>7.5</td>
+<td>8.1e-3</td>
+<td>1.12%</td>
+<td>3.48%</td>
+</tr>
+<tr>
+<td>sgn(cos ω_r t), 0.75 g₂</td>
+<td>12.8</td>
+<td>9.2e-3</td>
+<td>0.94%</td>
+<td>1.49%</td>
+</tr>
+<tr>
+<td>cos ω_r t, 0.75 g₂</td>
+<td>8.2</td>
+<td>4.4e-3</td>
+<td><strong>0.65%</strong></td>
+<td>1.50%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Why the resonant drive wins: it drives the 3.2 MHz oscillator in step, so the buffer amplifies it. Smoothing the pulse edges alone gains only 8–14%.</li>
+<li><strong>Optimizer</strong> (<code>pulse_opt.py</code>, jax.grad through dynamiqs, started from sgn(cos ω_r t), objective SNR − μ P_flip). It beats a square pulse by 1.26–1.71× in SNR per flip in all 9 converged settings (α 1.4 to 2.1, T 0.5 to 1 µs). Most of that comes from the resonant start; over its start it gains 0.98–1.16×. It lowers ε_ro against its start at α ≤ 1.8 but not at α = 2.1.</li>
+</ul>
+<h3 id="checks">Checks</h3>
+<ul>
+<li>Every headline number is computed at two or more truncations. Top Fock-level population is ≤ 1e-6 in the readout and pulse runs.</li>
+<li>Eigenvalues are cross-checked against time domain fits: Γ_X at 4 values of α, Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.</li>
+<li>Limits: Γ_X is not converged at α ≥ 2.6. The circuit simulation covers 150 ns without loss.</li>
+</ul>
+<h2 id="section-1-groundwork">Section 1 (groundwork)</h2>
+<p>Full write-up with figures: <a href="task_1.md">task_1.md</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Result</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0a</td>
+<td>photon loss matches 4e^{−κt} to 1e-11</td>
+<td>analytic</td>
+</tr>
+<tr>
+<td>1.0b</td>
+<td>two-photon loss plateau 0.499832</td>
+<td>½(1 − e^{−8}), rel. error 1e-14</td>
+</tr>
+<tr>
+<td>1.0c</td>
+<td>settles at 4.39–4.41 photons; κ₂·t₉₀ = 0.86–0.90</td>
+<td>α² = 4.41; time scales as 1/κ₂</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>memory overshoots to 6.91 photons at 0.23 µs, settles in 1.07 µs</td>
+<td>buffer too slow (ε_d/κ_b = 1.29); ring period 0.319 µs predicted, 0.31–0.32 measured</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>24×6 under-estimates the peak by 11%</td>
+<td>its top buffer level holds 4.6%</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>ringing is physical</td>
+<td>100× tighter tolerance changes ⟨n⟩ by 5e-8; independent QuTiP BDF solver agrees to 2e-9</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>smallest converged truncation 28×12; we use 32×12</td>
+<td>36-pair grid vs 40×14: trace distance 0.31%, peak error 0.03%</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>the two truncations act independently</td>
+<td>full 49-point grid to 48×18 on Vultr</td>
+</tr>
+<tr>
+<td>1.3a</td>
+<td>vacuum gives ⟨a⟩ = 0; parity decays at 0.5135 per µs</td>
+<td>symmetry; 2κ_an̄ = 0.5146</td>
+</tr>
+<tr>
+<td>1.3a</td>
+<td>superposition, not mixture: coherence 0.63 = parity 0.63 at 1 µs</td>
+<td>becomes a mixture by 6 µs</td>
+</tr>
+<tr>
+<td>1.3b</td>
+<td>push to |β⟩ then pump: F = 0.9988 at β = 1.5, F ≥ 0.99 after 0.41 µs</td>
+<td>28×10 vs 32×12 agree to 3e-4</td>
+</tr>
+<tr>
+<td>1.3b</td>
+<td>tolerates ±35° phase error and β from 1.25 to 3.0 (F ≥ 0.99)</td>
+<td>without stabilization only ±2.7°; 40×14 grid</td>
+</tr>
+<tr>
+<td>1.3b</td>
+<td>drive along the other quadrature picks no well</td>
+<td>Re⟨a⟩ = 0 by symmetry</td>
+</tr>
+</tbody>
+</table>
+<p>Why ±35° and not the one-mode model's ±45°: the slow buffer makes the memory swing past the well, and part of the state leaks into the wrong one (<code>research/explore/phase_gap.py</code>).</p>
+<h2 id="ai-use">AI use</h2>
+<ul>
+<li><strong>Claude Code</strong> wrote most of <code>src/</code>, <code>tasks/</code> and <code>research/s2/</code> under our direction.</li>
+<li><strong>Codex</strong> built the Task 1.2 grid, the trace-distance metric, the brute force Task 2.1/2.2 runs and their tests.</li>
+<li><strong>Gemini</strong> (<code>tools/ai_review.py</code>, log in <a href="https://github.com/pkarakala/duquantum-cat-qubit/blob/main/reviews/"><code>reviews/</code></a>) reviewed the physics in the code and checked the plots against our claims. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.</li>
+<li>No AI output was accepted unchecked. Every number has a hand prediction, a second method or a convergence test.</li>
+<li>One catch of our own: the default solver tolerance put about 1e-4 of noise into the truncation monitors, which could have hidden a real truncation problem.</li>
+</ul>
+<h2 id="reproduce">Reproduce</h2>
+<pre><code class="language-bash">pip install -r requirements.txt
+./run_all.sh                                          # Section 1 (~30 min), then Section 2 tables and figures from saved JSON
+python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --model two   # one Gamma_X point, about a minute
+python -m research.s2.circuit_sim --na 12 --nb 5 --T 0.15 --dp -23    # full circuit, retuned pump
+</code></pre>
+<p>Big sweeps ran on Vultr with <code>cloud/vultr_batch.py</code> and the job lists in <code>cloud/s2_batch*.txt</code>. Costs are in <a href="tools-log.md"><code>tools-log.md</code></a>. <code>results/s2/SUMMARY.md</code> has every Section 2 table.</p></main></body></html>

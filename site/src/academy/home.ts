@@ -91,7 +91,7 @@ function hero(): HTMLElement {
     ),
   );
   const cta = el("p", "home-cta");
-  cta.append(link("#/learn", "Start Level 1", "button primary"), link("#/sandbox", "Open the sandbox", "button"));
+  cta.append(link("#/learn", "Start Level 1", "button primary"), link("#/sandbox", "Open the sandbox", "button"), link("#/research", "Tasks, notebooks, results", "button"));
   h.append(cta);
   return h;
 }

@@ -13,6 +13,7 @@ import { ALPHA, KAPPA_2, KAPPA_A } from "../sim/config";
 import type { ExprTree as SimTree } from "../sim/expr";
 import { runInWorker } from "../sim/index";
 import { renderHome } from "./home";
+import { renderResearch } from "./research";
 import { mountAcademy, type AcademyHandle, type LevelId } from "./index";
 
 export const ROUTE_HASHES = {
@@ -24,6 +25,7 @@ export const ROUTE_HASHES = {
   errors: "#/errors",
   readout: "#/readout",
   verify: "#/verify",
+  research: "#/research",
   about: "#/about",
 } as const;
 
@@ -74,6 +76,7 @@ export function academyRoute(hash: string): ResolvedRoute | null {
   if (path === "/errors") return { name: "errors", title: "Error budget", levelId: null, navHash: ROUTE_HASHES.errors };
   if (path === "/readout") return { name: "readout", title: "Readout designer", levelId: null, navHash: ROUTE_HASHES.readout };
   if (path === "/verify") return { name: "verify", title: "Verification", levelId: null, navHash: ROUTE_HASHES.verify };
+  if (path === "/research") return { name: "research", title: "Research", levelId: null, navHash: ROUTE_HASHES.research };
   if (path === "/about") return { name: "about", title: "About", levelId: null, navHash: ROUTE_HASHES.about };
   return null;
 }
@@ -337,6 +340,14 @@ export function renderRoute(hash: string, root: HTMLElement): void {
     root.classList.remove("academy");
     delete root.dataset.level;
     renderHome(root);
+    return;
+  }
+  if (route.name === "research") {
+    closeAcademy();
+    closeBlocks();
+    root.classList.remove("academy");
+    delete root.dataset.level;
+    renderResearch(root);
     return;
   }
   if (route.name === "about") {
