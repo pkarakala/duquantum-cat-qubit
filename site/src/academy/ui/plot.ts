@@ -82,7 +82,7 @@ export async function plot(el: HTMLElement, series: PlotSeries[], opts: PlotOpti
       yref: 'paper',
       line: { color: '#D55E00', dash: 'dot', width: 1 },
     }));
-    await Plotly.react(
+    await Plotly.newPlot(
       el,
       data,
       {
