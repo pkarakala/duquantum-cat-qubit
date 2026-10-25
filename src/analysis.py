@@ -52,12 +52,12 @@ def fit_exp_decay(t, y):
 
 
 def settle_time(t, y, target, rel=0.01):
-    """First time after which y stays within rel of target."""
+    """First time after which y stays within rel of target (inf if it never does)."""
     t, y = np.asarray(t), np.asarray(y)
     outside = np.where(np.abs(y - target) > rel * abs(target))[0]
     if len(outside) == 0:
         return float(t[0])
-    return float(t[min(outside[-1] + 1, len(t) - 1)])
+    return float(t[outside[-1] + 1]) if outside[-1] + 1 < len(t) else float("inf")
 
 
 def fit_exp_offset(t, y, p0=None) -> dict:

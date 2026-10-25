@@ -1,0 +1,93 @@
+:root {
+  color: #1c1915;
+  background: #f4f0e6;
+  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", serif;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 28px 20px 64px;
+}
+
+.eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin: 0.15rem 0 0.4rem;
+}
+
+.lede {
+  max-width: 42rem;
+  line-height: 1.45;
+}
+
+.legend, .controls, .presets, .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: center;
+}
+
+.swatch {
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 2px;
+  margin-right: 0.35rem;
+  vertical-align: -1px;
+  border: 1px solid #1c1915;
+}
+
+.memory { background: #0072b2; }
+.buffer { background: #d55e00; }
+.param { background: #009e73; }
+.structure { background: #56b4e9; }
+.jump { background: #cc79a7; }
+
+button, select, input {
+  font: inherit;
+  background: #fffdf8;
+  border: 1px solid #1c1915;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+}
+
+button { cursor: pointer; }
+
+#editor {
+  margin: 1rem 0;
+  background: white;
+  border: 1px solid #1c1915;
+}
+
+.expr-blocks-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.6rem;
+  background: #efe7d6;
+  border-bottom: 1px solid #1c1915;
+}
+
+.expr-blocks-surface {
+  height: 640px;
+}
+
+.readout pre {
+  background: #1c1915;
+  color: #f4f0e6;
+  padding: 0.8rem 1rem;
+  overflow: auto;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.92rem;
+}
+
+#checks { padding-left: 1.2rem; }
+#checks .bad { color: #9a3412; }
+#checks .ok { color: #166534; }

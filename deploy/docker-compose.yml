@@ -1,0 +1,48 @@
+# Production interface for Vultr. This checkout has no Vultr credentials, so the
+# bundle is demo mode until someone provisions the CPU instance and fills
+# /opt/academy/.env (no Solana key) and /opt/academy/chain.env.
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    env_file:
+      - /opt/academy/.env
+    environment:
+      JAX_COMPILATION_CACHE_DIR: /cache/jax
+      ACADEMY_WARMUP: "1"
+      CHAIN_HEALTH_URL: http://chain:8100/api/chain/health
+    volumes:
+      - jax-cache:/cache/jax
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  chain:
+    build: ../chain
+    env_file:
+      - /opt/academy/chain.env
+    expose:
+      - "8100"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      API_HOST: ${API_HOST}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - api
+      - chain
+    restart: unless-stopped
+
+volumes:
+  jax-cache:
+  caddy-data:
+  caddy-config:

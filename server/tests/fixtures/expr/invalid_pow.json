@@ -1,0 +1,4 @@
+{
+  "tree": {"op": "pow", "base": {"op": "sym", "name": "a"}, "exp": 1.5},
+  "python": "(a)**1.5"
+}

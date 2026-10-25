@@ -1,0 +1,4 @@
+{$API_HOST} {
+	reverse_proxy /api/chain/* chain:8100
+	reverse_proxy /api/* api:8000
+}

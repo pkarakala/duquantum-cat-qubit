@@ -20,3 +20,10 @@ figures/quick/
 site/node_modules/
 site/dist/
 site/dist-single/
+
+# Secrets: never commit API keys (only *.env.example files are tracked)
+.env
+*.env
+server/.env
+chain/.env
+deploy/.env
