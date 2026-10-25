@@ -84,20 +84,28 @@ Here $\rho_a$ is the reduced memory state and smaller states are zero-padded. Li
 
 ## 1.3(a) — Identify the prepared state and its decay
 
-Memory parity $\Pi=(-1)^{a^\dagger a}$ commutes with the two-photon Hamiltonian and buffer loss. Vacuum has parity $+1$, so without single-photon memory loss the stabilized state approaches the even cat $\lvert C_+\rangle\propto\lvert\alpha\rangle+\lvert-\alpha\rangle$. Finite $\kappa_a$ changes parity and produces a progressively mixed state.
+**Inflation from vacuum prepares a partially decohered even cat.** The ideal target, in the absence of memory single-photon loss, is the coherent superposition
 
-| Time (µs) | $\langle\Pi\rangle$ | $F_+=\langle C_+\rvert\rho_a\lvert C_+\rangle$ | Purity $\mathrm{Tr}(\rho_a^2)$ | $C=2\lvert\langle\alpha\rvert\rho_a\lvert-\alpha\rangle\rvert$ |
+```math
+\lvert C_+\rangle=\frac{\lvert\alpha\rangle+\lvert-\alpha\rangle}{\sqrt{2(1+e^{-2\alpha^2})}},\qquad \alpha=2.1.
+```
+
+The reason is **conservation of memory photon-number parity**, $\Pi=(-1)^{a^\dagger a}$. Two-photon exchange changes the memory photon number by two, while the buffer drive and buffer loss leave its parity unchanged. Vacuum has even parity, so stabilization selects the even superposition. In our simulation, memory single-photon loss acts during inflation as well: each loss flips parity, mixing even and odd cats and reducing coherence.
+
+We quantify the reduced memory state $\rho_a$ using even-cat fidelity $F_+=\langle C_+\rvert\rho_a\lvert C_+\rangle$, purity $\mathcal{P}=\mathrm{Tr}(\rho_a^2)$, and inter-lobe coherence $C=2\lvert\langle\alpha\rvert\rho_a\lvert-\alpha\rangle\rvert$:
+
+| Time (µs) | $\langle\Pi\rangle$ | $F_+$ | $\mathcal{P}$ | $C$ |
 |---:|---:|---:|---:|---:|
 | 1 | 0.629 | 0.811 | 0.692 | 0.626 |
 | 6 | 0.0483 | 0.524 | 0.501 | 0.0484 |
 
-At 1 µs, the large matrix element $C$ and [Wigner interference fringes](figures/task_1_3a_wigner_fading.gif) demonstrate coherence between the lobes. An equal incoherent mixture has $C=2e^{-2\alpha^2}\approx0.00030$. By 6 µs the state approaches that mixture.
+**At 1 µs, coherence between the lobes is still substantial:** $C=0.626$ and the Wigner function has interference fringes. For comparison, an equal incoherent mixture of $\lvert+\alpha\rangle$ and $\lvert-\alpha\rangle$ has $C=2e^{-2\alpha^2}\approx0.00030$, with fidelity and purity both approximately 0.5. The measured purity of 0.692 also shows that the prepared state is already partially mixed. By 6 µs, the diagnostics approach those of the incoherent mixture.
+
+**The coherence-decay timescale is about 1.95 µs.** Fitting parity over 1–6 µs gives $\Gamma=0.5135$ µs⁻¹, consistent with the photon-loss prediction $2\kappa_a\langle n_a\rangle_{\mathrm{ss}}=0.5146$ µs⁻¹. Thus $\tau=1/\Gamma=1.95$ µs is the time for parity, and approximately the inter-lobe coherence, to fall by a factor of $e$ after inflation. Coherence fades continuously; it does not disappear at a single time.
 
 ![Decay of memory-state interference](figures/task_1_3a_wigner_fading.gif)
 
 **Interference decay.** Reduced-memory Wigner evolution over 1–6 µs at $(32,12)$. The fixed color scale makes the declining fringe contrast directly comparable. [Static snapshots](figures/task_1_3a_wigner_fading.png) · [Diagnostic curves](figures/task_1_3a_cat_diagnostics.png).
-
-The fitted rate is **$\Gamma=0.5135$ µs⁻¹**, compared with $2\kappa_a\langle n_a\rangle_{\mathrm{ss}}=0.5146$ µs⁻¹. The corresponding parity-decay time is **1.95 µs**; interference weakens continuously over this timescale.
 
 ## 1.3(b) — Prepare a definite logical state
 
