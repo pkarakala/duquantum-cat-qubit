@@ -123,7 +123,9 @@ We quantify $\rho_a$ using even-cat fidelity $F_+=\langle C_+\rvert\rho_a\lvert 
 
 Inflation from vacuum prepares a superposition of both codewords. **To initialize $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$, we first displace the memory toward positive amplitude, then stabilize it.** The displacement selects the sign; stabilization restores the target amplitude.
 
-The displacement is produced by a resonant memory drive with Hamiltonian $i\varepsilon_1(t)(a^\dagger-a)$, where $\varepsilon_1$ is the real drive amplitude in µs⁻¹. Applied before stabilization, an ideal pulse prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
+A resonant memory drive with Hamiltonian $i\varepsilon_1(t)(a^\dagger-a)$ produces displacement along the real axis containing the codewords $\lvert\pm\alpha\rangle$. Here $\varepsilon_1$ is the real drive amplitude in µs⁻¹. Rotating the drive phase by 90° gives the Hamiltonian $\varepsilon_1(t)(a+a^\dagger)$ and displacement along the perpendicular imaginary axis. This orthogonal drive provides a control for the phase dependence of codeword selection.
+
+An ideal real-axis pulse applied before stabilization prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
 
 1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
 2. Apply this memory pulse with area $\beta=1.5$, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
@@ -131,9 +133,7 @@ The displacement is produced by a resonant memory drive with Hamiltonian $i\vare
 
 Using $\beta=1.5\lt\alpha=2.1$ tests amplitude correction: fidelity rises from **69.77% initially to 99.878% at 2 µs**, remaining above 99% from **0.41 µs** onward through 2 µs. For this calculation, we initialize the memory directly in $\lvert\beta=1.5\rangle$ and simulate the subsequent stabilization. The preparation pulse itself is idealized; reported times start when stabilization is enabled.
 
-For comparison, we start from vacuum and include the same memory-drive Hamiltonian during the first 0.1 µs while stabilization is active. This calculation follows the pulse and stabilization together.
-
-To check why the pulse phase matters, we repeat this test with a 90° phase shift, using $\varepsilon_1(a+a^\dagger)$. This drive displaces along the imaginary axis, orthogonal to the real axis containing $\pm\alpha$. It cannot choose between the two codewords and gives approximately 50% target fidelity.
+For comparison, we start from vacuum and apply the real-axis drive during the first 0.1 µs while stabilization is active, simulating the pulse and stabilization together. Applying the orthogonal drive over the same interval gives zero mean real amplitude and approximately 50% target fidelity.
 
 We report fidelity $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$ and normalized mean amplitude $\mathrm{Re}\langle a\rangle/\alpha$, which is near $+1$ for the desired state and zero for an equal, symmetric occupation of the two signs. The time $t_{99}$ is the first saved time after which fidelity stays above 0.99 through 2 µs.
 
