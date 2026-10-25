@@ -1,0 +1,90 @@
+square: SNR 2.659, P_flip 0.0133, ratio 199.9; mu = 199.9
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  0 J/SNRsq +0.3733  SNR 2.936 (x1.10)  P_flip 0.009722 (x0.73)  78s
+square: SNR 1.307, P_flip 0.004431, ratio 294.9; mu = 294.9
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  0 J/SNRsq +0.4094  SNR 2.085 (x1.60)  P_flip 0.005257 (x1.19)  88s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  1 J/SNRsq +0.3812  SNR 2.957 (x1.11)  P_flip 0.009725 (x0.73)  122s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  1 J/SNRsq +0.4177  SNR 2.195 (x1.68)  P_flip 0.005592 (x1.26)  138s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  2 J/SNRsq +0.3872  SNR 2.949 (x1.11)  P_flip 0.009605 (x0.72)  170s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  2 J/SNRsq +0.4233  SNR 2.275 (x1.74)  P_flip 0.005839 (x1.32)  189s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  3 J/SNRsq +0.3916  SNR 2.925 (x1.10)  P_flip 0.009425 (x0.71)  212s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  3 J/SNRsq +0.4272  SNR 2.331 (x1.78)  P_flip 0.006012 (x1.36)  240s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  4 J/SNRsq +0.3954  SNR 2.917 (x1.10)  P_flip 0.009336 (x0.70)  260s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  4 J/SNRsq +0.4301  SNR 2.37 (x1.81)  P_flip 0.006131 (x1.38)  293s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  5 J/SNRsq +0.3994  SNR 2.934 (x1.10)  P_flip 0.009365 (x0.70)  304s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  5 J/SNRsq +0.4326  SNR 2.397 (x1.83)  P_flip 0.00621 (x1.40)  346s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  6 J/SNRsq +0.4038  SNR 2.959 (x1.11)  P_flip 0.009433 (x0.71)  351s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  6 J/SNRsq +0.4348  SNR 2.415 (x1.85)  P_flip 0.00626 (x1.41)  396s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  7 J/SNRsq +0.4085  SNR 2.982 (x1.12)  P_flip 0.009486 (x0.71)  397s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  8 J/SNRsq +0.4137  SNR 2.999 (x1.13)  P_flip 0.009503 (x0.71)  443s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  7 J/SNRsq +0.4369  SNR 2.426 (x1.86)  P_flip 0.00629 (x1.42)  450s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+  9 J/SNRsq +0.4194  SNR 3.01 (x1.13)  P_flip 0.009479 (x0.71)  492s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  8 J/SNRsq +0.4390  SNR 2.433 (x1.86)  P_flip 0.006305 (x1.42)  503s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 10 J/SNRsq +0.4256  SNR 3.015 (x1.13)  P_flip 0.009423 (x0.71)  536s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+  9 J/SNRsq +0.4412  SNR 2.438 (x1.87)  P_flip 0.006311 (x1.42)  555s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 11 J/SNRsq +0.4321  SNR 3.017 (x1.13)  P_flip 0.009346 (x0.70)  584s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 10 J/SNRsq +0.4434  SNR 2.441 (x1.87)  P_flip 0.00631 (x1.42)  607s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 12 J/SNRsq +0.4388  SNR 3.017 (x1.13)  P_flip 0.009258 (x0.70)  630s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 11 J/SNRsq +0.4456  SNR 2.443 (x1.87)  P_flip 0.006307 (x1.42)  657s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 13 J/SNRsq +0.4452  SNR 3.016 (x1.13)  P_flip 0.009169 (x0.69)  673s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 12 J/SNRsq +0.4478  SNR 2.444 (x1.87)  P_flip 0.006303 (x1.42)  708s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 14 J/SNRsq +0.4510  SNR 3.015 (x1.13)  P_flip 0.009086 (x0.68)  717s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 13 J/SNRsq +0.4499  SNR 2.446 (x1.87)  P_flip 0.0063 (x1.42)  756s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 15 J/SNRsq +0.4560  SNR 3.014 (x1.13)  P_flip 0.009011 (x0.68)  761s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 16 J/SNRsq +0.4602  SNR 3.011 (x1.13)  P_flip 0.008943 (x0.67)  806s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 14 J/SNRsq +0.4520  SNR 2.448 (x1.87)  P_flip 0.006298 (x1.42)  808s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 17 J/SNRsq +0.4634  SNR 3.007 (x1.13)  P_flip 0.008881 (x0.67)  850s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 15 J/SNRsq +0.4539  SNR 2.451 (x1.88)  P_flip 0.006298 (x1.42)  855s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 18 J/SNRsq +0.4659  SNR 3.003 (x1.13)  P_flip 0.008825 (x0.66)  895s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 16 J/SNRsq +0.4558  SNR 2.454 (x1.88)  P_flip 0.006299 (x1.42)  904s
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+ 19 J/SNRsq +0.4678  SNR 2.998 (x1.13)  P_flip 0.008775 (x0.66)  939s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 17 J/SNRsq +0.4576  SNR 2.456 (x1.88)  P_flip 0.006301 (x1.42)  953s
+ 20 J/SNRsq +0.4692  SNR 2.993 (x1.13)  P_flip 0.008733 (x0.66)  983s
+best: SNR 2.993 (x1.13), P_flip 0.008733 (x0.66), SNR/P_flip x1.71 vs square
+wrote results/s2/opt_a1.80_26x8_T0.5_pk1_bang_mu1_s0.json
+JOB 0 986s OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 1.0 --iters 20 --rtol 1e-9
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 18 J/SNRsq +0.4592  SNR 2.459 (x1.88)  P_flip 0.006303 (x1.42)  1001s
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+ 19 J/SNRsq +0.4606  SNR 2.462 (x1.88)  P_flip 0.006305 (x1.42)  1041s
+ 20 J/SNRsq +0.4618  SNR 2.463 (x1.88)  P_flip 0.006305 (x1.42)  1083s
+best: SNR 2.463 (x1.88), P_flip 0.006305 (x1.42), SNR/P_flip x1.32 vs square
+wrote results/s2/opt_a1.80_26x8_T1_pk0.5_bang_mu1_s0.json
+JOB 0 1086s OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 1.0 --peak 0.5 --iters 20 --rtol 1e-9

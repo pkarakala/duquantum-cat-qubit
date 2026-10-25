@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 FIG_DIR = Path(__file__).resolve().parent.parent / "figures"
 
 def save(fig, name: str, dpi: int = 200):
-    FIG_DIR.mkdir(exist_ok=True)
-    path = FIG_DIR / f"{name}.png"
+    path = FIG_DIR / f"{name}.png"       # name may contain a subfolder
+    path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=dpi, bbox_inches="tight")
     print("saved", path)
     return path

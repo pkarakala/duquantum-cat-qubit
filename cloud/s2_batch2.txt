@@ -1,0 +1,11 @@
+# Section 2, batch 2: pulse optimizer (needs optax). First line is a 1-minute smoke test.
+0.5	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 14 --nb 4 --T 0.3 --peak 0.5 --iters 1 --bins 10
+8	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 0.5 --peak 0.5 --iters 40 --rtol 1e-9
+8	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 0.5 --peak 1.0 --iters 40 --rtol 1e-9
+8	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 1.0 --peak 0.5 --iters 40 --rtol 1e-9
+12	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 0.5 --iters 30 --rtol 1e-9
+12	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 1.0 --iters 30 --rtol 1e-9
+12	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 1.0 --peak 0.5 --iters 30 --rtol 1e-9
+15	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 0.5 --iters 15 --rtol 1e-9
+15	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 15 --rtol 1e-9
+15	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 1.0 --peak 0.5 --iters 15 --rtol 1e-9

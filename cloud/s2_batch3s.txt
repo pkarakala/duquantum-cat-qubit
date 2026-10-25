@@ -1,0 +1,8 @@
+# Section 2 batch 3, smaller: the 6 cut-off optimizer jobs with fewer Adam steps (about 25-30 min each at 4 threads,
+# from batch-2 timings). pulse_opt checkpoints its best pulse, so a job cut off by the time limit still leaves a result.
+5	OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 0.5 --peak 0.5 --iters 25 --rtol 1e-9
+5	OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.4 --na 22 --nb 8 --T 0.5 --peak 1.0 --iters 25 --rtol 1e-9
+8	OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 0.5 --iters 20 --rtol 1e-9
+8	OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 0.5 --peak 1.0 --iters 20 --rtol 1e-9
+8	OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 1.8 --na 26 --nb 8 --T 1.0 --peak 0.5 --iters 20 --rtol 1e-9
+10	OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 1.0 --peak 0.5 --iters 10 --rtol 1e-9

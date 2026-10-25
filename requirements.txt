@@ -1,6 +1,9 @@
-dynamiqs
-jax
+# Versions used to produce every figure and number in this repo
+dynamiqs==0.3.7
+jax==0.12.0.1
 numpy
 scipy
 matplotlib
+pandas
 jupyter
+optax==0.2.8
