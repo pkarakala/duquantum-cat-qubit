@@ -1,0 +1,22 @@
+{
+  "truncation": "16x5",
+  "label": "computed at the live shape; l4a readout arrays are not on this branch",
+  "files": [
+    "L7_eps_0p05",
+    "L7_eps_0p1",
+    "L7_eps_0p2",
+    "L7_eps_0p5",
+    "L7_eps_1p0",
+    "L7_eps_2p0",
+    "L7_eps_3p0"
+  ],
+  "eps_z_over_g2": [
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ]
+}

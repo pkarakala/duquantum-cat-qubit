@@ -1,0 +1,10 @@
+{
+  "tree": {
+    "op": "mul",
+    "args": [
+      {"op": "sqrt", "arg": {"op": "param", "name": "kappa_a"}},
+      {"op": "sym", "name": "a"}
+    ]
+  },
+  "python": "jnp.sqrt(kappa_a)*a"
+}
