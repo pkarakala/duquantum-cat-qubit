@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Operator blocks</title>
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body>
+    <header>
+      <p class="eyebrow">Cat Qubit Academy · Level 6</p>
+      <h1>Build the machine</h1>
+      <p class="lede">
+        Snap operators into H and the jump list. The blocks compile to an ExprTree. That tree is the only thing the simulator will run.
+      </p>
+    </header>
+    <section class="legend" aria-label="Colour legend">
+      <span><i class="swatch memory"></i> Memory a</span>
+      <span><i class="swatch buffer"></i> Buffer b</span>
+      <span><i class="swatch param"></i> Rates</span>
+      <span><i class="swatch structure"></i> × + power</span>
+      <span><i class="swatch jump"></i> Jumps, √κ</span>
+    </section>
+    <section class="controls">
+      <label>Mode <select id="modes"><option value="two">two-mode</option><option value="one">one-mode</option></select></label>
+      <div id="presets" class="presets" role="group" aria-label="Presets"></div>
+    </section>
+    <div id="editor"></div>
+    <section class="readout" aria-live="polite">
+      <h2>LaTeX</h2>
+      <pre id="latex"></pre>
+      <h2>Python</h2>
+      <pre id="python"></pre>
+      <h2>ExprTree JSON</h2>
+      <pre id="json"></pre>
+      <div class="row">
+        <button type="button" id="reload">Reload this JSON</button>
+      </div>
+      <h2>Checks</h2>
+      <ul id="checks"></ul>
+    </section>
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>
