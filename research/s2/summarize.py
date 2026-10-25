@@ -45,6 +45,9 @@ def best_by_alpha(rows, key):
     return res
 
 
+ALPHA_CONVERGED = 2.4
+
+
 def gamma_x(md):
     base = [d for d in load("gx_*.json") if d["eps_z_over_g2"] == 0 and d["n_th"] == 0
             and d["kappa_a"] == KAPPA_A and abs(d["kappa_b"] / (2 * np.pi) - 2.6) < 1e-9]
@@ -52,6 +55,8 @@ def gamma_x(md):
     one = best_by_alpha([d for d in base if d["model"] == "one"], "gamma_x")
     if not two:
         return
+    allrows = two
+    two = {k: v for k, v in two.items() if k <= ALPHA_CONVERGED}   # alpha >= 2.5: truncations disagree
     al = np.array(list(two))
     gx = np.array([v[0] for v in two.values()])
     fig, ax = plt.subplots(figsize=(6.5, 4.5))
@@ -75,14 +80,15 @@ def gamma_x(md):
     F.mkdir(parents=True, exist_ok=True)
     fig.tight_layout(); fig.savefig(F / "gamma_x.png", dpi=160); plt.close(fig)
     m = (al >= 1.0)
-    slope_all = np.polyfit(al[m]**2, np.log(gx[m]), 1)[0]
-    loc = np.gradient(np.log(gx), al**2)
+    slope_all = -np.polyfit(al[m]**2, np.log(gx[m]), 1)[0]   # Gamma_X ~ e^{-gamma alpha^2}
+    loc = -np.gradient(np.log(gx), al**2)
     md.append("## Task 2.1 Γ_X (two-mode Liouvillian gap)\n")
-    md.append(f"Log-linear fit for α ≥ 1.0: γ = {slope_all:.2f}. Local slope d lnΓ_X/dα² runs from "
+    md.append(f"Log-linear fit for α ≥ 1.0: γ = {slope_all:.2f}. Local γ = −d lnΓ_X/dα² runs from "
               f"{loc[0]:.2f} (α = {al[0]}) to {loc[-1]:.2f} (α = {al[-1]}).\n")
     md.append("| α | Γ_X (1/µs) | T_X | truncation spread | Na×Nb | ch1 | ch2 |\n|---|---|---|---|---|---|---|")
-    for a_, (g, s, r) in two.items():
-        md.append(f"| {a_} | {g:.4e} | {1/g:.3g} µs | {s:.1e} | {r['na']}×{r['nb']} | {r['ch1']:.2e} | {r['ch2']:.2e} |")
+    for a_, (g, s, r) in allrows.items():
+        flag = "" if a_ <= ALPHA_CONVERGED else " (not converged, excluded from fits)"
+        md.append(f"| {a_} | {g:.4e} | {1/g:.3g} µs | {s:.1e}{flag} | {r['na']}×{r['nb']} | {r['ch1']:.2e} | {r['ch2']:.2e} |")
     md.append("")
     tds = load("gxt_*.json")
     if tds:
