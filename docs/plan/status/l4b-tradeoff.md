@@ -7,7 +7,7 @@
 | Agent / model | Cursor agent, Grok 4.7 |
 | Started (EDT) | Sun Oct 25 2026, 10:18 AM |
 | Last update (EDT) | Sun Oct 25 2026, 10:40 AM |
-| Last commit | `9e7c000` `[l4b-tradeoff] add the tradeoff driver and queue the eigen grid` |
+| Last commit | `849468d` `[l4b-tradeoff] write SNR duration tags in lowercase` |
 
 ## Milestones
 - [x] Read brief, CONTRACT, RESEARCH, RUNBOOK
