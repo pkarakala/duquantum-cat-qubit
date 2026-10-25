@@ -22,15 +22,17 @@ import matplotlib.pyplot as plt
 import dynamiqs as dq
 
 from src import config as C
+from src.analysis import memory_state
 from src.model import two_mode
-from src.plotting import save as save_fig, panel
-from src.results import save as save_res
+from src.plotting import save as save_fig, panel, wigner_panels, wigner_gif
+from src.results import RES_DIR, save as save_res
 
 T_END, N_T = 2.0, 201
 BETAS = [0.0, 0.5, 1.0, 1.5, 2.1, 3.0]          # method A, amplitude sweep (real beta)
 PHASES_DEG = [0, 15, 30, 45, 60, 75]            # method A, phase error at |beta| = alpha
 T_P = 0.1                                       # method B pulse length (us)
 EPS1 = [5.0, 10.0, 20.0]                        # method B drive strengths (rad/us)
+WIGNER_BETA = 1.5                               # proposed displacement before stabilization
 
 
 def first_time_above(t, y, thr):
@@ -60,6 +62,30 @@ def summarize(t, E, label):
         "max_top2_a": float(E[4].real.max()),
         "max_top_b": float(E[5].real.max()),
     }
+
+
+def render_wigner(Na, Nb):
+    """Show stabilization after the proposed ideal displacement pulse."""
+    H, jumps, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A)
+    psi = dq.tensor(dq.coherent(Na, WIGNER_BETA), dq.fock(Nb, 0))
+    t = jnp.linspace(0, T_END, N_T)
+    print(f"Wigner evolution: beta={WIGNER_BETA:g}, cutoff=({Na},{Nb})", flush=True)
+    start = time.perf_counter()
+    result = dq.mesolve(
+        H, jumps, psi, t, method=C.INFLATION_METHOD, save_states=False,
+        save_extra=lambda _, rho: memory_state(rho, Na, Nb).to_jax())
+    rho_a, times = result.extra, np.asarray(t)
+    print(f"  solved in {time.perf_counter()-start:.1f} s", flush=True)
+    RES_DIR.mkdir(exist_ok=True)
+    np.savez_compressed(RES_DIR / "task_1_3b_wigner.npz", t=times,
+                        rho_a=np.asarray(rho_a), Na=Na, Nb=Nb, alpha=C.ALPHA,
+                        initial_beta=WIGNER_BETA, method=repr(C.INFLATION_METHOD))
+    indices = [int(np.argmin(np.abs(times-time)))
+               for time in (0, 0.05, 0.15, 0.4, 0.8, 2.0)]
+    fig = wigner_panels(rho_a[jnp.array(indices)], times[indices], nrows=2)
+    save_fig(fig, "task_1_3b_wigner")
+    plt.close(fig)
+    wigner_gif(rho_a, times, "task_1_3b_wigner")
 
 
 def main(Na, Nb):
@@ -144,11 +170,17 @@ def main(Na, Nb):
             print(k, r)
     print("control", control)
     save_res("task_1_3b", out)
+    render_wigner(Na, Nb)
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--na", type=int, default=C.NA)
     p.add_argument("--nb", type=int, default=C.NB)
+    p.add_argument("--wigner-only", action="store_true",
+                   help="Generate Wigner snapshots and GIF without rerunning the sweeps")
     args = p.parse_args()
-    main(args.na, args.nb)
+    if args.wigner_only:
+        render_wigner(args.na, args.nb)
+    else:
+        main(args.na, args.nb)

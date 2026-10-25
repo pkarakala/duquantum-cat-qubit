@@ -159,3 +159,76 @@ This follow-up is complete; physical parameters and numerical criteria/results a
 - Validation: 10 tests pass, including GIF round-trip timing, fixed-colorbar preservation and rejection of nonuniform time grids. Three updated notebooks executed successfully, all 15 static notebook figures/captions still match their exports, and all numeric JSON reports are byte-identical to the prior commit. Checked all 904 encoded frames for timing, physical-time metadata, dimensions, fixed display range and persistent colorbar/labels; representative frames were visually inspected as a contact sheet. Lossless delta-frame encoding reduced GIF sizes to 1.84, 1.30, 2.44 and 0.95 MiB; every decoded pixel and duration was verified against the original encoding. Static PDF exports were preserved to avoid metadata-only churn.
 
 The GIF update is ready for delivery on the existing XZ-codex-intro-review branch.
+
+## Follow-up: Wigner evolution for Task 1.3(b) — 2026-10-25
+
+Request: add Wigner snapshots and a GIF at the end of logical-state preparation.
+Continued on `XZ-codex-intro-review` at `e08dc2e` with the existing local Task 2.3
+changes preserved. Added the proposed real displaced start, beta=1.5, with a vacuum
+buffer and the supplied full two-mode model at (32,12). Time starts after the
+idealized pulse, when stabilization begins; the pulse is not represented as a
+simulated trajectory.
+
+`tasks/task_1_3b.py` now exports a six-panel PNG/PDF and a 201-frame GIF over 0–2 us
+at 10-ns saved spacing. The reduced-memory states and parameters are saved in
+`results/task_1_3b_wigner.npz`. The full task generates these after its numerical
+summaries; `--wigner-only` generates them without repeating the preparation sweeps.
+README embeds the GIF with a static-snapshot link at the end of 1.3(b). Notebook 05
+shows both outputs before 1.3(c). Captions define the initialization, time origin,
+axes and shared color scale; technical reproduction notes and GIF counts are updated.
+
+The additional trajectory uses the tight Tsit5 tolerances already used in Task 1.1,
+1e-10/1e-12. An initial default-tolerance render was replaced after inspecting the
+reduced-state spectrum (minimum eigenvalue -5.02e-7); the final minimum over all
+states is -3.44e-11. Final trace error is 2.00e-15 and Hermiticity error zero.
+Initial/final target fidelities are 0.6976763261 and 0.9987830645. The final fidelity
+matches the archived preparation result within 5.6e-16; existing numerical reports
+are byte-identical.
+
+Validation: all **33 tests pass**; notebook 05 executes in a clean kernel and embeds
+the exact current PNG/GIF bytes. All 201 GIF frames preserve timing, fixed labels
+and colorbar; representative frames and the static mosaic were visually inspected.
+The GIF is approximately 1.3 MiB. Source syntax and whitespace checks pass. Artifact
+hashes confirm that prior numerical results, trajectories and other figures and
+notebooks remain unchanged. Evidence: `/tmp/cat-qubit-1-3b-wigner/`, including
+`render.log`, `render-tight.log`, `tests.log`, `notebook.log`, `audit.log`, the
+artifact baseline and a representative-frame contact sheet.
+
+This addition is complete locally; no commit or push was performed.
+
+## Follow-up: centered figure layout — 2026-10-25
+
+Centered all 14 README images, including the paired warm-up animations, and both
+figures in the detailed Task 2.3 report using GitHub-compatible HTML alignment.
+The joint memory-state convergence map is limited to 520 px; standalone GIFs
+use 480 px and multipanel plots use 860 px, with proportional image scaling.
+Captions remain separate paragraphs. GitHub's actual Markdown API preserves
+center alignment and the explicit width of every image. Rendered HTML evidence
+is in `/tmp/cat-qubit-figure-layout/`. Whitespace checks pass. This is a local
+presentation-only change; source plots and numerical data are unchanged.
+
+## Follow-up: phase-space origin labels — 2026-10-25
+
+Added a small cross at (0,0) and an offset 0 label to the shared static and animated
+Wigner renderers. A narrow white outline keeps the black mark legible on positive
+and negative Wigner regions. Refreshed all five PNG/PDF mosaics (30 panels), all five
+GIFs (1,105 frames), and the six embedded PNG/GIF outputs in notebooks 01, 02, 04
+and 05. Notebook code and numerical outputs were preserved; refreshing image bytes
+did not require reexecuting the notebooks' simulation cells. Added the shared visual
+convention to technical/caption notes and completed the animation catalog's missing
+logical-preparation row.
+
+The warm-up and memory trajectories were recomputed with their existing models,
+cutoffs, solver settings and time grids for rendering only; the new logical-state
+preparation uses its saved reduced-memory trajectory. Rendering inputs and logs
+are preserved in `/tmp/cat-qubit-wigner-origins/`. No numerical report or permanent
+trajectory archive was rewritten. Artifact hashes also confirm that unrelated
+figures and notebooks are unchanged.
+
+Verification: all **33 tests pass**. Every static panel's origin artists were
+checked at the exact phase-space coordinate (0,0). All 1,105 GIF frames retain
+uniform physical timing, the fixed colorbar and labels; origin coordinates and
+label are included in animation metadata. All six embedded notebook images match
+the updated exports byte for byte. The static mosaic and representative frames
+from every movie were visually checked. Source syntax and whitespace checks pass.
+The change is complete locally; no commit or push was performed.

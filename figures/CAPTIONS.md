@@ -10,8 +10,11 @@ The figures are exported as 300-dpi PNGs and PDFs, with animated GIFs for the Wi
 | [Effective stabilization](task_1_0c_wigner.gif) | 0–2 | 201 | 10 |
 | [Two-mode inflation](task_1_1_wigner.gif) | 0–3 | 301 | 10 |
 | [Interference decay](task_1_3a_wigner_fading.gif) | 1–6 | 201 | 25 |
+| [Logical-state preparation](task_1_3b_wigner.gif) | 0–2 | 201 | 10 |
 
 Each frame is computed from a solved state, with the same phase-space coordinates and fixed color scale as the static panels below. The displayed clock is simulated time. GIFs play at 25 frames/s, pause for 0.8 s at each endpoint, and loop. A shared palette keeps colors consistent between frames.
+
+Every Wigner panel and animation marks the phase-space origin with a small cross and the label 0.
 
 ## task_1_0a_photon_number
 
@@ -73,6 +76,10 @@ Each frame is computed from a solved state, with the same phase-space coordinate
 
 **Preparation of a selected coherent state.** Fidelity is $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$. (a) Evolution from $|\beta\rangle_a|0\rangle_b$ for real initial coherent-state amplitude $\beta$. (b) Fidelity at $t=2$ µs after stabilization, compared with the initial overlap $\lvert\langle\alpha\vert\beta\rangle\rvert^2$, for $\beta=\alpha e^{i\phi}$, where $\phi$ is the initial phase error relative to the target. Dotted guides mark $F_\alpha=0.99$. (c) Normalized memory amplitude with a drive $i\varepsilon_1(a^\dagger-a)$ applied over the shaded interval, 0–0.1 µs. The control uses $10(a+a^\dagger)$ in the same interval. $\varepsilon_1$ denotes the memory-drive amplitude in µs⁻¹. For displaced starts, time begins after the idealized pulse. All simulations use $(N_a,N_b)=(32,12)$ and $\alpha=2.1$.
 
+## task_1_3b_wigner
+
+**Stabilization after displacement.** Reduced-memory Wigner functions for the proposed preparation sequence, initialized in $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$ and stabilized toward $\lvert+\alpha\rangle$ at $\alpha=2.1$, $(N_a,N_b)=(32,12)$, including memory single-photon loss. Time begins after the idealized displacement pulse, when two-photon stabilization is enabled; the pulse itself is not simulated. Static panels show the indicated times; the animation uses all 201 reduced-memory states over 0–2 µs at 10-ns spacing. Axes denote the complex phase-space coordinate $\beta$. The fixed color range is $-2/\pi\leq W\leq2/\pi$ in every panel and frame.
+
 ## task_2_1_bit_flips
 
 **Bit-flip relaxation and exponential suppression.** Full two-mode dynamics from $\lvert\alpha\rangle_a\lvert0\rangle_b$ at $(N_a,N_b)=(20,6)$. Colors identify $\alpha$; the buffer drive is set to $\epsilon_d=g_2\alpha^2$ for each trajectory. (a) Normalized real memory amplitude; colored curves are integrated trajectories and black dashes are exponential fits from 2 µs onward. The logarithmic time axis resolves the different lifetimes and shows times from 1 µs onward. (b) Fitted relaxation rates $\Gamma_X$ versus $\alpha^2$. The black line is the log-linear fit $C_Xe^{-\gamma\alpha^2}$ over $0.7\leq\alpha\leq1.4$; gray dashes show the direct-overlap estimate $2\kappa_a\alpha^2e^{-4\alpha^2}$. Rates are inverse observable decay times, twice symmetric one-way switching rates in the well-separated-codeword limit.
@@ -80,3 +87,11 @@ Each frame is computed from a solved state, with the same phase-space coordinate
 ## task_2_2_phase_flips
 
 **Phase-flip relaxation and cat-size scaling.** Full two-mode dynamics from the even cat $\lvert C_+\rangle_a\lvert0\rangle_b$ at $(N_a,N_b)=(24,8)$, with $\epsilon_d=g_2\alpha^2$. Colors identify $\alpha$. (a) Memory parity $\langle\Pi\rangle$, with $\Pi=(-1)^{a^\dagger a}$; black dashes fit $\Pi_\infty+Ae^{-\Gamma_Z(t-t_{\mathrm{fit}})}$ from $t_{\mathrm{fit}}=1$ µs. The fitted offset $\Pi_\infty$ accommodates the finite steady parity of overlapping codewords. (b) Fitted $\Gamma_Z$ versus $\alpha^2$; the black line is a free-intercept linear regression and gray dashes show $2\kappa_a\alpha^2$ using the supplied memory-loss rate. The physical target $\alpha=2.1$ is included. Cutoff, fitting-window, solver and independent Dynamiqs checks are recorded with the numerical results.
+
+## task_2_3_readout
+
+**Weak-drive memory-bit readout.** Both initial memory codewords $\lvert s\alpha\rangle$, $s=\pm1$, evolve independently with a vacuum buffer, $\alpha=2.1$, $(N_a,N_b)=(32,12)$ and the constant drive $\epsilon_Z(a+a^\dagger)$ at $\epsilon_Z/g_2=0.05$. Define $\beta_s=\langle b\rangle_s$. (a) Real buffer fields; dotted lines give the leading estimates $-s\epsilon_Z/(2\alpha g_2)$. (b) Imaginary common field $\beta_{\mathrm{com}}=(\beta_++\beta_-)/2$, compared with the zero-drive control and the leading memory-loss contribution $\kappa_a/(4g_2)$. (c) Real separation $\Delta\beta_R(t)=\mathrm{Re}(\beta_--\beta_+)$ divided by $\Delta_{\mathrm{lin}}=\epsilon_Z/(\alpha g_2)$; dashes show local semiclassical linearization including memory loss. (d) Residual $r(t)$ is the larger complex-field distance from the two 3–4 µs means, divided by $\epsilon_Z/(2\alpha g_2)$. Dotted and dashed guides mark $r=0.01$ and $t_{\mathrm{set}}=0.968$ µs, respectively. Both fields satisfy the criterion from this time through 4 µs. Saved times are 2 ns apart.
+
+## task_2_3_validation
+
+**Readout linearity and numerical checks.** (a) Plateau contrast $\Delta\beta_R=\mathrm{Re}(\bar\beta_--\bar\beta_+)$ from 3–4 µs means versus $\epsilon_Z/g_2$, including zero drive. Dashes give $\epsilon_Z/(\alpha g_2)$. (b) Normalized difference $d(t)=\max_s|\beta_s^{\mathrm{ref}}(t)-\beta_s(t)|/[\epsilon_Z/(2\alpha g_2)]$ at the nominal drive $\epsilon_Z/g_2=0.05$. References are independent QuTiP BDF and tighter Tsit5 integration at the production cutoff $(32,12)$, and a joint cutoff increase to $(40,14)$; all physical parameters are shared. Separate memory/buffer cutoff increases and an 8-µs horizon check are reported in the numerical table.

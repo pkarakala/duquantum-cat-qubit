@@ -168,6 +168,7 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 
 - **Codex** implemented the full cutoff grid, trace-distance comparisons, gradient plots, threshold contours, cached trajectories, and analytic validation tests.
 - **Codex** implemented Tasks 2.1 and 2.2, including sparse full-model rate dynamics, independent Dynamiqs checks, cutoff studies, rate fits, figures, notebook walkthroughs and the rate report.
+- **Codex** implemented Task 2.3, including both codeword evolutions, drive controls, complex-field settling, independent matched-cutoff BDF validation and the readout report. Numerical results come from integrations, with analytic symmetry and local-response checks.
 - **Claude** helped us learn the background, plan the work, and write most of `src/` and `tasks/`. We reviewed every result against a hand prediction (claims 1 to 5, 11, 15, 17) or a convergence test (claims 9, 12, 13).
 - **`tools/ai_review.py`** sends the code plus a physics checklist (2π factors, signs, convergence, fits) to an independent model (Gemini or Grok) as a reviewer. Its output goes in `reviews/`, and we note here what we acted on. The reviewer never produces numbers.
 - **Gemini review log** (`reviews/gemini-20261024-1632.md`, gemini-3.8-flash, run on the full code plus the prompt and this file):
@@ -186,8 +187,9 @@ All runs: two-mode model, N_a = 32, N_b = 12, `Tsit5(rtol=1e-8, atol=1e-10)`, re
 | `src/analysis.py` | partial trace, projectors, cat state, `memory_extras` (parity, fidelity, purity, coherence, Re⟨a⟩ at every time step without storing the full ρ), fits |
 | `tasks/task_1_*.py` | task scripts and the optional Task 1.1 numerical audit; write reproducible figures and results |
 | `src/rates.py`, `src/rate_solver.py`, `tasks/task_2_common.py` | rate extraction, sparse full-model dynamics and numerical checks for Tasks 2.1/2.2 |
+| `src/readout.py`, `tasks/task_2_3.py` | local response, finite-window settling, full readout simulation and numerical validation |
 | `notebooks/0*_task_*.ipynb` | one notebook per task: plain-language explanation, the task code, and its outputs |
-| `run_all.sh` | introductory task sequence; rate commands are listed below |
+| `run_all.sh` | introductory tasks and readout; rate commands are listed below |
 | `tools/ai_review.py` | optional LLM code review (Gemini or Grok) |
 
 ## 7. Reproduce
@@ -204,15 +206,57 @@ Run times on 4 CPU cores: Task 1.0 ~20 s, 1.1 ~1 min, 1.2 ~12 min, 1.3a ~2 min, 
 
 ## Figure presentation
 
-The maintained task figures use shared sans-serif typography, consistent symbols and units, concise panel labels, and short legends. Definitions, protocol details and interpretation are collected in [figures/CAPTIONS.md](figures/CAPTIONS.md), reproduced beside the corresponding notebook figures. Wigner panels show individual times, complex phase-space axes and a fixed shared color scale. All figures have 300-dpi PNG and PDF exports. The PDF line plots retain vector paths and embedded TrueType fonts; Wigner images remain raster layers.
+The maintained task figures use shared sans-serif typography, consistent symbols and units, concise panel labels, and short legends. Definitions, protocol details and interpretation are collected in [figures/CAPTIONS.md](figures/CAPTIONS.md), reproduced beside the corresponding notebook figures. Wigner panels show individual times, complex phase-space axes and a fixed shared color scale. A small cross and 0 mark the phase-space origin in every static panel and animation frame. All figures have 300-dpi PNG and PDF exports. The PDF line plots retain vector paths and embedded TrueType fonts; Wigner images remain raster layers.
 
 
 ### Wigner animations
 
-The task scripts export four GIFs alongside the static Wigner panels. Single-photon loss uses all 201 solved states at 5-ns spacing; effective stabilization uses 201 states at 10-ns spacing; two-mode inflation uses all 301 reduced-memory states at 10-ns spacing; interference decay uses the 201 states from 1–6 µs at 25-ns spacing. These intervals already resolve the displayed motion; no solver tolerance, integration method or analysis output grid changes are required.
+The task scripts export five GIFs alongside the static Wigner panels. Single-photon loss uses all 201 solved states at 5-ns spacing; effective stabilization uses 201 states at 10-ns spacing; two-mode inflation uses all 301 reduced-memory states at 10-ns spacing; interference decay uses the 201 states from 1–6 µs at 25-ns spacing. Task 1.3(b) adds 201 reduced-memory states over 0–2 µs at 10-ns spacing for stabilization from the proposed real displacement $\beta=1.5$. This additional trajectory uses the same tight Tsit5 tolerances as Task 1.1 ($10^{-10}/10^{-12}$); the original preparation sweeps are unchanged.
+
+`python -m tasks.task_1_3b --wigner-only` regenerates the logical-preparation snapshots and GIF without repeating the amplitude and phase sweeps. It saves the reduced states, physical time grid and parameters in `results/task_1_3b_wigner.npz`. The full task command also generates these exports. Notebook 05 displays both static snapshots and the animation at the end of 1.3(b). Time starts after the idealized displacement, rather than including an unsimulated pulse.
 
 `src.plotting.wigner_gif` computes Wigner functions in batches of 16 on a 151×151 spatial grid. Every frame uses actual saved states, fixed axes, the shared normalized range ±2/π, and a fixed 256-color palette. The display clock reports simulated time to 1 ns. Playback is 25 frames/s with 0.8-s endpoint holds; playback speed is a viewing choice. Physical frame times and display durations are embedded in GIF comments for verification. The README embeds GIFs using relative image paths, supported by [GitHub's image renderer](https://docs.github.com/en/repositories/working-with-files/using-files/working-with-non-code-files), and links the static snapshots as alternatives.
 
 ## Tasks 2.1 and 2.2: rate characterization
 
 [The rate report](docs/task_2_rates.md) defines the observable-rate convention, derives the direct-overlap and finite-cat predictions, and records the amplitude sweeps, fits, cutoff changes, solver comparisons and loss-strength check. The maintained scripts are `tasks/task_2_1.py` and `tasks/task_2_2.py`; `src/rates.py` handles fits and `src/rate_solver.py` integrates the full two-mode generator in a sparse representation. Walkthroughs are notebooks 06 and 07. The introductory results remain unchanged.
+
+## Task 2.3: conditional buffer readout
+
+The [readout report](docs/task_2_3_readout.md) derives the drive convention,
+codeword conjugation symmetry, memory-loss common field and local transient.
+`tasks/task_2_3.py` adds the real drive $\epsilon_Z(a+a^\dagger)$ to the supplied
+full two-mode Hamiltonian. Both coherent codewords are independently evolved
+with the buffer in vacuum, both supplied loss channels, $(32,12)$ cutoffs and
+Tsit5 tolerances $10^{-10}/10^{-12}$. The nominal drive is $0.05g_2$.
+
+In `results/task_2_3.json`, `drive_summaries` records both complex fields and
+the 3–4 µs real separation, **0.02378968**, compared with **0.02380952** from
+$\epsilon_Z/(\alpha g_2)$. It also records the **0.968-µs** sustained complex-field
+settling time and its [0.966, 0.968] µs sampled bracket, **44.3%** contrast
+overshoot and **0.313-µs** ring period. Settling uses 1% of the predicted half
+contrast, at every remaining saved time through 4 µs. The positive and negative
+branches have opposite real fields and the same imaginary component, as
+required by $\beta_-=-\beta_+^*$.
+
+`validation` contains all 15 acceptance results and numerical thresholds.
+The full complex fields are checked against separate memory/buffer increases,
+a joint $(40,14)$ increase, tighter integration with 1-ns saves, an 8-µs run,
+and independent QuTiP BDF at the **same production cutoff**. The latter differs
+by at most $1.31\times10^{-7}$ of the predicted half contrast; the extended
+plateau differs by $2.44\times10^{-5}$. `state_health` retains the small signed
+final eigenvalue residual. The NPZ stores all comparison trajectories and
+reference cutoff/version metadata; JSON preserves simulation and analysis
+source hashes. Fresh analysis and `--reanalyze` use the same calculation to
+refresh the plateau-window metadata, summaries, derived flux and numerical
+checks. Comparison references must cover the full required interval, including
+0–8 µs for the horizon check; interpolation never extends a reference by
+holding its endpoint. `--plot-only` redraws using archived physical parameters.
+
+Tests check the drive quadrature, the full Lindblad generator's antiunitary
+symmetry, the local solution against matrix exponentials, last-excursion
+settling, zero-drive behavior, incomplete-reference rejection and reanalysis
+consistency. The executed [notebook](notebooks/08_task_2_3_readout.ipynb)
+loads the saved data by default. Mean-field contrast and settling do not specify
+single-shot fidelity, integration time or the drive-induced bit-flip rate.
+Those need a measurement model and the separate Task 2.4 trade-off analysis.

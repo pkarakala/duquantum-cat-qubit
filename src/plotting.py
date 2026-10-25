@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import dynamiqs as dq
 import matplotlib.pyplot as plt
+import matplotlib.patheffects as path_effects
 import numpy as np
 from cycler import cycler
 from PIL import Image
@@ -27,6 +28,16 @@ def panel(ax, letter, title=""):
     ax.set_title(f"({letter})" + (f" {title}" if title else ""), loc="left", pad=7)
 
 
+def _wigner_origin(ax):
+    """Mark the phase-space origin without obscuring the Wigner structure."""
+    halo = [path_effects.withStroke(linewidth=1.5, foreground="white")]
+    ax.plot(0, 0, "+", color="black", ms=4, mew=0.7, zorder=5,
+            path_effects=halo)
+    ax.annotate("0", (0, 0), xytext=(4, 4), textcoords="offset points",
+                fontsize=7, color="black", ha="left", va="bottom", zorder=5,
+                path_effects=halo)
+
+
 def wigner_panels(states, times, *, xmax=4, nrows=1):
     """One state per labelled panel, with phase-space axes and a fixed color scale."""
     times = np.asarray(times)
@@ -40,6 +51,7 @@ def wigner_panels(states, times, *, xmax=4, nrows=1):
         # Dynamiqs indexes W[x, y]; imshow indexes rows (y), columns (x).
         image = ax.imshow(value.T, extent=extent, origin="lower", cmap="RdBu_r",
                           vmin=-2/np.pi, vmax=2/np.pi, interpolation="bilinear")
+        _wigner_origin(ax)
         panel(ax, chr(97+i), rf"$t={time:g}\,\mu\mathrm{{s}}$")
         ax.set(xticks=[-2, 0, 2], yticks=[-2, 0, 2])
         if i // ncols == nrows-1:
@@ -67,6 +79,7 @@ def wigner_gif(states, times, name, *, xmax=4, fps=25):
     image = ax.imshow(np.zeros((151, 151)), extent=(-xmax, xmax, -xmax, xmax),
                        origin="lower", cmap="RdBu_r", vmin=-2/np.pi, vmax=2/np.pi,
                        interpolation="bilinear")
+    _wigner_origin(ax)
     ax.set(xlabel=r"$\mathrm{Re}\,\beta$", ylabel=r"$\mathrm{Im}\,\beta$",
             xticks=[-2, 0, 2], yticks=[-2, 0, 2])
     clock = ax.set_title(rf"$t={times[0]:.3f}\,\mu\mathrm{{s}}$")
@@ -100,7 +113,8 @@ def wigner_gif(states, times, name, *, xmax=4, fps=25):
     durations[0] = durations[-1] = 800
     metadata = {"times_us": times.round(12).tolist(), "fps": fps,
                 "durations_ms": durations, "xmax": xmax, "npixels": 151,
-                "wigner_limits": [-2/np.pi, 2/np.pi], "state_dim": states.shape[-2]}
+                "wigner_limits": [-2/np.pi, 2/np.pi], "state_dim": states.shape[-2],
+                "origin": [0, 0], "origin_label": "0"}
     FIG_DIR.mkdir(exist_ok=True)
     path = FIG_DIR / f"{name}.gif"
     frames[0].save(path, save_all=True, append_images=frames[1:], loop=0,
