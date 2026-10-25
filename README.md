@@ -28,15 +28,13 @@ A cat qubit stores information in light trapped in one of two "valleys" in a mic
 ![Preparing a definite state](figures/task_1_3b_logical_prep.png)
 *Preparing one definite state: a short push before the stabilization turns on lands the qubit in the chosen valley, even if the push is aimed badly.*
 
-Every figure has a caption in [`figures/CAPTIONS.md`](figures/CAPTIONS.md).
-
 ## Section 2 in two pictures
 
-![Bit flip rate vs cat size](figures/s2/gamma_x.png)
-*Bit flip rate against cat size. The fast direct calculation (line) matches brute-force simulation (crosses).*
+![Bit flip rate vs cat size](figures/s2/task_2_1_bit_flips.png)
+*(a) Bit flip rate against cat size: the fast eigenvalue method (line) matches brute force simulation (crosses). (b) Small cats flip through one photon loss, large cats need two.*
 
-![Readout error by pulse shape](figures/s2/slide_readout_error.png)
-*Readout error after 2 µs for three pulse shapes. Driving at the ringing frequency wins.*
+![Better readout](figures/s2/task_2_4_better_readout.png)
+*(a, b) The real circuit needs the pump retuned by 23 MHz. (c) Driving at the ringing frequency cuts readout errors 1.7×. (d) The gradient-optimized pulse.*
 
 ## Run it
 
@@ -51,7 +49,7 @@ Every number is saved as JSON in `results/`, so checking a claim does not requir
 
 | Path | What it is |
 |---|---|
-| [`docs/TECHNICAL.md`](docs/TECHNICAL.md) | Full details: methods, every number, convergence checks, how to reproduce |
+| [`docs/TECHNICAL.md`](docs/TECHNICAL.md) | Methods, key numbers, convergence checks, how to reproduce |
 | `research/s2/`, `src/` | Section 2 code; shared model code |
 | `notebooks/` | One short notebook per task: 01–05 Section 1, 06–09 Section 2 (load saved results, no re-run) |
 | `tasks/` | Section 1 scripts |
@@ -63,8 +61,8 @@ Every number is saved as JSON in `results/`, so checking a claim does not requir
 
 - **Claude Code** did most of the implementation and drafted the write ups, under our direction.
 - **Codex** helped with Section 1 validation, convergence analysis and figures.
-- **Gemini** checked the physics in the code and the plots (`tools/ai_review.py`, logs in `reviews/`)
-- **Vultr** ran our large simulation batches in the cloud for about in total.
+- **Gemini** checked the physics in the code and validated the plots (`tools/ai_review.py`; log in [`reviews/`](reviews/)).
+- **Vultr** ran our large simulation batches in the cloud for about 5 USD in total.
 - **Cursor** and a **Groq**-powered bot are used for the product layer.
 
 We checked every result against a hand prediction or a second method. Each tool use and its cost is logged in [`docs/tools-log.md`](docs/tools-log.md).
