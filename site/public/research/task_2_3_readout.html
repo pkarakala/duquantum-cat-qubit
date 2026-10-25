@@ -1,0 +1,335 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Task 2.3: buffer readout (detail) · Cat Qubit Academy</title>
+<style>
+:root{--bg:#f4f6fb;--fg:#0f172a;--muted:#475569;--line:#d8deea;--accent:#0f766e;--surface:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--fg:#e7ecf6;--muted:#a6b2c8;--line:#2a3654;--accent:#2dd4bf;--surface:#131a2d}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:920px;margin:0 auto;padding:24px 16px 64px}
+a{color:var(--accent)} img{max-width:100%;height:auto;background:#fff;border-radius:8px}
+table{border-collapse:collapse;display:block;overflow-x:auto;margin:16px 0}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+pre,code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em}
+pre{background:var(--surface);border:1px solid var(--line);padding:12px;overflow-x:auto;border-radius:8px}
+.crumb{font-size:.875rem;color:var(--muted)} .math-display{overflow-x:auto}
+</style><link rel="stylesheet" href="katex/katex.min.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script></head><body><main><p class="crumb"><a href="../#/research">← Research</a> · <a href="../#/">Home</a></p>
+<h1 id="task-23-transmon-free-memory-bit-readout">Task 2.3: transmon-free memory-bit readout</h1>
+<p>The task has three requirements. Each has a direct numerical answer:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Show that the two memory states give distinguishable buffer fields</td>
+<td>Their final real fields are <strong>−0.01189484</strong> and <strong>+0.01189484</strong>.</td>
+</tr>
+<tr>
+<td>Use a drive well below $g_2$</td>
+<td>We choose <strong>$\epsilon_Z=0.05g_2$</strong>, twenty times smaller.</td>
+</tr>
+<tr>
+<td>Determine the settling time and whether the approach oscillates</td>
+<td>The response oscillates, then stays within the specified 1% tolerance from <strong>0.968 µs</strong> through 4 µs.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="simulation-and-drive-choice">Simulation and drive choice</h2>
+<p>Let $a$ and $b$ annihilate a photon in the memory and buffer. We use the supplied
+full two-mode Hamiltonian, adding the real, constant memory drive:</p>
+<p>$$
+H=g_2(a^2b^\dagger+a^{\dagger2}b)-\epsilon_d(b+b^\dagger)
++\epsilon_Z(a+a^\dagger),\qquad \epsilon_d=g_2\alpha^2.
+$$</p>
+<p>Both photon-loss channels, $\sqrt{\kappa_a}a$ and $\sqrt{\kappa_b}b$, are
+retained. Each initial memory state $\lvert\pm\alpha\rangle$, with $\alpha=2.1$,
+is evolved independently with the buffer in vacuum. Preparation errors are excluded.
+All <a href="https://github.com/pkarakala/duquantum-cat-qubit/blob/main/TECHNICAL.md#1-model-and-conventions">supplied physical parameters</a> are retained.
+Production uses $(N_a,N_b)=(32,12)$ retained Fock levels and double-precision
+Tsit5 integration with relative/absolute tolerances $10^{-10}/10^{-12}$.
+The 0–4 µs simulation saves results every 2 ns; this spacing is distinct from
+the solver's adaptive integration steps.</p>
+<p>We choose $\epsilon_Z=0.05g_2=0.23970352$ µs⁻¹ to keep the displacement about
+each occupied memory state small. Its frequency scale is
+$\epsilon_Z/(2\pi)=38.15$ kHz, compared with $g_2/(2\pi)=763$ kHz.
+The drive sweep below checks that the response remains approximately proportional
+to this weak drive. This is a conservative working choice, not an optimized readout.</p>
+<h2 id="what-signal-distinguishes-the-memory-states">What signal distinguishes the memory states?</h2>
+<p>The drive slightly displaces the memory. The two-photon coupling converts the
+sign of the occupied memory state into the sign of the real buffer field.
+The leading estimate is</p>
+<p>$$
+\langle b\rangle_+\simeq-\frac{\epsilon_Z}{2\alpha g_2},\qquad
+\langle b\rangle_-\simeq+\frac{\epsilon_Z}{2\alpha g_2}.
+$$</p>
+<p>The subscripts identify the initial memory state. Final values below are estimated
+by averaging 3–4 µs; they describe the observed interval, rather than an
+infinite-time stationary state.</p>
+<table>
+<thead>
+<tr>
+<th>Initial memory</th>
+<th style="text-align: right;">Simulated real field</th>
+<th style="text-align: right;">Predicted real field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\lvert+\alpha\rangle$</td>
+<td style="text-align: right;">−0.01189484</td>
+<td style="text-align: right;">−0.01190476</td>
+</tr>
+<tr>
+<td>$\lvert-\alpha\rangle$</td>
+<td style="text-align: right;">+0.01189484</td>
+<td style="text-align: right;">+0.01190476</td>
+</tr>
+</tbody>
+</table>
+<p>The real-field separation is <strong>0.02378968</strong>, <strong>0.0834% below</strong> the predicted
+$\epsilon_Z/(\alpha g_2)=0.02380952$. A phase-referenced measurement of this
+real field can therefore distinguish the two memory states.</p>
+<h2 id="how-long-does-the-response-take-to-settle">How long does the response take to settle?</h2>
+<p>The response <strong>oscillates before settling</strong>. Its first maximum occurs at
+0.158 µs, <strong>44.3% above</strong> the final signal magnitude. The oscillation period
+measured from successive maxima is approximately <strong>0.313 µs</strong>.</p>
+<p>We call the response settled when <strong>both complex buffer fields stay within
+0.00011905 of their respective final values at every remaining saved time
+through 4 µs</strong>. This absolute tolerance is 1% of the predicted field magnitude
+$\epsilon_Z/(2\alpha g_2)=0.01190476$. Including both real and imaginary parts
+checks that the whole field has settled. The final values are the 3–4 µs means.</p>
+<p>Both fields meet this criterion from <strong>0.968 µs</strong> onward. The last threshold
+crossing lies in <strong>[0.966, 0.968] µs</strong>. Earlier crossings followed by further
+oscillation do not count. Tighter integration with 1-ns saved spacing and an
+8-µs run using a later 7–8 µs mean give the same settling time.</p>
+<p align="center">
+  <img src="figures/task_2_3_readout.png" width="860" alt="Opposite readout signals and the time needed to settle">
+</p>
+
+<p><strong>Readout signals and settling.</strong> Each memory codeword $\lvert\pm\alpha\rangle$ starts with the buffer in vacuum. The full two-mode model includes both loss channels, $\alpha=2.1$, $(N_a,N_b)=(32,12)$ and $\epsilon_Z=0.05g_2$. (a) Real buffer fields over 0–2 µs, divided by $b_0=\epsilon_Z/(2\alpha g_2)$; dotted lines show the predicted values $\mp1$. Their opposite signs distinguish the memory states. (b) A linear-scale zoom of the larger distance of the two complex fields from their respective final values. Percentages use the predicted field magnitude $\epsilon_Z/(2\alpha g_2)=0.01190476$; final values average 3–4 µs. The shaded region is within the 1% tolerance. Open circles mark temporary entries followed by renewed excursions above tolerance. The filled orange circle and dashed line mark the final entry, at the first saved time inside tolerance after the last violation: 0.968 µs. Both fields remain inside through 4 µs. Saved times are 2 ns apart.</p>
+<p>The figure answers the task directly: panel (a) shows opposite signals and
+oscillation; panel (b) shows when the response stays within the chosen tolerance.</p>
+<h2 id="checks-on-the-weak-drive-choice">Checks on the weak-drive choice</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">$\epsilon_Z/g_2$</th>
+<th style="text-align: right;">Real-field separation</th>
+<th style="text-align: right;">Leading estimate</th>
+<th style="text-align: right;">Relative difference</th>
+<th style="text-align: right;">1% settling (µs)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td style="text-align: right;">0.025</td>
+<td style="text-align: right;">0.01189512</td>
+<td style="text-align: right;">0.01190476</td>
+<td style="text-align: right;">−0.0810%</td>
+<td style="text-align: right;">0.976</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>0.050</strong></td>
+<td style="text-align: right;"><strong>0.02378968</strong></td>
+<td style="text-align: right;"><strong>0.02380952</strong></td>
+<td style="text-align: right;"><strong>−0.0834%</strong></td>
+<td style="text-align: right;"><strong>0.968</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;">0.100</td>
+<td style="text-align: right;">0.04757483</td>
+<td style="text-align: right;">0.04761905</td>
+<td style="text-align: right;">−0.0929%</td>
+<td style="text-align: right;">0.966</td>
+</tr>
+</tbody>
+</table>
+<p>The separation per unit drive varies by only 0.0119% over the nonzero sweep.
+At 4 µs, fidelity with the initial coherent codeword is 0.99986 and the signed
+real memory amplitude divided by $\alpha$ is 0.99916 for either initial state.
+These checks support a small perturbation over the simulated interval; they
+do not establish a long-time switching rate.</p>
+<h2 id="supporting-physics-the-imaginary-field-and-the-oscillation">Supporting physics: the imaginary field and the oscillation</h2>
+<p>The buffer-fluorescence readout mechanism and leading local estimate follow
+<a href="https://arxiv.org/html/2307.06617v2">Réglade et al., Supplement S8.5</a>.
+The following details explain the physics but are not additional Task 2.3
+requirements. They are separate from the two plots needed to show the readout
+signal and its settling time.</p>
+<p>Write $\beta_s(t)=\langle b\rangle_s(t)$ and $A_s(t)=\langle a\rangle_s(t)$,
+where $s=\pm1$ labels the initial memory state. Write $\bar\beta_s$ for the
+3–4 µs mean of $\beta_s(t)$. The simulated final buffer fields are
+$-0.01189484+0.00311514i$ and $+0.01189484+0.00311514i$.
+The imaginary part describes the field component 90° out of phase with the real
+part. It has the same value for both states, so it does not distinguish the
+memory bit. Memory loss generates this background. With zero memory drive it
+remains $0.00304907i$, while the real-field separation vanishes.</p>
+<p>The exact symmetry and local approximation below explain that shared background
+and why the response oscillates. Neither introduces a new readout observable.</p>
+<p>For this real-parameter model, the antiunitary transformation
+$\rho\mapsto\Pi_a\Pi_b\rho^*\Pi_b\Pi_a$, where $\Pi_a$ and $\Pi_b$ are the
+mode-parity operators and the star denotes complex conjugation in the Fock
+basis, maps the two initial conditions into each other while leaving the
+evolution invariant. It therefore gives the exact relation</p>
+<p>$$
+\beta_-(t)=-\beta_+^*(t).
+$$</p>
+<p>This accounts for opposite real fields and equal imaginary fields. The
+independent codeword evolutions test this symmetry numerically.</p>
+<p>The exact first-moment equations are</p>
+<p>$$
+\dot A_s=-2ig_2\langle a^\dagger b\rangle_s-i\epsilon_Z
+-\frac{\kappa_a}{2}A_s,\qquad
+\dot\beta_s=-ig_2(\langle a^2\rangle_s-\alpha^2)-\frac{\kappa_b}{2}\beta_s.
+$$</p>
+<p>Factorizing the moments and linearizing about $A_s=s\alpha$, $\beta_s=0$,
+define the <strong>complex amplitude deviations</strong></p>
+<p>$$
+\delta a_s=A_s-s\alpha,\qquad \delta b_s=\beta_s,\qquad G_s=2sg_2\alpha.
+$$</p>
+<p>Here $G_s$ is the local exchange coupling. The deviations are semiclassical
+amplitudes; the full simulation evolves the density matrix without moment
+factorization. To first order,</p>
+<p>$$
+\delta\dot a_s=-\frac{\kappa_a}{2}\delta a_s-iG_s\delta b_s-i\epsilon_Z
+-\frac{\kappa_a s\alpha}{2},\qquad
+\delta\dot b_s=-iG_s\delta a_s-\frac{\kappa_b}{2}\delta b_s.
+$$</p>
+<p>Setting these derivatives to zero gives the local stationary buffer field</p>
+<p>$$
+\beta_{s,\mathrm{loc}}=
+\frac{-\epsilon_ZG_s+i\kappa_as\alpha G_s/2}
+{G_s^2+\kappa_a\kappa_b/4}.
+$$</p>
+<p>To leading order in memory loss, its imaginary part is
+$\kappa_a/(4g_2)=0.00304718$, independent of the well sign. The zero-drive
+control confirms this background separately from the real readout contrast.</p>
+<p>The local linear system has eigenvalues</p>
+<p>$$
+\lambda_\pm=-\frac{\kappa_a+\kappa_b}{4}
+\pm i\sqrt{(2g_2\alpha)^2-\left(\frac{\kappa_b-\kappa_a}{4}\right)^2}.
+$$</p>
+<p>They predict an underdamped response with a <strong>0.319-µs</strong> oscillation period
+and a <strong>0.244-µs</strong> amplitude-envelope time. The local step response is tested
+against a matrix-exponential solution. Its approximate period agrees closely
+with the full quantum result, while the full quantum trajectory determines the
+reported settling time.</p>
+<h2 id="validation-and-reproduction">Validation and reproduction</h2>
+<p>The task script runs these checks before reporting success:</p>
+<ul>
+<li>Positive and negative real buffer fields, exact conjugation symmetry, and
+  zero real contrast in the zero-drive control.</li>
+<li>Weak-drive response at $\epsilon_Z/g_2=0.025,0.05,0.10$.</li>
+<li>Separate memory and buffer increases to $(40,12)$ and $(32,14)$, followed by
+  their joint increase to $(40,14)$. A smaller $(24,8)$ case is also checked.</li>
+<li>Tighter integration at relative/absolute tolerances $10^{-11}/10^{-13}$,
+  with 1-ns saved spacing; an 8-µs horizon at the production tolerances.</li>
+<li>Independent QuTiP BDF integration with separately constructed operators at
+  the production cutoff $(32,12)$, isolating integration error from cutoff error.</li>
+<li>Trace throughout the trajectory, final-state Hermiticity and minimum
+  eigenvalue. Small signed numerical residuals are retained.</li>
+</ul>
+<p>Field differences are divided by the predicted field magnitude,
+$\epsilon_Z/(2\alpha g_2)$. The required maximum differences are 0.1% for cutoff
+and horizon comparisons and 0.001% for solver comparisons. These are numerical
+criteria, not detector performance specifications. The exact thresholds and
+all pass/fail results are stored with the data.</p>
+<table>
+<thead>
+<tr>
+<th>Comparison against $(32,12)$ production</th>
+<th style="text-align: right;">Difference / predicted field magnitude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Smaller cutoff $(24,8)$</td>
+<td style="text-align: right;">$1.02\times10^{-5}$</td>
+</tr>
+<tr>
+<td>Memory increase $(40,12)$</td>
+<td style="text-align: right;">$6.53\times10^{-8}$</td>
+</tr>
+<tr>
+<td>Buffer increase $(32,14)$</td>
+<td style="text-align: right;">$3.54\times10^{-7}$</td>
+</tr>
+<tr>
+<td>Joint increase $(40,14)$</td>
+<td style="text-align: right;">$3.07\times10^{-7}$</td>
+</tr>
+<tr>
+<td>Tighter Tsit5 tolerances, 1-ns saves</td>
+<td style="text-align: right;">$1.27\times10^{-8}$</td>
+</tr>
+<tr>
+<td>Independent QuTiP BDF, same $(32,12)$</td>
+<td style="text-align: right;">$1.31\times10^{-7}$</td>
+</tr>
+<tr>
+<td>Change from 3–4 to 7–8 µs plateau</td>
+<td style="text-align: right;">$2.44\times10^{-5}$</td>
+</tr>
+</tbody>
+</table>
+<p>Trajectory comparisons use the maximum complex-field difference over both
+codewords and the full 0–4 µs interval. The last row instead compares the
+complex plateau means.</p>
+<p>All <strong>15 numerical acceptance checks pass</strong>. The maximum trace error is
+$4.00\times10^{-15}$, final Hermiticity error is zero, and the smallest final
+eigenvalue over the production sweep is $-5.76\times10^{-9}$. This small
+negative integration residual is recorded without clipping; the accepted
+state-health tolerance is $-10^{-7}$. The small numerical differences in the
+logarithmic diagnostic are not evidence of additional physical oscillations.</p>
+<p align="center">
+  <img src="figures/task_2_3_validation.png" width="860" alt="Readout controls and numerical **Numerical agreement.** Largest complex-field difference between each reference calculation and the production result, over both initial memory states, divided by $b_0=\epsilon_Z/(2\alpha g_2)$. References use independent QuTiP BDF and tighter Tsit5 integration at $(32,12)$, and a larger $(40,14)$ cutoff. The drive-strength check is in [notebook 08](../notebooks/08_task_2_3_readout.ipynb). Separate memory/buffer cutoff increases and an 8-µs run are recorded in the numerical table.the numerical table.
+
+
+<pre><code class="language-bash">pip install -r requirements.txt
+python -m tasks.task_2_3
+python -m unittest discover -s tests -v
+python -m tasks.task_2_3 --plot-only
+python -m tasks.task_2_3 --reanalyze
+</code></pre>
+
+
+The script writes [JSON metrics](../results/task_2_3.json), a
+[trajectory archive](../results/task_2_3_trajectories.npz), and PNG/PDF figures.
+Parameters, library versions, observable ordering, thresholds and source hashes
+accompany the results. `--reanalyze` refreshes the summaries, plateau-window
+metadata, derived flux and checks together, retaining the original simulation
+hashes. Physical parameters and cutoffs must match the archive; references must
+cover the required comparison interval. `--plot-only` redraws using archived
+parameters. The [notebook](../notebooks/08_task_2_3_readout.ipynb) loads the saved
+results by default and can rerun the calculation.
+
+## Measurement interpretation
+
+Let $\Delta\beta_R=\mathrm{Re}(\bar\beta_--\bar\beta_+)$ denote the separation between the two final real fields. The coherent signal flux carried by these opposite fields is
+$\kappa_b(\Delta\beta_R/2)^2=0.002311$ photons/µs. It excludes the shared imaginary component
+and incoherent emission, and sets the scale of the coherent readout signal.
+
+The reported time is the turn-on settling time of the conditional **mean**
+buffer response. A practical measurement must also integrate a noisy output
+record. Detector efficiency, amplifier noise, measurement records and
+single-shot classification are outside this master-equation calculation.
+Consequently, mean-field contrast does not establish a readout fidelity or an
+integration time.
+
+Likewise, the settled values describe local responses during a finite
+observation window. Eventual memory-bit switching can erase their initial-state
+dependence. The 8-µs check tests plateau stability over that interval; it does
+not establish an infinite-time stationary contrast or a protected bit-flip
+lifetime. Increasing the readout strength and quantifying that trade-off
+belong to Task 2.4.</main></body></html>

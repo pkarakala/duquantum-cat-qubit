@@ -10,8 +10,7 @@ export function boot(win: Window = window): void {
     if (painting) return;
     painting = true;
     try {
-      if (!win.location.hash) win.location.hash = "#/learn";
-      renderRoute(win.location.hash || "#/learn", root);
+            renderRoute(win.location.hash || "#/", root);
       root.focus({ preventScroll: true });
     } finally {
       painting = false;
