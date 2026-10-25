@@ -91,14 +91,15 @@ def p1_present() -> bool:
 
 
 def get_client():
+    """P0's dynamiqs runners when this branch has them. The mock is only a last resort."""
     try:
         from server.app import sim as p0
 
-        if hasattr(p0, "run_one_mode"):
+        if hasattr(p0, "run_one_mode") and hasattr(p0, "run_two_mode"):
             return _P0Client(p0)
     except Exception:
         pass
-    # P1 is in-browser. Without it, and without P0, the contract client is the mock.
+    # P1 runs in the browser. Without P0, the contract client is the labeled mock.
     return MockSimClient()
 
 
@@ -115,12 +116,18 @@ class _P0Client:
         return raw
 
     async def two_mode(self, req: dict) -> dict:
-        runner = getattr(self._module, "run_two_mode", None)
+        # A learner Hamiltonian is an ExprTree. The standard two-mode body has no H.
+        if isinstance(req.get("H"), dict) and req.get("modes") == "two":
+            runner = getattr(self._module, "run_expr", None)
+            source = "live-two-mode-16x5"
+        else:
+            runner = getattr(self._module, "run_two_mode", None)
+            source = "live-two-mode-16x5"
         if runner is None:
-            raise RuntimeError("run_two_mode missing")
+            raise RuntimeError("two-mode runner missing")
         raw = await asyncio.to_thread(runner, req)
         raw = dict(raw)
-        raw.setdefault("source", "live-two-mode-16x5")
+        raw.setdefault("source", source)
         return raw
 
 

@@ -125,6 +125,6 @@ class DemoBackboardClient:
                 if mid not in ids:
                     ids.append(mid)
         if not ids:
-            return "Demo memory: no misconceptions stored yet."
+            return "Demo memory: Demo mode: no misconceptions stored yet."
         listed = ", ".join(ids)
-        return f"Demo memory: this learner is still carrying {listed}. Those ideas are still open."
+        return f"Demo memory: Demo mode: this learner is still carrying {listed}. Those ideas are still open."

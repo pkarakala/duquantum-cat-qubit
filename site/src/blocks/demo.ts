@@ -1,3 +1,4 @@
+import { postExpr } from './client.js';
 import { serializeProgram, toLatex, toPython, validateProgram } from './expr.js';
 import { PRESET_NAMES, getPreset, type PresetName } from './presets.js';
 import { detect } from './wrong-builds.js';
@@ -11,6 +12,8 @@ const checks = document.querySelector<HTMLElement>('#checks')!;
 const presets = document.querySelector<HTMLElement>('#presets')!;
 const modes = document.querySelector<HTMLSelectElement>('#modes')!;
 const reload = document.querySelector<HTMLButtonElement>('#reload')!;
+const run = document.querySelector<HTMLButtonElement>('#run')!;
+const runStatus = document.querySelector<HTMLElement>('#run-status')!;
 
 let current: BlocksHandle | null = null;
 
@@ -31,6 +34,20 @@ modes.addEventListener('change', () => {
 reload.addEventListener('click', () => {
   if (!current) return;
   current.loadProgram(JSON.parse(json.textContent || '{}'));
+});
+
+run.addEventListener('click', () => {
+  if (!current) return;
+  const base = import.meta.env?.VITE_API_BASE || 'http://127.0.0.1:8000';
+  runStatus.textContent = 'Posting the ExprTree…';
+  void postExpr(base, current.getTree(), current.modes)
+    .then((body) => {
+      const meta = (body as { meta?: { engine?: string; compiled?: string } }).meta;
+      runStatus.textContent = `Live ${meta?.engine ?? 'server'}${meta?.compiled ? `: ${meta.compiled}` : ''}`;
+    })
+    .catch((error: unknown) => {
+      runStatus.textContent = error instanceof Error ? error.message : 'The API did not accept this tree.';
+    });
 });
 
 remount('two');

@@ -142,17 +142,15 @@ describe('linresp', () => {
       const g2 = raw.g2 ?? C.G2;
       const kappaB = raw.kappa_b ?? C.KAPPA_B;
       const alpha = raw.alpha ?? C.ALPHA;
-      const plus = response(raw.eps, raw.edges_us, g2, kappaB, alpha, 1, raw.t_us);
-      const minus = response(raw.eps, raw.edges_us, g2, kappaB, alpha, -1, raw.t_us);
+      // P0 stores one well's buffer (the file's `well`, default +1), not the valley difference.
+      const well = (raw as { well?: number }).well ?? 1;
+      const trace = response(raw.eps, raw.edges_us, g2, kappaB, alpha, well, raw.t_us);
       let err = 0;
       for (let i = 0; i < raw.t_us.length; i++) {
-        err = Math.max(err, Math.abs(plus.b.re[i] - minus.b.re[i] - raw.delta_b_re[i]));
-        err = Math.max(err, Math.abs(plus.b.im[i] - minus.b.im[i] - raw.delta_b_im[i]));
+        err = Math.max(err, Math.abs(trace.b.re[i] - raw.delta_b_re[i]));
+        err = Math.max(err, Math.abs(trace.b.im[i] - raw.delta_b_im[i]));
       }
-      const got = snr(plus.tUs, {
-        re: Float64Array.from(raw.t_us, (_, i) => plus.b.re[i] - minus.b.re[i]),
-        im: Float64Array.from(raw.t_us, (_, i) => plus.b.im[i] - minus.b.im[i]),
-      }, kappaB);
+      const got = snr(trace.tUs, trace.b, kappaB);
       expect(err).toBeLessThan(1e-9);
       expect(Math.abs(got - raw.snr)).toBeLessThan(1e-9);
     }

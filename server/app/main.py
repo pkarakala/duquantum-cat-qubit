@@ -420,7 +420,15 @@ async def _lifespan(_app: FastAPI):
     yield
 
 
+def _demo_memory_if_unkeyed() -> None:
+    """No Backboard key stays on the labeled demo adapter. Do not invent a key."""
+    if os.environ.get("BACKBOARD_API_KEY", "").strip():
+        return
+    os.environ.setdefault("BACKBOARD_MODE", "demo")
+
+
 def create_app() -> FastAPI:
+    _demo_memory_if_unkeyed()
     app = FastAPI(title="Cat Qubit Academy", version=APP_VERSION, lifespan=_lifespan)
     app.state.limiter = limiter
     origins = [item.strip() for item in os.environ.get("ALLOWED_ORIGINS", "").split(",") if item.strip()]

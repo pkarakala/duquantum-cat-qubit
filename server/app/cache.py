@@ -102,6 +102,14 @@ def store_run(row: dict) -> None:
 def reset_for_tests() -> None:
     _lru.clear()
     _sinks.clear()
+    # P5 registers its sink at import. Tests clear the list, then a sim must still reach it.
+    try:
+        from server.app.data.routes import store_run
+
+        if store_run not in _sinks:
+            _sinks.append(store_run)
+    except Exception:
+        pass
 
 
 def _redact(exc: Exception) -> str:

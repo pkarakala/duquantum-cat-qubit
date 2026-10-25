@@ -356,10 +356,40 @@ def _levels_payload(store, learner_id: str) -> dict:
     return {"levels": [_public_level(row) for row in store.get_progress(learner_id)]}
 
 
+def _log_without_tiger(body: object):
+    """A complete row still reaches P0's sink when Tiger is not configured.
+
+    An empty body stays feature_disabled, which is what the disabled-route test posts.
+    """
+    if not isinstance(body, dict):
+        return None
+    if not all(body.get(key) not in (None, "") for key in ("engine", "model", "params_hash")):
+        return None
+    if not isinstance(body.get("params"), (dict, list)):
+        return None
+    try:
+        parsed = _parse(RunIn, body)
+    except ChallengeError:
+        return None
+    assert isinstance(parsed, RunIn)
+    row = {key: getattr(parsed, key) for key in RUN_COLUMNS if key != "ts"}
+    row["ts"] = _now()
+    try:
+        from server.app import cache
+
+        cache.store_run(row)
+    except Exception:
+        logger.info("in-process run sink is unavailable")
+    return {"ok": True}
+
+
 @router.post("/api/runs")
 @rate_limited("60/minute")
 def post_runs(request: Request, store=Depends(get_store), body: dict | None = Body(default=None)):
     if store is None:
+        logged = _log_without_tiger(body)
+        if logged is not None:
+            return logged
         return _disabled()
     try:
         parsed = _parse(RunIn, body)

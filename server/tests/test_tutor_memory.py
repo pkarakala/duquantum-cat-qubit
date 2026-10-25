@@ -81,7 +81,7 @@ def test_recap_is_readonly_short_and_strips_numbers(monkeypatch, tmp_path):
 def test_no_key_is_503_and_timeout_is_502(monkeypatch, tmp_path):
     monkeypatch.setenv("ACADEMY_DATA_DIR", str(tmp_path))
     monkeypatch.delenv("BACKBOARD_API_KEY", raising=False)
-    monkeypatch.delenv("BACKBOARD_MODE", raising=False)
+    monkeypatch.setenv("BACKBOARD_MODE", "off")
     app = FastAPI()
     app.include_router(router)
     client = TestClient(app)

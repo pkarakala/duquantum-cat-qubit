@@ -10,12 +10,13 @@ export type CredentialBody = {
 };
 
 export type CredentialResult = {
-  asset_address: string;
-  tx_sig: string;
+  asset_address: string | null;
+  tx_sig: string | null;
   explorer_url: string | null;
   custodial: boolean;
   tx_url?: string | null;
   demo?: boolean;
+  demo_mode?: boolean;
   broadcast?: boolean;
   network?: string;
   notice?: string;

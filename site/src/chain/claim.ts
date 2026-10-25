@@ -88,12 +88,11 @@ function bodyOf(opts: ClaimOptions, wallet: string | undefined): CredentialBody 
 
 function renderDone(status: HTMLElement, result: CredentialResult, _fromRetry: boolean): void {
   status.replaceChildren();
-  if (result.demo === true || result.broadcast === false || result.network === "offline-demo") {
-    status.append(
-      document.createTextNode(
-        result.notice ?? "Demo signature only. Signed locally and not broadcast.",
-      ),
-    );
+  if (result.demo === true || result.demo_mode === true || result.broadcast === false || result.network === "offline-demo") {
+    const label = result.demo_mode
+      ? "Demo mode: no Solana key, so this credential was not broadcast."
+      : (result.notice ?? "Demo signature only. Signed locally and not broadcast.");
+    status.append(document.createTextNode(result.notice ?? label));
     return;
   }
   const url = result.explorer_url;

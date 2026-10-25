@@ -28,6 +28,14 @@ def _session(level_id, store, **kwargs):
     )
 
 
+def test_default_client_is_p0_not_mock():
+    from server.app.tutor.simbridge import get_client
+
+    client = get_client()
+    assert getattr(client, "label", "") == "p0"
+    assert getattr(client, "label", "") != "mock-sim"
+
+
 def test_declarations_are_the_five_contract_tools():
     assert [item["name"] for item in DECLARATIONS] == [
         "run_sim",

@@ -18,6 +18,8 @@ _llm_factory = None
 
 
 def _load_dotenv() -> None:
+    if os.environ.get("ACADEMY_SKIP_DOTENV") == "1":
+        return
     path = Path(__file__).resolve().parents[2] / ".env"
     if not path.is_file():
         return

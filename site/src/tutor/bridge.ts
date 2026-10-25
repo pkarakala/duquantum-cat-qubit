@@ -82,14 +82,33 @@ export function stubBridge(): AcademyBridge {
 
 export async function connectAcademy(): Promise<AcademyBridge> {
   try {
-    // P2 may be absent in this worktree. A literal specifier makes Vite fail the
-    // build; the variable keeps the import for when the academy package is there.
     const spec = "../academy/index.ts";
     const mod = (await import(/* @vite-ignore */ spec)) as {
-      controller: Parameters<typeof bridgeFromController>[0];
-      events: Parameters<typeof bridgeFromController>[1];
+      getLevelState: () => Record<string, unknown>;
+      setParam: (name: string, value: number | string) => void;
+      runSim: () => Promise<{ summary?: string; source?: string; result?: { summary?: string } } | null>;
+      showHint: (level?: number) => void;
+      nextLevel: () => void;
+      on: (type: string, fn: (payload: Record<string, unknown>) => void) => () => void;
     };
-    return bridgeFromController(mod.controller, mod.events);
+    return bridgeFromController(
+      {
+        getLevelState: () => mod.getLevelState(),
+        setParam: (name, value) => mod.setParam(name, value),
+        runSim: async () => {
+          const outcome = await mod.runSim();
+          return {
+            summary: outcome?.summary ?? outcome?.result?.summary ?? "",
+            source: outcome?.source ?? "academy",
+          };
+        },
+        showHint: (level) => {
+          mod.showHint(level);
+        },
+        nextLevel: () => mod.nextLevel(),
+      },
+      { on: mod.on },
+    );
   } catch {
     return stubBridge();
   }

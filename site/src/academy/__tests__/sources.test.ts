@@ -78,27 +78,47 @@ describe('source fallback', () => {
     ['drive_on_memory_not_buffer', 'eps_z_drive_wrong'],
     ['no_dissipation', 'missing_kappa_b'],
     ['wrong_conversion', 'a_bd2_wrong'],
-  ])('maps %s to %s without a fetch', async (key, presetId) => {
-    const fetchImpl = vi.fn(() => new Promise(() => {}));
+  ])('maps %s to %s after the live expr call fails', async (key, presetId) => {
+    const fetchImpl = vi.fn(() => Promise.reject(new Error('offline')));
     const out = await runLevelSim(l6Spec, { params: {}, tree: { op: 'x' } }, {
       deps: { apiBase: 'http://example.test', fetchImpl: fetchImpl as unknown as typeof fetch, detect: () => [{ key }] },
     });
-    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(fetchImpl).toHaveBeenCalled();
+    expect(String(fetchImpl.mock.calls[0]?.[0])).toContain('/api/sim/expr');
     expect(out.presetId).toBe(presetId);
   });
 
-  it('matches the correct python build without a fetch', async () => {
+  it('does not fetch a known wrong build when the API is unset', async () => {
     const fetchImpl = vi.fn();
+    const out = await runLevelSim(l6Spec, { params: {}, tree: { op: 'x' } }, {
+      deps: { fetchImpl, detect: () => [{ key: 'no_dissipation' }] },
+    });
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(out.presetId).toBe('missing_kappa_b');
+  });
+
+  it('uses the correct preset when the live expr call fails', async () => {
+    const fetchImpl = vi.fn(() => Promise.reject(new Error('offline')));
     const out = await runLevelSim(l6Spec, { params: {}, tree: { op: 'h' } }, {
       deps: {
         apiBase: 'http://example.test',
-        fetchImpl,
+        fetchImpl: fetchImpl as unknown as typeof fetch,
         detect: () => [],
         toPython: () => H2PH_CORRECT_PYTHON,
       },
     });
-    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(fetchImpl).toHaveBeenCalled();
     expect(out.presetId).toBe('correct');
+  });
+
+  it('keeps a live expr response and does not label it MOCK', async () => {
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({ t_us: [0, 2], na: [0, 4.41], meta: { engine: 'dynamiqs 0.3.7' } }), { status: 200 }));
+    const out = await runLevelSim(l6Spec, { params: { build: 'correct' } }, {
+      deps: { apiBase: 'http://example.test', fetchImpl: fetchImpl as unknown as typeof fetch },
+    });
+    expect(out.source).toBe('server');
+    expect(out.badge).toBe('Live · Vultr dynamiqs');
+    expect(out.badge).not.toBe('MOCK');
   });
 
   it('labels the in-browser fallback when nothing else is left', async () => {
@@ -109,9 +129,24 @@ describe('source fallback', () => {
     expect(out.badge).toMatch(/In-browser/);
   });
 
-  it('falls back to a preset when the worker rejects', async () => {
+  it('uses the in-browser solver when the worker rejects', async () => {
     const out = await runLevelSim(tsSpec, { params: { alpha: 2.1, state: 'coherent' } }, {
-      deps: { runInWorker: () => Promise.reject(new Error('worker down')) },
+      deps: {
+        runInWorker: () => Promise.reject(new Error('worker down')),
+        simulate: () => ({ tUs: [0], n: [4.41], meta: { engine: 'ts-cn' } }),
+      },
+    });
+    expect(out.source).toBe('ts');
+    expect(out.badge).toMatch(/In-browser/);
+    expect(out.badge).not.toBe('MOCK');
+  });
+
+  it('falls back to a preset when the worker and the solver both reject', async () => {
+    const out = await runLevelSim(tsSpec, { params: { alpha: 2.1, state: 'coherent' } }, {
+      deps: {
+        runInWorker: () => Promise.reject(new Error('worker down')),
+        simulate: () => { throw new Error('solver down'); },
+      },
     });
     expect(out.source).toBe('preset');
     expect(out.presetId).toBeTruthy();

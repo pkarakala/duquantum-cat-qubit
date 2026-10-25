@@ -20,10 +20,11 @@ def open_store() -> AcademyStore:
 
 
 def build_client(store: AcademyStore):
-    key = os.environ.get("BACKBOARD_API_KEY")
+    key = os.environ.get("BACKBOARD_API_KEY", "").strip()
     if key:
         return BackboardClient(key, store=store)
-    if os.environ.get("BACKBOARD_MODE") == "demo":
+    # No key uses the labeled demo adapter. Set BACKBOARD_MODE=off to disable it.
+    if os.environ.get("BACKBOARD_MODE", "demo").strip() in ("", "demo"):
         return DemoBackboardClient(store)
     return None
 
@@ -71,6 +72,9 @@ def post_event(store: AcademyStore, client, *, learner_id: str, level_id: str, k
     label = getattr(client, "label", None)
     if label:
         body["source"] = label
+    if label == "demo-adapter":
+        body["demo_mode"] = True
+        body["provider"] = "backboard"
     return body
 
 
@@ -82,6 +86,9 @@ def recap(store: AcademyStore, client, learner_id: str, level_id: str) -> dict:
     label = getattr(client, "label", None)
     if label:
         body["source"] = label
+    if label == "demo-adapter":
+        body["demo_mode"] = True
+        body["provider"] = "backboard"
     return body
 
 

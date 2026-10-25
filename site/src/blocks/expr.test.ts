@@ -87,7 +87,7 @@ describe('operator blocks', () => {
       'jnp.sqrt(kappa2)*(a@a - alpha*alpha*dq.eye(N))',
     );
     expect(toPython(getPreset('state_prep_x').H)).toBe('1j*eps_x*(a.dag() - a)');
-    expect(toPython(mul(param('K'), sym('n_a')))).toBe('K*(a.dag()@a)');
+    expect(toPython(mul(param('K'), sym('n_a')))).toBe('K*a.dag()@a');
     expect(toPython(num(2))).toBe('2');
     expect(toPython(num(0.5))).toBe('0.5');
     expect(toPython(num(1, 2))).toBe('(1+2j)');
@@ -109,7 +109,7 @@ describe('operator blocks', () => {
     const missing = mul(param('g2'), mul(pow(sym('a'), 2), sym('bd')));
     expect(isHermitianSymbolic(missing)).toBe(false);
     expect(isHermitianNumeric(missing)).toBe(false);
-    expect(toPython(missing)).toBe('g2*(a@a@b.dag())');
+    expect(toPython(missing)).toBe('g2*a@a@b.dag()');
     expect(isHermitianSymbolic(getPreset('state_prep_x').H)).toBe(true);
     expect(isHermitianNumeric(getPreset('state_prep_x').H)).toBe(true);
     expect(isHermitianSymbolic(getPreset('wrong_conversion').H)).toBe(true);
@@ -142,13 +142,13 @@ describe('operator blocks', () => {
       ['1j*eps_x*(ad - a)', '1j*eps_x*(a.dag() - a)'],
       ['sqrt(kappa2)*(a^2 - alpha^2*I)', 'jnp.sqrt(kappa2)*(a@a - alpha*alpha*dq.eye(N))'],
       ['dag(a)', 'a.dag()'],
-      ['g2*a^2*bd', 'g2*(a@a@b.dag())'],
+      ['g2*a^2*bd', 'g2*a@a@b.dag()'],
     ];
     for (const [input, python] of cases) {
       expect(toPython(parseEquation(input).H), input).toBe(python);
     }
     const dissipated = parseEquation('g2*a^2*bd + D[sqrt(kappa_b)*b]');
-    expect(toPython(dissipated.H)).toBe('g2*(a@a@b.dag())');
+    expect(toPython(dissipated.H)).toBe('g2*a@a@b.dag()');
     expect(toPython(dissipated.jumps[0])).toBe('jnp.sqrt(kappa_b)*b');
     expect(toPython(parseEquation(toPython(h2ph.H)).H)).toBe(toPython(h2ph.H));
     expect(toPython(parseEquation('a.dag()').H)).toBe('a.dag()');

@@ -1,15 +1,20 @@
 /** Learner shell: one loop for every level, scoped under .academy. */
 
-import { bind } from '../controller';
+import { bind, getLevelState, nextLevel, runSim, setParam, showHint } from '../controller';
 import { createLevelRun, type LevelRun } from '../engine';
+import { on } from '../events';
 import { coherentDecay, dftMagnitude, ONE_MHZ } from '../formulas';
 import { levelById, LEVELS } from '../levels';
 import { logLinear } from '../levels/metrics';
 import { gridFrom } from '../levels/L5';
 import { snrAt } from '../levels/L7';
+import { logRun, runRow } from '../logRun';
 import { fitPulse } from '../l8score';
 import { getLearnerId } from '../progress';
 import { getPreset } from '../presets';
+import { mountClaimCredential } from '../../chain/claim';
+import { bridgeFromController } from '../../tutor/bridge';
+import { mountTutor } from '../../tutor';
 import type { LevelId, LevelState, RunOutcome } from '../types';
 import { mountAha } from './ahaCard';
 import { mountCheckBanner } from './checkBanner';
@@ -60,6 +65,11 @@ function prefersStill(): boolean {
 }
 
 export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiBase?: string }): AcademyHandle {
+  function apiBase(): string {
+    const fromOpts = opts?.apiBase ?? import.meta.env.VITE_API_BASE ?? '';
+    return fromOpts.replace(/\/$/, '');
+  }
+
   ensureStyle();
   getLearnerId();
   let disposed = false;
@@ -230,6 +240,25 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     const tutor = document.createElement('div');
     tutor.dataset.slot = 'tutor';
     tutor.setAttribute('aria-label', 'Tutor');
+    const tutorBase = apiBase();
+    if (tutorBase) {
+      const bridge = bridgeFromController(
+        {
+          getLevelState: () => getLevelState() as Record<string, unknown>,
+          setParam: (name, value) => setParam(name, value),
+          runSim: async () => {
+            const outcome = (await runSim()) as { result?: { summary?: string }; source?: string } | null;
+            return { summary: outcome?.result?.summary ?? '', source: outcome?.source ?? 'academy' };
+          },
+          showHint: (level) => {
+            showHint(level);
+          },
+          nextLevel: () => nextLevel(),
+        },
+        { on },
+      );
+      mountTutor(tutor, bridge, { apiBase: tutorBase, askTutor: true, learnerId: getLearnerId() });
+    }
     const credential = document.createElement('div');
     credential.dataset.slot = 'credential';
     credential.hidden = true;
@@ -237,12 +266,26 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     function showCredential() {
       credential.hidden = false;
       credential.replaceChildren();
-      const note = document.createElement('p');
-      note.textContent = 'Cat Qubit Architect credential slot. The chain service is in demo mode until it is connected.';
+      const base = apiBase();
+      if (!base) {
+        const note = document.createElement('p');
+        note.textContent = 'Demo mode: no Solana key, so this credential was not broadcast.';
+        const link = document.createElement('a');
+        link.href = '#/inflate';
+        link.textContent = 'Unlock Real Research';
+        credential.append(note, link);
+        return;
+      }
+      mountClaimCredential(credential, {
+        apiBase: base,
+        learnerId: getLearnerId(),
+        alias: 'learner',
+        levelsPassed: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'],
+      });
       const link = document.createElement('a');
       link.href = '#/inflate';
       link.textContent = 'Unlock Real Research';
-      credential.append(note, link);
+      credential.append(link);
     }
 
     const board = document.createElement('form');
@@ -307,6 +350,10 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
         badge.set(outcome.badge, outcome.banner);
         paintResult(active, outcome);
         checkButton.disabled = false;
+        const base = apiBase();
+        if (base) {
+          void logRun(base, runRow(spec.id, getLearnerId(), outcome.source, active.params, outcome.result.summary));
+        }
       } catch (error) {
         if (id !== seq) return;
         badge.set('MOCK', error instanceof Error ? error.message : 'Run failed');

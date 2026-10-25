@@ -645,7 +645,7 @@ function pySym(name: string): string {
     case 'I':
       return 'dq.eye(N)';
     case 'n_a':
-      return '(a.dag()@a)';
+      return 'a.dag()@a';
     default:
       return name;
   }
@@ -722,6 +722,7 @@ function expandPow(tree: ExprTree): ExprTree {
   switch (tree.op) {
     case 'pow': {
       const base = expandPow(tree.base);
+      if (!Number.isInteger(tree.exp)) return { op: 'pow', base, exp: tree.exp };
       if (tree.exp === 0) return num(1);
       if (tree.exp === 1) return base;
       return { op: 'mul', args: Array.from({ length: tree.exp }, () => base) };
@@ -791,7 +792,8 @@ function splitSign(tree: ExprTree): { sign: 1 | -1; rest: ExprTree } {
 }
 
 export function toPython(tree: ExprTree): string {
-  return formatTop(expandPow(pushDag(tree)));
+  // Match server/app/expr.py: expand integer powers, and do not cancel daggers.
+  return formatTop(expandPow(tree));
 }
 
 function formatTop(tree: ExprTree): string {
@@ -829,14 +831,18 @@ function formatMul(tree: ExprTree): string {
     if (last && last.scalar === scalar) last.items.push(factor);
     else runs.push({ scalar, items: [factor] });
   }
-  const onlyOps = runs.length === 1 && !runs[0].scalar;
   const rendered = runs.map((run) => {
     if (run.scalar) return run.items.map((item) => formatAtom(item)).join('*');
-    const inner = run.items.map((item) => formatAtom(item)).join('@');
-    if (!onlyOps && run.items.length >= 2) return `(${inner})`;
-    return inner;
+    return run.items.map((item) => formatAtom(item)).join('@');
   });
   return rendered.join('*');
+}
+
+function formatDag(arg: ExprTree): string {
+  if (arg.op === 'sym' && (arg.name === 'a' || arg.name === 'b')) return `${arg.name}.dag()`;
+  const inner = formatAtom(arg);
+  if (arg.op === 'sym' || arg.op === 'dag' || arg.op === 'param' || arg.op === 'num') return `${inner}.dag()`;
+  return `(${inner}).dag()`;
 }
 
 function formatAtom(tree: ExprTree): string {
@@ -854,12 +860,17 @@ function formatAtom(tree: ExprTree): string {
     case 'sym':
       return pySym(tree.name);
     case 'pow': {
+      if (!Number.isInteger(tree.exp)) {
+        const atom = formatAtom(tree.base);
+        const wrapped = atom.startsWith('(') ? atom : `(${atom})`;
+        return `${wrapped}**${tree.exp}`;
+      }
       const joiner = isScalarTree(tree.base) ? '*' : '@';
-      if (tree.exp === 0) return '1';
+      if (tree.exp === 0) return isScalarTree(tree.base) ? '1' : 'dq.eye(N)';
       return Array.from({ length: tree.exp }, () => formatAtom(tree.base)).join(joiner);
     }
     case 'dag':
-      return formatAtom(pushDag(tree));
+      return formatDag(tree.arg);
     default:
       return '?';
   }

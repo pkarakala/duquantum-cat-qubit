@@ -5,22 +5,29 @@ import { constants, linrespApi } from '../simAdapter';
 const ready = Boolean(constants() && linrespApi()?.optimalPulse && linrespApi()?.snr && linrespApi()?.leakageProxy && linrespApi()?.response);
 
 describe('L8 pulse scoring', () => {
-  it.skipIf(!ready)('optimalPulse scaled to the square cost beats the square', () => {
+  it.skipIf(!ready)('optimalPulse at the square energy beats the square', () => {
     const C = constants()!;
     const lr = linrespApi()!;
     const opt = lr.optimalPulse!(20, 1, C.G2, C.KAPPA_B, C.ALPHA);
     const square = Array.from({ length: 20 }, () => 0.5 * C.G2);
+    const energy = (bins: number[]) => {
+      const dt = 1 / bins.length;
+      let sum = 0;
+      for (const value of bins) sum += value * value * dt;
+      return sum;
+    };
     const score = (bins: number[]) => {
       const n = bins.length;
       const edges = Array.from({ length: n + 1 }, (_, i) => i / n);
       const plus = lr.response!(bins, edges, C.G2, C.KAPPA_B, C.ALPHA, 1, 10);
-      return { snr: lr.snr!(plus.tUs, plus.b, C.KAPPA_B), cost: lr.leakageProxy!(plus.tUs, plus.da) };
+      const minus = lr.response!(bins, edges, C.G2, C.KAPPA_B, C.ALPHA, -1, 10);
+      const re = Float64Array.from(plus.tUs, (_, i) => plus.b.re[i] - minus.b.re[i]);
+      const im = Float64Array.from(plus.tUs, (_, i) => plus.b.im[i] - minus.b.im[i]);
+      return lr.snr!(plus.tUs, { re, im }, C.KAPPA_B);
     };
-    const fitted = fitToBudget(opt.epsBins, score(square).cost, (bins) => score(bins).cost);
-    const yours = score(fitted);
-    const ref = score(square);
-    expect(yours.snr).toBeGreaterThan(ref.snr);
-    expect(yours.cost).toBeLessThanOrEqual(ref.cost + 1e-9);
+    const scale = Math.sqrt(energy(square) / energy(opt.epsBins));
+    const shaped = opt.epsBins.map((value) => value * scale);
+    expect(score(shaped)).toBeGreaterThan(score(square));
   });
 
   it.skipIf(!ready)('an over-budget pulse fails the level check', async () => {

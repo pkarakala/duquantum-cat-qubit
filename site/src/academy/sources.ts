@@ -3,6 +3,8 @@
  * Every network call has a timeout. No VITE_API_BASE means no fetch at all.
  */
 
+import { getPreset as blockPreset } from '../blocks/presets';
+import { EPS_D, G2, KAPPA_A, KAPPA_B } from '../sim/config';
 import { detectTree, toPythonTree } from './blocksAdapter';
 import { recordFile, recordOrigin } from './data/records';
 import { H2PH_CORRECT_PYTHON, BUILD_KEYS } from './levels/L6';
@@ -150,20 +152,62 @@ async function inBrowser(deps: SourceDeps | undefined, banner: string): Promise<
   }
 }
 
+const BUILD_TO_BLOCKS: Record<string, string> = {
+  correct: 'h2ph_correct',
+  missing_kappa_b: 'wrong_no_dissipation',
+  eps_z_drive_wrong: 'wrong_drive_on_memory',
+  a_bd2_wrong: 'wrong_conversion',
+};
+
+function exprBody(state: LevelState): Record<string, unknown> {
+  const tree = (state.tree ?? {}) as { H?: unknown; jumps?: unknown };
+  const build = typeof state.params.build === 'string' ? state.params.build : '';
+  let H = tree.H ?? state.H ?? null;
+  let jumps = tree.jumps ?? state.jumps ?? [];
+  if (H == null && BUILD_TO_BLOCKS[build]) {
+    try {
+      const preset = blockPreset(BUILD_TO_BLOCKS[build]);
+      H = preset.H;
+      jumps = preset.jumps;
+    } catch {
+      /* The named build still has a preset fallback below. */
+    }
+  }
+  return {
+    H,
+    jumps,
+    params: { g2: G2, eps_d: EPS_D, kappa_b: KAPPA_B, kappa_a: KAPPA_A },
+    modes: 'two',
+    Na: 16,
+    Nb: 5,
+    init: 'vacuum',
+    t_end_us: 2,
+    n_t: 201,
+    outputs: ['na', 'nb', 'top2_a', 'top_b'],
+    level_id: 'L6',
+  };
+}
+
 async function runTs(spec: LevelSpec, state: LevelState, opts: RunOpts): Promise<RunOutcome> {
   const deps = opts.deps;
   const rows = catalog(deps);
   const worker = deps?.runInWorker ?? workerAdapter;
+  const simulate = deps?.simulate ?? simulateAdapter;
+  const req = spec.sim.request(state);
   try {
-    const req = spec.sim.request(state);
-    const result = (await withTimeout(Promise.resolve(worker(req)), 5000)) as SimResultLike;
+    const result = (await withTimeout(Promise.resolve(worker(req)), 8000)) as SimResultLike;
     return { result, source: 'ts', badge: BADGE_BROWSER };
   } catch {
-    const nearest = nearestPreset(spec.id, state.params, rows) ?? getPreset(spec.preset, rows);
-    if (nearest) {
-      return fromPreset(nearest, { banner: 'In-browser sim unavailable: showing a precomputed preset.' });
+    try {
+      const result = (await Promise.resolve(simulate(req))) as SimResultLike;
+      return { result, source: 'ts', badge: BADGE_BROWSER };
+    } catch {
+      const nearest = nearestPreset(spec.id, state.params, rows) ?? getPreset(spec.preset, rows);
+      if (nearest) {
+        return fromPreset(nearest, { banner: 'In-browser sim unavailable: showing a precomputed preset.' });
+      }
+      return inBrowser(deps, 'effective one-mode model');
     }
-    return inBrowser(deps, 'effective one-mode model');
   }
 }
 
@@ -188,6 +232,17 @@ async function runServer(spec: LevelSpec, state: LevelState, opts: RunOpts, ms: 
 async function runExpr(spec: LevelSpec, state: LevelState, opts: RunOpts): Promise<RunOutcome> {
   const deps = opts.deps;
   const rows = catalog(deps);
+  const base = apiBaseOf(deps);
+  if (base) {
+    try {
+      const result = (await postJson(`${base}/api/sim/expr`, exprBody(state), deps, 15000, opts.onProgress)) as SimResultLike;
+      return { result, source: 'server', badge: BADGE_LIVE };
+    } catch {
+      /* Named builds and the reference preset are the fallback. */
+    }
+  } else if (opts.onProgress) {
+    opts.onProgress({ fraction: 1, message: 'Offline: skipping the live run.' });
+  }
   const build = typeof state.params.build === 'string' ? state.params.build : '';
   if (build && getPreset(build, rows)) {
     const entry = getPreset(build, rows)!;
@@ -202,36 +257,6 @@ async function runExpr(spec: LevelSpec, state: LevelState, opts: RunOpts): Promi
   if (isCorrectPython(pythonOf(state, deps))) {
     const entry = getPreset('correct', rows) ?? getPreset(spec.preset, rows);
     if (entry) return fromPreset(entry);
-  }
-  const base = apiBaseOf(deps);
-  if (base) {
-    const tree = (state.tree ?? {}) as { H?: unknown; jumps?: unknown };
-    const nominal = (getPreset('correct', rows)?.result.nominal ?? {}) as Record<string, number>;
-    const body = {
-      H: tree.H ?? state.H ?? null,
-      jumps: tree.jumps ?? state.jumps ?? [],
-      params: {
-        g2: nominal.g2 ?? 0,
-        eps_d: nominal.eps_d ?? 0,
-        kappa_b: nominal.kappa_b ?? 0,
-        kappa_a: nominal.kappa_a ?? 0,
-      },
-      modes: 'two',
-      Na: 16,
-      Nb: 5,
-      init: 'vacuum',
-      t_end_us: 2,
-      n_t: 201,
-      outputs: ['na', 'nb', 'top2_a', 'top_b'],
-    };
-    try {
-      const result = (await postJson(`${base}/api/sim/expr`, body, deps, 15000, opts.onProgress)) as SimResultLike;
-      return { result, source: 'server', badge: BADGE_LIVE };
-    } catch {
-      /* fall through */
-    }
-  } else if (opts.onProgress) {
-    opts.onProgress({ fraction: 1, message: 'Offline: skipping the live run.' });
   }
   const correct = getPreset('correct', rows) ?? getPreset(spec.preset, rows);
   if (correct) return fromPreset(correct, { banner: L6_NOT_YOURS });
