@@ -133,7 +133,7 @@ The objective is a shorter complete cycle at a common signal target, with the es
 For the model's opposite real buffer responses, use ideal detection efficiency and the fixed real quadrature:
 
 $$
-\mathcal I(T)=\kappa_b\int_0^T[\operatorname{Re}(B_+-B_-)]^2dt,
+\mathcal I(T)=\kappa_b\int_0^T[\mathrm{Re}(B_+-B_-)]^2dt,
 \qquad \mathrm{SNR}^2=4\mathcal I.
 $$
 
@@ -223,21 +223,21 @@ P_{\rm code}=|C_+\rangle\langle C_+|+|C_-\rangle\langle C_-|,
 \qquad |0_L,1_L\rangle=(|C_+\rangle\pm|C_-\rangle)/\sqrt2.
 $$
 
-For an initially positive codeword, $p_X=\langle1_L|\rho_a|1_L\rangle$ after the stated recovery; the reverse branch is evaluated independently. We report the worse branch, without postselection. Leakage is $1-\operatorname{Tr}(P_{\rm code}\rho_a)$. The initial coherent-state population in the opposite exact logical basis is $5.46\times10^{-9}$ at $\alpha_0$ and is retained. These populations are not counts of detected switching events.
+For an initially positive codeword, $p_X=\langle1_L|\rho_a|1_L\rangle$ after the stated recovery; the reverse branch is evaluated independently. We report the worse branch, without postselection. Leakage is $1-\mathrm{Tr}(P_{\rm code}\rho_a)$. The initial coherent-state population in the opposite exact logical basis is $5.46\times10^{-9}$ at $\alpha_0$ and is retained. These populations are not counts of detected switching events.
 
 For $B_s(t)=\langle b\rangle_s$ and $\Delta B=B_+-B_-$, input-output theory gives $b_{\rm out}=b_{\rm in}+\sqrt{\kappa_b}b$. Under the unit-Wiener homodyne convention,
 
 $$
-dY_s=2\sqrt{\eta\kappa_b}\operatorname{Re}(e^{-i\vartheta}B_s)dt+dW,
+dY_s=2\sqrt{\eta\kappa_b}\mathrm{Re}(e^{-i\vartheta}B_s)dt+dW,
 \qquad
-\mathcal I_\vartheta(T)=\eta\kappa_b\int_0^T[\operatorname{Re}(e^{-i\vartheta}\Delta B)]^2dt.
+\mathcal I_\vartheta(T)=\eta\kappa_b\int_0^T[\mathrm{Re}(e^{-i\vartheta}\Delta B)]^2dt.
 $$
 
 Optimal temporal weighting then gives $\mathrm{SNR}^2=4\mathcal I_\vartheta$. The local-oscillator phase $\vartheta$ is fixed during a record and optimized as stated; no time-dependent quadrature tracking is presumed. With coherent Gaussian outputs and equal priors, the ideal classification error is $\Phi_{\rm N}(-\sqrt{\mathcal I})$, where $\Phi_{\rm N}$ is the standard normal cumulative distribution. Thus **$\mathcal I=1$ means 15.9% ideal Gaussian error, not 1% error**. The delivered $\mathcal I$ is a mean-signal shot-noise reference. Actual single-shot fidelity requires record statistics, including switching and non-Gaussian noise, which are not simulated here.
 
 ## Rate extraction
 
-Here $\Gamma_X$ is the logical population-imbalance decay exponent used in Task 2.1. In a two-state model, $\Gamma_X=r_{01}+r_{10}$; each one-way rate equals $\Gamma_X/2$ only for symmetric switching. We identify a near-zero real Liouvillian mode that couples to the initial codeword difference and $\operatorname{Re}\langle a\rangle$. Independent time-domain cases check the method where decay is resolvable. This avoids fitting the drive's initial displacement as a bit flip; it does not provide a full-spectrum proof that no other relevant slower mode exists.
+Here $\Gamma_X$ is the logical population-imbalance decay exponent used in Task 2.1. In a two-state model, $\Gamma_X=r_{01}+r_{10}$; each one-way rate equals $\Gamma_X/2$ only for symmetric switching. We identify a near-zero real Liouvillian mode that couples to the initial codeword difference and $\mathrm{Re}\langle a\rangle$. Independent time-domain cases check the method where decay is resolvable. This avoids fitting the drive's initial displacement as a bit flip; it does not provide a full-spectrum proof that no other relevant slower mode exists.
 
 ## Information-induced dephasing is a different effect
 

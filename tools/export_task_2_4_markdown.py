@@ -2,7 +2,8 @@
 """Export the report and appendices as readable GitHub Markdown.
 
 Scientific text, equations and figure paths come from the canonical PDF source.
-Only document navigation, heading levels and PDF-only layout commands change.
+Document navigation, heading levels, PDF layout and math delimiters are adapted.
+GitHub's protected math syntax keeps Markdown from consuming LaTeX punctuation.
 """
 from pathlib import Path
 import re
@@ -14,6 +15,21 @@ APPENDIX_ANCHORS = {
     'B': 'appendix-b-definitions-and-numerical-validation',
     'C': 'appendix-c-additional-controls-and-diagnostic-checks',
 }
+
+
+def github_math(text):
+    """Protect TeX from Markdown parsing and use portable unit/label macros."""
+    def expression(match):
+        display = match.group(1) is not None
+        tex = match.group(1) if display else match.group(2)
+        tex = tex.replace(r'\mathrm{µs}', r'\mu\mathrm{s}')
+        tex = re.sub(r'\\rm\s+([^{}]+)', r'\\mathrm{\1}', tex)
+        tex = re.sub(r'\\operatorname\{([^{}]+)\}', r'\\mathrm{\1}', tex)
+        if display:
+            return '```math\n' + tex.strip() + '\n```'
+        return '$`' + tex + '`$'
+
+    return re.sub(r'\$\$([\s\S]*?)\$\$|(?<!\$)\$([^$\n]+)\$(?!\$)', expression, text)
 
 
 def format_markdown(text, *, appendix=False, first_figure=1):
@@ -62,7 +78,10 @@ def build():
     appendices = '# Task 2.4: supporting appendices\n\n[Main report: parts (a)-(d)](task_2_4_report.md)\n\n' + appendices
     paths = [DOCS / 'task_2_4_report.md', DOCS / 'task_2_4_appendices.md']
     for path, content in zip(paths, [main, appendices]):
+        content = github_math(content)
         assert '\\Needspace' not in content and '\\clearpage' not in content
+        assert '\\operatorname' not in content, 'Use renderer-compatible math macros'
+        assert '\\rm ' not in content and '\\mathrm{µs}' not in content
         assert not re.search(r'\)\{width=', content)
         comment = '<!-- Generated from task_2_4_final.md by tools/export_task_2_4_markdown.py. -->\n\n'
         path.write_text(comment + content)

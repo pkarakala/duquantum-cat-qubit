@@ -1,10 +1,10 @@
 {
-  "recorded_utc": "2026-10-25T13:41:59.238150+00:00",
-  "scope": "Causal-story cleanup: five-page core, explicit speed/protection benchmarks, separate static-rate and full-cycle population tests; unchanged numerical results",
+  "recorded_utc": "2026-10-25T13:49:14.713602+00:00",
+  "scope": "Math rendering compatibility: portable macros and units, protected GitHub inline/display delimiters; unchanged scientific results",
   "pdf": {
     "path": "output/pdf/task_2_4_final_report.pdf",
-    "sha256": "0adc43bbbd04f086475cc2c3bc2d9bb26342c6ccbe66801baaedeec50d171840",
-    "source_sha256": "501ba6b4e313de47c31a5906a209102e7649b4195faab10b844b26062fae0109",
+    "sha256": "1b8b36b360246808877cdaadb6cc6f2f90977f8886282128c8b8024e778038e0",
+    "source_sha256": "81d0cc9bbc9c225577cfd847efb0f38f53151a0186dab38b5c78eecf47af7064",
     "page_count": 14,
     "machine_checks_pass": true,
     "agent_visual_review": "Main pages and all appendix renders inspected; no clipping, overfull boxes, missing glyphs or broken local links",
@@ -19,7 +19,7 @@
   },
   "synthesis_notebook": {
     "path": "notebooks/10_task_2_4_final_synthesis.ipynb",
-    "sha256": "58a6613dc7741b3ffb0cea38d9a243018a235a36e1bf06aaefd5fbb40dc40323",
+    "sha256": "1cad7d084a863f2cf3977f0edad1c99b5697a157e6addc5a31e9dcf358c155ee",
     "executed_code_cells": 6,
     "error_outputs": 0
   },
@@ -57,5 +57,18 @@
     "Weak-readout speed benchmark distinct from undriven-storage rate benchmark",
     "Static rate does not substitute for recovered whole-cycle error",
     "Supplementary methods, alternative controls and matched-idle check remain in appendices"
-  ]
+  ],
+  "markdown_render_validation": {
+    "files": [
+      "docs/task_2_4_report.md",
+      "docs/task_2_4_appendices.md"
+    ],
+    "main_equations": 104,
+    "appendix_equations": 117,
+    "strict_katex_pass": true,
+    "mathjax_render_pass": true,
+    "export_deterministic": true,
+    "math_delimiters": "GitHub dollar-backtick inline and fenced math display",
+    "unicode_micro_in_math_replaced": true
+  }
 }
