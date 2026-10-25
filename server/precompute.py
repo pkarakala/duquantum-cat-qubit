@@ -322,15 +322,16 @@ def _response(edges, eps, well=1.0):
         state = _step(matrix, state, drive_vec * float(eps[bin_index]), float(t - prev))
         buffer.append(state[1])
         prev = float(t)
-    b = np.asarray(buffer)
+    # Flipping the well flips b, so the valley difference is Δb = b(+α) − b(−α) = 2 b(well).
+    delta_b = 2.0 * well * np.asarray(buffer)
     trap = getattr(np, "trapezoid", None) or np.trapz
-    snr = float(kappa_b * trap(np.abs(b) ** 2, times))
+    snr = float(kappa_b * trap(np.abs(delta_b) ** 2, times))
     return {
         "edges_us": [float(v) for v in edges],
         "eps": [float(v) for v in eps],
         "t_us": [float(v) for v in times],
-        "delta_b_re": [float(v) for v in np.real(b)],
-        "delta_b_im": [float(v) for v in np.imag(b)],
+        "delta_b_re": [float(v) for v in np.real(delta_b)],
+        "delta_b_im": [float(v) for v in np.imag(delta_b)],
         "snr": snr,
         "poles_re": [float(v) for v in np.real(poles)],
         "poles_im": [float(v) for v in np.imag(poles)],
@@ -356,7 +357,9 @@ def write_linresp() -> None:
     eps = [0.5 * g2 * 0.5 * (1 - np.cos(np.pi * (i + 0.5) / n_bins)) for i in range(n_bins)]
     _dump(LINRESP / "square.json", square)
     _dump(LINRESP / "cosramp.json", _response(edges, eps))
-    _dump(LINRESP / "clear.json", _response([0.0, 1.0], [0.0]))
+    # CLEAR: kick, hold, reverse kick, off (the leaderboard's over-budget reference).
+    clear = [1.0] * 2 + [0.5] * 14 + [-0.5] * 2 + [0.0] * 2
+    _dump(LINRESP / "clear.json", _response(edges, [g2 * v for v in clear]))
 
 
 def write_index() -> None:

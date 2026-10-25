@@ -431,7 +431,7 @@ def create_app() -> FastAPI:
     _demo_memory_if_unkeyed()
     app = FastAPI(title="Cat Qubit Academy", version=APP_VERSION, lifespan=_lifespan)
     app.state.limiter = limiter
-    origins = [item.strip() for item in os.environ.get("ALLOWED_ORIGINS", "").split(",") if item.strip()]
+    origins = [item.strip() for item in os.environ.get("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if item.strip()]
     if "null" not in origins:
         origins.append("null")
     app.add_middleware(
