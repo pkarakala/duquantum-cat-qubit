@@ -13,15 +13,16 @@ import { ALPHA, KAPPA_2, KAPPA_A } from "../sim/config";
 import type { ExprTree as SimTree } from "../sim/expr";
 import { runInWorker } from "../sim/index";
 import { mountAcademy, type AcademyHandle, type LevelId } from "./index";
+import { showBetterReadout, showBitFlips, showPhaseFlips, showReadout } from "../research/pages";
 
 export const ROUTE_HASHES = {
   learn: "#/learn",
   sandbox: "#/sandbox",
   challenge: "#/challenge",
-  inflate: "#/inflate",
-  errors: "#/errors",
+  bitflips: "#/bitflips",
+  phaseflips: "#/phaseflips",
   readout: "#/readout",
-  verify: "#/verify",
+  better: "#/better",
   about: "#/about",
 } as const;
 
@@ -37,25 +38,6 @@ export interface ResolvedRoute {
   navHash: string;
 }
 
-const RESEARCH: Record<string, { title: string; blurb: string }> = {
-  [ROUTE_HASHES.inflate]: {
-    title: "Inflate",
-    blurb: "The inflation viewer reads the committed research records. It ships with the physics lab, and it is not in this Academy bundle.",
-  },
-  [ROUTE_HASHES.errors]: {
-    title: "Error budget",
-    blurb: "The error-budget viewer reads the committed research records. It ships with the physics lab, and it is not in this Academy bundle.",
-  },
-  [ROUTE_HASHES.readout]: {
-    title: "Readout designer",
-    blurb: "The readout designer reads the committed research records. It ships with the physics lab, and it is not in this Academy bundle.",
-  },
-  [ROUTE_HASHES.verify]: {
-    title: "Verification",
-    blurb: "The verification viewer reads the committed research records. It ships with the physics lab, and it is not in this Academy bundle.",
-  },
-};
-
 export function academyRoute(hash: string): ResolvedRoute | null {
   const path = (hash || ROUTE_HASHES.learn).replace(/^#/, "");
   if (path === "/learn" || path === "/" || path === "") {
@@ -67,10 +49,10 @@ export function academyRoute(hash: string): ResolvedRoute | null {
   }
   if (path === "/sandbox") return { name: "sandbox", title: "Sandbox", levelId: null, navHash: ROUTE_HASHES.sandbox };
   if (path === "/challenge") return { name: "challenge", title: "Challenge", levelId: null, navHash: ROUTE_HASHES.challenge };
-  if (path === "/inflate") return { name: "inflate", title: "Inflate", levelId: null, navHash: ROUTE_HASHES.inflate };
-  if (path === "/errors") return { name: "errors", title: "Error budget", levelId: null, navHash: ROUTE_HASHES.errors };
-  if (path === "/readout") return { name: "readout", title: "Readout designer", levelId: null, navHash: ROUTE_HASHES.readout };
-  if (path === "/verify") return { name: "verify", title: "Verification", levelId: null, navHash: ROUTE_HASHES.verify };
+  if (path === "/bitflips") return { name: "bitflips", title: "Bit flips", levelId: null, navHash: ROUTE_HASHES.bitflips };
+  if (path === "/phaseflips") return { name: "phaseflips", title: "Phase flips", levelId: null, navHash: ROUTE_HASHES.phaseflips };
+  if (path === "/readout") return { name: "readout", title: "Readout", levelId: null, navHash: ROUTE_HASHES.readout };
+  if (path === "/better") return { name: "better", title: "Better readout", levelId: null, navHash: ROUTE_HASHES.better };
   if (path === "/about") return { name: "about", title: "About", levelId: null, navHash: ROUTE_HASHES.about };
   return null;
 }
@@ -265,19 +247,18 @@ function showChallenge(root: HTMLElement): void {
     });
 }
 
-function showResearch(root: HTMLElement, hash: string): void {
+function showResearch(root: HTMLElement, name: RouteName): void {
   closeAcademy();
   closeBlocks();
   root.classList.remove("academy");
   delete root.dataset.level;
-  const info = RESEARCH[hash] ?? { title: "Real Research", blurb: "This viewer is not in the Academy bundle." };
-  const lede = paragraph("lede", info.blurb);
-  const back = document.createElement("p");
-  const link = document.createElement("a");
-  link.href = ROUTE_HASHES.learn;
-  link.textContent = "Back to Learn";
-  back.append(link);
-  root.replaceChildren(page(info.title, lede, back));
+  const pages: Partial<Record<RouteName, (root: HTMLElement) => void>> = {
+    bitflips: showBitFlips,
+    phaseflips: showPhaseFlips,
+    readout: showReadout,
+    better: showBetterReadout,
+  };
+  (pages[name] ?? showMissing)(root);
 }
 
 function showAbout(root: HTMLElement): void {
@@ -332,5 +313,5 @@ export function renderRoute(hash: string, root: HTMLElement): void {
     showAbout(root);
     return;
   }
-  showResearch(root, route.navHash);
+  showResearch(root, route.name);
 }

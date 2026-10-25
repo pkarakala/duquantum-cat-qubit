@@ -17,6 +17,9 @@ import { bridgeFromController } from '../../tutor/bridge';
 import { mountTutor } from '../../tutor';
 import type { LevelId, LevelState, RunOutcome } from '../types';
 import { mountAha } from './ahaCard';
+
+/** LEVELS.md uses *emphasis*; the UI shows plain text. */
+const plain = (text: string): string => text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*\s][^*]*)\*/g, '$1');
 import { mountCheckBanner } from './checkBanner';
 import { mountCode } from './codeToggle';
 import { mountConcept } from './conceptCard';
@@ -120,7 +123,8 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     const header = document.createElement('header');
     const eyebrow = document.createElement('p');
     eyebrow.className = 'eyebrow';
-    eyebrow.textContent = `Learn · ${spec.minutes} min · ${spec.sim.engine}`;
+    const engine = { ts: 'browser solver', 'server-expr': 'dynamiqs API', records: 'saved results' }[spec.sim.engine as string] ?? spec.sim.engine;
+    eyebrow.textContent = `Learn · ${spec.minutes} min · ${engine}`;
     const title = document.createElement('h1');
     title.textContent = `${spec.id} · ${spec.title}`;
     const mapHost = document.createElement('div');
@@ -145,7 +149,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     radios(predictHost, spec.predict.question, spec.predict.options, (id) => {
       const option = spec.predict.options.find((item) => item.id === id);
       run.choose(id);
-      feedback.textContent = option?.feedback ?? '';
+      feedback.textContent = plain(option?.feedback ?? '');
     });
     predictHost.append(feedback);
     if (spec.predictFollowUp) {
@@ -211,7 +215,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
       const verdict = run.check();
       banner.set(verdict.message, verdict.pass);
       if (verdict.pass) {
-        aha.show(spec.aha);
+        aha.show(plain(spec.aha));
         if (spec.id === 'L8') showCredential();
         mountProgress(mapHost, spec, (id) => api.navigate(id));
       }
@@ -271,8 +275,8 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
         const note = document.createElement('p');
         note.textContent = 'Demo mode: no Solana key, so this credential was not broadcast.';
         const link = document.createElement('a');
-        link.href = '#/inflate';
-        link.textContent = 'Unlock Real Research';
+        link.href = '#/bitflips';
+        link.textContent = 'See our research results';
         credential.append(note, link);
         return;
       }
@@ -283,8 +287,8 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
         levelsPassed: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'],
       });
       const link = document.createElement('a');
-      link.href = '#/inflate';
-      link.textContent = 'Unlock Real Research';
+      link.href = '#/bitflips';
+      link.textContent = 'See our research results';
       credential.append(link);
     }
 
@@ -443,8 +447,8 @@ async function drawPlots(host: HTMLElement, run: LevelRun, outcome: RunOutcome) 
     ], { xlabel: 't (µs)', ylabel: '⟨n⟩' });
   } else if ((run.spec.id === 'L3' || run.spec.id === 'L4') && result.tUs && result.n) {
     const series = [{ x: result.tUs, y: result.n, name: '⟨n⟩' }];
-    if (result.parity) series.push({ x: result.tUs, y: result.parity, name: 'parity' });
-    await plot(host, series, { xlabel: 't (µs)', ylabel: 'value' });
+    if (result.parity) series.push({ x: result.tUs, y: result.parity, name: '⟨Π⟩' });
+    await plot(host, series, { xlabel: 't (µs)', ylabel: '⟨n⟩, ⟨Π⟩' });
   } else if (run.spec.id === 'L5') {
     const grid = gridFrom(result, { params: run.params });
     if (!grid) return;
@@ -452,11 +456,11 @@ async function drawPlots(host: HTMLElement, run: LevelRun, outcome: RunOutcome) 
     await plot(host, [
       { x: xs, y: grid.gammaX.map((p) => 1 / p.gamma), name: 'T_X (µs)' },
       { x: grid.gammaZ.map((p) => p.alpha2), y: grid.gammaZ.map((p) => 1 / p.gamma), name: 'T_Z (µs)' },
-    ], { xlabel: 'α²', ylabel: 'lifetime (µs)', ylog: true });
+    ], { xlabel: 'α²', ylabel: 'T_X, T_Z (µs)', ylog: true });
   } else if (run.spec.id === 'L6' && result.tUs && (result.na || result.n)) {
     const series = [{ x: result.tUs, y: (result.na ?? result.n)!, name: '⟨n_a⟩' }];
     if (result.nb) series.push({ x: result.tUs, y: result.nb, name: '⟨n_b⟩' });
-    await plot(host, series, { xlabel: 't (µs)', ylabel: 'population' });
+    await plot(host, series, { xlabel: 't (µs)', ylabel: '⟨n_a⟩, ⟨n_b⟩' });
   } else if (run.spec.id === 'L7' && result.signals) {
     const s = result.signals;
     await plot(host, [
@@ -470,8 +474,8 @@ async function drawPlots(host: HTMLElement, run: LevelRun, outcome: RunOutcome) 
     const mags = dftMagnitude(bins);
     const freq = bins.map((_, k) => k * (1 / 1));
     await plot(host, [{ x: freq.slice(0, 10), y: mags.slice(0, 10), name: 'spectrum' }], {
-      xlabel: 'frequency (MHz)',
-      ylabel: 'amplitude',
+      xlabel: 'f (MHz)',
+      ylabel: '|ε̃(f)|',
       guides: [{ x: 3.14, name: '3.14 MHz' }],
     });
   }
@@ -542,7 +546,7 @@ function mountPulse(host: HTMLElement, run: LevelRun, onScore: () => void): { sy
   for (let i = 0; i < 20; i++) {
     const input = document.createElement('input');
     input.type = 'range';
-    input.min = '0';
+    input.min = String(-max);
     input.max = String(max);
     input.step = '0.01';
     input.value = String(run.bins[i] ?? square[i] ?? 0);
@@ -558,7 +562,8 @@ function mountPulse(host: HTMLElement, run: LevelRun, onScore: () => void): { sy
   shape.textContent = 'Shape near 3.14 MHz';
   shape.addEventListener('click', () => {
     const TAU = ONE_MHZ;
-    const next = square.map((amp, i) => amp * (0.7 + 0.3 * Math.sin((TAU * 3.14 * i) / 20)));
+    // Drive in step with the 3.14 MHz memory–buffer ringing (Task 2.4): cos(ω_r t) at bin centres.
+    const next = square.map((amp, i) => amp * Math.cos((TAU * 3.14 * (i + 0.5)) / 20));
     const fitted = fitPulse(next, square, Number(getPreset('L8')?.result.squareSnr ?? 0.95));
     inputs.forEach((input, i) => { input.value = String(fitted[i] ?? 0); });
     run.setBins(fitted);
@@ -572,7 +577,7 @@ function mountPulse(host: HTMLElement, run: LevelRun, onScore: () => void): { sy
     run.setBins(fitted);
   });
   const note = document.createElement('p');
-  note.textContent = 'Demo mode uses the contract square prototype when linresp is absent. Fit to budget rescales the bars. Score after you predict.';
+  note.textContent = 'Bars can go negative. Fit to budget rescales them to the square pulse cost. Score after you predict.';
   host.append(editor, shape, fit, note);
   void onScore;
   return {
