@@ -135,10 +135,11 @@ square pulse:
 | resonant, smooth edges | 0.55 | 0.73 |
 | bang-bang resonant | 2.04 | 0.88 |
 | SVD-optimal | 0.93 | 0.76 |
-| gradient-optimized (26×6, 15 Adam steps) | **1.42** | **0.63** (11% fewer flips *and* 42% more signal) |
+| gradient-optimized (30×8, 15 Adam steps) | **1.51** | 0.79 (the same ratio as resonant, at 20% more flips) |
 
-The same ordering holds at α = 1.4 and 1.8 (resonant: 0.64–0.74 flips per SNR) and for T = 0.25–1 µs. A square pulse
-is never the best choice.
+The same ordering holds at α = 1.4 and 1.8 (resonant: 0.64–0.74 flips per SNR) and for T = 0.25–1 µs. At peak 0.5 g₂ the optimizer does not beat the resonant pulse on flips per unit SNR; it spends the extra
+flips on more signal. At peak 1.0 g₂ (26×6, a smaller truncation; confirmation pending) it reached 1.42× the square
+pulse's SNR with 0.89× its flips. A square pulse is never the best choice.
 
 **Why it works.** We first guessed that the square pulse's sharp edges cause extra flips by
 kicking the ringing. Smoothing the edges alone (raised cosine) helps only 8–14%, so that is not the main effect.
