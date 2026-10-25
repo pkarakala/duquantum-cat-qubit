@@ -12,9 +12,11 @@ import {
 import { ALPHA, KAPPA_2, KAPPA_A } from "../sim/config";
 import type { ExprTree as SimTree } from "../sim/expr";
 import { runInWorker } from "../sim/index";
+import { renderHome } from "./home";
 import { mountAcademy, type AcademyHandle, type LevelId } from "./index";
 
 export const ROUTE_HASHES = {
+  home: "#/",
   learn: "#/learn",
   sandbox: "#/sandbox",
   challenge: "#/challenge",
@@ -57,8 +59,9 @@ const RESEARCH: Record<string, { title: string; blurb: string }> = {
 };
 
 export function academyRoute(hash: string): ResolvedRoute | null {
-  const path = (hash || ROUTE_HASHES.learn).replace(/^#/, "");
-  if (path === "/learn" || path === "/" || path === "") {
+  const path = (hash || ROUTE_HASHES.home).replace(/^#/, "");
+  if (path === "/" || path === "") return { name: "home", title: "Home", levelId: null, navHash: ROUTE_HASHES.home };
+  if (path === "/learn") {
     return { name: "learn", title: "Learn", levelId: "L1", navHash: ROUTE_HASHES.learn };
   }
   const level = path.match(/^\/learn\/(L[1-8])$/)?.[1] as LevelId | undefined;
@@ -326,6 +329,14 @@ export function renderRoute(hash: string, root: HTMLElement): void {
   }
   if (route.name === "challenge") {
     showChallenge(root);
+    return;
+  }
+  if (route.name === "home") {
+    closeAcademy();
+    closeBlocks();
+    root.classList.remove("academy");
+    delete root.dataset.level;
+    renderHome(root);
     return;
   }
   if (route.name === "about") {
