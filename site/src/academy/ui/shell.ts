@@ -70,7 +70,7 @@ function idleNote(id: LevelId, engine: string, hasApi: boolean): string {
       ? 'Not run yet. If the API answers, the badge names that server result. If it fails, the badge says MOCK.'
       : 'Not run yet. No API is configured, so Run shows a stored build and the badge says MOCK.';
   }
-  if (engine === 'records') return 'Not run yet. No live record bundle is loaded, so Run shows the stored snapshot and the badge says MOCK.';
+  if (engine === 'records') return 'Not run yet. Run shows precomputed results from our main-branch simulations; each point cites its results/s2 file.';
   return 'Not run yet.';
 }
 
@@ -567,7 +567,9 @@ function snrCard(run: LevelRun, outcome: RunOutcome): HTMLElement {
   const card = document.createElement('p');
   const snr = snrAt(outcome.result, { params: run.params });
   const row = (outcome.result.tradeoff ?? []).find((item) => Math.abs(item.eps - Number(run.params.eps)) < 1e-6);
-  card.textContent = `SNR in 1 µs: ${snr == null ? '—' : snr.toFixed(3)}. Relative bit-flip cost: ${row?.gammaXRel?.toFixed(3) ?? '—'}. Harder driving reads faster and disturbs the cat more. (Illustrative preset, not our dynamiqs result: see Tasks & notebooks, task 2.3.)`;
+  const rel = row?.gammaXRel;
+  const cost = typeof rel === 'number' && Number.isFinite(rel) ? `Γ_X rises ${rel < 1000 ? rel.toPrecision(3) : rel.toExponential(2)}× over the undriven cat` : 'no Γ_X(ε_Z) run on main at this strength';
+  card.textContent = `SNR in 1 µs: ${snr == null ? '—' : snr.toFixed(3)}. Bit-flip cost while reading: ${cost}. Harder driving reads faster and disturbs the cat more. (Full two-mode dynamiqs results at α = 2.1 from main: results/s2/readout_a2.10_32x8_T4.json and gx_two_a2.10_*.json.)`;
   return card;
 }
 
