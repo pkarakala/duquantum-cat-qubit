@@ -594,7 +594,7 @@ function mountPulse(host: HTMLElement, run: LevelRun, onScore: () => void): { sy
   for (let i = 0; i < 20; i++) {
     const input = document.createElement('input');
     input.type = 'range';
-    input.min = '0';
+    input.min = String(-max);
     input.max = String(max);
     input.step = '0.01';
     input.value = String(run.bins[i] ?? square[i] ?? 0);
@@ -610,7 +610,8 @@ function mountPulse(host: HTMLElement, run: LevelRun, onScore: () => void): { sy
   shape.textContent = 'Shape near 3.14 MHz';
   shape.addEventListener('click', () => {
     const TAU = ONE_MHZ;
-    const next = square.map((amp, i) => amp * (0.7 + 0.3 * Math.sin((TAU * 3.14 * i) / 20)));
+    // Drive in step with the 3.14 MHz memory–buffer ringing (Task 2.4): cos(ω_r t) at bin centres.
+    const next = square.map((amp, i) => amp * Math.cos((TAU * 3.14 * (i + 0.5)) / 20));
     const fitted = fitPulse(next, square, Number(getPreset('L8')?.result.squareSnr ?? 0.95));
     inputs.forEach((input, i) => { input.value = String(fitted[i] ?? 0); });
     run.setBins(fitted);

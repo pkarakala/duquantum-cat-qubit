@@ -47,7 +47,7 @@ function scaleComplex(value: unknown, factor: number): unknown {
 function scoreLinresp(bins: number[], squareBins: number[]): Omit<PulseScore, 'bins'> | null {
   const C = constants();
   const lr = linrespApi();
-  if (!C || !lr?.response || !lr.snr || !lr.leakageProxy) return null;
+  if (!C || !lr?.response || !lr.snr) return null;
   const once = (pulse: number[]) => {
     const n = pulse.length;
     const dt = 1 / n;
@@ -56,7 +56,8 @@ function scoreLinresp(bins: number[], squareBins: number[]): Omit<PulseScore, 'b
     const deltaB = scaleComplex(plus.b, 2);
     return {
       snr: Number(lr.snr!(plus.tUs, deltaB, C.KAPPA_B)),
-      cost: Number(lr.leakageProxy!(plus.tUs, plus.da)),
+      // Budget = pulse energy ∫ε²dt, the leaderboard's budget: drive-induced flips scale as ε² (Task 2.4).
+      cost: energyCost(pulse, dt),
     };
   };
   const yours = once(bins);
