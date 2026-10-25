@@ -1,0 +1,73 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t2_1.wall_s.eig.two_mode.a2.10.na20nb6",
+  "task": "2.1",
+  "quantity": "wall_s",
+  "value": 3.454753375001019,
+  "uncertainty": null,
+  "units": "s",
+  "method": "liouvillian_eig_odd_sector",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 20,
+    "Nb": 6
+  },
+  "convergence": null,
+  "numerics": {
+    "rel_residual": 6.352234840923437e-09,
+    "edge_weight": 1.9741795849132766e-06,
+    "cond_est": 5.386783276900742,
+    "sector": "odd",
+    "sigma": 0.0,
+    "k": 2,
+    "dim": 7200,
+    "nnz": 64280,
+    "lu_nnz": 5239873,
+    "build_s": 0.3474059589789249,
+    "lu_s": 2.318043832987314,
+    "eigs_s": 0.7741206249920651,
+    "peak_rss_gb": 0.41969650983810425,
+    "gamma_x": 7.606950548019508e-06,
+    "blas_threads": 2,
+    "permc": "COLAMD",
+    "proc_wall_s": 11.25728920797701
+  },
+  "cross_check": [
+    {
+      "method": "cost_model",
+      "ref_id": null,
+      "value": 0.9161612730332089,
+      "rel_diff": 2.770900906521718,
+      "tol": 1.0,
+      "agree": false
+    }
+  ],
+  "artifacts": {
+    "figure": "figures/task_2_1_spectral_cost.png",
+    "arrays": "results/arrays/t2_1.wall_s.eig.two_mode.a2.10.profile.npz"
+  },
+  "notes": "cost profile; wall time is a property of this truncation, not a converged physics quantity, so convergence is null. peak_rss_gb is macOS phys_footprint in GiB. Ordering COLAMD. edge_weight >= 1e-6 flags a truncation artifact; gamma_x is not a converged rate.",
+  "provenance": {
+    "script": "tasks/task_spectral_profile.py",
+    "git_commit": "f796cf5",
+    "git_branch": "std/l1-spectral",
+    "dirty": false,
+    "dynamiqs": "0.3.7",
+    "jax": "0.12.0.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "python": "3.12.13",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "cpu_count": 8,
+    "wall_s": 3.454753375001019,
+    "timestamp": "2026-10-25T13:40:36Z"
+  }
+}
