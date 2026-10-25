@@ -109,10 +109,10 @@ We quantify the reduced memory state $\rho_a$ using even-cat fidelity $F_+=\lang
 
 ## 1.3(b) — Prepare a definite logical state
 
-**We propose to displace the memory first, then stabilize it into $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$.** The demonstrated procedure is:
+**We propose to displace the memory first, then stabilize it into $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$.** We introduce $\beta$ for the dimensionless amplitude of the initial coherent state $\lvert\beta\rangle$, whose mean photon number is $\lvert\beta\rvert^2$. The target amplitude remains $\alpha=2.1$. The demonstrated procedure is:
 
 1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
-2. Apply a resonant memory pulse, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$.
+2. Apply a resonant memory pulse, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
 3. Switch off the memory pulse and enable the two-photon exchange pump and buffer drive at the supplied parameters, targeting $\alpha=2.1$. Keep stabilization on to bring the memory toward $\lvert+\alpha\rangle$.
 
 The initial displacement breaks the symmetry between the two signs. Buffer-only control preserves that symmetry and cannot select a sign from vacuum. With this procedure, the full two-mode simulation gives **99.878% fidelity at 2 µs**, with fidelity remaining above 99% from **0.41 µs** through the end of the simulation. The displacement is modeled as an initial coherent state; these times exclude the pulse duration.
