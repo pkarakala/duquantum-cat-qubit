@@ -1,0 +1,35 @@
+[
+  {
+    "level_id": "L4",
+    "keywords": ["fringes", "fade"],
+    "reply": "Losing a photon flips parity, so the stripes fade while the blobs stay. At 2.1 the cat holds 4.41 photons, and parity above 0.9 means those stripes were real.",
+    "numbers": [
+      {"value": 2.1, "source": "level_constant"},
+      {"value": 4.41, "source": "level_constant"},
+      {"value": 0.9, "source": "level_constant"}
+    ]
+  },
+  {
+    "level_id": "L6",
+    "keywords": ["overshoot"],
+    "reply": "The buffer is slow: the ratio is 0.29, so the memory overshoots by 56% and the converged peak is 6.89 before it settles near 4.41. The short buffer underestimates that peak by 11%.",
+    "numbers": [
+      {"value": 0.29, "source": "level_constant"},
+      {"value": 56, "source": "level_constant"},
+      {"value": 6.89, "source": "level_constant"},
+      {"value": 4.41, "source": "level_constant"},
+      {"value": 11, "source": "level_constant"}
+    ]
+  },
+  {
+    "level_id": "L7",
+    "keywords": ["readout", "ring"],
+    "reply": "It rings at 3.14 MHz and needs 1.13 µs to settle. A quicker piece is near 0.73 µs, and the quality factor is 2.46.",
+    "numbers": [
+      {"value": 3.14, "source": "level_constant"},
+      {"value": 1.13, "source": "level_constant"},
+      {"value": 0.73, "source": "level_constant"},
+      {"value": 2.46, "source": "level_constant"}
+    ]
+  }
+]
