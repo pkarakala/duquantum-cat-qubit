@@ -1,5 +1,7 @@
 # Section 2 results
 
+**Interpretation of archived names.** In the readout/pulse records, `snr` denotes the conditional-mean information $\mathcal I$, and `p_flip` is the recovered amplitude-loss proxy $\delta_X$. The historical assignment-error estimates are model-based scores, not simulated single-shot fidelities. See the [submission report](../../docs/task_2.md) and [methods](../../docs/TECHNICAL.md) for the current definitions and supported conclusions.
+
 Every Section 2 number is in one of these JSON files. `SUMMARY.md` collects them into tables
 (`python -m research.s2.summarize`). Each file records its host and UTC time under `_meta`.
 

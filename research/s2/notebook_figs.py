@@ -59,7 +59,7 @@ def bit_flips():
     g21 = two[2.1]["gamma_x"]
     ax[0].plot(2.1**2, g21, "o", ms=10, mfc="none", mec="k", mew=1.2)
     ax[0].annotate(rf"$\alpha^2=4.41$: $\Gamma_X={g21 / 10**np.floor(np.log10(g21)):.2f}\times10^{{{int(np.floor(np.log10(g21)))}}}\,\mu$s$^{{-1}}$"
-                   "\n" r"one flip every 2.6 s", (2.1**2, g21), (3.9, 6e-6), fontsize=8,
+                   "\n" r"$1/\Gamma_X=2.6$ s", (2.1**2, g21), (3.9, 6e-6), fontsize=8,
                    arrowprops=dict(arrowstyle="-", color="k", lw=0.7))
     ax[0].text(0.55, 2e-9, "time domain\nruns", fontsize=8, color=GREY)
     ax[0].set(xlabel=r"$\alpha^2$ (mean photon number)", ylabel=r"$\Gamma_X$ ($\mu$s$^{-1}$)",
@@ -88,7 +88,7 @@ def bit_flips():
 
 
 def readout_error(r, eta=1.0):
-    """Misread probability for an ideal matched filter with efficiency eta, plus the drive-induced flip."""
+    """Heuristic Gaussian assignment term plus amplitude-loss proxy; not simulated fidelity."""
     return 0.5 * erfc(sqrt(eta * r["snr"] / 2)) + r["p_flip"]
 
 
@@ -112,32 +112,32 @@ def circuit_check():
 
 
 def better_readout():
+    """Conditional-mean information versus recovered amplitude loss (not assignment fidelity)."""
     fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.6), layout="constrained")
     p = load("pulse_a2.10_30x8_T2_peak.json")[0]
-    # readout error contours on the SNR vs P_flip plane (eta = 1)
-    pf, sn = np.meshgrid(np.logspace(-3.4, -1.5, 200), np.linspace(0.5, 24, 200))
-    err = 0.5 * np.vectorize(erfc)(np.sqrt(sn / 2)) + pf
-    cs = ax[0].contour(pf, sn, 100 * err, levels=[0.65, 1, 2, 5], colors="0.75", linewidths=0.8)
-    ax[0].clabel(cs, fmt="%g%%", fontsize=7)
-    fams = (("square", GREY, "s", r"square"), ("bang", "C1", "^", r"$\mathrm{sgn}(\cos\omega_r t)$"),
-            ("res", "C0", "o", r"$\cos\omega_r t$"))
-    for f, c, m, lab in fams:
-        rows = sorted((r for r in p["rows"] if r["family"] == f), key=lambda r: r["level"])
-        ax[0].plot([r["p_flip"] for r in rows], [r["snr"] for r in rows], m + "-", color=c, ms=5, label=lab)
-        best = min(rows, key=readout_error)
-        ax[0].plot(best["p_flip"], best["snr"], m, color=c, ms=11, mfc="none", mew=1.3)
-    ax[0].set(xscale="log", xlabel=r"$P_{\rm flip}$", ylabel="SNR", xlim=(4e-4, 3e-2), ylim=(0, 24))
+    fams = (("square", GREY, "s", "square", 1.0),
+            ("bang", "C1", "^", r"$\mathrm{sgn}(\cos\omega_r t)$", 0.75),
+            ("res", "C0", "o", r"$\cos\omega_r t$", 0.75))
+    for family, color, marker, label, selected_peak in fams:
+        rows = sorted((r for r in p["rows"] if r["family"] == family), key=lambda r: r["level"])
+        ax[0].plot([r["p_flip"] for r in rows], [r["snr"] for r in rows], marker + "-",
+                   color=color, ms=5, label=label)
+        selected = next(r for r in rows if r["level"] == selected_peak)
+        ax[0].plot(selected["p_flip"], selected["snr"], marker, color=color,
+                   ms=10, mfc="none", mew=1.2)
+    ax[0].set(xscale="log", xlabel=r"$\delta_X$", ylabel=r"$\mathcal{I}$",
+              xlim=(6e-4, 3e-2), ylim=(0, 24))
     ax[0].legend(loc="upper left", title=r"$\epsilon_Z(t)/\epsilon_{\max}$")
-    P.panel(ax[0], "a", r"Signal vs flips, $T=2\ \mu$s")
+    P.panel(ax[0], "a", "Signal and memory disturbance")
     o = load("opt_a2.10_30x8_T0.5_pk1_bang_mu1_s0.json")[0]
     t = (np.arange(o["bins"]) + 0.5) * o["T"] / o["bins"]
     wr = np.sqrt(4 * G2**2 * o["alpha"]**2 - KAPPA_B**2 / 16)
-    ax[1].step(t, np.full_like(t, o["peak"]), where="mid", color=GREY, label="square")
-    ax[1].step(t, o["peak"] * np.sign(np.cos(wr * t)), where="mid", color="C1", ls="--", label=r"start: $\mathrm{sgn}(\cos\omega_r t)$")
+    ax[1].step(t, 0.9 * o["peak"] * np.sign(np.cos(wr * t)), where="mid", color="C1",
+               ls="--", label="initial pulse")
     ax[1].step(t, o["best"]["pulse_over_g2"], where="mid", color="C0", label="optimized")
-    ax[1].set(xlabel=r"$t$ (µs)", ylabel=r"$\epsilon_Z(t)/g_2$", ylim=(-1.15, 1.75))
-    ax[1].legend(loc="upper right", ncol=3, fontsize=7)
-    P.panel(ax[1], "b", r"Gradient-optimized pulse, $T=0.5\ \mu$s")
+    ax[1].set(xlabel=r"$t$ (µs)", ylabel=r"$\epsilon_Z(t)/g_2$", ylim=(-1.15, 1.55))
+    ax[1].legend(loc="upper right", ncol=2, fontsize=8)
+    P.panel(ax[1], "b", "Pulse optimization")
     return P.save(fig, "s2/task_2_4_better_readout")
 
 

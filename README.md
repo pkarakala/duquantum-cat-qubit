@@ -10,7 +10,7 @@ Team: Pranav Reddy, Harshit Aggarwal, Halo Kwok, Xuanyu Zhu
 | | Write-up |
 |---|---|
 | **Task 1**: stabilize a cat qubit, check convergence, prepare a logical state | [docs/task_1.md](docs/task_1.md) |
-| **Task 2**: bit flips, phase flips, buffer readout, a better readout | [notebooks 06–09](notebooks/) · [docs/TECHNICAL.md](docs/TECHNICAL.md) |
+| **Task 2**: bit flips, phase flips, buffer readout, a better readout | [docs/task_2.md](docs/task_2.md) · [notebooks 06–09](notebooks/) |
 
 ## Run it
 
