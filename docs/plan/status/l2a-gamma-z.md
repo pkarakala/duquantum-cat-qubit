@@ -6,14 +6,14 @@
 | Branch | `std/l2a-gamma-z` |
 | Agent / model | Cursor agent, Grok 4.7 |
 | Started (EDT) | 2026-10-25 09:25 |
-| Last update (EDT) | 2026-10-25 09:32 |
-| Last commit | `47c0fd5` `[integrator] merge upstream intro-track-tasks` |
+| Last update (EDT) | 2026-10-25 09:50 |
+| Last commit | (this commit) feat: Task 2.2 Gamma_Z time-domain fit |
 
 ## Milestones
 - [x] Read brief, CONTRACT, RESEARCH, runbook
-- [x] Tests written first (list the test names)
-- [ ] Implementation complete
-- [ ] `--quick` run passes (≤ 2 min)
+- [x] Tests written first (`test_prediction_values`, `test_offset_fit_needed`, `test_ids_and_window`, `test_cat_is_dark`, `test_slope_of_predictions`, `test_small_run_alpha1`)
+- [x] Implementation complete (time domain + analytic checks; `--eig` / `--summary` implemented and not run)
+- [x] `--quick` run passes (≤ 2 min)
 - [ ] Production run(s) done, or queued (see Jobs to queue)
 - [ ] All acceptance gates in brief §8 checked, with evidence below
 - [ ] Explain-back questions drafted
