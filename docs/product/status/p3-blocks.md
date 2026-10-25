@@ -7,7 +7,7 @@
 | Agent / model | Cursor Grok 4.7 |
 | Started (EDT) | 2026-10-25 00:27 |
 | Last update (EDT) | 2026-10-25 01:00 |
-| Last commit | see git log after this commit |
+| Last commit | implementation `12a673b` `[p3-blocks] Add the operator-block editor and ExprTree compiler.` |
 
 ## Milestones
 - [x] Read brief, CONTRACT §4, LEVELS L6, RESEARCH §4.1
