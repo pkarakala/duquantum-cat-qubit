@@ -123,7 +123,7 @@ We quantify $\rho_a$ using even-cat fidelity $F_+=\langle C_+\rvert\rho_a\lvert 
 
 Inflation from vacuum prepares a superposition of both codewords. **To initialize $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$, we first displace the memory toward positive amplitude, then stabilize it.** The displacement selects the sign; stabilization restores the target amplitude.
 
-**Both protocols use the same resonant memory drive**, with Hamiltonian $i\varepsilon_1(t)(a^\dagger-a)$ and real amplitude $\varepsilon_1$ in µs⁻¹. Applied before stabilization, an ideal pulse prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
+The displacement is produced by a resonant memory drive with Hamiltonian $i\varepsilon_1(t)(a^\dagger-a)$, where $\varepsilon_1$ is the real drive amplitude in µs⁻¹. Applied before stabilization, an ideal pulse prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
 
 1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
 2. Apply this memory pulse with area $\beta=1.5$, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
