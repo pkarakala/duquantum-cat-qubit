@@ -146,7 +146,7 @@ For these two scalar observables, steady photons pass at N_a=16 or N_b=4 in thei
 | 12 | 7.6% | 1.5% | 0.20% | 0.046% | **0.035%** | 0.035% | 0.035% |
 | 14 | 7.7% | 1.5% | 0.20% | 0.021% | 0.0039% | 0.0028% | 0.0028% |
 
-Each row flattens at an error set by N_b alone, and each column at an error set by N_a alone. Where both are limiting, the errors roughly add (24×10: 0.41% against 0.33% + 0.20%). So the truncations act independently, and the one-at-a-time sweep above reached the right answer. Our production choice of 32×12 is 0.035% from the reference, ten times inside the 0.5% tolerance. The steady state is converged to 3e-5 for every N_a ≥ 20 and to 4e-6 for every N_a ≥ 24, whatever N_b is, because the buffer is empty in steady state.
+Each row flattens at an error set by N_b alone, and each column at an error set by N_a alone. Where both are limiting, the errors roughly add (24×10: 0.41% against 0.33% + 0.20%). So the truncations act independently, which is why the separate-cutoff sweeps and the joint grid above agree. Our production choice of 32×12 is 0.035% from the reference, ten times inside the 0.5% tolerance. The steady state is converged to 3e-5 for every N_a ≥ 20 and to 4e-6 for every N_a ≥ 24, whatever N_b is, because the buffer is empty in steady state.
 
 ## 4. Task 1.3a reasoning
 
