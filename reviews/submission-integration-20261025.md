@@ -70,3 +70,9 @@ At the user’s request, panel (a) now combines both controls on matched left/ri
 ## Shared time axis and endpoint interpretation
 
 Both enlargement panels now share the same 0–115 µs elapsed-time axis, with a geometry assertion confirming identical horizontal extents. Panel (a) ends its control trajectory at 47.40 µs and marks the later region as cycle complete. Panel (b) labels the enlargement and weak-reference cycle endpoints at 47.40 and 110.22 µs. Solid curves collect information until drive end; dashed flat segments cover return/recovery without further counted emission. The extra axis interval is display spacing, not missing data or a failed solve. Stages are numbered 1–4, with leaders for the two narrow final stages. The layout preserves true durations.
+
+## Both protocols on the shared clock
+
+Panel (a) now shows both enlargement and weak-reference controls, using the same blue/gray protocol colors as panel (b). Solid and dashed lines distinguish cat amplitude and readout drive; dotted horizontal continuations specify idle controls after each complete cycle, without extending the simulated quantum trajectories. Coincident control values are plotted without artificial offsets. Shaded stages refer only to enlargement. This supersedes the empty “Cycle complete” region described above.
+
+Panel (b) deliberately stops each curve at its labeled complete-cycle endpoint: readout accumulates information, then return/recovery retains the counted value. Extending the line farther would only repeat the retained statistic and obscure the duration comparison. Both notebook and report explain this correspondence. Notebook 09 executes successfully from saved data, its embedded figures match the exports, and the revised layout was inspected visually. Numerical results are unchanged.
