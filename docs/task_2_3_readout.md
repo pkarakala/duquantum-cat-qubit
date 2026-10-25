@@ -21,7 +21,7 @@ $$
 Both photon-loss channels, $\sqrt{\kappa_a}a$ and $\sqrt{\kappa_b}b$, are
 retained. Each initial memory state $\lvert\pm\alpha\rangle$, with $\alpha=2.1$,
 is evolved independently with the buffer in vacuum. Preparation errors are excluded.
-All [supplied physical parameters](../TECHNICAL.md#1-model-and-conventions) are retained.
+All [supplied physical parameters](TECHNICAL.md) are retained.
 Production uses $(N_a,N_b)=(32,12)$ retained Fock levels and double-precision
 Tsit5 integration with relative/absolute tolerances $10^{-10}/10^{-12}$.
 The 0–4 µs simulation saves results every 2 ns; this spacing is distinct from
