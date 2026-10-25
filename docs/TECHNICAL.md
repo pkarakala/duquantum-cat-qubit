@@ -60,6 +60,8 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 
 ## Section 1 (groundwork)
 
+Full write-up with figures: [task_1.md](task_1.md).
+
 | Task | Result | Check |
 |---|---|---|
 | 1.0a | photon loss matches 4e^{−κt} to 1e-11 | analytic |
