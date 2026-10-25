@@ -1,6 +1,24 @@
 # Morning note
 
-Status: `DONE_WITH_CONCERNS`. The release is local and on GitHub only if the push section below says so. The API is not running on the Vultr VM.
+Status: `DONE_WITH_CONCERNS`. There is no public URL. Do not invent one.
+
+GitHub branch for the release is `prod/release` (`4bdc4cf`). The lesson-page pass lives on `prod/ux` until it is merged. `standard-track` was not touched.
+
+The video was not recorded. The 60-second live demo and the 45-second video script are the same file: `docs/product/demo_script.md`.
+
+## Run it locally
+
+```text
+npm --prefix site run dev -- --host 127.0.0.1 --port 5173
+```
+
+Open `http://127.0.0.1:5173/#/learn`. Lessons are `#/learn/L1` through `#/learn/L8`. The block editor is `#/sandbox`. `#/inflate`, `#/errors`, `#/readout`, and `#/verify` are placeholders.
+
+## Sponsors
+
+Live: Gemini (tutor), ElevenLabs TTS, Timescale, and Backboard. Their keys stay in gitignored `server/.env` and are not in the commit.
+
+Demo: Solana (`demo_mode: true`, `tx_sig: null`, no real funds) and Vultr (the API is not deployed on the VM). A stored lesson result is badged MOCK. A server answer is not proof that Vultr is the host.
 
 ## What is on `prod/release`
 
@@ -14,21 +32,13 @@ Status: `DONE_WITH_CONCERNS`. The release is local and on GitHub only if the pus
 | `prod/site-shell` | `4431a3d97a379e092cbc0478d001fe67ef846a7a` | Vite app. Merged. |
 | site merge | `ddeff329ba4e68474272712102c9d3bf27c785d9` | `prod/site-shell` into `prod/release`. |
 
-The site commit mounts `#/learn` and `#/sandbox`. Research pages are placeholders: `#/inflate`, `#/errors`, `#/readout`, and `#/verify` say the viewers ship with the physics lab and are not in this Academy bundle.
-
-Local dev:
-
-```text
-npm --prefix site run dev
-http://127.0.0.1:5173/#/learn
-```
+The site commit mounts `#/learn` and `#/sandbox`. Research pages are placeholders and are not in this Academy bundle.
 
 ## What is live in the code
 
-- Tutor memory uses the Backboard SDK when `BACKBOARD_API_KEY` is set, and the labeled `demo-adapter` when it is not. `BACKBOARD_MODE=off` disables memory.
+- Gemini, ElevenLabs TTS, Timescale, and Backboard are the live sponsor paths. Backboard uses the SDK when `BACKBOARD_API_KEY` is set, and the labeled `demo-adapter` when it is not. `BACKBOARD_MODE=off` disables memory.
 - The tutor dispatches a simulator, grid, or record tool before the model answers.
-- Solana stays labeled demo: `demo_mode: true`, `tx_sig: null`. No devnet transaction is invented.
-- Gemini, ElevenLabs, and Tiger Data stay live only when their own keys are set. Those values stay in gitignored `server/.env`. They are not in this commit and they were not copied to the VM.
+- Solana and Vultr stay demo. No devnet transaction is invented. Nothing was copied to the VM.
 
 ## What is not on the VM
 
@@ -64,7 +74,7 @@ vitest site/src/tutor    2 files, 7 passed
 
 ## Push
 
-GitHub already has `prod/backboard` at `0514f95c4719a3d72845c1657ac6cbff2460c19f` and the earlier `prod/release` note. This commit adds the site merge `ddeff329ba4e68474272712102c9d3bf27c785d9` (`4431a3d`) and is pushed with `prod/site-shell`. No force. `standard-track`, `main`, and tags were not pushed. Vultr was not contacted.
+GitHub has `prod/release` at `4bdc4cf`. That commit includes the earlier site merge `ddeff329`. The lesson-page pass is `prod/ux`, pushed separately, and is not `prod/release` until someone merges it. No force. `standard-track`, `main`, and tags were not pushed from this pass. Vultr was not contacted. There is still no public URL. The video was not recorded; use `docs/product/demo_script.md`.
 
 ## Secrets
 

@@ -56,7 +56,7 @@ function svgFallback(el: HTMLElement, series: PlotSeries[], opts: PlotOptions): 
   const legend = series
     .map((s, i) => `<span style="color:${s.color ?? OKABE[i % OKABE.length]}">${s.dash === 'dash' ? 'dashed ' : ''}${s.name}</span>`)
     .join(' · ');
-  el.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${opts.ylabel ?? 'plot'}">${lines}${guides}</svg><p class="legend">${legend}. ${opts.xlabel ?? ''} / ${opts.ylabel ?? ''}</p>`;
+  el.innerHTML = `<svg viewBox="0 0 ${width} ${height}" width="100%" role="img" aria-label="${opts.ylabel ?? 'plot'}">${lines}${guides}</svg><p class="legend">${legend}. ${opts.xlabel ?? ''} / ${opts.ylabel ?? ''}</p>`;
 }
 
 export async function plot(el: HTMLElement, series: PlotSeries[], opts: PlotOptions = {}): Promise<void> {
@@ -91,8 +91,10 @@ export async function plot(el: HTMLElement, series: PlotSeries[], opts: PlotOpti
         margin: { l: 48, r: 16, t: 12, b: 40 },
         xaxis: { title: opts.xlabel ?? '', gridcolor: muted, zeroline: false },
         yaxis: { title: opts.ylabel ?? '', type: opts.ylog ? 'log' : 'linear', gridcolor: muted, zeroline: false },
-        legend: { orientation: 'h' },
+        legend: { orientation: 'h', font: { size: 11 } },
         shapes,
+        width: Math.max(240, el.clientWidth || 0),
+        autosize: true,
       },
       { displayModeBar: false, responsive: true },
     );

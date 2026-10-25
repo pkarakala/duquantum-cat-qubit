@@ -1,3 +1,5 @@
+import { setRichText } from './richText';
+
 export function mountAha(host: HTMLElement): { show: (text: string) => void } {
   const card = document.createElement('article');
   card.className = 'aha';
@@ -9,7 +11,7 @@ export function mountAha(host: HTMLElement): { show: (text: string) => void } {
   host.append(card);
   return {
     show(text) {
-      body.textContent = text;
+      setRichText(body, text);
       card.hidden = false;
     },
   };
