@@ -327,7 +327,7 @@ Here $A=\mathrm{Re}\langle a(T_{\mathrm{obs}})\rangle_+$ for the positive initia
 | **Resonant cosine** | **0.75** | **8.178** | **$4.38\times10^{-3}$** |
 | Alternating sign | 0.75 | 12.844 | $9.24\times10^{-3}$ |
 
-The cosine produces **9.5% more information with 45.9% less amplitude loss** than the square example. The alternating-sign drive gives more signal but also greater disturbance. These comparisons concern driven protocols; they do not establish preservation of the undriven storage lifetime.
+The cosine produces **9.5% more information with 45.9% less amplitude loss** than the square example. Combined into a readout-error estimate $\epsilon_{\mathrm{ro}}=\frac{1}{2}\mathrm{erfc}(\sqrt{\mathcal I/2})+\delta_X$ for ideal detection, these give **1.12%** for the square pulse and **0.65%** for the cosine, the figures in our presentation. Because $\delta_X$ is an amplitude-loss proxy, both are estimates. The alternating-sign drive gives more signal but also greater disturbance. These comparisons concern driven protocols; they do not establish preservation of the undriven storage lifetime.
 
 <p align="center">
   <img src="../figures/s2/task_2_4_better_readout.png" width="860" alt="Information versus recovered amplitude loss and an optimized resonant pulse">
@@ -359,10 +359,10 @@ The complete sequence is **2 µs enlargement → 41.40 µs readout → 2 µs ret
 Here $p_X$ is evaluated directly in the original storage basis after recovery, without postselection. Using normalized even and odd cats at $\alpha=2.1$, the orthonormal logical states are $|0_L\rangle=(|C_+\rangle+|C_-\rangle)/\sqrt2$ and $|1_L\rangle=(|C_+\rangle-|C_-\rangle)/\sqrt2$. Leakage is population outside their span. These populations are distinct from the pulse study's amplitude-loss proxy $\delta_X$.
 
 <p align="center">
-  <img src="../figures/s2/task_2_4_enlargement.png" width="860" alt="Equal-information complete cycles and temporary cat enlargement controls">
+  <img src="../figures/s2/task_2_4_enlargement.png" width="560" alt="Vertically aligned cat amplitude, readout drive and information for enlargement and weak-reference cycles">
 </p>
 
-**Temporary enlargement.** (a) Target cat amplitude (blue, upper axis) and memory drive (orange, lower axis), sharing the same time coordinate. The ramps use $s(u)=10u^3-15u^4+6u^5$ for $0\le u\le1$. (b) Counted information from saved buffer fields: blue is enlargement and gray the weak reference. Solid curves end with the readout drive; dashed segments include return/recovery without counting later emission, and dots mark complete-cycle endpoints. Cycle cutoffs are $(32,12)$ and $(38,16)$, respectively for the weak reference and enlargement; the enlarged plateau rate uses $(40,16)$.
+**Temporary enlargement.** All three panels share elapsed time from the protocol start; blue denotes enlargement and gray the weak reference. (a) Target cat amplitude. (b) Readout drive. Solid lines show the controls during each cycle. Shaded stages 1–4 belong to enlargement: enlargement (2 µs), readout (41.40 µs), return (2 µs) and recovery (2 µs). The weak reference keeps $\alpha=2.1$, reads for 108.22 µs and recovers for 2 µs. Dotted horizontal continuations show the prescribed idle controls, $\alpha=2.1$ and $\epsilon_Z=0$, after each cycle; coincident controls overlap. (c) Counted information reconstructed from the buffer fields. Solid curves end with readout; dashed segments cover return/recovery without counting further emission. Labeled dots mark complete cycles at 47.40 and 110.22 µs; no later state evolution is plotted. The blue vertical guide aligns the enlargement endpoint. Cycle cutoffs $(N_a,N_b)$ are $(32,12)$ and $(38,16)$ for the weak reference and enlargement; plateau rates use $(32,12)$ and $(40,16)$.
 
 The cycle is **2.33 times faster** at the same signal target. Its estimated readout-stage rate, **$\Gamma_X=2.035\times10^{-7}$ µs⁻¹**, is below undriven storage's **$3.847\times10^{-7}$ µs⁻¹**. The last separate memory and buffer increments change that rate by 0.70% and 0.53%; the final cycle cutoff increment changes $p_X$ by 0.78%. An earlier joint rate-cutoff increase changed the estimate by 2.12%. These empirical checks support the gain but are not rigorous error bounds. [Selected data, numerical checks and source provenance](../results/task_2_4_enlargement.json).
 

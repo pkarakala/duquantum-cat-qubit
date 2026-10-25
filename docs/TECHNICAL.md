@@ -6,7 +6,7 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 
 ## Section 2 (standard track)
 
-**Two methods.** Brute force first: `tasks/task_2_1.py` and `tasks/task_2_2.py` integrate the full model in the time domain and fit the decay (details in [`task_2_rates.md`](task_2_rates.md)). But a time domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (`src/spectral.py`) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree: to 1e-8 for Γ_X at equal truncation, and to five digits for Γ_Z.
+**Two methods.** Brute force first: `tasks/task_2_1.py` and `tasks/task_2_2.py` integrate the full model in the time domain and fit the decay (details in [Task 2](task_2.md) and notebooks 06–07). But a time domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (`src/spectral.py`) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree: to 1e-8 for Γ_X at equal truncation, and to five digits for Γ_Z.
 
 ### 2.1 Bit flips (`tasks/task_2_1.py`, `research/s2/gx_eig.py`)
 
@@ -42,13 +42,15 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
   - Retuning the pump by −23 MHz restores pairing, about 15% slower than the RWA model: the photon number mismatch drops from 0.43 to 0.07.
   - Converged at 12×5 and 14×6. 150 ns, no loss.
 - **Trade-off:** SNR and P_flip both scale as ε_Z², so each pulse shape has an optimal strength and only the shape changes SNR per flip. The flip coefficient falls as e^{−2.03α²}.
-- **Pulses** (`pulse_eval.py`). Readout error ε_ro = ½erfc(√(η SNR/2)) + P_flip, at α = 2.1 in a 2 µs window:
+- **Pulses** (`pulse_eval.py`). Readout error ε_ro = ½erfc(√(η SNR/2)) + P_flip, at α = 2.1 for a 2 µs pulse, with output collected through 4.5 µs (2.5 µs of free recovery):
 
 | pulse (best peak) | SNR | P_flip | ε_ro (η = 1) | ε_ro (η = 0.5) |
 |---|---|---|---|---|
 | square, 1.0 g₂ | 7.5 | 8.1e-3 | 1.12% | 3.48% |
 | sgn(cos ω_r t), 0.75 g₂ | 12.8 | 9.2e-3 | 0.94% | 1.49% |
 | cos ω_r t, 0.75 g₂ | 8.2 | 4.4e-3 | **0.65%** | 1.50% |
+
+P_flip here is the recovered amplitude-loss proxy δ_X = (A_ref − A_pulse)/(2A_ref) after the drive, not a logical-projector measurement, and SNR is the information 𝓘 in [Task 2.4(c)](task_2.md#c-test-resonant-modulation-and-temporary-enlargement). So ε_ro is an estimate.
 
 - Why the resonant drive wins: it drives the 3.2 MHz oscillator in step, so the buffer amplifies it. Smoothing the pulse edges alone gains only 8–14%.
 - **Optimizer** (`pulse_opt.py`, jax.grad through dynamiqs, started from sgn(cos ω_r t), objective SNR − μ P_flip). It beats a square pulse by 1.26–1.71× in SNR per flip in all 9 converged settings (α 1.4 to 2.1, T 0.5 to 1 µs). Most of that comes from the resonant start; over its start it gains 0.98–1.16×. It lowers ε_ro against its start at α ≤ 1.8 but not at α = 2.1.
@@ -58,6 +60,14 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 - Every headline number is computed at two or more truncations. Top Fock-level population is ≤ 1e-6 in the readout and pulse runs.
 - Eigenvalues are cross-checked against time domain fits: Γ_X at 4 values of α, Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
 - Limits: Γ_X is not converged at α ≥ 2.6. The circuit simulation covers 150 ns without loss.
+
+### Selected enlargement evidence
+
+`results/task_2_4_enlargement.json` and `task_2_4_enlargement_trajectories.npz` contain the selected weak reference, conservative enlargement cycle and relevant convergence checks from XZ commit `17ef9a24fa1b501ee3421e5dd251209f88d395bc`. The JSON preserves original execution metadata, source hashes and immutable links to the simulation implementation. It records the distinction between original execution hashes and later cache-lookup changes.
+
+Notebook 09 recomputes the counted information and recovered wrong-logical populations from the retained raw observables. The readout information budget ends at the exact drive-end sample; the complete-cycle duration includes return and recovery. Populations use orthonormal combinations of the even and odd cats at the original storage amplitude, with leakage reported separately and no postselection.
+
+The selected enlarged cycle uses $(38,16)$ and its plateau-rate estimate $(40,16)$. The final tested cycle increment changes the wrong-logical population by 0.78%; separate last memory and buffer increments change the rate by 0.70% and 0.53%. Original solver and independent-implementation comparisons accompany the bundle. These are empirical checks, not a proof of infinite-cutoff convergence or global spectral dominance. The source commit contains the full simulation workflow; the submission imports only the evidence needed for this complementary result.
 
 ## Section 1 (groundwork)
 
@@ -84,7 +94,7 @@ Why ±35° and not the one-mode model's ±45°: the slow buffer makes the memory
 ## AI use
 
 - **Claude Code** wrote most of `src/`, `tasks/` and `research/s2/` under our direction.
-- **Codex** built the Task 1.2 grid, the trace-distance metric, the brute force Task 2.1/2.2 runs and their tests.
+- **Codex** built the Task 1.2 grid, the trace-distance metric, the time-domain Task 2.1/2.2 runs, the enlargement study, and the selective submission integration.
 - **Gemini** (`tools/ai_review.py`, log in [`reviews/`](../reviews/)) reviewed the physics in the code and checked the plots against our claims. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.
 - No AI output was accepted unchecked. Every number has a hand prediction, a second method or a convergence test.
 - One catch of our own: the default solver tolerance put about 1e-4 of noise into the truncation monitors, which could have hidden a real truncation problem.
@@ -96,6 +106,12 @@ pip install -r requirements.txt
 ./run_all.sh                                          # Section 1 (~30 min), then Section 2 tables and figures from saved JSON
 python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --model two   # one Gamma_X point, about a minute
 python -m research.s2.circuit_sim --na 12 --nb 5 --T 0.15 --dp -23    # full circuit, retuned pump
+```
+
+To regenerate notebook 09's tables and figures from the selected saved data, run:
+
+```bash
+jupyter nbconvert --execute --to notebook --inplace notebooks/09_task_2_4_better_readout.ipynb
 ```
 
 Big sweeps ran on Vultr with `cloud/vultr_batch.py` and the job lists in `cloud/s2_batch*.txt`. Costs are in [`tools-log.md`](tools-log.md). `results/s2/SUMMARY.md` has every Section 2 table.
