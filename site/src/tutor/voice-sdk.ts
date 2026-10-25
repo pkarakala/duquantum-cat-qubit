@@ -19,15 +19,40 @@ export interface VoiceHooks {
   onStatus?: (status: string) => void;
 }
 
+export const MIC_TIMEOUT_MS = 15_000;
+
+/** Ask for the mic first so a denied or ignored prompt fails fast; the SDK opens its own stream. */
+async function checkMic(timeoutMs = MIC_TIMEOUT_MS): Promise<void> {
+  if (!navigator.mediaDevices?.getUserMedia) throw new Error("microphone unavailable");
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const mic = navigator.mediaDevices.getUserMedia({ audio: true });
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error("mic timeout")), timeoutMs);
+  });
+  try {
+    const stream = await Promise.race([mic, timeout]);
+    stream.getTracks().forEach((track) => track.stop());
+  } catch (error) {
+    // A prompt answered after the timeout still yields a stream; release it.
+    mic.then((stream) => stream.getTracks().forEach((track) => track.stop())).catch(() => undefined);
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * @elevenlabs/client 1.30: clientTools and dynamicVariables are startSession options
+ * (BaseConversation.d.ts ClientToolsConfig, BaseConnection.d.ts SessionConfig). They are
+ * read once at start; nothing is attached to the conversation object afterwards.
+ */
 export async function startElevenSession(
   clientTools: Record<string, (params: Record<string, unknown>) => Promise<string>>,
   id = agentId(),
   hooks: VoiceHooks = {},
 ) {
   const { Conversation } = await import("@elevenlabs/client");
-  const mic = navigator.mediaDevices.getUserMedia({ audio: true });
-  const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("mic timeout")), 15000));
-  await Promise.race([mic, timeout]);
+  await checkMic();
   return Conversation.startSession({
     agentId: id,
     clientTools,
@@ -35,7 +60,7 @@ export async function startElevenSession(
     onStatusChange: ({ status }: { status: string }) => hooks.onStatus?.(status),
     onModeChange: ({ mode }: { mode: string }) => hooks.onStatus?.(mode === "speaking" ? "speaking" : "listening"),
     onError: (message: string) => hooks.onStatus?.(`error: ${message}`),
-  } as Parameters<typeof Conversation.startSession>[0]);
+  });
 }
 
 export async function attachWidget(root: HTMLElement, id: string, clientTools: Record<string, unknown>) {

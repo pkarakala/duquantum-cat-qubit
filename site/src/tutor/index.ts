@@ -129,18 +129,27 @@ export function mountTutor(root: HTMLElement, bridge: AcademyBridge, opts: Mount
       params: JSON.stringify(s.params ?? {}).slice(0, 200),
     };
   };
+  let connecting = false;
   voiceButton?.addEventListener("click", async () => {
+    if (connecting) return;
     if (call) {
-      await call.endSession?.().catch(() => undefined);
+      const ending = call;
       call = null;
       voiceButton.textContent = "Talk";
+      await ending.endSession?.().catch(() => undefined);
       return;
     }
+    connecting = true;
     voiceButton.textContent = "Connecting…";
     const status = (st: string) => {
       if (!call && st !== "connecting") return;
-      voiceButton.textContent = st.startsWith("error") || st === "disconnected" ? "Talk" : `End call · ${st}`;
-      if (st === "disconnected") call = null;
+      if (st === "disconnected") {
+        call = null;
+        voiceButton.textContent = "Talk";
+        return;
+      }
+      // An error mid-call (e.g. an unknown tool name) does not end the call; keep End call clickable.
+      voiceButton.textContent = st.startsWith("error") ? "End call · error" : `End call · ${st}`;
     };
     try {
       if (options.startSession) {
@@ -149,10 +158,12 @@ export function mountTutor(root: HTMLElement, bridge: AcademyBridge, opts: Mount
         const mod = await import("./voice-sdk");
         call = (await mod.startElevenSession(tools as never, mod.agentId(), { dynamicVariables: learnerVars(), onStatus: status })) as unknown as Call;
       }
-      voiceButton.textContent = "End call · listening";
+      voiceButton.textContent = call ? "End call · listening" : "Talk";
     } catch {
       call = null;
       voiceButton.textContent = "Talk (mic or agent unavailable)";
+    } finally {
+      connecting = false;
     }
   });
 
