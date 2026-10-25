@@ -138,7 +138,8 @@ def plot_error_grid(out, suffix):
     contour = ax.contour(fine_na, fine_nb, smooth, levels=[threshold_pct],
                          colors="black", linewidths=1.5)
     ax.clabel(contour, fmt=lambda value: rf"$D_{{\max}}={value:g}\%$",
-              inline=True, inline_spacing=6, fontsize=9)
+              inline=True, inline_spacing=8, fontsize=13,
+              manual=[((na[-2]+na[-1])/2, nb[0]+0.62*(nb[-1]-nb[0]))])
     grid_na, grid_nb = np.meshgrid(na, nb)
     ax.scatter(grid_na, grid_nb, s=15, facecolors="white", edgecolors="0.45",
                 linewidths=0.6, zorder=4, clip_on=False)
@@ -155,10 +156,16 @@ def plot_error_grid(out, suffix):
                           label=f"Reference ({na[-1]}, {nb[-1]})"))
     ax.set(xticks=na, yticks=nb, xlabel=r"$N_a$", ylabel=r"$N_b$",
             xlim=(na[0], na[-1]), ylim=(nb[0], nb[-1]))
+    ax.xaxis.label.set_size(16)
+    ax.yaxis.label.set_size(16)
+    ax.tick_params(labelsize=12)
     ax.grid(False)
     colorbar = fig.colorbar(mesh, ax=ax, label=r"$D_{\max}$ (%)", pad=0.025)
     colorbar.set_ticks([0.1, 1, 10, 100], labels=["0.1", "1", "10", "100"])
-    fig.legend(handles=handles, loc="outside lower center", ncol=3)
+    colorbar.ax.tick_params(labelsize=12)
+    colorbar.ax.yaxis.label.set_size(16)
+    fig.legend(handles=handles, loc="outside lower center", ncol=3, fontsize=11.5,
+               columnspacing=1.3, handletextpad=0.6)
     save_fig(fig, "task_1_2_error_grid" + suffix)
     plt.close(fig)
 
