@@ -8,5 +8,5 @@ python -m tasks.task_1_2        # full 6x6 cutoff grid; resumes cached trajector
 python -m tasks.task_1_1        # chosen cutoff, inflation plots and Wigner GIF
 python -m tasks.task_1_3a       # state diagnostics and interference-decay GIF
 python -m tasks.task_1_3b       # ~13 min (1.3b/c: preparing |+alpha>)
-python -m research.s2.summarize # seconds: Section 2 tables and figures from the saved runs (raw runs: cloud/s2_batch*.txt)
+python -m research.s2.summarize # seconds: Section 2 tables (results/s2/SUMMARY.md) from the saved runs (raw runs: cloud/s2_batch*.txt)
 python -m research.s2.notebook_figs # seconds: the four Section 2 notebook figures (figures/s2/task_2_*)

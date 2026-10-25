@@ -72,7 +72,7 @@ def main(Na, Nb):
         "at_1us": {k: float(v[i1]) for k, v in q.items()},
         "at_6us": {k: float(v[-1]) for k, v in q.items()},
         "min_purity": float(q["purity"].min()), "t_min_purity_us": float(t[int(q["purity"].argmin())]),
-        # the dip while the memory is entangled with the filling buffer (docs/TECHNICAL.md section 4)
+        # the dip while the memory is entangled with the filling buffer
         "min_purity_inflation": float(q["purity"][t < T_FIT].min()),
         "t_min_purity_inflation_us": float(t[t < T_FIT][int(q["purity"][t < T_FIT].argmin())]),
         "max_abs_re_a": float(np.abs(q["re_a"]).max()),

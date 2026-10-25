@@ -34,7 +34,7 @@ except ImportError:
     pass
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "cloud"))
 from tools_log import log_tool  # noqa: E402
 
 API = "https://api.vultr.com/v2"
