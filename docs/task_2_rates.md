@@ -1,6 +1,6 @@
 # Tasks 2.1 and 2.2: bit-flip and phase-flip relaxation
 
-The calculations retain the full supplied memory–buffer Lindblad model, with $g_2=2\pi\times0.763$ µs⁻¹, $\kappa_b=2\pi\times2.6$ µs⁻¹ and $\kappa_a=2\pi\times0.0093$ µs⁻¹. For every real cat amplitude $\alpha$, set $\epsilon_d=g_2\alpha^2$. The memory and buffer annihilation operators are $a$ and $b$. The only jump operators are $\sqrt{\kappa_a}a$ and $\sqrt{\kappa_b}b$; thermal excitation, dephasing and additional Hamiltonian terms are absent.
+The calculations retain the full supplied memory–buffer Lindblad model, with exchange coupling $g_2=2\pi\times0.763$ µs⁻¹, buffer loss rate $\kappa_b=2\pi\times2.6$ µs⁻¹ and memory loss rate $\kappa_a=2\pi\times0.0093$ µs⁻¹. For every real cat amplitude $\alpha$, set the buffer drive to $\epsilon_d=g_2\alpha^2$. The memory and buffer annihilation operators are $a$ and $b$. The only jump operators are $\sqrt{\kappa_a}a$ and $\sqrt{\kappa_b}b$; thermal excitation, dephasing and additional Hamiltonian terms are absent.
 
 ## Rate conventions and initial states
 
@@ -73,7 +73,7 @@ All three parameters are fitted to the untransformed observable. The initial tra
 | 2.1 | 0.514559 | 1.9434 | 0.000316649 |
 | 2.4 | 0.672337 | 1.4873 | 2.04746e-05 |
 
-At the physical target $\alpha=2.1$, the rate is 0.514559 µs⁻¹ and the lifetime 1.9434 µs. The large-cat prediction is $2\kappa_a\alpha^2=0.5153846$ µs⁻¹. A free-intercept regression $\Gamma_Z=m\alpha^2+b$ across all five amplitudes gives $m=0.116685$ µs⁻¹ and $b=1.6831e-05$ µs⁻¹, with $R^2=0.99999677$. The slope differs from $2\kappa_a=0.116867$ µs⁻¹ by 0.156%. The through-origin slope is 0.1166895 µs⁻¹. The earlier Task 1.3(a) estimate used vacuum inflation and a zero-offset log fit over 1–6 µs; it differs by 0.215%. Here the memory starts in the even cat and the longer fit explicitly includes steady parity.
+At the physical target $\alpha=2.1$, the rate is 0.514559 µs⁻¹ and the lifetime 1.9434 µs. The large-cat prediction is $2\kappa_a\alpha^2=0.5153846$ µs⁻¹. A free-intercept regression $\Gamma_Z=m\alpha^2+c_Z$ across all five amplitudes gives slope $m=0.116685$ µs⁻¹ and fitted intercept $c_Z=1.6831e-05$ µs⁻¹, with $R^2=0.99999677$. The slope differs from $2\kappa_a=0.116867$ µs⁻¹ by 0.156%. The through-origin slope is 0.1166895 µs⁻¹. The earlier Task 1.3(a) estimate used vacuum inflation and a zero-offset log fit over 1–6 µs; it differs by 0.215%. Here the memory starts in the even cat and the longer fit explicitly includes steady parity.
 
 ### Finite-overlap correction
 

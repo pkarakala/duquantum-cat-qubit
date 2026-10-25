@@ -1,6 +1,6 @@
 # Tasks 2.1 and 2.2 — rate extraction and validation
 
-Status: implementation, report and local verification complete; publication pending. Starting revision: `c7d3ef2` on `XZ-codex-intro-review`; working tree was clean. This continues the existing task implementation and evidence record. Maintained code is in `src/` and `tasks/`; deliverable numerical evidence is in `results/`, figures in `figures/`, walkthroughs in `notebooks/`, and the report in `README.md` / `TECHNICAL.md`.
+Status: complete and published. Starting revision: `c7d3ef2` on `XZ-codex-intro-review`; working tree was clean. This continues the existing task implementation and evidence record. Maintained code is in `src/` and `tasks/`; deliverable numerical evidence is in `results/`, figures in `figures/`, walkthroughs in `notebooks/`, and the report in `README.md` / `TECHNICAL.md`.
 
 ## Requirements and acceptance evidence
 
@@ -21,7 +21,7 @@ Primary theory reference: [Dubovitskii, Phys. Rev. A 111, 012617 (2025)](https:/
 
 Next action: benchmark time-domain integration, establish stable rate extraction, then run cutoff and amplitude sweeps.
 
-## Implementation checkpoint
+## Historical implementation checkpoint
 
 Owned files: `src/rates.py`, `src/rate_solver.py`, `tasks/task_2_common.py`, `tasks/task_2_1.py`, `tasks/task_2_2.py`, `tests/test_rates.py`, notebooks 06 and 07, the Task 2.1/2.2 result archives and figure pairs, the two Task 2.1/2.2 caption sections, and the cache entry in `.gitignore`. Concurrent Task 2.3 work appeared in the shared tree after this goal started. Preserve `src/readout.py`, `tasks/task_2_3.py`, `tests/test_readout.py`, notebook 08, its review/report/results/figures, and its edits to requirements/config/run_all. Shared README/TECHNICAL/caption edits must preserve that work and be reviewed by hunk before staging.
 
@@ -53,3 +53,8 @@ The initial independent check at alpha=2.4 correctly rejected a 1.03e-6 observab
 Deliverables: the two task scripts and shared integration/check helper; fit and sparse-generator modules; nine new tests; JSON and NPZ result archives; two PNG/PDF figure pairs; executed notebooks 06/07; README challenge answers; `docs/task_2_rates.md`; technical index and canonical captions. The report explicitly discusses the rate/event factor of two, finite-range exponent, Golden-Rule prefactor, finite-confinement correction, parity offset and limits of finite-cutoff references.
 
 The authorized destination is the existing origin/XZ-codex-intro-review branch. Commit only owned files and owned portions of shared README/TECHNICAL/captions; leave the separate Task 2.3 work intact.
+
+
+## Delivery
+
+The numerical implementation and report were committed as `90375a514b7ae359d12caafd4568f20b2cd75321` and pushed to `origin/XZ-codex-intro-review`; `git ls-remote` verified that exact remote revision. The committed tree `2d3fd41735b1fcbda42225c86db6c43e75718c93` was exported independently, and all 19 introductory/rate tests passed there in 1.290 s. Its 42 local links resolve and it has no dependency on the concurrent readout files. The published two new reports, figures, notebooks and result archives are self-contained. The separate Task 2.3 changes remain in the shared working tree. Source and numerical results are unchanged by this final delivery record.
