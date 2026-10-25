@@ -17,6 +17,16 @@ Eight short levels take a beginner from a photon in a box to designing a cat-qub
 | `deploy/` | Docker Compose and Caddy for the Vultr VM |
 | `docs/product/` | Level content, API contract, sponsor notes |
 
+## Pages
+
+| Route | What |
+|---|---|
+| `#/` | The talk: walkthrough slides in order (Task 1, 2.1–2.4d), then the Academy, sponsors, why. ←/→ steps sections |
+| `#/learn/L1`…`L8`, `#/sandbox`, `#/challenge` | The Academy, the operator sandbox, the L8 leaderboard |
+| `#/research`, `#/inflate`, `#/errors`, `#/readout`, `#/verify` | Tasks 1.0–2.4 with main's write-ups, notebooks, figures and results |
+
+Details and rebuild steps: [`docs/product/SITE_PAGES.md`](docs/product/SITE_PAGES.md).
+
 ## Run it
 
 ```bash
@@ -37,6 +47,7 @@ Set `VITE_API_BASE` to the API origin. Without it, levels use the in-browser sol
 | Tiger Data | Logs every simulation run (Timescale) | live with a key |
 | Backboard | Tutor memory across sessions, fed to Schrö | live with a key |
 | Solana | Progress credential | demo only, no transactions |
+| SpaceX · xAI Grok + Cursor | Built the product layer | dev tools |
 
 ## How we used AI
 
