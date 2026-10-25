@@ -136,4 +136,3 @@ Both task commands include their numerical checks and resume matching cached tra
 
 - [Bit-flip results](../results/task_2_1.json), [trajectories](../results/task_2_1_trajectories.npz), and [walkthrough](../notebooks/06_task_2_1_bit_flips.ipynb).
 - [Phase-flip results](../results/task_2_2.json), [trajectories](../results/task_2_2_trajectories.npz), and [walkthrough](../notebooks/07_task_2_2_phase_flips.ipynb).
-- [Canonical figure captions](../figures/CAPTIONS.md) and [validation record](../reviews/standard-rates-20261025.md).
