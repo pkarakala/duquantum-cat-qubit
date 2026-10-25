@@ -213,3 +213,41 @@
 4	python -m tasks.task_2_2 --alpha 2.1
 6	python -m tasks.task_2_2 --alpha 2.4
 8.5	python -m tasks.task_2_2 --alpha 2.7
+
+# Capstone 2.4c/d: pulse families on the full model (SNR vs P_flip frontier)
+1.7	python -m research.s2.pulse_eval --alpha 1.0 --na 24 --nb 8 --T 0.3 --energies 0.0625,0.25,1,4 --rtol 1e-9
+1.9	python -m research.s2.pulse_eval --alpha 1.0 --na 24 --nb 8 --T 0.5 --energies 0.0625,0.25,1,4 --rtol 1e-9
+7.6	python -m research.s2.pulse_eval --alpha 1.0 --na 30 --nb 12 --T 0.5 --energies 0.25,1,4 --rtol 1e-9
+2.2	python -m research.s2.pulse_eval --alpha 1.0 --na 24 --nb 8 --T 1.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+8.8	python -m research.s2.pulse_eval --alpha 1.0 --na 30 --nb 12 --T 1.0 --energies 0.25,1,4 --rtol 1e-9
+3.0	python -m research.s2.pulse_eval --alpha 1.0 --na 24 --nb 8 --T 2.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+1.7	python -m research.s2.pulse_eval --alpha 1.2 --na 24 --nb 8 --T 0.3 --energies 0.0625,0.25,1,4 --rtol 1e-9
+1.9	python -m research.s2.pulse_eval --alpha 1.2 --na 24 --nb 8 --T 0.5 --energies 0.0625,0.25,1,4 --rtol 1e-9
+7.6	python -m research.s2.pulse_eval --alpha 1.2 --na 30 --nb 12 --T 0.5 --energies 0.25,1,4 --rtol 1e-9
+2.2	python -m research.s2.pulse_eval --alpha 1.2 --na 24 --nb 8 --T 1.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+8.8	python -m research.s2.pulse_eval --alpha 1.2 --na 30 --nb 12 --T 1.0 --energies 0.25,1,4 --rtol 1e-9
+3.0	python -m research.s2.pulse_eval --alpha 1.2 --na 24 --nb 8 --T 2.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+2.2	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 0.3 --energies 0.0625,0.25,1,4 --rtol 1e-9
+2.4	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 0.5 --energies 0.0625,0.25,1,4 --rtol 1e-9
+9.6	python -m research.s2.pulse_eval --alpha 1.4 --na 32 --nb 12 --T 0.5 --energies 0.25,1,4 --rtol 1e-9
+2.9	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 1.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+11.6	python -m research.s2.pulse_eval --alpha 1.4 --na 32 --nb 12 --T 1.0 --energies 0.25,1,4 --rtol 1e-9
+3.8	python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 2.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+2.7	python -m research.s2.pulse_eval --alpha 1.6 --na 28 --nb 8 --T 0.3 --energies 0.0625,0.25,1,4 --rtol 1e-9
+3.0	python -m research.s2.pulse_eval --alpha 1.6 --na 28 --nb 8 --T 0.5 --energies 0.0625,0.25,1,4 --rtol 1e-9
+12.0	python -m research.s2.pulse_eval --alpha 1.6 --na 34 --nb 12 --T 0.5 --energies 0.25,1,4 --rtol 1e-9
+3.6	python -m research.s2.pulse_eval --alpha 1.6 --na 28 --nb 8 --T 1.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+14.4	python -m research.s2.pulse_eval --alpha 1.6 --na 34 --nb 12 --T 1.0 --energies 0.25,1,4 --rtol 1e-9
+4.8	python -m research.s2.pulse_eval --alpha 1.6 --na 28 --nb 8 --T 2.0 --energies 0.0625,0.25,1,4 --rtol 1e-9
+6.7	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 0.3 --energies 0.0625,0.25,1,4 --rtol 1e-11
+7.3	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 0.5 --energies 0.0625,0.25,1,4 --rtol 1e-11
+29.2	python -m research.s2.pulse_eval --alpha 1.8 --na 36 --nb 12 --T 0.5 --energies 0.25,1,4 --rtol 1e-11
+8.8	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 1.0 --energies 0.0625,0.25,1,4 --rtol 1e-11
+35.2	python -m research.s2.pulse_eval --alpha 1.8 --na 36 --nb 12 --T 1.0 --energies 0.25,1,4 --rtol 1e-11
+11.7	python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 2.0 --energies 0.0625,0.25,1,4 --rtol 1e-11
+8.2	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 0.3 --energies 0.0625,0.25,1,4 --rtol 1e-11
+8.9	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 0.5 --energies 0.0625,0.25,1,4 --rtol 1e-11
+35.6	python -m research.s2.pulse_eval --alpha 2.1 --na 38 --nb 12 --T 0.5 --energies 0.25,1,4 --rtol 1e-11
+10.7	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 1.0 --energies 0.0625,0.25,1,4 --rtol 1e-11
+42.8	python -m research.s2.pulse_eval --alpha 2.1 --na 38 --nb 12 --T 1.0 --energies 0.25,1,4 --rtol 1e-11
+14.2	python -m research.s2.pulse_eval --alpha 2.1 --na 32 --nb 8 --T 2.0 --energies 0.0625,0.25,1,4 --rtol 1e-11
