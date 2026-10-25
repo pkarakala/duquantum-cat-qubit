@@ -1,0 +1,118 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t2_2.gamma_z.td.two_mode.a2.40",
+  "task": "2.2",
+  "quantity": "Gamma_Z",
+  "value": 0.6723291488658217,
+  "uncertainty": 5.153606008856345e-06,
+  "units": "1/us",
+  "method": "time_domain_fit_exp_offset",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.4,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 36,
+    "Nb": 8
+  },
+  "convergence": {
+    "key": "gamma_z",
+    "rel_tol": 0.001,
+    "sweeps": {
+      "Na": {
+        "fixed": {
+          "Nb": 8
+        },
+        "values": [
+          28,
+          32,
+          36
+        ],
+        "results": [
+          0.6723291735818551,
+          0.6723291560298575,
+          0.6723291488658217
+        ]
+      },
+      "Nb": {
+        "fixed": {
+          "Na": 36
+        },
+        "values": [
+          6,
+          8
+        ],
+        "results": [
+          0.6723292403808856,
+          0.6723291488658217
+        ]
+      }
+    },
+    "needed": {
+      "Na": 28,
+      "Nb": 6
+    },
+    "converged": true
+  },
+  "numerics": {
+    "fit_window_us": [
+      0.0,
+      3.713853024672183
+    ],
+    "gamma_stderr": 5.153606008856345e-06,
+    "rel_rms_residual": 1.732611927121184e-05,
+    "A": 1.000015678747272,
+    "C_fit": 1.8772301424802313e-05,
+    "C_pred": 1.985900860974416e-05,
+    "gamma_t0_0p5": 0.6723337266547955,
+    "nbar_meas": 5.752995935170488,
+    "gamma_from_n": 5.8673981083654585,
+    "max_top2_a": 1.200794885347231e-09,
+    "max_n_b": 2.3452550601333266e-05,
+    "n_t": 201,
+    "rtol": 1e-08
+  },
+  "cross_check": [
+    {
+      "method": "analytic_coth",
+      "ref_id": null,
+      "value": 0.6731553412027316,
+      "rel_diff": 0.0012273427637574305,
+      "tol": 0.02,
+      "agree": true
+    },
+    {
+      "method": "analytic_2kappa_nbar",
+      "ref_id": null,
+      "value": 0.6723367952975638,
+      "rel_diff": 1.1372918744883142e-05,
+      "tol": 0.02,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "figure": "figures/task_2_2_gamma_z_vs_alpha2.png",
+    "arrays": "results/arrays/t2_2.gamma_z.td.two_mode.a2.40.npz"
+  },
+  "notes": "Offset fit of memory parity from the even cat. eps_d = alpha^2 * g2. Steady parity 1/cosh(2 alpha^2).",
+  "provenance": {
+    "script": "tasks/task_2_2.py",
+    "git_commit": "24782e5",
+    "git_branch": "std/l2a-gamma-z",
+    "dirty": false,
+    "dynamiqs": "0.3.7",
+    "jax": "0.12.0.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "python": "3.12.13",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "cpu_count": 8,
+    "wall_s": 45.556913999986136,
+    "timestamp": "2026-10-25T13:50:06Z"
+  }
+}
