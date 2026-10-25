@@ -132,6 +132,18 @@ async function postJson(url: string, body: unknown, deps: SourceDeps | undefined
   }
 }
 
+/** The API speaks snake_case (t_us, top2_a/top_b series); the site reads tUs and meta.top2_a/top_b. */
+function fromApi(body: unknown): SimResultLike {
+  const r = (body ?? {}) as Record<string, unknown> & { meta?: Record<string, unknown> };
+  if (r.tUs == null && Array.isArray(r.t_us)) r.tUs = r.t_us;
+  const meta = (r.meta ??= {});
+  for (const key of ['top2_a', 'top_b']) {
+    const v = r[key];
+    if (meta[key] == null && Array.isArray(v) && v.length) meta[key] = Math.max(...(v as number[]).map(Number));
+  }
+  return r as unknown as SimResultLike;
+}
+
 function l4LikeRequest(): unknown {
   return {
     params: { N: 30, alpha: 2.1, kappa2: 0, kappaA: 0 },
@@ -221,7 +233,7 @@ async function runServer(spec: LevelSpec, state: LevelState, opts: RunOpts, ms: 
     return inBrowser(deps, 'effective one-mode model');
   }
   try {
-    const result = (await postJson(`${base}/api/sim/two_mode`, spec.sim.request(state), deps, ms, opts.onProgress)) as SimResultLike;
+    const result = fromApi(await postJson(`${base}/api/sim/two_mode`, spec.sim.request(state), deps, ms, opts.onProgress));
     return { result, source: 'server', badge: BADGE_LIVE };
   } catch {
     if (nearest) return fromPreset(nearest, { banner: 'Live run timed out: showing a precomputed preset.' });
@@ -235,7 +247,7 @@ async function runExpr(spec: LevelSpec, state: LevelState, opts: RunOpts): Promi
   const base = apiBaseOf(deps);
   if (base) {
     try {
-      const result = (await postJson(`${base}/api/sim/expr`, exprBody(state), deps, 15000, opts.onProgress)) as SimResultLike;
+      const result = fromApi(await postJson(`${base}/api/sim/expr`, exprBody(state), deps, 15000, opts.onProgress));
       return { result, source: 'server', badge: BADGE_LIVE };
     } catch {
       /* Named builds and the reference preset are the fallback. */

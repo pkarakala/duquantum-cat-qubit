@@ -563,3 +563,29 @@ a.button.primary:hover { background: var(--accent-strong); }
 .sample-note { background: var(--warn-soft); color: var(--warn); border-radius: var(--r-md); padding: var(--s-2) var(--s-3); font-size: var(--text-sm); font-weight: 600; }
 .leaderboard { border-collapse: collapse; width: 100%; max-width: 640px; }
 .leaderboard th, .leaderboard td { padding: var(--s-2) var(--s-3); border-bottom: 1px solid var(--line); text-align: left; }
+
+/* ---------- sandbox ---------- */
+.sandbox .lede { margin-bottom: var(--s-4); }
+.sandbox-intro { padding: var(--s-4) var(--s-5); margin-bottom: var(--s-4); }
+.sandbox-intro h2, .sandbox-out h2 { margin: 0 0 var(--s-2); font-size: var(--text-md); }
+.sandbox-how { margin: 0; padding-left: 1.3em; display: grid; gap: var(--s-1); color: var(--muted); }
+.sandbox-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4); margin-top: var(--s-4);
+  background: var(--surface-2); border: 1px solid var(--line); border-bottom: 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.sandbox-preset { display: flex; align-items: center; gap: var(--s-2); font-weight: 600; }
+.sandbox-preset select { min-width: 18rem; }
+.sandbox-mode { font-size: var(--text-sm); padding: 2px 10px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); }
+.sandbox-mode[data-mode="two"] { background: var(--warn-soft); color: var(--warn); }
+.sandbox-bar button { margin-left: auto; }
+.sandbox .expr-blocks-toolbar { border-radius: 0; gap: 4px; }
+.sandbox .expr-blocks-toolbar button { padding: 4px 10px; font-size: var(--text-sm); }
+.sandbox .expr-blocks-toolbar input { width: 6rem; }
+.sandbox .expr-blocks-surface { height: 520px; }
+.sandbox-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--s-4); margin-top: var(--s-4); }
+.sandbox-out .card { padding: var(--s-4); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+.sandbox-out pre { margin: 0; white-space: pre-wrap; }
+.sandbox-chart:empty { display: none; }
+@media (max-width: 720px) { .sandbox .expr-blocks-surface { height: 400px; } .sandbox-preset select { min-width: 0; max-width: 60vw; } }

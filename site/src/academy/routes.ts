@@ -13,6 +13,7 @@ import { ALPHA, KAPPA_2, KAPPA_A } from "../sim/config";
 import type { ExprTree as SimTree } from "../sim/expr";
 import { runInWorker } from "../sim/index";
 import { renderHome } from "./home";
+import { plot } from "./ui/plot";
 import { renderResearch } from "./research";
 import { renderLab } from "./labPages";
 import { mountAcademy, type AcademyHandle, type LevelId } from "./index";
@@ -132,6 +133,26 @@ function showLearn(root: HTMLElement, levelId: LevelId): void {
   academy.navigate(levelId);
 }
 
+const SANDBOX_PRESETS: Record<string, string> = {
+  one_mode_cat: "Cat qubit, one mode: √κ₂(a² − α²)",
+  state_prep_x: "Prepare |+α⟩: drive + two-photon loss",
+  kerr: "Kerr term + two-photon loss",
+  empty: "Empty: build your own",
+  h2ph_correct: "Two-mode cat (memory + buffer)",
+  readout_z: "Buffer readout (two-mode)",
+  wrong_drive_on_memory: "Bug: drive on memory (two-mode)",
+  wrong_no_dissipation: "Bug: no buffer loss (two-mode)",
+  wrong_conversion: "Bug: wrong conversion (two-mode)",
+  wrong_missing_hc: "Bug: missing h.c. (two-mode)",
+};
+
+function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text) node.textContent = text;
+  return node;
+}
+
 function showSandbox(root: HTMLElement): void {
   closeBlocks();
   closeAcademy();
@@ -139,73 +160,94 @@ function showSandbox(root: HTMLElement): void {
   delete root.dataset.level;
   root.replaceChildren();
 
+  const wrap = el("div", "sandbox");
   const lede = paragraph(
     "lede",
-    "Snap operators into H and the jumps. One-mode trees run here in the browser solver. A two-mode tree is the L6 machine: the solver refuses buffer symbols, and that run stays on the API or a preset.",
+    "Build a Lindblad model from operator blocks: a Hamiltonian H and a list of jump operators L. The site compiles your blocks to dynamiqs Python and, for one-mode models, solves dρ/dt = −i[H, ρ] + Σ D[L]ρ right in your browser.",
   );
-  const controls = document.createElement("div");
-  controls.className = "row";
-  const presetLabel = document.createElement("label");
-  presetLabel.textContent = "Preset ";
+
+  const how = el("ol", "sandbox-how");
+  for (const step of [
+    "Pick a preset, or start from Empty.",
+    "Click a block in the bar to insert it. Drag blocks into the H = and Jumps sockets. Select a block to edit its number, parameter or power.",
+    "Read the compiled Python under the editor. It updates as you edit.",
+    "Press Run. One-mode models simulate ⟨n⟩ and parity from vacuum for 1 µs. Two-mode models (with b) run in Level 6.",
+  ]) how.append(el("li", undefined, step));
+  const howCard = el("section", "card sandbox-intro");
+  howCard.append(el("h2", undefined, "How to use"), how);
+
+  const bar = el("div", "sandbox-bar");
+  const presetLabel = el("label", "sandbox-preset", "Preset");
   const preset = document.createElement("select");
   preset.setAttribute("aria-label", "Preset");
   for (const name of PRESET_NAMES) {
     const option = document.createElement("option");
     option.value = name;
-    option.textContent = name.replaceAll("_", " ");
+    option.textContent = SANDBOX_PRESETS[name] ?? name.replaceAll("_", " ");
     preset.append(option);
   }
-  preset.value = "h2ph_correct";
+  preset.value = "one_mode_cat";
   presetLabel.append(preset);
-  controls.append(presetLabel);
+  const mode = el("span", "sandbox-mode");
+  const run = el("button", undefined, "Run ▶");
+  run.type = "button";
+  bar.append(presetLabel, mode, run);
 
   const editor = document.createElement("div");
   editor.id = "editor";
+  const out = el("div", "sandbox-out");
+  const codeCard = el("section", "card");
   const python = document.createElement("pre");
   python.setAttribute("aria-label", "Compiled Python");
-  const actions = document.createElement("div");
-  actions.className = "row";
-  const run = document.createElement("button");
-  run.type = "button";
-  run.textContent = "Run in the browser";
-  actions.append(run);
+  codeCard.append(el("h2", undefined, "Compiled Python"), python);
+  const resultCard = el("section", "card");
   const status = document.createElement("p");
   status.setAttribute("role", "status");
-  status.textContent = "The browser solver has not run yet.";
+  status.textContent = "Press Run to simulate.";
+  const chart = el("div", "sandbox-chart");
+  resultCard.append(el("h2", undefined, "Result"), status, chart);
+  out.append(codeCard, resultCard);
 
-  root.append(page("Sandbox", lede, controls, editor, python, actions, status));
+  wrap.append(lede, howCard, bar, editor, out);
+  root.append(page("Sandbox", wrap));
 
-  const mount = (name: string) => {
-    const mode = isPresetName(name) && getPreset(name).modes === "one" ? "one" : "two";
+  const load = (name: string) => {
+    const one = isPresetName(name) && getPreset(name).modes === "one";
     closeBlocks();
-    blocks = mountBlocks(editor, { modes: mode });
+    blocks = mountBlocks(editor, { modes: one ? "one" : "two" });
     blocks.loadPreset(name);
+    mode.textContent = one ? "One mode · runs in your browser" : "Two modes · run it in Level 6";
+    mode.dataset.mode = one ? "one" : "two";
+    run.disabled = !one;
+    chart.replaceChildren();
+    status.textContent = one ? "Press Run to simulate." : "This model has a buffer mode b. Open Level 6 to run it on the server.";
     const show = () => {
       if (!blocks) return;
       const program = blocks.getTree();
-      const jumps = program.jumps.map((jump) => toPython(jump)).join(", ");
+      const jumps = program.jumps.map((jump) => toPython(jump)).join(",\n         ");
       python.textContent = `H = ${toPython(program.H)}\njumps = [${jumps}]`;
     };
     blocks.onChange(show);
     show();
   };
-  mount("h2ph_correct");
-  preset.addEventListener("change", () => mount(preset.value));
+  load(preset.value);
+  preset.addEventListener("change", () => load(preset.value));
 
   run.addEventListener("click", () => {
     if (!blocks) return;
-    void runBrowser(blocks, status);
+    void runBrowser(blocks, status, chart, run);
   });
 }
 
-async function runBrowser(handle: BlocksHandle, status: HTMLElement): Promise<void> {
+async function runBrowser(handle: BlocksHandle, status: HTMLElement, chart: HTMLElement, button: HTMLButtonElement): Promise<void> {
   const program = handle.getTree();
   const validation = validateProgram(program, handle.modes);
   if (!validation.ok) {
     status.textContent = validation.errors.join(" ");
     return;
   }
-  status.textContent = "Running in the browser…";
+  status.textContent = "Running in your browser…";
+  button.disabled = true;
   try {
     const result = await runInWorker({
       params: {
@@ -218,14 +260,21 @@ async function runBrowser(handle: BlocksHandle, status: HTMLElement): Promise<vo
       },
       init: { kind: "vacuum" },
       tEndUs: 1,
-      nT: 21,
+      nT: 101,
       outputs: ["n", "parity"],
     });
     const last = result.n && result.n.length ? result.n[result.n.length - 1] : undefined;
-    const nText = last == null ? "no ⟨n⟩" : `⟨n⟩(t_end) = ${last.toFixed(4)}`;
-    status.textContent = `In-browser one-mode solver · ${nText} · ${result.meta.wallMs.toFixed(0)} ms`;
+    const nText = last == null ? "no ⟨n⟩" : `⟨n⟩(1 µs) = ${last.toFixed(3)} (α² = ${(ALPHA * ALPHA).toFixed(2)})`;
+    status.textContent = `${nText} · N = 20 · ${result.meta.wallMs.toFixed(0)} ms in your browser`;
+    if (result.tUs && result.n) {
+      const series = [{ x: result.tUs, y: result.n, name: "⟨n⟩" }];
+      if (result.parity) series.push({ x: result.tUs, y: result.parity, name: "parity" });
+      await plot(chart, series, { xlabel: "t (µs)", ylabel: "value" });
+    }
   } catch (error) {
     status.textContent = error instanceof Error ? error.message : "The browser solver rejected this tree.";
+  } finally {
+    button.disabled = false;
   }
 }
 
