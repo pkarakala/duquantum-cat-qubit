@@ -84,9 +84,11 @@ def makespan(jobs, shards, slots):
     return est
 
 def download(ip, dest):
-    for sub in ["results", "figures"]:
-        subprocess.run(["scp", "-q", "-r", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10",
-                        f"root@{ip}:repo/{sub}/.", str(dest / sub)], check=True, timeout=120)
+    # only files written during the run: the uploaded snapshot also holds every other VM's
+    # earlier logs and results, and copying those back would overwrite fresher ones
+    pack = subprocess.run(SSH + [f"root@{ip}", "cd repo && find results figures -type f -newer .t0 -print0 "
+                                 "| tar --null -cf - -T -"], capture_output=True, check=True, timeout=120).stdout
+    subprocess.run(["tar", "-x", "-C", str(dest)], input=pack, check=True)
 
 
 def run_vm(k, iid, cmds, jobs_per_vm, deadline, status, dest):
@@ -100,7 +102,7 @@ def run_vm(k, iid, cmds, jobs_per_vm, deadline, status, dest):
     par = f"{jobs_per_vm}" if jobs_per_vm else "$(( $(nproc) / 4 > 0 ? $(nproc) / 4 : 1 ))"
     # a failing job does not stop the others: xargs keeps going, and the pipe's status is tee's
     # PATH as well, so `python` resolves to the venv even after an `ENV=1 python ...` prefix
-    remote = (f"cd repo && ./cloud/setup_vm.sh && mkdir -p results figures && export PATH=$PWD/.venv/bin:$PATH && "
+    remote = (f"cd repo && ./cloud/setup_vm.sh && mkdir -p results figures && touch .t0 && export PATH=$PWD/.venv/bin:$PATH && "
               f"xargs -P {par} -d '\\n' -I CMD sh -c 's=$(date +%s); CMD; "
               f"echo \"JOB $? $(( $(date +%s) - s ))s CMD\"' < jobs.txt 2>&1 | tee results/batch-vm{k}.log")
     status[k] = "running"
