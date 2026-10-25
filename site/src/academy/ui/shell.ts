@@ -17,6 +17,7 @@ import { bridgeFromController } from '../../tutor/bridge';
 import { mountTutor } from '../../tutor';
 import type { LevelId, LevelState, RunOutcome } from '../types';
 import { mountAha } from './ahaCard';
+import { setRichText } from './richText';
 import { mountCheckBanner } from './checkBanner';
 import { mountCode } from './codeToggle';
 import { mountConcept } from './conceptCard';
@@ -40,24 +41,37 @@ export interface AcademyHandle {
   dispose(): void;
 }
 
-let styled = false;
-
 function ensureStyle(): void {
-  if (styled || document.getElementById('academy-style')) {
-    styled = true;
-    return;
+  let node = document.getElementById('academy-style');
+  if (!node) {
+    node = document.createElement('style');
+    node.id = 'academy-style';
+    document.head.append(node);
   }
-  const node = document.createElement('style');
-  node.id = 'academy-style';
-  node.textContent = ACADEMY_CSS;
-  document.head.append(node);
-  styled = true;
+  if (node.textContent !== ACADEMY_CSS) node.textContent = ACADEMY_CSS;
 }
 
 function runLabel(id: LevelId): string {
-  if (id === 'L6') return 'Run on Vultr';
-  if (id === 'L8') return 'Score';
-  return 'Run';
+  return id === 'L8' ? 'Score' : 'Run';
+}
+
+function engineWords(engine: string): string {
+  if (engine === 'ts') return 'in-browser';
+  if (engine === 'records') return 'stored records';
+  if (engine === 'server-expr' || engine === 'server-two-mode') return 'API or stored preset';
+  return engine;
+}
+
+function idleNote(id: LevelId, engine: string, hasApi: boolean): string {
+  if (id === 'L8') return 'Not scored yet. If the in-browser model loads, the badge says in-browser. If it does not, the badge says MOCK.';
+  if (engine === 'ts') return 'Not run yet. A finished run is computed in this browser and is not badged MOCK.';
+  if (id === 'L6') {
+    return hasApi
+      ? 'Not run yet. If the API answers, the badge names that server result. If it fails, the badge says MOCK. Vultr is not deployed for this demo.'
+      : 'Not run yet. No API is configured, so Run shows a stored build and the badge says MOCK. Vultr is not deployed for this demo.';
+  }
+  if (engine === 'records') return 'Not run yet. No live record bundle is loaded, so Run shows the stored snapshot and the badge says MOCK.';
+  return 'Not run yet.';
 }
 
 function prefersStill(): boolean {
@@ -120,7 +134,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     const header = document.createElement('header');
     const eyebrow = document.createElement('p');
     eyebrow.className = 'eyebrow';
-    eyebrow.textContent = `Learn · ${spec.minutes} min · ${spec.sim.engine}`;
+    eyebrow.textContent = `Learn · ${spec.minutes} min · ${engineWords(spec.sim.engine)}`;
     const title = document.createElement('h1');
     title.textContent = `${spec.id} · ${spec.title}`;
     const mapHost = document.createElement('div');
@@ -129,6 +143,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
 
     const badgeHost = document.createElement('div');
     const badge = mountBadge(badgeHost);
+    badge.set('Not run yet', idleNote(spec.id, spec.sim.engine, Boolean(apiBase())));
     const conceptHost = document.createElement('div');
     mountConcept(conceptHost, spec);
 
@@ -139,13 +154,22 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     layout.append(side, main);
 
     const predictHost = document.createElement('section');
-    predictHost.className = 'card';
+    predictHost.className = 'card predict-gate';
+    predictHost.dataset.locked = 'true';
+    const verb = runLabel(spec.id);
+    const step = document.createElement('p');
+    step.className = 'step';
+    step.textContent = 'Predict first';
+    const gateStatus = document.createElement('p');
+    gateStatus.className = 'gate-status';
+    gateStatus.textContent = `Choose an answer. ${verb} stays off until you do.`;
+    predictHost.append(step, gateStatus);
     const feedback = document.createElement('p');
     feedback.className = 'feedback';
     radios(predictHost, spec.predict.question, spec.predict.options, (id) => {
       const option = spec.predict.options.find((item) => item.id === id);
       run.choose(id);
-      feedback.textContent = option?.feedback ?? '';
+      setRichText(feedback, option?.feedback ?? '');
     });
     predictHost.append(feedback);
     if (spec.predictFollowUp) {
@@ -163,7 +187,18 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
 
     const actions = document.createElement('div');
     actions.className = 'actions';
-    mountRunButton(actions, run, runLabel(spec.id), () => void launch(run));
+    const runButton = mountRunButton(actions, run, runLabel(spec.id), () => void launch(run));
+    let finishedRun = false;
+    const syncGate = () => {
+      const open = run.canRun();
+      predictHost.dataset.locked = open ? 'false' : 'true';
+      gateStatus.textContent = open
+        ? `Prediction saved. ${verb} is the next step.`
+        : `Choose an answer. ${verb} stays off until you do.`;
+      runButton.classList.toggle('is-primary', open && !finishedRun);
+    };
+    syncGate();
+    cleanup.push(run.subscribe(syncGate));
 
     const views = document.createElement('div');
     views.className = 'views';
@@ -187,15 +222,21 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
       wignerHost.append(canvas);
     }
 
-    const pulseExtras = mountPulse(extra, run, () => void launch(run));
+    const pulseHost = document.createElement('div');
+    const pulseExtras = mountPulse(pulseHost, run, () => void launch(run));
     mountWell(extra, spec.id);
-    const blocksNote = document.createElement('p');
     if (spec.id === 'L6') {
-      blocksNote.textContent = 'Block canvas is in demo mode until the block workspace is connected. Pick a precomputed build. Each wrong build is instant and labelled.';
-      extra.append(blocksNote);
+      const blocksNote = document.createElement('p');
+      blocksNote.className = 'blocks-note';
+      blocksNote.append(document.createTextNode('This lesson runs four stored builds. Without a live API the badge says MOCK. Vultr is not hosting this demo. '));
+      const sandbox = document.createElement('a');
+      sandbox.href = '#/sandbox';
+      sandbox.textContent = 'Open the block editor';
+      blocksNote.append(sandbox, document.createTextNode('.'));
+      controlHost.append(blocksNote);
     }
 
-    side.append(predictHost, controlHost, actions);
+    side.append(predictHost, controlHost, pulseHost, actions);
     main.append(views);
 
     const checkHost = document.createElement('section');
@@ -204,6 +245,7 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
     goal.textContent = spec.check.goal;
     const checkButton = document.createElement('button');
     checkButton.type = 'button';
+    checkButton.className = 'check';
     checkButton.textContent = 'Check';
     checkButton.disabled = true;
     const banner = mountCheckBanner(checkHost);
@@ -349,6 +391,9 @@ export function mountAcademy(root: HTMLElement, opts?: { levelId?: LevelId; apiB
         if (id !== seq) return;
         badge.set(outcome.badge, outcome.banner);
         paintResult(active, outcome);
+        finishedRun = true;
+        runButton.classList.remove('is-primary');
+        checkButton.classList.add('is-primary');
         checkButton.disabled = false;
         const base = apiBase();
         if (base) {
@@ -572,7 +617,7 @@ function mountPulse(host: HTMLElement, run: LevelRun, onScore: () => void): { sy
     run.setBins(fitted);
   });
   const note = document.createElement('p');
-  note.textContent = 'Demo mode uses the contract square prototype when linresp is absent. Fit to budget rescales the bars. Score after you predict.';
+  note.textContent = 'Score after you predict. If linresp is absent, the badge says MOCK and a flat pulse uses the square prototype. Fit to budget only rescales the bars.';
   host.append(editor, shape, fit, note);
   void onScore;
   return {
