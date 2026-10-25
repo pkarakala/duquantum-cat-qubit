@@ -7804,7 +7804,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Task-2.3:-reading-the-qubit-through-the-buffer">Task 2.3: reading the qubit through the buffer<a class="anchor-link" href="#Task-2.3:-reading-the-qubit-through-the-buffer">¶</a></h1><p><strong>Answer.</strong> A weak drive $H_Z=\epsilon_Z(a+a^\dagger)$ on the memory makes the two qubit states leak opposite buffer fields:</p>
 <p>$$\mathrm{Re}\langle b\rangle_\pm\to\mp b_0,\qquad b_0=\frac{\epsilon_Z}{2\alpha g_2}.$$</p>
-<p>At $\alpha=2.1$ and $\epsilon_Z=0.05\,g_2$, the simulated field matches $b_0$ to 0.08%. The signal rings at 3.2 MHz and stays within 1% from 0.97 µs onward. The response is linear up to $\epsilon_Z\approx0.6\,g_2$; stronger drives flip the qubit.</p>
+<p>At $\alpha=2.1$ and $\epsilon_Z=0.05 g_2$, the simulated field matches $b_0$ to 0.08%. The signal rings at 3.2 MHz and stays within 1% from 0.97 µs onward. Over the 4-µs observation window, the real-field contrast stays within 1% of the linear prediction up to $\epsilon_Z\approx0.6 g_2$. Task 2.4 examines the associated disturbance to the qubit.</p>
 <p><strong>Setup.</strong> Full two-mode model, both loss channels, $\alpha=2.1$, $(N_a,N_b)=(32,12)$. Each state $\lvert\pm\alpha\rangle$ starts with the buffer empty, and the drive switches on at $t=0$. Saved results load by default; set <code>RERUN=True</code> to recompute.</p>
 </div>
 </div>
@@ -7881,24 +7881,24 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_0b9c9">
+<table id="T_f9480">
 <thead>
 <tr>
-<th class="col_heading level0 col0" id="T_0b9c9_level0_col0">memory state</th>
-<th class="col_heading level0 col1" id="T_0b9c9_level0_col1">Re⟨b⟩ / b₀</th>
-<th class="col_heading level0 col2" id="T_0b9c9_level0_col2">Im⟨b⟩ / b₀</th>
+<th class="col_heading level0 col0" id="T_f9480_level0_col0">memory state</th>
+<th class="col_heading level0 col1" id="T_f9480_level0_col1">Re⟨b⟩ / b₀</th>
+<th class="col_heading level0 col2" id="T_f9480_level0_col2">Im⟨b⟩ / b₀</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="data row0 col0" id="T_0b9c9_row0_col0">|+α⟩</td>
-<td class="data row0 col1" id="T_0b9c9_row0_col1">-0.9992</td>
-<td class="data row0 col2" id="T_0b9c9_row0_col2">+0.2617</td>
+<td class="data row0 col0" id="T_f9480_row0_col0">|+α⟩</td>
+<td class="data row0 col1" id="T_f9480_row0_col1">-0.9992</td>
+<td class="data row0 col2" id="T_f9480_row0_col2">+0.2617</td>
 </tr>
 <tr>
-<td class="data row1 col0" id="T_0b9c9_row1_col0">|−α⟩</td>
-<td class="data row1 col1" id="T_0b9c9_row1_col1">+0.9992</td>
-<td class="data row1 col2" id="T_0b9c9_row1_col2">+0.2617</td>
+<td class="data row1 col0" id="T_f9480_row1_col0">|−α⟩</td>
+<td class="data row1 col1" id="T_f9480_row1_col1">+0.9992</td>
+<td class="data row1 col2" id="T_f9480_row1_col2">+0.2617</td>
 </tr>
 </tbody>
 </table>
@@ -7920,7 +7920,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Readout signal.</strong> Fields average over 3 to 4 µs; $b_0=\epsilon_Z/(2\alpha g_2)=0.0119$. (a) $\mathrm{Re}\langle b\rangle_\pm/b_0$; dotted lines mark $\mp1$. (b) $\Delta b$ is the larger distance of the two complex fields from their final values. Open circles are temporary entries into the 1% band. The orange dot is the last entry, after which both fields stay inside through 4 µs. Saves are 2 ns apart.</p>
-<p>Only $\mathrm{Re}\langle b\rangle$ carries the bit. $\mathrm{Im}\langle b\rangle=+0.26\,b_0$ for both states (from memory loss), so it tells them apart not at all.</p>
+<p>Only $\mathrm{Re}\langle b\rangle$ carries the bit. $\mathrm{Im}\langle b\rangle=+0.26 b_0$ for both states (from memory loss), and does not distinguish them.</p>
 </div>
 </div>
 </div>
@@ -7932,8 +7932,8 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Why it rings.</strong> Near one well, memory and buffer act like two coupled springs:</p>
-<p>$$\ddot b+\tfrac{\kappa_b}{2}\dot b+(2g_2\alpha)^2\,b=\text{drive}.$$</p>
-<p>Since $\kappa_b&lt;8g_2\alpha$, this is underdamped. It predicts a 0.319 µs period (3.14 MHz) and a quality factor of 2.5. The simulation gives 0.313 µs and about 2.0, so the spring picture gets the frequency to 2% and the damping to 20%. This is the same physics as the Task 1.1 overshoot. Waiting about 1 µs for the ringing to die out costs readout time; Task 2.4 uses the ringing instead.</p>
+<p>$$\ddot b+\tfrac{\kappa_b}{2}\dot b+(2g_2\alpha)^2 b=\text{drive}.$$</p>
+<p>Since $\kappa_b\lt8g_2\alpha$, this is underdamped. It predicts a 0.319 µs period (3.14 MHz) and a quality factor of 2.5. The simulation gives 0.313 µs and about 2.0, so the spring picture gets the frequency to 2% and the damping to 20%. This is the same physics as the Task 1.1 overshoot. The transient already carries state information. Task 2.4 tests pulse shapes that use this response without waiting for a plateau.</p>
 </div>
 </div>
 </div>
@@ -7972,7 +7972,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-How-strong-can-the-drive-be?">2. How strong can the drive be?<a class="anchor-link" href="#2.-How-strong-can-the-drive-be?">¶</a></h2><p>A stronger drive gives a bigger signal, but past some point it flips the qubit during the measurement. We sweep $\epsilon_Z$ for four cat sizes (<code>research/s2/readout.py</code>, 4 µs runs).</p>
+<h2 id="2.-How-strong-can-the-drive-be?">2. How strong can the drive be?<a class="anchor-link" href="#2.-How-strong-can-the-drive-be?">¶</a></h2><p>A stronger drive increases the weak-drive signal, but also perturbs the memory. We sweep $\epsilon_Z$ for four cat sizes (<code>research/s2/readout.py</code>, 4-µs runs) to locate deviations from the linear contrast prediction. Contrast loss alone does not identify its cause: nonlinear response and memory switching can both contribute.</p>
 </div>
 </div>
 </div>
@@ -7995,7 +7995,7 @@ a.anchor-link {
 <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"index"</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">({</span><span class="s2">"α"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{:g}</span><span class="s2">"</span><span class="p">}))</span>
 <span class="n">d</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"readout_a2.10_*_T4.json"</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"runs"</span><span class="p">]))</span>
 <span class="n">ours</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s2">"b_ss"</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s2">"b_ss_linear"</span><span class="p">])</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">"runs"</span><span class="p">]</span> <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="s2">"eps_over_g2"</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"α = 2.1, ε_Z = 0.05 g₂: |⟨b⟩_ss| / b₀ = </span><span class="si">{</span><span class="n">ours</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (sweep) vs </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mf">0.05</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (independent code)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"α = 2.1, ε_Z = 0.05 g₂: |Re⟨b⟩| / b₀ = </span><span class="si">{</span><span class="n">ours</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (sweep) vs </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mf">0.05</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (independent code)"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8010,34 +8010,34 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_80cf5">
+<table id="T_2e4e0">
 <thead>
 <tr>
-<th class="col_heading level0 col0" id="T_80cf5_level0_col0">α</th>
-<th class="col_heading level0 col1" id="T_80cf5_level0_col1">ε_Z / g₂ at 1% loss</th>
-<th class="col_heading level0 col2" id="T_80cf5_level0_col2">ε_Z / g₂ at 10% loss</th>
+<th class="col_heading level0 col0" id="T_2e4e0_level0_col0">α</th>
+<th class="col_heading level0 col1" id="T_2e4e0_level0_col1">ε_Z / g₂ at 1% loss</th>
+<th class="col_heading level0 col2" id="T_2e4e0_level0_col2">ε_Z / g₂ at 10% loss</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="data row0 col0" id="T_80cf5_row0_col0">1.4</td>
-<td class="data row0 col1" id="T_80cf5_row0_col1">0.05</td>
-<td class="data row0 col2" id="T_80cf5_row0_col2">0.25</td>
+<td class="data row0 col0" id="T_2e4e0_row0_col0">1.4</td>
+<td class="data row0 col1" id="T_2e4e0_row0_col1">0.05</td>
+<td class="data row0 col2" id="T_2e4e0_row0_col2">0.25</td>
 </tr>
 <tr>
-<td class="data row1 col0" id="T_80cf5_row1_col0">1.8</td>
-<td class="data row1 col1" id="T_80cf5_row1_col1">0.26</td>
-<td class="data row1 col2" id="T_80cf5_row1_col2">0.75</td>
+<td class="data row1 col0" id="T_2e4e0_row1_col0">1.8</td>
+<td class="data row1 col1" id="T_2e4e0_row1_col1">0.26</td>
+<td class="data row1 col2" id="T_2e4e0_row1_col2">0.75</td>
 </tr>
 <tr>
-<td class="data row2 col0" id="T_80cf5_row2_col0">2.1</td>
-<td class="data row2 col1" id="T_80cf5_row2_col1">0.61</td>
-<td class="data row2 col2" id="T_80cf5_row2_col2">1.25</td>
+<td class="data row2 col0" id="T_2e4e0_row2_col0">2.1</td>
+<td class="data row2 col1" id="T_2e4e0_row2_col1">0.61</td>
+<td class="data row2 col2" id="T_2e4e0_row2_col2">1.25</td>
 </tr>
 <tr>
-<td class="data row3 col0" id="T_80cf5_row3_col0">2.4</td>
-<td class="data row3 col1" id="T_80cf5_row3_col1">1.09</td>
-<td class="data row3 col2" id="T_80cf5_row3_col2">2.00</td>
+<td class="data row3 col0" id="T_2e4e0_row3_col0">2.4</td>
+<td class="data row3 col1" id="T_2e4e0_row3_col1">1.09</td>
+<td class="data row3 col2" id="T_2e4e0_row3_col2">2.00</td>
 </tr>
 </tbody>
 </table>
@@ -8046,7 +8046,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>α = 2.1, ε_Z = 0.05 g₂: |⟨b⟩_ss| / b₀ = 0.999164 (sweep) vs 0.999166 (independent code)
+<pre>α = 2.1, ε_Z = 0.05 g₂: |Re⟨b⟩| / b₀ = 0.999164 (sweep) vs 0.999166 (independent code)
 </pre>
 </div>
 </div>
@@ -8059,7 +8059,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Drive limit.</strong> The table gives the drive at which the steady contrast $|\langle b\rangle_{\rm ss}|$ falls 1% and 10% below $b_0$ after 4 µs. Below that the response is linear; above it the drive flips the qubit within the run. Bigger cats resist this, so the usable drive grows from $0.05\,g_2$ at $\alpha=1.4$ to $1.1\,g_2$ at $\alpha=2.4$. The two independent codes agree to $3\times10^{-6}$ at $\epsilon_Z=0.05\,g_2$.</p>
+<p><strong>Finite-window contrast.</strong> The table interpolates the drive at which the real-field magnitude $|\mathrm{Re}\bar\beta_+|$ falls 1% and 10% below $b_0$, with $\bar\beta_+$ averaged over the last 5% of each 4-µs run. The 1% crossing rises from about $0.05 g_2$ at $\alpha=1.4$ to $1.1 g_2$ at $\alpha=2.4$. These crossings characterize linearity over this observation window; they do not set a protected-readout operating limit. The two independent codes agree to $3\times10^{-6}$ at $\epsilon_Z=0.05 g_2$.</p>
 </div>
 </div>
 </div>
@@ -8070,7 +8070,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Checks">Checks<a class="anchor-link" href="#Checks">¶</a></h2><p>At $\epsilon_Z=0.05\,g_2$, the production run is compared with an independent QuTiP BDF solver, tighter tolerances and larger truncations. An 8 µs run checks that the plateau is final.</p>
+<h2 id="Checks">Checks<a class="anchor-link" href="#Checks">¶</a></h2><p>At $\epsilon_Z=0.05 g_2$, the production run is compared with an independent QuTiP BDF solver, tighter tolerances and larger truncations. An 8-µs run checks plateau stability over a longer finite window; it does not establish an infinite-time contrast.</p>
 </div>
 </div>
 </div>
@@ -8111,41 +8111,41 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_fd183">
+<table id="T_8273b">
 <thead>
 <tr>
-<th class="col_heading level0 col0" id="T_fd183_level0_col0">check</th>
-<th class="col_heading level0 col1" id="T_fd183_level0_col1">max |Δb| / b₀</th>
+<th class="col_heading level0 col0" id="T_8273b_level0_col0">check</th>
+<th class="col_heading level0 col1" id="T_8273b_level0_col1">max |Δb| / b₀</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="data row0 col0" id="T_fd183_row0_col0">tighter tolerance</td>
-<td class="data row0 col1" id="T_fd183_row0_col1">1e-08</td>
+<td class="data row0 col0" id="T_8273b_row0_col0">tighter tolerance</td>
+<td class="data row0 col1" id="T_8273b_row0_col1">1e-08</td>
 </tr>
 <tr>
-<td class="data row1 col0" id="T_fd183_row1_col0">independent QuTiP BDF</td>
-<td class="data row1 col1" id="T_fd183_row1_col1">1e-07</td>
+<td class="data row1 col0" id="T_8273b_row1_col0">independent QuTiP BDF</td>
+<td class="data row1 col1" id="T_8273b_row1_col1">1e-07</td>
 </tr>
 <tr>
-<td class="data row2 col0" id="T_fd183_row2_col0">truncation 24×8</td>
-<td class="data row2 col1" id="T_fd183_row2_col1">1e-05</td>
+<td class="data row2 col0" id="T_8273b_row2_col0">truncation 24×8</td>
+<td class="data row2 col1" id="T_8273b_row2_col1">1e-05</td>
 </tr>
 <tr>
-<td class="data row3 col0" id="T_fd183_row3_col0">truncation 40×12</td>
-<td class="data row3 col1" id="T_fd183_row3_col1">7e-08</td>
+<td class="data row3 col0" id="T_8273b_row3_col0">truncation 40×12</td>
+<td class="data row3 col1" id="T_8273b_row3_col1">7e-08</td>
 </tr>
 <tr>
-<td class="data row4 col0" id="T_fd183_row4_col0">truncation 32×14</td>
-<td class="data row4 col1" id="T_fd183_row4_col1">4e-07</td>
+<td class="data row4 col0" id="T_8273b_row4_col0">truncation 32×14</td>
+<td class="data row4 col1" id="T_8273b_row4_col1">4e-07</td>
 </tr>
 <tr>
-<td class="data row5 col0" id="T_fd183_row5_col0">truncation 40×14</td>
-<td class="data row5 col1" id="T_fd183_row5_col1">3e-07</td>
+<td class="data row5 col0" id="T_8273b_row5_col0">truncation 40×14</td>
+<td class="data row5 col1" id="T_8273b_row5_col1">3e-07</td>
 </tr>
 <tr>
-<td class="data row6 col0" id="T_fd183_row6_col0">plateau 3–4 µs vs 7–8 µs</td>
-<td class="data row6 col1" id="T_fd183_row6_col1">2e-05</td>
+<td class="data row6 col0" id="T_8273b_row6_col0">plateau 3–4 µs vs 7–8 µs</td>
+<td class="data row6 col1" id="T_8273b_row6_col1">2e-05</td>
 </tr>
 </tbody>
 </table>
@@ -8160,7 +8160,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Numerical agreement.</strong> (a) Three independent reruns (different solver, tighter tolerance, larger truncation) lie on top of the production curve. (b) Their largest difference from production, in parts per million of $b_0$: at most 0.3 ppm. The signal is solver- and truncation-independent.</p>
+<p><strong>Numerical agreement.</strong> (a) Buffer responses from tighter integration, independent QuTiP integration and the larger $(40,14)$ cutoff coincide with the production curve at the plotted scale. (b) Their maximum complex-field differences over both memory states and the full trajectory, divided by $b_0$, are at most 0.31 parts per million. The table also includes the smaller $(24,8)$ cutoff (10.2 ppm) and the change between 3–4 and 7–8 µs plateau averages (24.4 ppm). All satisfy the stated numerical tolerances.</p>
 </div>
 </div>
 </div>
@@ -8171,8 +8171,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Result.</strong> The two qubit states give opposite buffer fields of size $\epsilon_Z/(2\alpha g_2)$, confirmed to 0.08% by two independent codes. The signal rings at 3.2 MHz, settles in 0.97 µs, and stays linear up to $\epsilon_Z\approx0.6\,g_2$ at $\alpha=2.1$.</p>
-<p>Limits: this is the mean field. A single-shot fidelity needs a noise model, which Task 2.4 adds. The leading estimate follows <a href="https://arxiv.org/abs/2307.06617">Réglade et al., Supplement S8.5</a>; derivations are in <a href="../docs/task_2_3_readout.md">the readout report</a>.</p>
+<p><strong>Result.</strong> The two qubit states give opposite buffer fields of size $\epsilon_Z/(2\alpha g_2)$, confirmed to 0.08% by two independent codes. The signal rings at 3.2 MHz, settles in 0.97 µs, and stays within 1% of the linear prediction up to $\epsilon_Z\approx0.6 g_2$ at $\alpha=2.1$ over the 4-µs window.</p>
+<p>Limits: this is the mean field. A single-shot fidelity requires output-noise statistics and a decision rule. Task 2.4 compares pulses using a conditional-mean, shot-noise reference; that comparison is not a simulated single-shot fidelity. The leading estimate follows <a href="https://arxiv.org/abs/2307.06617">Réglade et al., Supplement S8.5</a>; derivations are in <a href="../docs/task_2.md#23--read-the-memory-bit-through-the-buffer">the readout report</a>.</p>
 </div>
 </div>
 </div>

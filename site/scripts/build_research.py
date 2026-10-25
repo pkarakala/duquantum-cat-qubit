@@ -20,7 +20,6 @@ OUT = Path(__file__).resolve().parents[1] / "public" / "research"
 DOCS = [
     ("task_1", "Task 1: stabilize, converge, prepare", "docs/task_1.md"),
     ("task_2", "Task 2: bit flips, phase flips, readout", "docs/task_2.md"),
-    ("task_2_3_readout", "Task 2.3: buffer readout (detail)", "docs/task_2_3_readout.md"),
     ("methodology", "Methodology and checks", "docs/TECHNICAL.md"),
 ]
 
