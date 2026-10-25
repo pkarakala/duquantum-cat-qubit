@@ -1,6 +1,6 @@
 """Task 1.3(b): prepare a definite codeword |0_L> = |+alpha> instead of the even cat.
 
-Why vacuum gives the cat: H and every jump operator are unchanged by a -> -a (memory
+Why vacuum gives the cat: H and every dissipator are invariant under a -> -a (memory
 parity), and so is |0>. The answer must then be symmetric between +alpha and -alpha.
 The buffer drive only touches b, so no buffer-side control can pick a well. The symmetry
 has to be broken on the memory, by something odd in a:
@@ -28,7 +28,7 @@ import dynamiqs as dq
 
 from src import config as C
 from src.model import two_mode
-from src.plotting import save as save_fig
+from src.plotting import save as save_fig, panel
 from src.results import save as save_res
 
 T_END, N_T = 2.0, 201
@@ -127,24 +127,31 @@ def main(Na, Nb):
     EC = run(H0 + ctrl, jumps, dq.tensor(dq.fock(Na, 0), vac_b), t, ops)
     control = summarize(tt, EC, "eps*(a+a^dag), eps=10")
 
-    fig, ax = plt.subplots(1, 3, figsize=(15, 4))
+    fig, ax = plt.subplots(1, 3, figsize=(9.0, 3.1), layout="constrained")
     for i, be in enumerate(BETAS):
-        ax[0].plot(tt, EA[i, 0].real, lw=2, label=f"β = {be}")
+        ax[0].plot(tt, EA[i, 0].real, label=rf"$\beta={be:g}$")
     ax[0].axhline(0.99, color="gray", ls=":", lw=0.8)
-    ax[0].set(xlabel="t (µs)", ylabel="fidelity with |+α⟩", ylim=(0, 1.02), title="A: start displaced, then stabilize")
-    ax[0].legend(fontsize=8); ax[0].grid(alpha=0.3)
+    ax[0].set(xlabel=r"$t$ (µs)", ylabel=r"$F_\alpha$", ylim=(0, 1.02))
+    panel(ax[0], "a")
+    ax[0].legend(ncol=2); ax[0].grid()
     ph = np.array(PHASES_DEG)
-    ax[1].plot(ph, [r["F_plus_alpha_2us"] for r in A2], "o-", lw=2, label="with stabilization (2 µs)")
-    ax[1].plot(ph, [r["bare_overlap"] for r in A2], "s--", lw=2, label="pulse alone |⟨α|β⟩|²")
+    ax[1].plot(ph, [r["F_plus_alpha_2us"] for r in A2], "o-", ms=4, label="Stabilized")
+    ax[1].plot(ph, [r["bare_overlap"] for r in A2], "s--", ms=4, label="Initial state")
     ax[1].axhline(0.99, color="gray", ls=":", lw=0.8)
-    ax[1].set(xlabel="pulse phase error (deg), |β| = α", ylabel="fidelity with |+α⟩", ylim=(0, 1.02),
-              title="stabilization forgives calibration errors")
-    ax[1].legend(fontsize=8); ax[1].grid(alpha=0.3)
+    ax[1].set(xlabel=r"$\phi$ (deg)", ylabel=r"$F_\alpha$", ylim=(0, 1.02))
+    panel(ax[1], "b")
+    ax[1].legend(); ax[1].grid()
     for i, e in enumerate(EPS1):
-        ax[2].plot(tt, EB[i, 1].real / C.ALPHA, lw=2, label=f"i·ε(a†−a), ε = {e}")
-    ax[2].plot(tt, EC[1].real / C.ALPHA, "k--", lw=1.5, label="ε(a+a†), ε = 10 (control)")
-    ax[2].set(xlabel="t (µs)", ylabel="Re⟨a⟩ / α", title=f"B: drive the memory for the first {T_P*1e3:.0f} ns")
-    ax[2].legend(fontsize=8); ax[2].grid(alpha=0.3)
+        ax[2].plot(tt, EB[i, 1].real / C.ALPHA, label=rf"${e:g}$")
+    ax[2].plot(tt, EC[1].real / C.ALPHA, "k--", label="Control")
+    ax[2].axvspan(0, T_P, color="0.5", alpha=0.1, lw=0)
+    ax[2].set(xlabel=r"$t$ (µs)", ylabel=r"$\mathrm{Re}\langle a\rangle/\alpha$")
+    panel(ax[2], "c")
+    ax[2].legend(title=r"$\varepsilon_1$ (µs$^{-1}$)", loc="upper right", ncol=2)
+    ax[2].grid()
+    for axis in (ax[0], ax[2]):
+        axis.set_xticks(np.linspace(0, T_END, 5))
+    ax[1].set_xticks(PHASES_DEG)
     save_fig(fig, "task_1_3b_logical_prep")
 
     def phase_window(rows, key):

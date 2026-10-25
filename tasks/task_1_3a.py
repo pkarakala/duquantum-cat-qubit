@@ -15,7 +15,7 @@ import dynamiqs as dq
 from src import config as C
 from src.model import two_mode, vacuum2
 from src.analysis import memory_extras, memory_state, fit_exp_decay
-from src.plotting import save as save_fig
+from src.plotting import save as save_fig, panel, wigner_panels
 from src.results import save as save_res
 
 T_END, N_T, T_FIT = 6.0, 241, 1.0     # fit parity only after the inflation transient
@@ -43,26 +43,26 @@ def main(Na, Nb):
     popt, _ = curve_fit(lambda x, A, g: A * np.exp(-g * x), t[m], q["parity"][m], p0=(amp, gamma))
     gamma_nonlinear = float(popt[1])
 
-    fig, ax = plt.subplots(1, 2, figsize=(11, 3.8))
-    ax[0].plot(t, q["parity"], lw=2, label="parity $\\langle P\\rangle$")
-    ax[0].plot(t, q["fid_cat"], lw=2, label="fidelity with $|C_+\\rangle$")
-    ax[0].plot(t, q["purity"], lw=2, label="purity Tr$\\rho_a^2$")
+    fig, ax = plt.subplots(1, 2, figsize=(8.2, 3.2), layout="constrained")
+    ax[0].plot(t, q["parity"], label=r"$\langle\Pi\rangle$")
+    ax[0].plot(t, q["fid_cat"], label=r"$F_+$")
+    ax[0].plot(t, q["purity"], label=r"$\mathcal{P}$")
     ax[0].plot(t[m], amp * np.exp(-gamma * t[m]), "k--", lw=1,
-               label=f"fit: $\\Gamma$ = {gamma:.3f} /µs (pred. {gamma_pred:.3f})")
+               label="Fit")
     ax[0].axhline(0.5, color="gray", lw=0.8, ls=":")
-    ax[0].set(xlabel="t (µs)", ylim=(0, 1.05), title="1.3a the memory is an even cat")
-    ax[0].legend(fontsize=8); ax[0].grid(alpha=0.3)
-    ax[1].plot(t, 2 * q["coherence"], lw=2,
-               label="$2|\\langle\\alpha|\\rho_a|{-\\alpha}\\rangle|$  (1 = pure cat, 0 = mixture)")
-    ax[1].plot(t, q["re_a"], lw=2, label="Re$\\langle a\\rangle$  (0 = no preferred well)")
-    ax[1].set(xlabel="t (µs)", title="superposition, not mixture")
-    ax[1].legend(fontsize=8); ax[1].grid(alpha=0.3)
+    ax[0].set(xlabel=r"$t$ (µs)", ylim=(0, 1.05), xlim=(0, T_END))
+    ax[0].legend(); ax[0].grid()
+    ax[1].plot(t, 2 * q["coherence"], label=r"$C$")
+    ax[1].plot(t, q["re_a"], label=r"$\mathrm{Re}\langle a\rangle$")
+    ax[1].set(xlabel=r"$t$ (µs)", xlim=(0, T_END))
+    ax[1].legend(); ax[1].grid()
+    for letter, axis in zip("ab", ax):
+        panel(axis, letter)
     save_fig(fig, "task_1_3a_cat_diagnostics")
 
     idx = [np.argmin(np.abs(t - s)) for s in (1.0, 2.0, 4.0, 6.0)]
-    dq.plot.wigner_mosaic(rho_a[jnp.array(idx)], n=4, xmax=4)
-    plt.gcf().suptitle("fringes fade as $\\kappa_a$ turns the cat into a mixture (t = 1, 2, 4, 6 µs)")
-    save_fig(plt.gcf(), "task_1_3a_wigner_fading")
+    fig_w = wigner_panels(rho_a[jnp.array(idx)], t[idx])
+    save_fig(fig_w, "task_1_3a_wigner_fading")
 
     i1 = int(np.argmin(np.abs(t - 1.0)))
     out = {

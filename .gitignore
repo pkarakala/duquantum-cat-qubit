@@ -5,5 +5,6 @@ __pycache__/
 .DS_Store
 prep/DuQuantum_2026_Hacker_Guide.pdf
 reviews/*.tmp
+results/task_1_2_cache/
 results/grid/
 .cloud-worktrees/
