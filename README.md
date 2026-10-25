@@ -28,7 +28,7 @@ A cat qubit stores information in light trapped in one of two "valleys" in a mic
 ![Preparing a definite state](figures/task_1_3b_logical_prep.png)
 *Preparing one definite state: a short push before the stabilization turns on lands the qubit in the chosen valley, even if the push is aimed badly.*
 
-Full Section 1 write up, with every figure and caption: [`docs/SECTION1.md`](docs/SECTION1.md) and [`figures/CAPTIONS.md`](figures/CAPTIONS.md).
+Every figure has a caption in [`figures/CAPTIONS.md`](figures/CAPTIONS.md).
 
 ## Section 2 in two pictures
 
@@ -51,10 +51,10 @@ Every number is saved as JSON in `results/`, so checking a claim does not requir
 
 | Path | What it is |
 |---|---|
-| [`docs/SECTION2.md`](docs/SECTION2.md) | Section 2 in full: methods, all numbers, convergence checks |
-| [`docs/SECTION1.md`](docs/SECTION1.md), [`docs/TECHNICAL.md`](docs/TECHNICAL.md) | Section 1 write-up and its claim-by-claim evidence |
+| [`docs/TECHNICAL.md`](docs/TECHNICAL.md) | Full details: methods, every number, convergence checks, how to reproduce |
 | `research/s2/`, `src/` | Section 2 code; shared model code |
-| `tasks/`, `notebooks/` | Section 1 scripts and one notebook per task |
+| `notebooks/` | One short notebook per task: 01–05 Section 1, 06–09 Section 2 (load saved results, no re-run) |
+| `tasks/` | Section 1 scripts |
 | `results/`, `figures/` | Every number (JSON) and every figure |
 | `cloud/` | Vultr batch launcher and the job lists we ran |
 | `tests/` | Unit tests (`python -m unittest discover -s tests`) |
