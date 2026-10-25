@@ -133,7 +133,7 @@ Using $\beta=1.5\lt\alpha=2.1$ tests amplitude correction: fidelity rises from *
 
 For comparison, we start from vacuum and include the same memory-drive Hamiltonian during the first 0.1 µs while stabilization is active. This calculation follows the pulse and stabilization together.
 
-To check why the pulse phase matters, we repeat this test with a 90° phase shift, using $\varepsilon_1(a+a^\dagger)$. This drive displaces along the imaginary axis, perpendicular to the real axis containing $\pm\alpha$; this is what we mean by “orthogonal.” It cannot choose between the two codewords and gives approximately 50% target fidelity.
+To check why the pulse phase matters, we repeat this test with a 90° phase shift, using $\varepsilon_1(a+a^\dagger)$. This drive displaces along the imaginary axis, orthogonal to the real axis containing $\pm\alpha$. It cannot choose between the two codewords and gives approximately 50% target fidelity.
 
 We report fidelity $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$ and normalized mean amplitude $\mathrm{Re}\langle a\rangle/\alpha$, which is near $+1$ for the desired state and zero for an equal, symmetric occupation of the two signs. The time $t_{99}$ is the first saved time after which fidelity stays above 0.99 through 2 µs.
 
