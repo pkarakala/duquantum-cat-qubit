@@ -1,0 +1,51 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_0.max_abs_error.td.one_mode.a2.00",
+  "task": "1.0",
+  "quantity": "max_abs_error",
+  "value": 9.720044213956669e-12,
+  "uncertainty": null,
+  "units": "photons",
+  "method": "mesolve_vs_analytic",
+  "params": {
+    "delta_over_2pi_MHz": 1.0,
+    "kappa_over_2pi_MHz": 1.0,
+    "alpha0": 2.0
+  },
+  "truncation": {
+    "N": 30
+  },
+  "convergence": null,
+  "numerics": null,
+  "cross_check": [
+    {
+      "method": "analytic",
+      "ref_id": null,
+      "value": 0.0,
+      "rel_diff": 2.4300110534891672e-12,
+      "tol": 1e-06,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_0.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_0.json; max |<n>(t) - 4 exp(-kappa t)| over t in [0, 1] us. The analytic error is 0, so rel_diff is the error relative to the initial <n> = |alpha0|^2 = 4. convergence null: single mode N=30, checked against analytic 4e^{-kappa t}",
+  "provenance": {
+    "script": "tasks/task_1_0.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}
