@@ -61,7 +61,7 @@ Every number is saved as JSON in `results/`, so checking a claim does not requir
 
 - **Claude Code** did most of the implementation and drafted the write ups, under our direction.
 - **Codex** helped with Section 1 validation, convergence analysis and figures.
-- **Gemini** checked the physics in the code.
+- **Gemini** checked the physics in the code and validated the plots (`tools/ai_review.py`; log in [`reviews/`](reviews/)).
 - **Vultr** ran our large simulation batches in the cloud for about 5 USD in total.
 - **Cursor** and a **Groq**-powered bot are used for the product layer.
 

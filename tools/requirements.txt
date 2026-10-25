@@ -1,0 +1,4 @@
+# Only for tools/ai_review.py (optional); tested with google-genai 2.33
+google-genai>=2.0
+openai
+truststore

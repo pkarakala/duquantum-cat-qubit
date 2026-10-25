@@ -82,7 +82,7 @@ Why ±35° and not the one-mode model's ±45°: the slow buffer makes the memory
 
 - **Claude Code** wrote most of `src/`, `tasks/` and `research/s2/` under our direction.
 - **Codex** built the Task 1.2 grid, the trace-distance metric and the tests.
-- **Gemini** reviewed the physics in the code. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.
+- **Gemini** (`tools/ai_review.py`, log in [`reviews/`](../reviews/)) reviewed the physics in the code and checked the plots against our claims. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.
 - No AI output was accepted unchecked. Every number has a hand prediction, a second method or a convergence test.
 - One catch of our own: the default solver tolerance put about 1e-4 of noise into the truncation monitors, which could have hidden a real truncation problem.
 
