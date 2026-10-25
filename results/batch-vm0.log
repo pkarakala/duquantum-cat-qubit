@@ -1,64 +1,274 @@
-it 0 loss 0.29576 F_hold [0.6577 0.6725 0.6983 0.7141 0.7222 0.7298 0.7351] 50.2s
-it 0 loss 0.00239 F_hold [0.9962 0.996  0.9965 0.9981 0.9985 0.9988 0.9992] 53.0s
-it 0 loss 0.12424 F_hold [0.6057 0.8875 0.9061 0.8765 0.9467 0.9552 0.9525] 52.8s
-it 0 loss 0.08004 F_hold [0.7611 0.9303 0.9178 0.9265 0.9665 0.9666 0.9708] 54.1s
-it 5 loss 0.04260 F_hold [0.8843 0.9371 0.9662 0.9634 0.9773 0.9862 0.9872] 38.7s
-it 5 loss 0.04972 F_hold [0.9631 0.8891 0.903  0.9702 0.9696 0.9707 0.9863] 39.1s
-it 5 loss 0.01341 F_hold [0.9721 0.9802 0.9838 0.9887 0.9921 0.9938 0.9954] 41.4s
-it 5 loss 0.02389 F_hold [0.9511 0.9531 0.9758 0.9828 0.9852 0.9912 0.9936] 40.7s
-it 10 loss 0.01990 F_hold [0.9594 0.9734 0.9735 0.9828 0.9888 0.9901 0.9926] 39.4s
-it 10 loss 0.02436 F_hold [0.9877 0.9358 0.9564 0.9892 0.9806 0.9854 0.9944] 39.4s
-it 10 loss 0.01142 F_hold [0.9768 0.9773 0.9886 0.9918 0.9929 0.9957 0.997 ] 39.7s
-it 10 loss 0.01310 F_hold [0.9842 0.969  0.9823 0.9923 0.9904 0.9935 0.9967] 40.9s
-it 15 loss 0.01307 F_hold [0.9804 0.977  0.9817 0.9904 0.9914 0.9927 0.995 ] 39.2s
-it 15 loss 0.00541 F_hold [0.9904 0.9923 0.9911 0.9961 0.997  0.9969 0.9983] 40.5s
-it 15 loss 0.00916 F_hold [0.9847 0.9845 0.9862 0.9931 0.9947 0.9954 0.9973] 40.8s
-it 15 loss 0.00874 F_hold [0.9818 0.9874 0.9891 0.9926 0.9949 0.9959 0.9971] 42.1s
-it 20 loss 0.00952 F_hold [0.9822 0.9818 0.9888 0.9934 0.9942 0.9958 0.9971] 39.3s
-it 20 loss 0.00593 F_hold [0.989  0.9911 0.9908 0.9954 0.9968 0.9971 0.9982] 40.7s
-it 20 loss 0.00733 F_hold [0.9917 0.9876 0.9845 0.9959 0.9957 0.9952 0.998 ] 40.7s
-it 20 loss 0.00629 F_hold [0.9942 0.9869 0.988  0.9965 0.9959 0.9962 0.9983] 42.4s
-it 25 loss 0.00776 F_hold [0.9814 0.9862 0.9931 0.9943 0.9955 0.9973 0.9979] 38.9s
-it 25 loss 0.00657 F_hold [0.9943 0.9872 0.9871 0.9963 0.9954 0.9956 0.9981] 39.3s
-it 25 loss 0.00436 F_hold [0.9899 0.9945 0.9943 0.9961 0.9979 0.9981 0.9987] 42.0s
-it 25 loss 0.00591 F_hold [0.9878 0.9909 0.9926 0.9953 0.9965 0.9973 0.9982] 42.6s
-it 30 loss 0.00509 F_hold [0.9871 0.9919 0.9953 0.9961 0.9973 0.9982 0.9985] 40.2s
-it 30 loss 0.00355 F_hold [0.9947 0.9935 0.9942 0.9975 0.998  0.9983 0.999 ] 39.9s
-it 30 loss 0.00258 F_hold [0.9942 0.9979 0.9951 0.9981 0.9989 0.9985 0.9992] 41.3s
-it 30 loss 0.00345 F_hold [0.9962 0.9935 0.9934 0.998  0.9979 0.9979 0.999 ] 42.4s
-it 35 loss 0.00301 F_hold [0.9915 0.9955 0.9978 0.9975 0.9983 0.9991 0.9992] 39.9s
-it 35 loss 0.00188 F_hold [0.9971 0.9967 0.997  0.9987 0.9989 0.999  0.9994] 39.0s
-it 35 loss 0.00156 F_hold [0.9972 0.9975 0.9977 0.9987 0.9991 0.9993 0.9995] 42.3s
-it 35 loss 0.00218 F_hold [0.9954 0.9972 0.997  0.9982 0.9988 0.9989 0.9993] 42.0s
-it 40 loss 0.00197 F_hold [0.9951 0.9965 0.9983 0.9985 0.9989 0.9993 0.9994] 40.0s
-it 40 loss 0.00101 F_hold [0.9981 0.9986 0.9984 0.9992 0.9995 0.9995 0.9997] 39.7s
-it 40 loss 0.00092 F_hold [0.9991 0.9981 0.9984 0.9995 0.9993 0.9994 0.9997] 41.9s
-it 40 loss 0.00144 F_hold [0.9976 0.9974 0.9978 0.999  0.9992 0.9993 0.9996] 43.0s
-it 45 loss 0.00110 F_hold [0.9972 0.9985 0.999  0.9991 0.9994 0.9996 0.9996] 38.9s
-it 45 loss 0.00025 F_hold [0.9996 0.9995 0.9998 0.9998 0.9998 0.9999 0.9999] 40.0s
-it 45 loss 0.00066 F_hold [0.9989 0.9987 0.9991 0.9995 0.9996 0.9997 0.9998] 41.7s
-it 45 loss 0.00077 F_hold [0.9982 0.9991 0.999  0.9993 0.9996 0.9996 0.9997] 43.8s
-it 50 loss 0.00066 F_hold [0.9983 0.9991 0.9994 0.9994 0.9996 0.9998 0.9998] 40.2s
-it 50 loss 0.00029 F_hold [0.9994 0.9996 0.9997 0.9997 0.9998 0.9999 0.9999] 40.0s
-it 50 loss 0.00040 F_hold [0.9995 0.9992 0.9993 0.9998 0.9997 0.9997 0.9999] 41.5s
-it 50 loss 0.00062 F_hold [0.9994 0.9987 0.9989 0.9996 0.9996 0.9996 0.9998] 42.9s
-it 55 loss 0.00051 F_hold [0.9988 0.9991 0.9995 0.9996 0.9997 0.9998 0.9998] 40.4s
-it 55 loss 0.00013 F_hold [0.9997 0.9998 0.9999 0.9999 0.9999 0.9999 0.9999] 40.1s
-it 55 loss 0.00026 F_hold [0.9994 0.9996 0.9997 0.9997 0.9999 0.9999 0.9999] 41.9s
-it 55 loss 0.00039 F_hold [0.9993 0.9993 0.9995 0.9997 0.9998 0.9998 0.9999] 41.9s
-it 59 loss 0.00035 F_hold [0.9993 0.9994 0.9997 0.9997 0.9998 0.9999 0.9999] 40.4s
-saved /root/repo/figures/research/grape_T0.4_36x10_e5_cold_s0.png
-saved /root/repo/results/research/grape_T0.4_36x10_e5_cold_s0.json
-JOB 0 2398s .venv/bin/python -m research.grape --na 36 --nb 10 --iters 60 --init cold --seed 0
-it 59 loss 0.00017 F_hold [0.9997 0.9997 0.9998 0.9999 0.9999 0.9999 0.9999] 40.0s
-saved /root/repo/figures/research/grape_T0.4_36x10_e5_disp_s0.png
-saved /root/repo/results/research/grape_T0.4_36x10_e5_disp_s0.json
-JOB 0 2402s .venv/bin/python -m research.grape --na 36 --nb 10 --iters 60 --init disp --seed 0
-it 59 loss 0.00019 F_hold [0.9996 0.9998 0.9997 0.9999 0.9999 0.9999 0.9999] 40.9s
-saved /root/repo/figures/research/grape_T0.4_36x10_e5_disp_s2.png
-saved /root/repo/results/research/grape_T0.4_36x10_e5_disp_s2.json
-JOB 0 2502s .venv/bin/python -m research.grape --na 36 --nb 10 --iters 60 --init disp --seed 2
-it 59 loss 0.00029 F_hold [0.9995 0.9995 0.9996 0.9998 0.9998 0.9999 0.9999] 40.7s
-saved /root/repo/figures/research/grape_T0.4_36x10_e5_disp_s1.png
-saved /root/repo/results/research/grape_T0.4_36x10_e5_disp_s1.json
-JOB 0 2547s .venv/bin/python -m research.grape --na 36 --nb 10 --iters 60 --init disp --seed 1
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/repo/research/s2/pulse_opt.py", line 21, in <module>
+    import optax
+ModuleNotFoundError: No module named 'optax'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/repo/research/s2/pulse_opt.py", line 21, in <module>
+    import optax
+ModuleNotFoundError: No module named 'optax'
+JOB 1 3s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 1.0 --iters 15 --rtol 1e-9
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/repo/research/s2/pulse_opt.py", line 21, in <module>
+    import optax
+ModuleNotFoundError: No module named 'optax'
+JOB 1 3s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 0.5 --peak 0.5 --iters 15 --rtol 1e-9
+JOB 1 4s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_opt --alpha 2.1 --na 30 --nb 8 --T 1.0 --peak 0.5 --iters 15 --rtol 1e-9
+alpha 1.8: Gamma_Z 0.37781 /us, pred 0.37865 (-0.22%), truncation spread 3.3e-07, walls [28, 17, 13] s
+saved /root/repo/results/task_2_2_a1.80.json
+summary needs at least two alphas; run with --summary once all are done
+JOB 0 74s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m tasks.task_2_2 --alpha 1.8
+/root/repo/research/s2/gx_time.py:47: OptimizeWarning: Covariance of the parameters could not be estimated
+  p_off, cov = curve_fit(f, t[m], x[m], p0=[x[m][0], -slope, 0.0], maxfev=20000)
+alpha=1.2 20x8 eps_z=0.0: Gamma_X loglin 5.99922e-04, offset fit 5.99922e-04 (160 s)
+wrote results/s2/gxt_a1.20_20x8_ez0_T150_rt1e-08.json
+JOB 0 165s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_time --alpha 1.2 --na 20 --nb 8 --T 150
+gx_two_a2.10_28x8_ka1_nth0_ez0.2_kb1: Gamma_X = 9.98508e-05 /us  (273.5 s)
+wrote results/s2/gx_two_a2.10_28x8_ka1_nth0_ez0.2_kb1.json
+JOB 0 274s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --eps-z 0.2
+none    E=0     SNR=0 (at T 0) P_flip=0.000e+00 peak=0.00 top=9.0e-09
+square  E=0.25  SNR=0.1732 (at T 0.1518) P_flip=4.501e-04 peak=0.25 top=7.8e-09
+square  E=0.5   SNR=0.6877 (at T 0.6031) P_flip=2.145e-03 peak=0.50 top=7.0e-09
+square  E=1     SNR=2.659 (at T 2.341) P_flip=1.330e-02 peak=1.00 top=9.0e-09
+cos2    E=0.25  SNR=0.07848 (at T 0.07607) P_flip=1.915e-04 peak=0.25 top=9.4e-09
+cos2    E=0.5   SNR=0.3125 (at T 0.303) P_flip=8.607e-04 peak=0.50 top=9.2e-09
+cos2    E=1     SNR=1.228 (at T 1.191) P_flip=4.856e-03 peak=1.00 top=9.2e-09
+res     E=0.25  SNR=0.1497 (at T 0.1271) P_flip=3.129e-04 peak=0.25 top=8.7e-09
+res     E=0.5   SNR=0.5926 (at T 0.5041) P_flip=1.363e-03 peak=0.50 top=9.3e-09
+res     E=1     SNR=2.275 (at T 1.95) P_flip=7.036e-03 peak=1.00 top=9.4e-09
+rescos2 E=0.25  SNR=0.06724 (at T 0.05963) P_flip=1.401e-04 peak=0.25 top=9.4e-09
+rescos2 E=0.5   SNR=0.2674 (at T 0.2373) P_flip=5.839e-04 peak=0.50 top=8.8e-09
+rescos2 E=1     SNR=1.045 (at T 0.9298) P_flip=2.696e-03 peak=1.00 top=9.1e-09
+bang    E=0.25  SNR=0.2481 (at T 0.2076) P_flip=5.276e-04 peak=0.25 top=9.3e-09
+bang    E=0.5   SNR=0.975 (at T 0.8185) P_flip=2.392e-03 peak=0.50 top=8.1e-09
+bang    E=1     SNR=3.644 (at T 3.098) P_flip=1.334e-02 peak=1.00 top=8.4e-09
+svd     E=0.25  SNR=0.1117 (at T 0.104) P_flip=2.438e-04 peak=0.25 top=9.3e-09
+svd     E=0.5   SNR=0.4433 (at T 0.413) P_flip=1.051e-03 peak=0.50 top=9.1e-09
+svd     E=1     SNR=1.718 (at T 1.604) P_flip=5.342e-03 peak=1.00 top=8.9e-09
+svdbang E=0.25  SNR=0.2359 (at T 0.222) P_flip=5.571e-04 peak=0.25 top=8.6e-09
+svdbang E=0.5   SNR=0.9301 (at T 0.8756) P_flip=2.669e-03 peak=0.50 top=9.1e-09
+svdbang E=1     SNR=3.506 (at T 3.307) P_flip=1.676e-02 peak=1.00 top=9.3e-09
+wrote results/s2/pulse_a1.80_30x8_T0.5_peak.json
+JOB 0 387s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_eval --alpha 1.8 --na 30 --nb 8 --T 0.5 --norm peak --energies 0.25,0.5,1.0 --families square,cos2,res,rescos2,bang,svd,svdbang --rtol 1e-9
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.738e-01 (max n_b 1.235e-01); max |n_a diff| = 6.626e-01; averaged over 5.0 ns: n_b 1.386e-01, n_a 4.275e-01; |<b> micromotion| 0.764; memory shift -0.927 MHz; 28 s
+wrote results/s2/circuit_na8_nb3_T0.15_dp0.json
+JOB 0 32s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 8 --nb 3 --T 0.15 --dp 0
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.822e-01 (max n_b 1.417e-01); max |n_a diff| = 6.619e-01; averaged over 5.0 ns: n_b 1.383e-01, n_a 4.278e-01; |<b> micromotion| 0.761; memory shift -0.898 MHz; 38 s
+wrote results/s2/circuit_na12_nb5_T0.15_dp0.json
+JOB 0 42s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 12 --nb 5 --T 0.15 --dp 0
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.819e-01 (max n_b 1.418e-01); max |n_a diff| = 6.621e-01; averaged over 5.0 ns: n_b 1.383e-01, n_a 4.279e-01; |<b> micromotion| 0.761; memory shift -0.898 MHz; 50 s
+wrote results/s2/circuit_na14_nb6_T0.15_dp0.json
+JOB 0 54s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 14 --nb 6 --T 0.15 --dp 0
+/root/repo/research/s2/gx_time.py:47: OptimizeWarning: Covariance of the parameters could not be estimated
+  p_off, cov = curve_fit(f, t[m], x[m], p0=[x[m][0], -slope, 0.0], maxfev=20000)
+alpha=1.4 22x8 eps_z=0.0: Gamma_X loglin 1.20205e-04, offset fit 1.20205e-04 (581 s)
+wrote results/s2/gxt_a1.40_22x8_ez0_T400_rt1e-08.json
+JOB 0 585s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_time --alpha 1.4 --na 22 --nb 8 --T 400
+gx_two_a1.40_26x10_ka1_nth0_ez0.3_kb1: Gamma_X = 3.69290e-02 /us  (672.0 s)
+wrote results/s2/gx_two_a1.40_26x10_ka1_nth0_ez0.3_kb1.json
+JOB 0 674s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 26 --nb 10 --eps-z 0.3
+gx_two_a1.40_26x10_ka1_nth0_ez1_kb1: Gamma_X = 5.07160e-01 /us  (692.4 s)
+wrote results/s2/gx_two_a1.40_26x10_ka1_nth0_ez1_kb1.json
+JOB 0 694s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 26 --nb 10 --eps-z 1.0
+none    E=0     SNR=0 (at T 0) P_flip=0.000e+00 peak=0.00 top=4.1e-09
+square  E=0.25  SNR=0.142 (at T 0.09062) P_flip=2.921e-03 peak=0.25 top=3.9e-09
+square  E=0.5   SNR=0.5558 (at T 0.3574) P_flip=1.199e-02 peak=0.50 top=6.8e-10
+square  E=1     SNR=2.037 (at T 1.351) P_flip=5.114e-02 peak=1.00 top=1.9e-10
+cos2    E=0.25  SNR=0.05063 (at T 0.03326) P_flip=9.574e-04 peak=0.25 top=4.5e-09
+cos2    E=0.5   SNR=0.2009 (at T 0.1323) P_flip=3.872e-03 peak=0.50 top=4.2e-09
+cos2    E=1     SNR=0.779 (at T 0.5174) P_flip=1.609e-02 peak=1.00 top=2.0e-10
+res     E=0.25  SNR=0.04788 (at T 0.01868) P_flip=7.414e-04 peak=0.25 top=4.1e-09
+res     E=0.5   SNR=0.1901 (at T 0.07447) P_flip=2.974e-03 peak=0.50 top=4.5e-10
+res     E=1     SNR=0.7381 (at T 0.2942) P_flip=1.198e-02 peak=1.00 top=2.1e-10
+rescos2 E=0.25  SNR=0.02152 (at T 0.008959) P_flip=3.053e-04 peak=0.25 top=4.5e-09
+rescos2 E=0.5   SNR=0.08572 (at T 0.03578) P_flip=1.219e-03 peak=0.50 top=4.0e-09
+rescos2 E=1     SNR=0.3374 (at T 0.1423) P_flip=4.847e-03 peak=1.00 top=1.9e-10
+bang    E=0.25  SNR=0.07907 (at T 0.03238) P_flip=1.200e-03 peak=0.25 top=3.7e-09
+bang    E=0.5   SNR=0.3121 (at T 0.1288) P_flip=4.805e-03 peak=0.50 top=1.9e-10
+bang    E=1     SNR=1.186 (at T 0.5044) P_flip=1.921e-02 peak=1.00 top=2.0e-10
+svd     E=0.25  SNR=0.06739 (at T 0.05799) P_flip=1.302e-03 peak=0.25 top=3.9e-09
+svd     E=0.5   SNR=0.2668 (at T 0.2298) P_flip=5.281e-03 peak=0.50 top=3.4e-09
+svd     E=1     SNR=1.024 (at T 0.8863) P_flip=2.211e-02 peak=1.00 top=2.0e-10
+svdbang E=0.25  SNR=0.142 (at T 0.09062) P_flip=2.921e-03 peak=0.25 top=3.9e-09
+svdbang E=0.5   SNR=0.5558 (at T 0.3574) P_flip=1.199e-02 peak=0.50 top=6.8e-10
+svdbang E=1     SNR=2.037 (at T 1.351) P_flip=5.114e-02 peak=1.00 top=1.9e-10
+wrote results/s2/pulse_a1.40_26x8_T0.25_peak.json
+JOB 0 249s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.pulse_eval --alpha 1.4 --na 26 --nb 8 --T 0.25 --norm peak --energies 0.25,0.5,1.0 --families square,cos2,res,rescos2,bang,svd,svdbang --rtol 1e-9
+eps=0.05 g2: b_ss=-0.0119+0.0031j (lin -0.0119) settle1%=0.9666666666666667 ring={'f_MHz': np.float64(3.2134831312573926), 'decay': np.float64(4.920165172143832), 'Q': np.float64(2.051852863548099)} SNR(1us)=0.00931
+eps=0.1 g2: b_ss=-0.0238+0.0033j (lin -0.0238) settle1%=0.9666666666666667 ring={'f_MHz': np.float64(3.213296506551692), 'decay': np.float64(4.920044733939897), 'Q': np.float64(2.051783925693034)} SNR(1us)=0.0372
+eps=0.2 g2: b_ss=-0.0476+0.0041j (lin -0.0476) settle1%=0.9666666666666667 ring={'f_MHz': np.float64(3.2125285767619407), 'decay': np.float64(4.919448554152161), 'Q': np.float64(2.051542172889328)} SNR(1us)=0.149
+eps=0.3 g2: b_ss=-0.0713+0.0054j (lin -0.0714) settle1%=0.9666666666666667 ring={'f_MHz': np.float64(3.2111607783900125), 'decay': np.float64(4.918030448358435), 'Q': np.float64(2.0512599945884884)} SNR(1us)=0.335
+eps=0.5 g2: b_ss=-0.1184+0.0097j (lin -0.1190) settle1%=0.8600000000000001 ring={'f_MHz': np.float64(3.205881604897622), 'decay': np.float64(4.90944841236868), 'Q': np.float64(2.051467548340274)} SNR(1us)=0.928
+eps=0.75 g2: b_ss=-0.1759+0.0184j (lin -0.1786) settle1%=1.1800000000000002 ring={'f_MHz': np.float64(3.1916921418991677), 'decay': np.float64(4.876532525568672), 'Q': np.float64(2.0561734250591117)} SNR(1us)=2.08
+eps=1 g2: b_ss=-0.2293+0.0310j (lin -0.2381) settle1%=2.746666666666667 ring={'f_MHz': np.float64(3.1607826136568558), 'decay': np.float64(4.7922068493621435), 'Q': np.float64(2.072091575091426)} SNR(1us)=3.67
+eps=1.5 g2: b_ss=-0.3028+0.0688j (lin -0.3571) settle1%=3.666666666666667 ring={'f_MHz': np.float64(2.9832364454348745), 'decay': np.float64(4.523944955535531), 'Q': np.float64(2.071668376387238)} SNR(1us)=7.99
+eps=2 g2: b_ss=-0.2829+0.1232j (lin -0.4762) settle1%=None ring={'f_MHz': np.float64(0.0006818745490474569), 'decay': np.float64(1.4176670578771777), 'Q': np.float64(0.0015110544200448895)} SNR(1us)=13.3
+eps=3 g2: b_ss=-0.0410+0.2536j (lin -0.7143) settle1%=None ring={'f_MHz': np.float64(3.099919650436443), 'decay': np.float64(2.6229070608211646), 'Q': np.float64(3.7129355233352554)} SNR(1us)=21.3
+wrote results/s2/readout_a2.10_32x8_T4.json
+JOB 0 773s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.readout --alpha 2.1 --na 32 --nb 8 --T 4 --check-sym
+gx_two_a2.60_36x8_ka1_nth0_ez0_kb1: Gamma_X = 5.01607e-09 /us  (202.9 s)
+wrote results/s2/gx_two_a2.60_36x8_ka1_nth0_ez0_kb1.json
+JOB 0 203s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.6 --na 36 --nb 8
+gx_two_a2.00_28x10_ka1_nth0_ez0_kb1: Gamma_X = 8.46620e-07 /us  (127.7 s)
+wrote results/s2/gx_two_a2.00_28x10_ka1_nth0_ez0_kb1.json
+JOB 0 128s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.0 --na 28 --nb 10 --no-gz
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/repo/tasks/task_2_2.py", line 171, in <module>
+    summary()
+  File "/root/repo/tasks/task_2_2.py", line 125, in summary
+    sl_pred = slope_ratio(al, [gamma_z_pred(a) for a in al])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/repo/tasks/task_2_2.py", line 109, in slope_ratio
+    (s, c), cov = np.polyfit(x, gammas, 1, w=w, cov="unscaled" if w is not None else True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/repo/.venv/lib/python3.12/site-packages/numpy/lib/_polynomial_impl.py", line 694, in polyfit
+    raise ValueError("the number of data points must exceed order "
+ValueError: the number of data points must exceed order to scale the covariance matrix
+alpha 1.0: Gamma_Z 0.12057 /us, pred 0.12123 (-0.54%), truncation spread 2.6e-09, walls [30, 17, 15] s
+saved /root/repo/results/task_2_2_a1.00.json
+JOB 1 81s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m tasks.task_2_2 --alpha 1.0
+gx_two_a1.90_26x10_ka1_nth0_ez0_kb1: Gamma_X = 1.84643e-06 /us  (88.3 s)
+wrote results/s2/gx_two_a1.90_26x10_ka1_nth0_ez0_kb1.json
+JOB 0 89s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.9 --na 26 --nb 10 --no-gz
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.762e-01 (max n_b 1.462e-01); max |n_a diff| = 6.630e-01; averaged over 5.0 ns: n_b 1.387e-01, n_a 4.289e-01; |<b> micromotion| 0.799; memory shift -0.894 MHz; 32 s
+wrote results/s2/circuit_na10_nb4_T0.15_dp-2.5.json
+JOB 0 36s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 10 --nb 4 --T 0.15 --dp -2.5
+eps=0.05 g2: b_ss=-0.0177+0.0035j (lin -0.0179) settle1%=0.8 ring={'f_MHz': np.float64(2.1394086683620874), 'decay': np.float64(6.162316498642514), 'Q': np.float64(1.0906857116204998)} SNR(1us)=0.0194
+eps=0.1 g2: b_ss=-0.0350+0.0047j (lin -0.0357) settle1%=1.32 ring={'f_MHz': np.float64(2.1216781784489824), 'decay': np.float64(5.98034902841132), 'Q': np.float64(1.1145584558745685)} SNR(1us)=0.0775
+eps=0.2 g2: b_ss=-0.0670+0.0097j (lin -0.0714) settle1%=3.2533333333333334 ring={'f_MHz': np.float64(2.034673867518208), 'decay': np.float64(5.374016880672247), 'Q': np.float64(1.1894485292064678)} SNR(1us)=0.307
+eps=0.3 g2: b_ss=-0.0926+0.0178j (lin -0.1071) settle1%=3.6333333333333337 ring={'f_MHz': np.float64(1.753429025031232), 'decay': np.float64(4.794612103590604), 'Q': np.float64(1.1489062357106978)} SNR(1us)=0.676
+eps=0.5 g2: b_ss=-0.1145+0.0423j (lin -0.1786) settle1%=None ring={'f_MHz': np.float64(0.0005275058877173331), 'decay': np.float64(1.9823207783394383), 'Q': np.float64(0.000835994173943107)} SNR(1us)=1.75
+eps=0.75 g2: b_ss=-0.1037+0.0820j (lin -0.2679) settle1%=None ring={'f_MHz': np.float64(0.0005307032204478625), 'decay': np.float64(1.6072714642853267), 'Q': np.float64(0.0010373190687714931)} SNR(1us)=3.48
+eps=1 g2: b_ss=-0.0521+0.1309j (lin -0.3571) settle1%=None ring={'f_MHz': np.float64(1.6348657408610163), 'decay': np.float64(7.185362434239215), 'Q': np.float64(0.714797930946459)} SNR(1us)=5.18
+eps=1.5 g2: b_ss=-0.0028+0.2307j (lin -0.5357) settle1%=3.4800000000000004 ring={'f_MHz': np.float64(1.9053761098496345), 'decay': np.float64(4.661397625552715), 'Q': np.float64(1.284146101636061)} SNR(1us)=7.26
+eps=2 g2: b_ss=0.0000+0.3197j (lin -0.7143) settle1%=1.5933333333333335 ring={'f_MHz': np.float64(2.037201952105779), 'decay': np.float64(3.1833847052170885), 'Q': np.float64(2.0104571954893067)} SNR(1us)=7.68
+eps=3 g2: b_ss=-0.0000+0.4432j (lin -1.0714) settle1%=1.8466666666666667 ring={'f_MHz': np.float64(2.1919890543719016), 'decay': np.float64(2.0606681968825113), 'Q': np.float64(3.3417979276731797)} SNR(1us)=8.06
+wrote results/s2/readout_a1.40_26x8_T4.json
+JOB 0 349s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.readout --alpha 1.4 --na 26 --nb 8 --T 4 --check-sym
+gx_two_a1.80_26x8_ka1_nth0_ez0.05_kb1: Gamma_X = 6.92831e-05 /us  (196.7 s)
+wrote results/s2/gx_two_a1.80_26x8_ka1_nth0_ez0.05_kb1.json
+JOB 0 197s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.8 --na 26 --nb 8 --eps-z 0.05
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.737e-01 (max n_b 1.449e-01); max |n_a diff| = 6.636e-01; averaged over 5.0 ns: n_b 1.391e-01, n_a 4.295e-01; |<b> micromotion| 0.772; memory shift -0.896 MHz; 30 s
+wrote results/s2/circuit_na10_nb4_T0.15_dp-2.json
+JOB 0 34s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 10 --nb 4 --T 0.15 --dp -2
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.746e-01 (max n_b 1.424e-01); max |n_a diff| = 6.589e-01; averaged over 5.0 ns: n_b 1.391e-01, n_a 4.293e-01; |<b> micromotion| 0.767; memory shift -0.897 MHz; 30 s
+wrote results/s2/circuit_na10_nb4_T0.15_dp-1.5.json
+JOB 0 34s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 10 --nb 4 --T 0.15 --dp -1.5
+eps_p = 0.0370; RWA phase 1.0; max |n_b diff| = 1.804e-01 (max n_b 1.405e-01); max |n_a diff| = 6.577e-01; averaged over 5.0 ns: n_b 1.381e-01, n_a 4.271e-01; |<b> micromotion| 0.738; memory shift -0.899 MHz; 31 s
+wrote results/s2/circuit_na10_nb4_T0.15_dp-0.5.json
+JOB 0 35s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.circuit_sim --na 10 --nb 4 --T 0.15 --dp -0.5
+gx_two_a1.60_24x10_ka1_nth0_ez0_kb1: Gamma_X = 2.14105e-05 /us  (64.4 s)
+wrote results/s2/gx_two_a1.60_24x10_ka1_nth0_ez0_kb1.json
+JOB 0 65s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.6 --na 24 --nb 10 --no-gz
+gx_two_a1.40_22x8_ka1_nth0_ez0.2_kb1: Gamma_X = 1.54315e-02 /us  (94.6 s)
+wrote results/s2/gx_two_a1.40_22x8_ka1_nth0_ez0.2_kb1.json
+JOB 0 95s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --eps-z 0.2
+gx_two_a2.40_36x8_ka1_nth0_ez0_kb1: Gamma_X = 3.15520e-08 /us  (198.3 s)
+wrote results/s2/gx_two_a2.40_36x8_ka1_nth0_ez0_kb1.json
+JOB 0 199s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.4 --na 36 --nb 8
+gx_two_a1.40_22x8_ka1_nth0_ez0.3_kb1: Gamma_X = 3.69289e-02 /us  (96.0 s)
+wrote results/s2/gx_two_a1.40_22x8_ka1_nth0_ez0.3_kb1.json
+gx_two_a1.40_26x8_ka1_nth0_ez2_kb1: Gamma_X = 3.83034e+00 /us  (192.2 s)
+wrote results/s2/gx_two_a1.40_26x8_ka1_nth0_ez2_kb1.json
+JOB 0 96s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --eps-z 0.3
+JOB 0 192s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 26 --nb 8 --eps-z 2.0
+gx_two_a1.40_22x8_ka1_nth0_ez0.5_kb1: Gamma_X = 1.14737e-01 /us  (90.7 s)
+wrote results/s2/gx_two_a1.40_22x8_ka1_nth0_ez0.5_kb1.json
+JOB 0 91s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --eps-z 0.5
+gx_two_a2.40_32x8_ka1_nth0.01_ez0_kb1: Gamma_X = 1.27098e-07 /us  (59.7 s)
+wrote results/s2/gx_two_a2.40_32x8_ka1_nth0.01_ez0_kb1.json
+JOB 0 60s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.4 --na 32 --nb 8 --nth 0.01 --no-gz
+gx_two_a1.40_22x10_ka1_nth0_ez0_kb1: Gamma_X = 1.20205e-04 /us  (45.9 s)
+wrote results/s2/gx_two_a1.40_22x10_ka1_nth0_ez0_kb1.json
+JOB 0 46s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 10 --no-gz
+gx_two_a2.40_32x8_ka1_nth0.05_ez0_kb1: Gamma_X = 5.13244e-07 /us  (63.9 s)
+wrote results/s2/gx_two_a2.40_32x8_ka1_nth0.05_ez0_kb1.json
+JOB 0 65s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.4 --na 32 --nb 8 --nth 0.05 --no-gz
+gx_two_a1.50_24x10_ka1_nth0_ez0_kb1: Gamma_X = 5.08433e-05 /us  (65.5 s)
+wrote results/s2/gx_two_a1.50_24x10_ka1_nth0_ez0_kb1.json
+JOB 0 66s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.5 --na 24 --nb 10 --no-gz
+gx_two_a2.10_28x8_ka2_nth0_ez0_kb1: Gamma_X = 1.57988e-06 /us  (32.9 s)
+wrote results/s2/gx_two_a2.10_28x8_ka2_nth0_ez0_kb1.json
+JOB 0 34s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --ka-scale 2 --no-gz
+gx_two_a2.10_28x8_ka4_nth0_ez0_kb1: Gamma_X = 6.68311e-06 /us  (32.4 s)
+wrote results/s2/gx_two_a2.10_28x8_ka4_nth0_ez0_kb1.json
+JOB 0 33s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --ka-scale 4 --no-gz
+gx_two_a2.10_28x8_ka1_nth0.01_ez0_kb1: Gamma_X = 1.45183e-06 /us  (34.7 s)
+wrote results/s2/gx_two_a2.10_28x8_ka1_nth0.01_ez0_kb1.json
+JOB 0 35s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8 --nth 0.01 --no-gz
+gx_two_a1.90_30x8_ka1_nth0_ez0_kb1: Gamma_X = 1.85008e-06 /us  (94.4 s)
+wrote results/s2/gx_two_a1.90_30x8_ka1_nth0_ez0_kb1.json
+JOB 0 95s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.9 --na 30 --nb 8
+gx_two_a2.10_28x8_ka1_nth0_ez0_kb1: Gamma_X = 3.88312e-07 /us  (67.4 s)
+wrote results/s2/gx_two_a2.10_28x8_ka1_nth0_ez0_kb1.json
+JOB 0 68s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 28 --nb 8
+gx_two_a1.80_26x8_ka0.25_nth0_ez0_kb1: Gamma_X = 4.18362e-07 /us  (26.8 s)
+wrote results/s2/gx_two_a1.80_26x8_ka0.25_nth0_ez0_kb1.json
+JOB 0 27s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.8 --na 26 --nb 8 --ka-scale 0.25 --no-gz
+gx_two_a1.00_24x8_ka1_nth0_ez2_kb1: Gamma_X = 3.37223e+00 /us  (137.1 s)
+wrote results/s2/gx_two_a1.00_24x8_ka1_nth0_ez2_kb1.json
+JOB 0 138s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.0 --na 24 --nb 8 --eps-z 2.0
+gx_two_a1.00_20x8_ka1_nth0_ez0.2_kb1: Gamma_X = 9.99808e-02 /us  (61.9 s)
+wrote results/s2/gx_two_a1.00_20x8_ka1_nth0_ez0.2_kb1.json
+JOB 0 62s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.0 --na 20 --nb 8 --eps-z 0.2
+gx_two_a1.80_26x8_ka1_nth0_ez0_kb1: Gamma_X = 4.06955e-06 /us  (50.8 s)
+wrote results/s2/gx_two_a1.80_26x8_ka1_nth0_ez0_kb1.json
+JOB 0 51s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.8 --na 26 --nb 8
+gx_two_a1.70_26x8_ka1_nth0_ez0_kb1: Gamma_X = 9.19136e-06 /us  (53.3 s)
+wrote results/s2/gx_two_a1.70_26x8_ka1_nth0_ez0_kb1.json
+JOB 0 54s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.7 --na 26 --nb 8
+gx_two_a1.00_20x8_ka1_nth0_ez0.3_kb1: Gamma_X = 2.45884e-01 /us  (64.7 s)
+wrote results/s2/gx_two_a1.00_20x8_ka1_nth0_ez0.3_kb1.json
+JOB 0 65s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.0 --na 20 --nb 8 --eps-z 0.3
+gx_two_a0.80_18x10_ka1_nth0_ez0_kb1: Gamma_X = 6.42262e-03 /us  (18.4 s)
+wrote results/s2/gx_two_a0.80_18x10_ka1_nth0_ez0_kb1.json
+JOB 0 19s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 0.8 --na 18 --nb 10 --no-gz
+gx_two_a1.80_26x8_ka1_nth0.05_ez0_kb1: Gamma_X = 4.44769e-05 /us  (26.9 s)
+wrote results/s2/gx_two_a1.80_26x8_ka1_nth0.05_ez0_kb1.json
+JOB 0 27s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.8 --na 26 --nb 8 --nth 0.05 --no-gz
+gx_two_a0.90_18x10_ka1_nth0_ez0_kb1: Gamma_X = 4.00148e-03 /us  (21.4 s)
+wrote results/s2/gx_two_a0.90_18x10_ka1_nth0_ez0_kb1.json
+JOB 0 22s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 0.9 --na 18 --nb 10 --no-gz
+gx_two_a1.40_22x8_ka2_nth0_ez0_kb1: Gamma_X = 3.01206e-04 /us  (19.8 s)
+wrote results/s2/gx_two_a1.40_22x8_ka2_nth0_ez0_kb1.json
+JOB 0 20s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --ka-scale 2 --no-gz
+gx_two_a1.40_22x8_ka4_nth0_ez0_kb1: Gamma_X = 8.50395e-04 /us  (17.6 s)
+wrote results/s2/gx_two_a1.40_22x8_ka4_nth0_ez0_kb1.json
+JOB 0 18s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --ka-scale 4 --no-gz
+gx_two_a1.30_22x8_ka1_nth0_ez0_kb1: Gamma_X = 2.75648e-04 /us  (32.8 s)
+wrote results/s2/gx_two_a1.30_22x8_ka1_nth0_ez0_kb1.json
+JOB 0 33s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.3 --na 22 --nb 8
+gx_two_a1.40_22x8_ka1_nth0.01_ez0_kb1: Gamma_X = 1.84224e-04 /us  (15.8 s)
+wrote results/s2/gx_two_a1.40_22x8_ka1_nth0.01_ez0_kb1.json
+JOB 0 17s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --nth 0.01 --no-gz
+gx_two_a1.00_20x10_ka1_nth0_ez0_kb1: Gamma_X = 2.30066e-03 /us  (34.0 s)
+wrote results/s2/gx_two_a1.00_20x10_ka1_nth0_ez0_kb1.json
+JOB 0 35s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.0 --na 20 --nb 10 --no-gz
+gx_two_a1.40_22x8_ka1_nth0.05_ez0_kb1: Gamma_X = 4.40653e-04 /us  (15.1 s)
+wrote results/s2/gx_two_a1.40_22x8_ka1_nth0.05_ez0_kb1.json
+JOB 0 15s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.4 --na 22 --nb 8 --nth 0.05 --no-gz
+gx_two_a0.90_18x8_ka1_nth0_ez0_kb1: Gamma_X = 4.00148e-03 /us  (14.1 s)
+wrote results/s2/gx_two_a0.90_18x8_ka1_nth0_ez0_kb1.json
+JOB 0 14s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 0.9 --na 18 --nb 8
+gx_two_a1.00_20x8_ka4_nth0_ez0_kb1: Gamma_X = 1.06266e-02 /us  (10.6 s)
+wrote results/s2/gx_two_a1.00_20x8_ka4_nth0_ez0_kb1.json
+JOB 0 11s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.0 --na 20 --nb 8 --ka-scale 4 --no-gz
+gx_two_a1.00_20x8_ka1_nth0_ez0_kb1: Gamma_X = 2.30066e-03 /us  (20.7 s)
+wrote results/s2/gx_two_a1.00_20x8_ka1_nth0_ez0_kb1.json
+JOB 0 21s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 1.0 --na 20 --nb 8
+gx_two_a0.90_22x8_ka1_nth0_ez0_kb1: Gamma_X = 4.00148e-03 /us  (30.1 s)
+wrote results/s2/gx_two_a0.90_22x8_ka1_nth0_ez0_kb1.json
+JOB 0 30s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 0.9 --na 22 --nb 8
+gx_two_a2.10_32x10_ka1_nth0_ez1_kb1: Gamma_X = 8.61393e-03 /us  (1460.6 s)
+wrote results/s2/gx_two_a2.10_32x10_ka1_nth0_ez1_kb1.json
+JOB 0 1462s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 32 --nb 10 --eps-z 1.0
+gx_two_a2.10_32x10_ka1_nth0_ez0.3_kb1: Gamma_X = 2.46677e-04 /us  (1511.5 s)
+wrote results/s2/gx_two_a2.10_32x10_ka1_nth0_ez0.3_kb1.json
+JOB 0 1512s OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 XLA_FLAGS=--xla_cpu_multi_thread_eigen=false .venv/bin/python -m research.s2.gx_eig --alpha 2.1 --na 32 --nb 10 --eps-z 0.3
