@@ -1,7 +1,7 @@
 """Environment for the Academy API.
 
-Gemini, ElevenLabs, and Tiger Data are live when their keys are set.
-Vultr, Solana, and Backboard have no credentials here, so those three stay in
+Gemini, ElevenLabs, Tiger Data, and Backboard are live when their keys are set.
+Backboard with no key uses the labeled demo adapter. Vultr and Solana stay in
 demo mode behind the same interfaces the real services use.
 """
 import os
