@@ -29,7 +29,7 @@ def panel(ax, letter, title=""):
 
 def _wigner_origin(ax):
     """Mark the phase-space origin without obscuring the Wigner structure."""
-    ax.plot(0, 0, marker="P", ls="none", ms=5.4, mfc="black", mec="black",
+    ax.plot(0, 0, marker="P", ls="none", ms=5.4, mfc="#444444", mec="#444444",
             mew=0, snap=True, antialiased=False, zorder=5)
 
 
