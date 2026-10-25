@@ -20,6 +20,9 @@ EPS_D = ALPHA**2 * G2          # buffer drive, so alpha^2 = eps_d / g2
 
 KAPPA_2 = 4 * G2**2 / KAPPA_B  # effective two-photon dissipation (adiabatic elimination)
 
+READOUT_DRIVE_RATIO = 0.05     # Task 2.3: weak memory drive epsilon_Z / g2
+EPS_Z = READOUT_DRIVE_RATIO * G2
+
 N_SINGLE = 30                  # truncation for the one-mode warm-up (Task 1.0)
 NA_START, NB_START = 24, 6     # initial cutoffs from the prompt (see Task 1.2)
 NA, NB = 32, 12                # chosen cutoff throughout; minimum passing grid pair is (28, 12)
