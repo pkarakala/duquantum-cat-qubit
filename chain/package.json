@@ -1,0 +1,32 @@
+{
+  "name": "duq-chain",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Devnet soulbound credential and results-hash anchor for Cat Qubit Academy.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p .",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "smoke:devnet": "tsx src/smoke.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.5",
+    "@metaplex-foundation/mpl-core": "1.10.0",
+    "@metaplex-foundation/umi": "1.6.0",
+    "@metaplex-foundation/umi-bundle-defaults": "1.6.0",
+    "@solana/web3.js": "1.99.0",
+    "bs58": "6.0.0",
+    "hono": "4.13.13"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

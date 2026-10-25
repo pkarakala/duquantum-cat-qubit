@@ -1,0 +1,4 @@
+{
+  "tree": {"op": "sqrt", "arg": {"op": "sym", "name": "a"}},
+  "python": "jnp.sqrt(a)"
+}

@@ -1,0 +1,4 @@
+{
+  "tree": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "dag", "arg": {"op": "sym", "name": "a"}}}}}}}}},
+  "python": "a.dag().dag().dag().dag().dag().dag().dag().dag()"
+}

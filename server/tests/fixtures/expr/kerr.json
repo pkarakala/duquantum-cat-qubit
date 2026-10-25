@@ -1,0 +1,12 @@
+{
+  "tree": {
+    "op": "mul",
+    "args": [
+      {"op": "num", "value": -1},
+      {"op": "param", "name": "K"},
+      {"op": "pow", "base": {"op": "sym", "name": "ad"}, "exp": 2},
+      {"op": "pow", "base": {"op": "sym", "name": "a"}, "exp": 2}
+    ]
+  },
+  "python": "-K*a.dag()@a.dag()@a@a"
+}

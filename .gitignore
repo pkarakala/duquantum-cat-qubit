@@ -9,3 +9,11 @@ results/grid/
 .cloud-worktrees/
 reviews/*.tmp
 results/task_2_cache/
+
+# Cat Qubit Academy
+node_modules/
+site/dist/
+site/dist-single/
+chain/dist/
+.env
+*.env
