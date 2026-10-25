@@ -1,0 +1,108 @@
+{
+  "schema": "duq.record/v2",
+  "id": "t1_1.peak_na.td.two_mode.a2.10",
+  "task": "1.1",
+  "quantity": "peak_na",
+  "value": 6.894411732563246,
+  "uncertainty": null,
+  "units": "photons",
+  "method": "mesolve_peak",
+  "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+  },
+  "truncation": {
+    "Na": 32,
+    "Nb": 12
+  },
+  "convergence": {
+    "key": "peak_na",
+    "rel_tol": 0.005,
+    "sweeps": {
+      "Na": {
+        "fixed": {
+          "Nb": 14
+        },
+        "values": [
+          16,
+          20,
+          24,
+          28,
+          32,
+          40
+        ],
+        "results": [
+          6.363434897104307,
+          6.7933732002330105,
+          6.8829724817641775,
+          6.895408406757042,
+          6.896580601755513,
+          6.896651439612382
+        ]
+      },
+      "Nb": {
+        "fixed": {
+          "Na": 40
+        },
+        "values": [
+          4,
+          6,
+          8,
+          10,
+          12,
+          14
+        ],
+        "results": [
+          4.461619550244076,
+          6.114285465477967,
+          6.7375684594756935,
+          6.874000020188217,
+          6.894429787991225,
+          6.896651439612382
+        ]
+      }
+    },
+    "needed": {
+      "Na": 24,
+      "Nb": 10
+    },
+    "converged": true
+  },
+  "numerics": null,
+  "cross_check": [
+    {
+      "method": "larger_truncation_same_solver",
+      "ref_id": null,
+      "value": 6.896651439612382,
+      "rel_diff": 0.0003247528266068044,
+      "tol": 0.005,
+      "agree": true
+    }
+  ],
+  "artifacts": {
+    "source_json": "results/task_1_1.json"
+  },
+  "notes": "wrapped from flat JSON results/task_1_1.json; transient peak of <n_a> during inflation from vacuum. Sweeps from results/task_1_2.json. The cross-check is the same solver at Na=40, Nb=14 (not fully independent)",
+  "provenance": {
+    "script": "tasks/task_1_1.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+  }
+}

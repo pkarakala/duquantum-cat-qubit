@@ -1,0 +1,661 @@
+{
+ "schema": "duq.index/v1",
+ "generated_at": "2026-10-25T02:53:50Z",
+ "count": 9,
+ "records": [
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_0.final_n.td.one_mode.a2.10",
+   "task": "1.0",
+   "quantity": "final_n",
+   "value": 4.403969346892005,
+   "uncertainty": null,
+   "units": "photons",
+   "method": "mesolve_final_value",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0,
+    "kappa_2_scale": 1.0
+   },
+   "truncation": {
+    "N": 30
+   },
+   "convergence": null,
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "semiclassical_alpha2",
+     "ref_id": null,
+     "value": 4.41,
+     "rel_diff": 0.0013674950358265807,
+     "tol": 0.01,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_0.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_0.json; <n> at t = 2 us from vacuum, one-mode model at nominal kappa_2 (final_n[1] of the kappa_2/4, kappa_2, 4 kappa_2 batch). convergence null: single mode N=30 (one-mode effective model), checked against the analytic prediction instead of a truncation sweep",
+   "provenance": {
+    "script": "tasks/task_1_0.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_0.max_abs_error.td.one_mode.a2.00",
+   "task": "1.0",
+   "quantity": "max_abs_error",
+   "value": 9.720044213956669e-12,
+   "uncertainty": null,
+   "units": "photons",
+   "method": "mesolve_vs_analytic",
+   "params": {
+    "delta_over_2pi_MHz": 1.0,
+    "kappa_over_2pi_MHz": 1.0,
+    "alpha0": 2.0
+   },
+   "truncation": {
+    "N": 30
+   },
+   "convergence": null,
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "analytic",
+     "ref_id": null,
+     "value": 0.0,
+     "rel_diff": 2.4300110534891672e-12,
+     "tol": 1e-06,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_0.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_0.json; max |<n>(t) - 4 exp(-kappa t)| over t in [0, 1] us. The analytic error is 0, so rel_diff is the error relative to the initial <n> = |alpha0|^2 = 4. convergence null: single mode N=30, checked against analytic 4e^{-kappa t}",
+   "provenance": {
+    "script": "tasks/task_1_0.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_0.n_plateau.td.one_mode.a2.00",
+   "task": "1.0",
+   "quantity": "n_plateau",
+   "value": 0.4998322686860546,
+   "uncertainty": null,
+   "units": "photons",
+   "method": "mesolve_final_value",
+   "params": {
+    "kappa_2_over_2pi_MHz": 0.8957,
+    "alpha0": 2.0
+   },
+   "truncation": {
+    "N": 30
+   },
+   "convergence": null,
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "analytic",
+     "ref_id": null,
+     "value": 0.49983226868604874,
+     "rel_diff": 1.1772313232160012e-14,
+     "tol": 1e-09,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_0.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_0.json; <n> at t = 3 us under pure two-photon loss from |alpha0 = 2>; parity is conserved, so the plateau is P_odd = 0.5 (1 - e^-8). convergence null: single mode N=30 (one-mode effective model), checked against the analytic prediction instead of a truncation sweep",
+   "provenance": {
+    "script": "tasks/task_1_0.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_1.peak_na.td.two_mode.a2.10",
+   "task": "1.1",
+   "quantity": "peak_na",
+   "value": 6.894411732563246,
+   "uncertainty": null,
+   "units": "photons",
+   "method": "mesolve_peak",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+   },
+   "truncation": {
+    "Na": 32,
+    "Nb": 12
+   },
+   "convergence": {
+    "key": "peak_na",
+    "rel_tol": 0.005,
+    "sweeps": {
+     "Na": {
+      "fixed": {
+       "Nb": 14
+      },
+      "values": [
+       16,
+       20,
+       24,
+       28,
+       32,
+       40
+      ],
+      "results": [
+       6.363434897104307,
+       6.7933732002330105,
+       6.8829724817641775,
+       6.895408406757042,
+       6.896580601755513,
+       6.896651439612382
+      ]
+     },
+     "Nb": {
+      "fixed": {
+       "Na": 40
+      },
+      "values": [
+       4,
+       6,
+       8,
+       10,
+       12,
+       14
+      ],
+      "results": [
+       4.461619550244076,
+       6.114285465477967,
+       6.7375684594756935,
+       6.874000020188217,
+       6.894429787991225,
+       6.896651439612382
+      ]
+     }
+    },
+    "needed": {
+     "Na": 24,
+     "Nb": 10
+    },
+    "converged": true
+   },
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "larger_truncation_same_solver",
+     "ref_id": null,
+     "value": 6.896651439612382,
+     "rel_diff": 0.0003247528266068044,
+     "tol": 0.005,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_1.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_1.json; transient peak of <n_a> during inflation from vacuum. Sweeps from results/task_1_2.json. The cross-check is the same solver at Na=40, Nb=14 (not fully independent)",
+   "provenance": {
+    "script": "tasks/task_1_1.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_1.peak_nb.td.two_mode.a2.10",
+   "task": "1.1",
+   "quantity": "peak_nb",
+   "value": 1.9915204899995718,
+   "uncertainty": null,
+   "units": "photons",
+   "method": "mesolve_peak",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+   },
+   "truncation": {
+    "Na": 32,
+    "Nb": 12
+   },
+   "convergence": {
+    "key": "peak_nb",
+    "rel_tol": 0.005,
+    "sweeps": {
+     "Na": {
+      "fixed": {
+       "Nb": 14
+      },
+      "values": [
+       16,
+       20,
+       24,
+       28,
+       32,
+       40
+      ],
+      "results": [
+       1.9941138422545177,
+       1.9917748823822516,
+       1.9915681706697803,
+       1.991555558286184,
+       1.991555009795193,
+       1.991554993015615
+      ]
+     },
+     "Nb": {
+      "fixed": {
+       "Na": 40
+      },
+      "values": [
+       4,
+       6,
+       8,
+       10,
+       12,
+       14
+      ],
+      "results": [
+       1.4870841779014756,
+       1.8865139497174477,
+       1.9806515507128362,
+       1.9908131475865969,
+       1.9915204742319659,
+       1.991554993015615
+      ]
+     }
+    },
+    "needed": {
+     "Na": 16,
+     "Nb": 10
+    },
+    "converged": true
+   },
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "larger_truncation_same_solver",
+     "ref_id": null,
+     "value": 1.991554993015615,
+     "rel_diff": 1.7324661465102614e-05,
+     "tol": 0.005,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_1.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_1.json; transient peak of <n_b> during inflation from vacuum. Sweeps from results/task_1_2.json. The cross-check is the same solver at Na=40, Nb=14 (not fully independent)",
+   "provenance": {
+    "script": "tasks/task_1_1.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_1.settle_1pct.td.two_mode.a2.10",
+   "task": "1.1",
+   "quantity": "settle_1pct",
+   "value": 1.07,
+   "uncertainty": null,
+   "units": "us",
+   "method": "mesolve_settle",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+   },
+   "truncation": {
+    "Na": 32,
+    "Nb": 12
+   },
+   "convergence": null,
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "linresp_analytic",
+     "ref_id": null,
+     "value": 1.13,
+     "rel_diff": 0.053097345132743216,
+     "tol": 0.1,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_1.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_1.json; time after which <n_a> stays within 1% of alpha^2 (10 ns save grid). convergence null: not swept in task_1_2; same run as converged peak/steady",
+   "provenance": {
+    "script": "tasks/task_1_1.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_1.steady_na.td.two_mode.a2.10",
+   "task": "1.1",
+   "quantity": "steady_na",
+   "value": 4.402615556547587,
+   "uncertainty": null,
+   "units": "photons",
+   "method": "mesolve_final_value",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+   },
+   "truncation": {
+    "Na": 32,
+    "Nb": 12
+   },
+   "convergence": {
+    "key": "steady_na",
+    "rel_tol": 0.001,
+    "sweeps": {
+     "Na": {
+      "fixed": {
+       "Nb": 14
+      },
+      "values": [
+       16,
+       20,
+       24,
+       28,
+       32,
+       40
+      ],
+      "results": [
+       4.405957850470793,
+       4.402653873218658,
+       4.402616333729455,
+       4.402615647451486,
+       4.402615572821387,
+       4.4026155624467425
+      ]
+     },
+     "Nb": {
+      "fixed": {
+       "Na": 40
+      },
+      "values": [
+       4,
+       6,
+       8,
+       10,
+       12,
+       14
+      ],
+      "results": [
+       4.40263054641697,
+       4.402613647267163,
+       4.4026148468813115,
+       4.402615436262779,
+       4.402615552467497,
+       4.4026155624467425
+      ]
+     }
+    },
+    "needed": {
+     "Na": 16,
+     "Nb": 4
+    },
+    "converged": true
+   },
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "semiclassical_alpha2",
+     "ref_id": null,
+     "value": 4.41,
+     "rel_diff": 0.0016744769733363976,
+     "tol": 0.01,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_1.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_1.json; mean <n_a> over the last 20 saved points of the 3 us trace. Sweeps from results/task_1_2.json",
+   "provenance": {
+    "script": "tasks/task_1_1.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_3a.cat_lifetime.td.two_mode.a2.10",
+   "task": "1.3a",
+   "quantity": "cat_lifetime",
+   "value": 1.9475847581102153,
+   "uncertainty": null,
+   "units": "us",
+   "method": "inverse_parity_fit",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+   },
+   "truncation": {
+    "Na": 32,
+    "Nb": 12
+   },
+   "convergence": null,
+   "numerics": null,
+   "cross_check": [
+    {
+     "method": "analytic_inverse_2kappa_a_alpha2",
+     "ref_id": null,
+     "value": 1.9403028195685048,
+     "rel_diff": 0.0037529907539534677,
+     "tol": 0.01,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_3a.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_3a.json; 1 / parity_decay_fit_per_us. convergence null: single truncation >= task_1_2 needed; superseded by t2_2.gamma_z.td.two_mode.a2.10",
+   "provenance": {
+    "script": "tasks/task_1_3a.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  },
+  {
+   "schema": "duq.record/v2",
+   "id": "t1_3a.gamma_z.td.two_mode.a2.10",
+   "task": "1.3a",
+   "quantity": "gamma_z",
+   "value": 0.5134564726057531,
+   "uncertainty": null,
+   "units": "1/us",
+   "method": "mesolve_parity_fit",
+   "params": {
+    "g2_MHz": 0.763,
+    "kappa_b_MHz": 2.6,
+    "kappa_a_kHz": 9.3,
+    "alpha": 2.1,
+    "n_th": 0.0,
+    "eps_z_over_g2": 0.0,
+    "eps_x_over_g2": 0.0
+   },
+   "truncation": {
+    "Na": 32,
+    "Nb": 12
+   },
+   "convergence": null,
+   "numerics": {
+    "fit_window_us": [
+     1.0,
+     6.0
+    ]
+   },
+   "cross_check": [
+    {
+     "method": "analytic_2kappa_a_n",
+     "ref_id": null,
+     "value": 0.5145525434761521,
+     "rel_diff": 0.002130143722532739,
+     "tol": 0.01,
+     "agree": true
+    }
+   ],
+   "artifacts": {
+    "source_json": "results/task_1_3a.json"
+   },
+   "notes": "wrapped from flat JSON results/task_1_3a.json; parity decay rate from a pure-exponential fit (no offset) over t in [1, 6] us after inflation from vacuum; the flat JSON stores no fit stderr. convergence null: single truncation >= task_1_2 needed; superseded by t2_2.gamma_z.td.two_mode.a2.10",
+   "provenance": {
+    "script": "tasks/task_1_3a.py",
+    "git_commit": "b88747b",
+    "git_branch": null,
+    "dirty": false,
+    "dynamiqs": null,
+    "jax": null,
+    "numpy": null,
+    "scipy": null,
+    "python": null,
+    "platform": null,
+    "cpu_count": null,
+    "wall_s": null,
+    "timestamp": "2026-10-24T20:10:42Z",
+    "wrapped_by": "tools/wrap_intro_records.py",
+    "wrapped_at": "2026-10-24T22:39:02Z"
+   }
+  }
+ ]
+}

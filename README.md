@@ -22,12 +22,16 @@ We simulated how that trap forms, starting from the simplest possible model and 
 | **1.1** Real circuit | Add the second "buffer" resonator that creates the pair leak in hardware | The photon number **overshoots by ~56%** before settling, because the buffer is too slow for the simple model's shortcut. It still settles at the right value (4.40 photons). |
 | **1.2** Can we trust it? | Make the simulation bigger, one resonator at a time, until the answer stops changing | The starter settings get the final value right but **miss the overshoot by 11%**. The buffer needs **10+ levels** instead of 6, because it briefly holds ~2 photons. |
 | **1.3a** What did we make? | Track parity, fidelity, purity and coherence | We made the **even cat** (both valleys at once, not one or the other). Photon loss fades it into a plain mixture in **~1.9 µs**, as predicted. |
+| **1.3b/c** One definite state | Give the memory a short push toward +α before the pump turns on | Lands in the **+α** valley with **99.9%** fidelity in under half a microsecond. The stabilization forgives a sloppy push: a 30° aiming error still gives 99.5%, where the push alone would give 31%. Pushing in the wrong direction picks no valley at all. |
 
 ![Two-mode inflation](figures/task_1_1_inflation.png)
 *Left: the memory photon number overshoots, then settles at α² = 4.41 (grey line). The simple one-mode model (dotted) rises smoothly. The starter simulation size (dashed) underestimates the overshoot. Right: how much population leaks into the highest levels the computer keeps. Smaller is better.*
 
 ![Convergence](figures/task_1_2_convergence.png)
 *The final value (orange) doesn't care about simulation size. The overshoot peak (blue) needs about 24 memory levels and about 10 buffer levels.*
+
+![Logical state preparation](figures/task_1_3b_logical_prep.png)
+*Left: starting from a displaced state, the memory settles into |+α⟩. Middle: with stabilization (blue) the result barely depends on the push's aiming error; the push alone (orange) would need to be almost perfect. Right: pushing during inflation also works if the push is strong; the wrong drive direction (dashed) picks no valley.*
 
 ## Run it yourself
 
@@ -47,8 +51,8 @@ We used AI assistants to learn the background, plan the project, and write much 
 ```
 README.md          you are here (human layer)
 TECHNICAL.md       detailed layer: claims, methods, checks, file map
-notebooks/         one notebook per task (01 to 04)
-tasks/             the scripts the notebooks call (task_1_0.py ... task_1_3a.py)
+notebooks/         one notebook per task (01 to 05)
+tasks/             the scripts the notebooks call (task_1_0.py ... task_1_3b.py)
 src/               shared code: parameters, models, analysis helpers
 results/           every reported number, as JSON
 figures/           every figure
