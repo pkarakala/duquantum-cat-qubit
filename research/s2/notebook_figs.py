@@ -54,7 +54,7 @@ def bit_flips():
     ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label="full model, eigenvalue")
     td = [d for d in load("gxt_*.json") if d["eps_z_over_g2"] == 0]
     ax[0].plot([d["alpha"]**2 for d in td], [d["gamma_x_offset"] for d in td], "kx", ms=8, mew=1.5,
-               label="full model, time-domain fit")
+               label="full model, time domain fit")
     ax[0].set(xlabel="mean photon number α²", ylabel="bit flip rate (1/µs)")
     ax[0].legend(loc="lower left")
     P.panel(ax[0], "a", "Bit flip rate")
