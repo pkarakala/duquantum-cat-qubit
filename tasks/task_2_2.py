@@ -168,4 +168,5 @@ if __name__ == "__main__":
     if not args.summary:
         for al in args.alpha:
             run_alpha(al)
-    summary()
+    if args.summary or len(args.alpha) > 2:
+        summary()
