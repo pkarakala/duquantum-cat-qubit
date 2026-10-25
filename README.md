@@ -30,8 +30,8 @@ A cat qubit stores information in light trapped in one of two "valleys" in a mic
 
 ## Section 2 in two pictures
 
-![Bit flip rate vs cat size](figures/s2/task_2_1_bit_flips.png)
-*(a) Bit flip rate against cat size: the fast eigenvalue method (line) matches brute force simulation (crosses). (b) Small cats flip through one photon loss, large cats need two.*
+![Bit flip rate vs cat size](figures/s2/task_2_1_large_cats.png)
+*(a) Bit flip rate against cat size: brute force simulation (squares) reaches small cats only; the eigenvalue shortcut (line) matches it and carries on to the challenge cat size. (b) Small cats flip through one photon loss, large cats need two.*
 
 ![Better readout](figures/s2/task_2_4_better_readout.png)
 *(a, b) The real circuit needs the pump retuned by 23 MHz. (c) Driving at the ringing frequency cuts readout errors 1.7×. (d) The gradient-optimized pulse.*
@@ -60,7 +60,7 @@ Every number is saved as JSON in `results/`, so checking a claim does not requir
 ## How we used AI and tools
 
 - **Claude Code** did most of the implementation and drafted the write ups, under our direction.
-- **Codex** helped with Section 1 validation, convergence analysis and figures.
+- **Codex** helped with Section 1 validation, convergence analysis, figures and the brute force Task 2.1/2.2 simulations.
 - **Gemini** checked the physics in the code and validated the plots (`tools/ai_review.py`; log in [`reviews/`](reviews/)).
 - **Vultr** ran our large simulation batches in the cloud for about 5 USD in total.
 - **Cursor** and a **Groq**-powered bot are used for the product layer.

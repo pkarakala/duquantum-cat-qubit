@@ -1,8 +1,9 @@
-"""Section 2 figures for notebooks 06-09, in the shared Section 1 style (src/plotting.py).
+"""Section 2 figures for notebooks 06, 08 and 09, in the shared Section 1 style (src/plotting.py).
 
     python -m research.s2.notebook_figs
 
-Reads only the saved JSON in results/s2/; writes figures/s2/task_2_*.png and .pdf.
+Reads only saved JSON in results/; writes figures/s2/task_2_*.png and .pdf.
+Task 2.1 also overlays the brute force results of tasks/task_2_1.py (results/task_2_1.json).
 """
 import glob
 import json
@@ -51,13 +52,17 @@ def bit_flips():
     ax[0].semilogy(ag**2, S.gamma_x_channel2(ag, KAPPA_A, KAPPA_2), "-.", color="C3", label="out-and-back route (theory)")
     a1 = np.array([a for a in one if a <= 2.5])
     ax[0].semilogy(a1**2, [one[a]["gamma_x"] for a in a1], "--", color=GREY, lw=1, label="one-mode model")
-    ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label="full model, eigenvalue")
-    td = [d for d in load("gxt_*.json") if d["eps_z_over_g2"] == 0]
-    ax[0].plot([d["alpha"]**2 for d in td], [d["gamma_x_offset"] for d in td], "kx", ms=8, mew=1.5,
-               label="full model, time domain fit")
-    ax[0].set(xlabel="mean photon number α²", ylabel="bit flip rate (1/µs)")
-    ax[0].legend(loc="lower left")
-    P.panel(ax[0], "a", "Bit flip rate")
+    ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label="eigenvalue shortcut")
+    td = json.loads((R.parent / "task_2_1.json").read_text())["cases"]   # brute force runs of tasks/task_2_1.py
+    ax[0].axvspan(0, max(c["alpha2"] for c in td), color="0.93", zorder=0)
+    ax[0].text(0.75, 3e-10, "brute force\nreachable", fontsize=8, color=GREY)
+    ax[0].plot([c["alpha2"] for c in td], [c["fit"]["gamma_per_us"] for c in td], "ks", ms=6, mfc="none", mew=1.2,
+               label="brute force simulation")
+    ax[0].axvline(2.1**2, ls=":", color=GREY, lw=0.8)
+    ax[0].set(xlabel="mean photon number α²", ylabel="bit flip rate (1/µs)", xlim=(0.4, 6.4))
+    ax[0].legend(loc="upper right")
+    ax[0].text(2.1**2 + 0.08, 3e-10, "challenge\ncat size", fontsize=8, color=GREY)
+    P.panel(ax[0], "a", "Brute force, then the shortcut")
     # kappa_a sweep: slope 1 = direct route, 2 = out-and-back route
     by = defaultdict(lambda: defaultdict(dict))
     for d in load("gx_two_*.json"):
@@ -76,25 +81,7 @@ def bit_flips():
     ax[1].text(1.0, 2.05, "out-and-back route", color="C3", fontsize=8)
     ax[1].set(xlabel="cat size α", ylabel="slope of log rate vs log photon loss", ylim=(0.8, 2.3))
     P.panel(ax[1], "b", "Which route wins")
-    return P.save(fig, "s2/task_2_1_bit_flips")
-
-
-def phase_flips():
-    two = largest(d for d in load("gx_two_*.json") if nominal(d) and "gamma_z_eig" in d)
-    al = np.array(list(two)); gz = np.array([d["gamma_z_eig"] for d in two.values()])
-    th = S.gamma_z_theory(al, KAPPA_A)
-    fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.3), layout="constrained")
-    ag = np.linspace(0.5, al.max(), 200)
-    ax[0].plot(ag**2, S.gamma_z_theory(ag, KAPPA_A), "-", color=GREY, lw=1, label="textbook prediction")
-    ax[0].plot(al**2, gz, "o", color="C0", ms=5, label="full model, eigenvalue")
-    ax[0].set(xlabel="mean photon number α²", ylabel="phase flip rate (1/µs)")
-    ax[0].legend(loc="upper left")
-    P.panel(ax[0], "a", "Phase flip rate")
-    ax[1].axhline(0, color=GREY, lw=0.8)
-    ax[1].plot(al**2, 100 * (gz / th - 1), "o-", color="C0", ms=4)
-    ax[1].set(xlabel="mean photon number α²", ylabel="difference from prediction (%)")
-    P.panel(ax[1], "b", "Residual")
-    return P.save(fig, "s2/task_2_2_phase_flips")
+    return P.save(fig, "s2/task_2_1_large_cats")
 
 
 def readout():
@@ -158,7 +145,7 @@ def better_readout():
 
 
 def main():
-    for fn in (bit_flips, phase_flips, readout, better_readout):
+    for fn in (bit_flips, readout, better_readout):
         fn()
 
 
