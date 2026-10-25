@@ -265,7 +265,13 @@ H_{\mathrm{ex}}^{(\le5)}=g_2^{(3)}\left[
 
 The additional terms reduce the exchange amplitude and make it occupation dependent. The full normal-ordered sine multiplies the leading coefficient by $e^{-(\varphi_a^2+\varphi_b^2)/2}=0.9543$. Matching this coefficient to $g_2/2\pi=0.763$ MHz requires $\epsilon_p=0.0370$, compared with $0.0353$ at cubic order. A memory-frequency flux tone on the ATS is another possible drive, but it also introduces occupation-dependent corrections; [notebook 09](../notebooks/09_task_2_4_better_readout.ipynb) enumerates them.
 
-The odd sine potential has no static Kerr term at first pump order. Off-resonant processes can generate frequency shifts and Kerr interactions at higher order. To test their importance, we retain the full mode-phase sine, to first order in pump amplitude, and simulate 150 ns, starting from $|\alpha_0=1\rangle_a|0\rangle_b$, with a 20-ns pump ramp and no loss, buffer drive or readout. For the illustrative circuit parameters, changing the pump frequency by **−23 MHz** reduces the maximum averaged memory-occupation mismatch with the exchange model from **0.43 to 0.07 photons**. Larger cutoffs support this local calibration. This short pair-conversion test does not establish the correction required during a stabilized readout. [Circuit comparison and figure](../notebooks/09_task_2_4_better_readout.ipynb) · [ATS calibration in experiment](https://arxiv.org/html/2307.06617v2#S4).
+The odd sine potential has no static Kerr term at first pump order. Off-resonant processes can generate frequency shifts and Kerr interactions at higher order. To test their importance, we retain the full mode-phase sine, to first order in pump amplitude, and simulate 150 ns, starting from $|\alpha_0=1\rangle_a|0\rangle_b$, with a 20-ns pump ramp and no loss, buffer drive or readout. For the illustrative circuit parameters, changing the pump frequency by **−23 MHz** reduces the maximum averaged memory-occupation mismatch with the exchange model from **0.43 to 0.07 photons**. Larger cutoffs support this local calibration. This short pair-conversion test does not establish the correction required during a stabilized readout. [ATS calibration in experiment](https://arxiv.org/html/2307.06617v2#S4).
+
+<p align="center">
+  <img src="../figures/s2/task_2_4_circuit.png" width="860" alt="Short-time circuit calibration and pump-detuning scan">
+</p>
+
+**Circuit calibration.** (a) Memory occupation at $(14,6)$ for the nominal pump (pink), a pump detuned by $\Delta_p/2\pi=-23$ MHz (blue), and the cubic exchange model (black dashes). Circuit curves use a 6-ns display average. (b) Maximum occupation mismatch after a 5-ns average, scanned at $(10,4)$; the dotted line marks $-23$ MHz. Larger-cutoff checks and resonant-term enumeration are in [notebook 09](../notebooks/09_task_2_4_better_readout.ipynb).
 
 ### (b) Quantify the contrast–relaxation trade-off
 
@@ -291,7 +297,7 @@ over the four sampled cat sizes. Signal power and added relaxation therefore bot
   <img src="../figures/s2/task_2_4_drive_sweep.png" width="960" alt="Buffer contrast and drive-induced bit-flip relaxation">
 </p>
 
-**Drive trade-off.** (a) Field separation from $(32,8)$ trajectories at $\alpha=2.1$, averaged over the last 5% of a 4-µs run; dashes show the weak-drive prediction. (b) Added relaxation for four cat sizes, using the largest stored cutoff at each point. Only real slow-mode estimates through $\epsilon_Z/g_2=1$ are shown; the dotted guide is quadratic. (c) $c(\alpha)=[\Gamma_X(0.1g_2)-\Gamma_X(0)]/0.1^2$, with its fitted exponential dependence. The notebook gives the numerical tables and spectral-method qualifications.
+**Drive trade-off.** (a) Field separation from $(32,8)$ trajectories at $\alpha=2.1$, averaged over the last 5% of a 4-µs run; dashes show the weak-drive prediction. (b) Added relaxation for four cat sizes, using the largest stored cutoff at each point. Only real slow-mode estimates through $\epsilon_Z/g_2=1$ are shown; the dotted guide is quadratic. (c) $c(\alpha)=[\Gamma_X(0.1g_2)-\Gamma_X(0)]/0.1^2$, with its fitted exponential dependence. The notebook gives the numerical tables and spectral-method qualifications. These trends motivate two controls: shape the pulse to use the buffer response, or increase cat separation to reduce the switching penalty.
 
 ### (c) Test resonant modulation and temporary enlargement
 
@@ -329,15 +335,23 @@ The cosine produces **9.5% more information with 45.9% less amplitude loss** tha
 
 **Resonant pulse shaping.** (a) $\mathcal I$ versus $\delta_X$ at $(30,8)$ for peaks $0.5$, $0.75$ and $1.0g_2$; lines connect sampled amplitudes and open markers identify the table's examples. (b) A separate 0.5-µs, 40-bin optimization at $(30,8)$, initialized with an alternating-sign resonant pulse. The objective is $\mathcal I-\mu\delta_X$, with $\mu$ fixed by the square pulse's ratio.
 
-A matched check at **0.5-µs pulse duration**, equal peak $g_2$ and 2.5-µs recovery supports the same mechanism. At $(36,10)$, the cosine gives **26.7% more information and 18.1% less amplitude loss** than the square. Increasing the cutoff from $(32,8)$ changes their information by less than 0.002% and amplitude-loss estimates by less than 0.71%. These shorter-pulse checks do not certify convergence of the 2-µs examples.
+A matched check at **0.5-µs pulse duration**, equal peak $g_2$ and 2.5-µs recovery supports the same mechanism:
 
-**Temporary enlargement to preserve the storage rate.** A complementary protocol increases the cat amplitude from 2.1 to 2.6 and doubles the weak readout drive from $0.05g_2$ to $0.1g_2$. Larger separation suppresses switching exponentially, while the weak-drive field decreases only as $1/\alpha$.
+| Pulse | $\mathcal I$ at $(36,10)$ | $\delta_X$ at $(36,10)$ | Cutoff change in $\mathcal I$ | Cutoff change in $\delta_X$ |
+|---|---:|---:|---:|---:|
+| Square | 2.11147 | $1.7215\times10^{-3}$ | 0.00084% | 0.708% |
+| Resonant cosine | 2.67434 | $1.4102\times10^{-3}$ | 0.00183% | 0.456% |
+
+**Matched pulse validation.** Relative changes compare $(32,8)$ with $(36,10)$, divided by the larger-cutoff result. At $(36,10)$, the cosine gives **26.7% more information and 18.1% less amplitude loss** than the square. The gains exceed the tested cutoff changes. These shorter-pulse checks do not certify convergence of the 2-µs examples.
+
+**Temporary enlargement to preserve the storage rate.** The second objective is to keep the readout-stage relaxation rate below **undriven storage**, $\Gamma_X=3.847\times10^{-7}$ µs⁻¹ at $\alpha=2.1$. Resonant shaping alone has not established that criterion. We therefore increase the cat amplitude from 2.1 to 2.6 and double the weak readout drive from $0.05g_2$ to $0.1g_2$. This uses the scaling found in part (b): greater cat separation suppresses switching exponentially, while the weak-drive field decreases only as $1/\alpha$. The stronger drive can then increase the signal without increasing the plateau rate above storage.
 
 The complete sequence is **2 µs enlargement → 41.40 µs readout → 2 µs return → 2 µs recovery**. Cat size is controlled through $\epsilon_d(t)=g_2\alpha(t)^2$ with smooth quintic ramps. The weak reference reads for 108.22 µs and recovers for 2 µs, without ramps. Both cycles target $\mathcal I=1$. For ideal homodyne detection of coherent Gaussian output, that target corresponds to a 15.9% assignment-error estimate; it is a common signal benchmark, not a high-fidelity claim. Signal is counted only through the end of the readout drive; all ramps and recovery count in the duration.
 
 | Quantity | Weak reference | Enlarge, read, restore |
 |---|---:|---:|
 | Complete cycle (µs) | 110.22 | **47.40** |
+| Readout-stage $\Gamma_X$ (µs⁻¹) | $6.105\times10^{-6}$ | **$2.035\times10^{-7}$** |
 | Information at drive end | 1.000000 | 0.999992 |
 | Final wrong-logical population $p_X$ | $3.306\times10^{-4}$ | **$7.948\times10^{-6}$** |
 | Final code-space leakage | $8.110\times10^{-6}$ | $8.110\times10^{-6}$ |
@@ -348,13 +362,29 @@ Here $p_X$ is evaluated directly in the original storage basis after recovery, w
   <img src="../figures/s2/task_2_4_enlargement.png" width="860" alt="Equal-information complete cycles and temporary cat enlargement controls">
 </p>
 
-**Temporary enlargement.** (a) Counted information from saved buffer fields; dashed segments show return/recovery without counting later emission, and dots mark complete-cycle endpoints. (b) Target cat amplitude (blue, left axis) and memory drive (orange, right axis). Cycle cutoffs are $(32,12)$ for the reference and $(38,16)$ for enlargement. The ramps use $s(u)=10u^3-15u^4+6u^5$ for $0\le u\le1$.
+**Temporary enlargement.** (a) Target cat amplitude (blue, upper axis) and memory drive (orange, lower axis), sharing the same time coordinate. The ramps use $s(u)=10u^3-15u^4+6u^5$ for $0\le u\le1$. (b) Counted information from saved buffer fields: blue is enlargement and gray the weak reference. Solid curves end with the readout drive; dashed segments include return/recovery without counting later emission, and dots mark complete-cycle endpoints. Cycle cutoffs are $(32,12)$ and $(38,16)$, respectively for the weak reference and enlargement; the enlarged plateau rate uses $(40,16)$.
 
 The cycle is **2.33 times faster** at the same signal target. Its estimated readout-stage rate, **$\Gamma_X=2.035\times10^{-7}$ µs⁻¹**, is below undriven storage's **$3.847\times10^{-7}$ µs⁻¹**. The last separate memory and buffer increments change that rate by 0.70% and 0.53%; the final cycle cutoff increment changes $p_X$ by 0.78%. An earlier joint rate-cutoff increase changed the estimate by 2.12%. These empirical checks support the gain but are not rigorous error bounds. [Selected data, numerical checks and source provenance](../results/task_2_4_enlargement.json).
 
 ### (d) Explain the improvement and assess its scope
 
-**Why resonance helps.** In the linearized model, a sampled pulse $\epsilon$ produces $\Delta b=K\epsilon$, where $K$ is the causal memory–buffer response. Maximizing signal at fixed pulse energy selects the leading right singular vector of $K$. Its spectrum peaks near $\omega_r$: driving this mode increases the measured buffer response. The full nonlinear pulse simulations above support that prediction. Across nine completed settings, the 40-bin optimizer gives 1.26–1.71 times the square pulse's $\mathcal I/\delta_X$, but only 0.98–1.16 times its resonant starting pulse. This is evidence for local improvement, not a global optimum or independent discovery of resonance. [Derivation, spectra and optimizer table](../notebooks/09_task_2_4_better_readout.ipynb).
+**Why resonance helps.** In the linearized model, a sampled pulse $\epsilon$ produces $\Delta b=K\epsilon$, where $K$ is the causal memory–buffer response. Maximizing signal at fixed pulse energy selects the leading right singular vector of $K$. Its spectrum peaks near $\omega_r$: driving this mode increases the measured buffer response.
+
+<p align="center">
+  <img src="../figures/s2/task_2_4_svd_pulse.png" width="860" alt="Linear-response optimal pulse and its spectrum near the memory-buffer resonance">
+</p>
+
+**Linear-response optimum.** (a) Leading singular-vector pulse (blue), normalized to its maximum magnitude, for a 2-µs window at $\alpha=2.1$; gray dashes show a resonant cosine. (b) Normalized Fourier magnitude; the dotted line marks $\omega_r/2\pi=3.14$ MHz. The finite pulse window limits frequency resolution. This optimum maximizes the linear signal objective at fixed pulse energy; it does not optimize logical error.
+
+**Nonlinear optimization.** The full-model optimizer varies 40 bounded pulse bins to maximize $\mathcal I-\mu\delta_X$, initialized with the alternating-sign resonant pulse. Here $\mu$ is the square pulse's $\mathcal I/\delta_X$. The nine completed runs give:
+
+| $\alpha$ | Gain in $\mathcal I/\delta_X$ over square | Gain over the initial resonant pulse |
+|---:|---:|---:|
+| 1.4 | 1.55–1.66 | 1.020–1.024 |
+| 1.8 | 1.32–1.71 | 0.985–1.135 |
+| 2.1 | 1.26–1.56 | 1.047–1.158 |
+
+**Optimization across settings.** Each row spans $(T,\epsilon_{\max}/g_2)=(0.5,0.5),(0.5,1.0),(1.0,0.5)$, with $T$ in µs and 2 µs recovery. The respective cutoffs are $(22,8)$, $(26,8)$ and $(30,8)$ for increasing $\alpha$. The objective is the weighted difference $\mathcal I-\mu\delta_X$, so improvement in the ratio itself is not guaranteed. Most of the advantage over a square pulse is already present in the resonant starting shape. The result supports resonant control locally, without establishing a global optimum. [Individual runs and executable analysis](../notebooks/09_task_2_4_better_readout.ipynb).
 
 **Why enlargement helps.** Doubling the memory drive while changing $\alpha$ from 2.1 to 2.6 predicts a field gain $2(2.1/2.6)=1.615$. The simulated gain is 1.616, giving 2.61 times the plateau information rate. The complete-cycle speedup is 2.33 after ramp and recovery overhead; the increased cat separation suppresses switching. Evaluating logical populations after return tests that the benefit survives restoration of the storage basis.
 

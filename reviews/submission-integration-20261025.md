@@ -54,3 +54,11 @@ Removed the two obsolete redirect files after confirming that Task 2.1–2.4 are
 ## GitHub math compatibility correction
 
 Replaced four uses of the unsupported operator-name macro with upright `\mathrm` notation in the Task 2 report and notebooks 07/09. The earlier Markdown API check verified formula preservation, not GitHub’s client-side macro allowlist. A repository-wide Markdown/notebook scan now confirms that no uses of the rejected macro remain. Only mathematical presentation changed; numerical outputs are untouched.
+
+## Report evidence and figure placement
+
+Following the user’s review, the report now includes all five core Task 2.4 figures: circuit calibration in (a), drive trade-off in (b), pulse comparison and enlargement in (c), and the linear optimum in (d). Added the matched shorter-pulse cutoff table and a compact optimizer summary derived from the nine archived runs; exhaustive monomial/per-run tables remain in the notebook.
+
+Enlargement is explicitly motivated by the undriven-storage-rate constraint, with plateau rates included in the result table. Its figure now reads controls → information: stacked control axes avoid a dual-axis overlay, followed by the full-cycle signal comparison. The existing blue/orange/gray palette, shared typography, centered placement, PNG/PDF exports and concise mathematical labels are retained. No simulation results or comparison windows changed.
+
+Verification for this revision: notebook 09 executes from saved data; all five embedded figures match their PNGs; 57 local links resolve; four imported cycles reproduce their recorded information and logical populations. GitHub Markdown preserves 273 report and 116 notebook formulas; no rejected operator-name macro remains. The revised enlargement layout was visually inspected.
