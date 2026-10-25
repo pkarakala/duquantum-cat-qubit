@@ -44,26 +44,29 @@ def largest(rows):
 
 def bit_flips():
     two = {a: d for a, d in largest(d for d in load("gx_two_*.json") if nominal(d)).items() if a <= 2.5}
-    one = largest(d for d in load("gx_one_*.json") if nominal(d))
     al = np.array(list(two)); gx = np.array([d["gamma_x"] for d in two.values()])
-    fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.5), layout="constrained")
-    ag = np.linspace(al.min(), al.max(), 200)
-    ax[0].semilogy(ag**2, S.gamma_x_channel1(ag, KAPPA_A), ":", color="C2", label="direct route (theory)")
-    ax[0].semilogy(ag**2, S.gamma_x_channel2(ag, KAPPA_A, KAPPA_2), "-.", color="C3", label="out-and-back route (theory)")
-    a1 = np.array([a for a in one if a <= 2.5])
-    ax[0].semilogy(a1**2, [one[a]["gamma_x"] for a in a1], "--", color=GREY, lw=1, label="one-mode model")
-    ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label="eigenvalue shortcut")
     td = json.loads((R.parent / "task_2_1.json").read_text())["cases"]   # brute force runs of tasks/task_2_1.py
+    fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.6), layout="constrained")
+    ag = np.linspace(al.min(), al.max(), 200)
     ax[0].axvspan(0, max(c["alpha2"] for c in td), color="0.93", zorder=0)
-    ax[0].text(0.75, 3e-10, "brute force\nreachable", fontsize=8, color=GREY)
+    ax[0].semilogy(ag**2, S.gamma_x_channel1(ag, KAPPA_A), ":", color="C2", lw=1.3,
+                   label=r"$2\kappa_a\alpha^2 e^{-4\alpha^2}$")
+    ax[0].semilogy(ag**2, S.gamma_x_channel2(ag, KAPPA_A, KAPPA_2), "-.", color="C3", lw=1.3,
+                   label=r"$(\kappa_a^2/\kappa_2)\, e^{-2\alpha^2}$")
+    ax[0].semilogy(al**2, gx, "o-", color="C0", ms=4, label=r"$-\lambda_{\rm odd}$ (eigenvalue)")
     ax[0].plot([c["alpha2"] for c in td], [c["fit"]["gamma_per_us"] for c in td], "ks", ms=6, mfc="none", mew=1.2,
-               label="brute force simulation")
-    ax[0].axvline(2.1**2, ls=":", color=GREY, lw=0.8)
-    ax[0].set(xlabel="mean photon number α²", ylabel="bit flip rate (1/µs)", xlim=(0.4, 6.4))
+               label="time-domain fit")
+    g21 = two[2.1]["gamma_x"]
+    ax[0].plot(2.1**2, g21, "o", ms=10, mfc="none", mec="k", mew=1.2)
+    ax[0].annotate(rf"$\alpha=2.1$: $\Gamma_X={g21 / 10**np.floor(np.log10(g21)):.1f}\times10^{{{int(np.floor(np.log10(g21)))}}}\,\mu$s$^{{-1}}$"
+                   "\n" r"$1/\Gamma_X \approx 2.6$ s", (2.1**2, g21), (2.75, 1.5e-9), fontsize=8,
+                   arrowprops=dict(arrowstyle="-", color="k", lw=0.7))
+    ax[0].text(0.55, 1e-10, "brute force\nreaches here", fontsize=8, color=GREY)
+    ax[0].set(xlabel=r"$\alpha^2$ (mean photon number)", ylabel=r"$\Gamma_X$ ($\mu$s$^{-1}$)",
+              xlim=(0.4, 6.4), ylim=(3e-11, 3e-2))
     ax[0].legend(loc="upper right")
-    ax[0].text(2.1**2 + 0.08, 3e-10, "challenge\ncat size", fontsize=8, color=GREY)
-    P.panel(ax[0], "a", "Brute force, then the shortcut")
-    # kappa_a sweep: slope 1 = direct route, 2 = out-and-back route
+    P.panel(ax[0], "a", r"Bit flip rate $\Gamma_X$ vs cat size")
+    # kappa_a sweep: Gamma_X ~ kappa_a^s; s = 1 one photon lost, s = 2 two photons lost
     by = defaultdict(lambda: defaultdict(dict))
     for d in load("gx_two_*.json"):
         if d["eps_z_over_g2"] == 0 and d["n_th"] == 0 and abs(d["kappa_b"] / (2 * np.pi) - 2.6) < 1e-9:
@@ -75,12 +78,12 @@ def bit_flips():
             m = max(cands, key=lambda c: c[0])[1]
             k = np.array(sorted(m)); g = np.array([m[x] for x in k])
             pts.append((a, np.polyfit(np.log(k), np.log(g), 1)[0]))
-    ax[1].axhline(1, ls=":", color="C2"); ax[1].axhline(2, ls="-.", color="C3")
-    ax[1].plot([p[0] for p in pts], [p[1] for p in pts], "o-", color="C0", ms=5)
-    ax[1].text(1.9, 1.05, "direct route", color="C2", fontsize=8)
-    ax[1].text(1.0, 2.05, "out-and-back route", color="C3", fontsize=8)
-    ax[1].set(xlabel="cat size α", ylabel="slope of log rate vs log photon loss", ylim=(0.8, 2.3))
-    P.panel(ax[1], "b", "Which route wins")
+    ax[1].axhline(1, ls=":", color="C2", lw=1.3); ax[1].axhline(2, ls="-.", color="C3", lw=1.3)
+    ax[1].plot([p[0]**2 for p in pts], [p[1] for p in pts], "o-", color="C0", ms=5)
+    ax[1].text(6.0, 1.06, r"$\Gamma_X \propto \kappa_a$", color="C2", fontsize=9, ha="right")
+    ax[1].text(1.0, 2.06, r"$\Gamma_X \propto \kappa_a^2$", color="C3", fontsize=9)
+    ax[1].set(xlabel=r"$\alpha^2$", xlim=(0.4, 6.4), ylabel=r"$d\ln\Gamma_X\,/\,d\ln\kappa_a$", ylim=(0.8, 2.3))
+    P.panel(ax[1], "b", r"Scaling with $\kappa_a$")
     return P.save(fig, "s2/task_2_1_large_cats")
 
 
