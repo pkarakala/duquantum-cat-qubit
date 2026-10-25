@@ -1,0 +1,14 @@
+.git
+.venv
+.worktrees
+**/__pycache__
+**/*.pyc
+**/.env
+server/.env
+chain/.env
+deploy/.env
+notes
+results/quick
+results/logs
+figures/quick
+.pytest_cache

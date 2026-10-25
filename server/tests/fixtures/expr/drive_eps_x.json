@@ -1,0 +1,17 @@
+{
+  "tree": {
+    "op": "mul",
+    "args": [
+      {"op": "num", "value": 0, "imag": 1},
+      {"op": "param", "name": "eps_x"},
+      {
+        "op": "add",
+        "args": [
+          {"op": "sym", "name": "ad"},
+          {"op": "mul", "args": [{"op": "num", "value": -1}, {"op": "sym", "name": "a"}]}
+        ]
+      }
+    ]
+  },
+  "python": "1j*eps_x*(a.dag() - a)"
+}
