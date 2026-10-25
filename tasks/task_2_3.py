@@ -311,22 +311,30 @@ def plot(out, data):
     save_fig(fig, "task_2_3_readout")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(4.6, 3.1), layout="constrained")
-    nominal = beta
+    fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.2), layout="constrained")
     comparisons = [
-        ("QuTiP BDF", data["qutip_t"], data["qutip_beta"], "C1"),
-        ("tighter tolerance", data["tight_t"], data["tight_expects"][0, :, 1], "C2"),
-        (r"$(N_a,N_b)=(40,14)$", data["cutoff_40_14_t"],
-         data["cutoff_40_14_expects"][0, :, 1], "C3"),
+        ("independent QuTiP BDF", data["qutip_t"], data["qutip_beta"], "C1", "--"),
+        ("tighter tolerance", data["tight_t"], data["tight_expects"][0, :, 1], "C2", ":"),
+        (r"larger truncation $(40,14)$", data["cutoff_40_14_t"],
+         data["cutoff_40_14_expects"][0, :, 1], "C3", "-."),
     ]
-    for label, times, fields, color in comparisons:
+    axes[0].plot(t, beta[0].real/scale, color="0.75", lw=4, label=r"production $(32,12)$")
+    window = 25  # 50 ns running maximum hides the fast pump-frequency wiggle
+    for label, times, fields, color, ls in comparisons:
         interp = fields_on_grid(t, times, fields)
-        err = np.max(np.abs(nominal-interp), axis=0)/scale
-        ax.semilogy(t, np.where(err > 0, err, np.nan), label=label, color=color, lw=0.8)
-    ax.set(xlabel=r"$t$ (µs)", ylabel=r"$|\Delta\langle b\rangle|\,/\,b_0$",
-           xlim=(0, parameters["T_end_us"]), ylim=(1e-12, 1e-6))
-    ax.legend(fontsize=7, loc="lower right")
-    ax.grid()
+        axes[0].plot(t, interp[0].real/scale, color=color, ls=ls, lw=1.2, label=label)
+        err = 1e6*np.max(np.abs(beta-interp), axis=0)/scale
+        envelope = np.array([err[max(0, i-window):i+1].max() for i in range(len(err))])
+        axes[1].plot(t, envelope, color=color, ls=ls, lw=1.6,
+                     label=f"{label}: max {err.max():.2f} ppm")
+    axes[0].set(xlabel=r"$t$ (µs)", ylabel=r"$\mathrm{Re}\langle b\rangle_+\,/\,b_0$", xlim=(0, 2))
+    axes[0].legend(loc="upper right", fontsize=7)
+    axes[1].set(xlabel=r"$t$ (µs)", ylabel=r"$|\Delta\langle b\rangle|\,/\,b_0$ (ppm)",
+                xlim=(0, parameters["T_end_us"]), ylim=(0, None))
+    axes[1].legend(loc="upper right", fontsize=7)
+    for letter, title, ax in zip("ab", ("Four calculations, one curve", "Largest difference, parts per million"), axes):
+        panel(ax, letter, title)
+        ax.grid()
     save_fig(fig, "task_2_3_validation")
     plt.close(fig)
 
