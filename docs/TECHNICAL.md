@@ -6,7 +6,7 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 
 ## Section 2 (standard track)
 
-**Two methods.** Brute force first: `tasks/task_2_1.py` and `tasks/task_2_2.py` integrate the full model in the time domain and fit the decay (details in [`task_2_rates.md`](task_2_rates.md)). But a time-domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (`src/spectral.py`) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree to 4e-5 or better.
+**Two methods.** Brute force first: `tasks/task_2_1.py` and `tasks/task_2_2.py` integrate the full model in the time domain and fit the decay (details in [`task_2_rates.md`](task_2_rates.md)). But a time domain run must last about 1/Γ to see a decay, and at α = 2.1 a bit flip takes seconds. So we also use the fact that every decay rate is a Liouvillian eigenvalue. The model is symmetric under a → −a, so the Liouvillian splits into an even block, whose slowest nonzero eigenvalue is Γ_Z, and an odd block, whose slowest eigenvalue is Γ_X. A sparse shift-invert solve (`src/spectral.py`) gives Γ_X at α = 2.1 in under a minute. Where brute force still reaches (α ≤ 1.4 for Γ_X, all α for Γ_Z), the two methods agree: to 1e-8 for Γ_X at equal truncation, and to five digits for Γ_Z.
 
 ### 2.1 Bit flips (`tasks/task_2_1.py`, `research/s2/gx_eig.py`)
 
@@ -55,7 +55,7 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 ### Checks
 
 - Every headline number is computed at two or more truncations. Top Fock-level population is ≤ 1e-6 in the readout and pulse runs.
-- Eigenvalues are cross-checked against time-domain fits: Γ_X at 4 values of α, Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
+- Eigenvalues are cross-checked against time domain fits: Γ_X at 4 values of α, Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
 - Limits: Γ_X is not converged at α ≥ 2.6. The circuit simulation covers 150 ns without loss.
 
 ## Section 1 (groundwork)
