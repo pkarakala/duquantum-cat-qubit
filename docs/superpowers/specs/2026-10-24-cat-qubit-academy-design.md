@@ -95,7 +95,7 @@ Tiger Cloud (Postgres + TimescaleDB): sim_runs hypertable, progress, leaderboard
 - **Sim:**
   - Controls or blocks produce an ExprTree plus params, which are validated (allowlist, Hermitian H, caps).
   - **One-mode (N ≤ 30)** runs in a Web Worker in the browser, in under 300 ms.
-  - **Two-mode** goes to `POST /api/sim/two_mode` (or `/expr`). The server computes a params hash and checks the cache (in memory, then Tiger Data). On a miss, dynamiqs runs with an 8 s timeout. The run is stored and the arrays are returned.
+  - **Two-mode** goes to `POST /api/sim/two_mode` (or `/expr`). The server computes a params hash and checks the cache (in memory, then Tiger Data). On a miss, dynamiqs runs at the fixed live shape (Na = 16, Nb = 5), with a 15 s two-mode timeout (8 s for one-mode); the client waits 3 s, or 15 s with progress for L6. The run is stored and the arrays are returned.
   - On a network error or timeout, the nearest preset JSON is used, with a banner.
 - **Prediction:** a wrong choice produces a misconception ID. That ID is sent to `POST /api/memory/event` (Backboard) and to the tutor state.
 - **Tutor:** `POST /api/tutor` with `{level, state, message}`.

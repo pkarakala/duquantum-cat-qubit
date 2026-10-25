@@ -10,6 +10,11 @@
   - The "allowed constants" are the only numbers the tutor may say without a tool call.
   - Units are always shown, with time in µs.
 
+**Feedback defaults:**
+- An option listed without its own feedback shows its misconception's "fix in one line" from the table below.
+- If it has no misconception either, it shows the level's aha sentence.
+- Every level spec must carry `allowedConstants` (the tutor's number guard) and, where listed, the follow-up prediction and the second check part (CONTRACT §7).
+
 ## Misconception library
 | ID | Misconception | Fix in one line |
 |---|---|---|
@@ -167,6 +172,8 @@
 - **Controls:** a **block canvas** with palette `a, a†, b, b†, ×, +, g₂, ε_d, √κ_b, √κ_a, Kerr K`, plus ▶ Run on Vultr.
 - **Views:** n_a(t) and n_b(t) with the L4 curve overlaid; Wigner frames; a **truncation meter** that teaches convergence.
 - **Check:** "Your blocks stabilize a cat." Pass if the steady ⟨n_a⟩ is within 2% of 4.41.
+  - **This works at the live size Na = 16, Nb = 5.** The steady state already converges at Na = 16, Nb = 4 to 0.1% (Task 1.2: steady 4.4026). The transient peak does **not** converge at 16×5 (about 6.4 vs 6.89 converged), and the truncation meter shows exactly that, which is a convergence lesson.
+  - Never widen the window.
   - Common wrong builds get tutor explanations:
     - ε(a+a†) instead of the buffer drive. It pushes along the separatrix and can't make a cat (RESEARCH §4.1).
     - Missing √κ_b·b, so nothing dissipates.
@@ -191,9 +198,9 @@
 ## L7 · Read the cat (7 min) · engine `records` + server grid (`t2_3` arrays), fallback preset `L7`
 - **Concept:** to read 0 or 1 without a transmon, nudge the memory with a small drive ε_Z. The buffer field then leans **opposite ways** for the two valleys.
 - **Predict:** "After switching the readout on, the buffer signal…"
-  - A) Settles smoothly.
-  - **B) Rings, then settles** (correct; M6).
-  - C) Stays zero.
+  - A) Settles smoothly (M6). Feedback: "It actually rings for about 1 µs. Reading takes time."
+  - **B) Rings, then settles** (correct).
+  - C) Stays zero. Feedback: "The two valleys push the buffer opposite ways, so there is a signal."
 - **Controls:** `Readout ε_Z` (grid 0.05–3 g₂); `Valley` (0 or 1); ▶.
 - **Views:** IQ trajectories of ⟨b⟩ for both valleys; Re and Im against t with the analytic ringing overlaid; an SNR meter; a "cost" meter (back-action).
 - **Check:** "Get an SNR ≥ 1 within 1 µs." Pass is read from the grid.

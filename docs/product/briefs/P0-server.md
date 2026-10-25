@@ -86,6 +86,7 @@ Two-mode simulations are **not interactive**. They measured 5–76 s per run on 
    - **L1–L4:** the one-mode defaults from LEVELS.md, plus 3 slider positions each.
    - **L6:** two-mode builds at 16×5 and 2 µs: `correct.json` (H_2ph + √κ_b·b + √κ_a·a), `missing_kappa_b.json`, `eps_z_drive_wrong.json` (ε(a + a†) instead of the buffer drive: it shows the memory never forms a cat), and `a_bd2_wrong.json` (a·b†²). Also a 32×12 "converged" reference for the overshoot (peak about 6.89) and the 24×6 starter (peak about 6.11). The latter two may be copied from committed intro results where they exist.
    - **L7:** ⟨b⟩±(t) for ε_Z/g₂ ∈ {0.05, 0.1, 0.2, 0.5, 1, 2, 3}. Prefer the physics lane l4a's arrays (`results/arrays/t2_3.ring_freq.td.two_mode.a2.10.npz`) when merged; otherwise compute at 16×5 and label it.
+   - **Wigner fixtures** `server/tests/fixtures/wigner/{vacuum,coherent2,catplus2}.json`: N = 30, `dq.wigner` on an 81×81 grid with xmax = ymax = 4. P1 uses them to match the dynamiqs convention, where vacuum is W(0,0) = 2/π.
    - **linresp fixtures** `server/tests/fixtures/linresp/{square,cosramp,clear}.json` with keys `edges_us`, `eps`, `t_us`, `delta_b_re`, `delta_b_im` and `snr`. Use root `src/linresp.py` if merged; otherwise a local reference 2×2 matrix-exponential implementation marked `"reference_impl": true`.
 6. **Dockerfile:**
    - Base `python:3.12-slim`. Install root `requirements.txt` + `server/requirements.txt`.

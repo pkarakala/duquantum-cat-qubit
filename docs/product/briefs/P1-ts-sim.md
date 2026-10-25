@@ -54,7 +54,7 @@ export * as C from './config'
   - **Re-Hermitize ρ after every step** (the bug trap in CONTRACT §5).
 - `wigner.ts`: the Clenshaw port, with position-independent coefficients precomputed.
   - **Document the axis convention** and make it match dynamiqs `dq.wigner`, i.e. the same (x, y) ↔ α scaling as `dq.wigner(xmax, ymax)`. Check this against a coherent state's peak position.
-  - Vacuum gives W(0,0) = 1/π.
+  - Use the dynamiqs convention (QuTiP `g = 2`): x = Re α, so vacuum gives **W(0,0) = 2/π** and |α=2⟩ peaks at x = 2. Verify against P0's `server/tests/fixtures/wigner/*.json` when it exists.
 - `simulate.ts` + `worker.ts`: `runInWorker` posts to a dedicated worker. Transfer the typed arrays.
 - `linresp.ts`, per CONTRACT §5:
   - `poles`.
@@ -71,7 +71,8 @@ export * as C from './config'
 | `final_n_1_0c` | κ₂/4, κ₂, 4κ₂ with κ_a on, from vacuum, 2 µs | **4.387, 4.404, 4.408** (rel 1e-3) |
 | `trace_and_hermiticity` | any run | Tr ρ = 1 ± 1e-9; ‖ρ − ρ†‖ < 1e-12 |
 | `parity_conserved` | pure two-photon loss | parity constant to 1e-9 |
-| `wigner_vacuum` | vacuum | W(0,0) = 1/π (1e-9) |
+| `wigner_vacuum` | vacuum | W(0,0) = 2/π (1e-9; dynamiqs convention) |
+| `final_pops` | 1.0b run | `finalPops` has weight only on \|0⟩ and \|1⟩ (others < 1e-6) |
 | `wigner_coherent_peak` | coherent α = 2 | the peak is at the documented location |
 | `wigner_cat_negative` | C₊, α = 2 | min W < −0.1 |
 | `drive_quadratures` | no dissipation, from vacuum, short t | eps_z only: Re⟨a⟩ ≈ 0, Im⟨a⟩ ≈ −εt. eps_x only: Re⟨a⟩ ≈ +εt (RESEARCH §4.1) |
