@@ -14,7 +14,7 @@ import dynamiqs as dq
 from src import config as C
 from src.model import two_mode, vacuum2
 from src.analysis import top_projector, memory_state, settle_time
-from src.plotting import save as save_fig, panel, wigner_panels
+from src.plotting import save as save_fig, panel, wigner_panels, wigner_gif
 from src.results import RES_DIR, save as save_res
 
 T_END, N_T = 3.0, 301
@@ -82,6 +82,7 @@ def main(Na, Nb):
     idx = [np.argmin(np.abs(t - s)) for s in (0.0, 0.05, 0.1, 0.15, 0.25, 0.4, 0.8, 3.0)]
     fig_w = wigner_panels(rho_a[jnp.array(idx)], t[idx], nrows=2)
     save_fig(fig_w, "task_1_1_wigner")
+    wigner_gif(rho_a, t, "task_1_1_wigner")
 
     i_pk = int(np.argmax(e[0]))
     out = {

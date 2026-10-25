@@ -1,9 +1,11 @@
 """Shared typography, panel labels and exports for the task figures."""
 from pathlib import Path
+import json
 import dynamiqs as dq
 import matplotlib.pyplot as plt
 import numpy as np
 from cycler import cycler
+from PIL import Image
 
 FIG_DIR = Path(__file__).resolve().parent.parent / "figures"
 
@@ -51,6 +53,61 @@ def wigner_panels(states, times, *, xmax=4, nrows=1):
     fig.colorbar(image, ax=list(axes.flat), label=r"$W(\beta)$", shrink=0.8,
                  ticks=[-0.6, 0, 0.6], pad=0.02, aspect=30)
     return fig
+
+
+def wigner_gif(states, times, name, *, xmax=4, fps=25):
+    """Animate uniformly spaced solved states with fixed coordinates and colors."""
+    times = np.asarray(times)
+    steps = np.diff(times)
+    if (len(times) < 2 or len(states) != len(times) or np.any(steps <= 0)
+            or not np.allclose(steps, steps[0], rtol=1e-9, atol=1e-12)):
+        raise ValueError("Animation requires equal-length states and uniformly increasing times")
+
+    fig, ax = plt.subplots(figsize=(4.4, 4.0), dpi=120, layout="constrained")
+    image = ax.imshow(np.zeros((151, 151)), extent=(-xmax, xmax, -xmax, xmax),
+                       origin="lower", cmap="RdBu_r", vmin=-2/np.pi, vmax=2/np.pi,
+                       interpolation="bilinear")
+    ax.set(xlabel=r"$\mathrm{Re}\,\beta$", ylabel=r"$\mathrm{Im}\,\beta$",
+            xticks=[-2, 0, 2], yticks=[-2, 0, 2])
+    clock = ax.set_title(rf"$t={times[0]:.3f}\,\mu\mathrm{{s}}$")
+    for spine in ax.spines.values():
+        spine.set_visible(True)
+    fig.colorbar(image, ax=ax, label=r"$W(\beta)$", ticks=[-0.6, 0, 0.6],
+                 shrink=0.85, pad=0.03)
+    fig.canvas.draw()
+    fig.set_layout_engine("none")  # Keep axes and colorbar stationary in every frame.
+
+    # One palette for the entire movie prevents changing color meaning/flicker.
+    colors = 255 * plt.get_cmap("RdBu_r")(np.linspace(0, 1, 224))[:, :3]
+    grays = np.repeat(np.linspace(0, 255, 32)[:, None], 3, axis=1)
+    palette = Image.new("P", (1, 1))
+    palette.putpalette(np.rint(np.vstack([colors, grays])).astype(np.uint8).ravel().tolist())
+    frames = []
+    try:
+        # Small batches bound the Wigner calculation's temporary memory use.
+        for start in range(0, len(times), 16):
+            _, _, values = dq.wigner(states[start:start+16], xmax=xmax, ymax=xmax, npixels=151)
+            for time, value in zip(times[start:start+16], np.asarray(values)):
+                image.set_data(value.T)
+                clock.set_text(rf"$t={time:.3f}\,\mu\mathrm{{s}}$")
+                fig.canvas.draw()
+                rgb = Image.fromarray(np.asarray(fig.canvas.buffer_rgba())[:, :, :3])
+                frames.append(rgb.quantize(palette=palette, dither=Image.Dither.NONE))
+    finally:
+        plt.close(fig)
+
+    durations = [round(1000/fps)] * len(frames)
+    durations[0] = durations[-1] = 800
+    metadata = {"times_us": times.round(12).tolist(), "fps": fps,
+                "durations_ms": durations, "xmax": xmax, "npixels": 151,
+                "wigner_limits": [-2/np.pi, 2/np.pi], "state_dim": states.shape[-2]}
+    FIG_DIR.mkdir(exist_ok=True)
+    path = FIG_DIR / f"{name}.gif"
+    frames[0].save(path, save_all=True, append_images=frames[1:], loop=0,
+                    duration=durations, disposal=1, background=255, optimize=False,
+                    comment=json.dumps(metadata).encode())
+    print(f"saved {path} ({len(frames)} frames)")
+    return path
 
 
 def save(fig, name: str, dpi: int = 300):

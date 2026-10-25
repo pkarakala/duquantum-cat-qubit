@@ -55,7 +55,9 @@ Our one idea: every decay rate is an **eigenvalue** of the Lindblad equation, so
 
 **Two-mode inflation.** (a) Memory and buffer occupations at $(32,12)$, with the memory at $(24,6)$ (start) dashed and the effective model dotted. The horizontal line marks $\alpha^2$. (b) Full-range top-level probabilities over 0–3 µs: $p_a^{(2)}$ sums the highest two memory levels; $p_b^{(1)}$ is the highest buffer level. Solid curves use $(32,12)$ and dashed curves $(24,6)$. The dotted line marks the chosen **0.1% tolerance**. The $(24,6)$ buffer reaches **4.62%**; both $(32,12)$ monitors remain below the tolerance throughout inflation.
 
-[Memory Wigner snapshots](figures/task_1_1_wigner.png) show the initial vacuum stretching and splitting into two lobes with interference. Independent integration and timestep checks reproduce the ringdown; [numerical audit](figures/task_1_1_numerical_checks.png).
+![Two-mode memory inflation](figures/task_1_1_wigner.gif)
+
+**Memory phase-space evolution.** The reduced memory state at $(32,12)$ evolves from vacuum into two lobes with interference over 0–3 µs, with a fixed color scale. [Static snapshots](figures/task_1_1_wigner.png). Independent integration and timestep checks reproduce the ringdown; [numerical audit](figures/task_1_1_numerical_checks.png).
 
 ## 1.2 — Check semiclassical agreement and convergence
 
@@ -93,11 +95,11 @@ Memory parity $\Pi=(-1)^{a^\dagger a}$ commutes with the two-photon Hamiltonian 
 | 1 | 0.629 | 0.811 | 0.692 | 0.626 |
 | 6 | 0.0483 | 0.524 | 0.501 | 0.0484 |
 
-At 1 µs, the large matrix element $C$ and [Wigner interference fringes](figures/task_1_3a_wigner_fading.png) demonstrate coherence between the lobes. An equal incoherent mixture has $C=2e^{-2\alpha^2}\approx0.00030$. By 6 µs the state approaches that mixture.
+At 1 µs, the large matrix element $C$ and [Wigner interference fringes](figures/task_1_3a_wigner_fading.gif) demonstrate coherence between the lobes. An equal incoherent mixture has $C=2e^{-2\alpha^2}\approx0.00030$. By 6 µs the state approaches that mixture.
 
-![Memory-state diagnostics](figures/task_1_3a_cat_diagnostics.png)
+![Decay of memory-state interference](figures/task_1_3a_wigner_fading.gif)
 
-**State diagnostics.** (a) Parity, even-cat fidelity and purity $\mathcal P$; the dashed curve fits $Ae^{-\Gamma t}$ to parity over 1–6 µs and the horizontal guide is $1/2$. (b) Coherent-state matrix element $C$ and mean amplitude. The reduced memory state is $\rho_a=\mathrm{Tr}_b\rho$.
+**Interference decay.** Reduced-memory Wigner evolution over 1–6 µs at $(32,12)$. The fixed color scale makes the declining fringe contrast directly comparable. [Static snapshots](figures/task_1_3a_wigner_fading.png) · [Diagnostic curves](figures/task_1_3a_cat_diagnostics.png).
 
 The fitted rate is **$\Gamma=0.5135$ µs⁻¹**, compared with $2\kappa_a\langle n_a\rangle_{\mathrm{ss}}=0.5146$ µs⁻¹. The corresponding parity-decay time is **1.95 µs**; interference weakens continuously over this timescale.
 
@@ -134,7 +136,7 @@ pip install -r requirements.txt
 
 Section 2 results are all saved as JSON, so checking a claim needs no re-run. `python -m research.s2.summarize` rebuilds every Section 2 table and figure from them in about a minute. The commands for re-running each kind of computation are in [`docs/SECTION2.md`](docs/SECTION2.md#reproduce).
 
-Unit tests: `python -m unittest discover -s tests -v`. The Section 1 convergence grid resumes cached calculations; redraw its figures with `python -m tasks.task_1_2 --plot-only`. Every Section 1 figure has a caption in [`figures/CAPTIONS.md`](figures/CAPTIONS.md), and the full Section 1 write-up with all numbers is [`docs/SECTION1.md`](docs/SECTION1.md).
+Unit tests: `python -m unittest discover -s tests -v`. The Section 1 convergence grid resumes cached calculations; redraw its figures with `python -m tasks.task_1_2 --plot-only`. Every Section 1 figure and the four Wigner animations (GIF) have a caption in [`figures/CAPTIONS.md`](figures/CAPTIONS.md), and the full Section 1 write-up with all numbers is [`docs/SECTION1.md`](docs/SECTION1.md).
 
 For Section 1, you can also open the notebooks, one per task, in order: [`notebooks/`](notebooks/). Each one explains the task in plain words, runs the same code as `run_all.sh`, and shows the results. The convergence sweep (Task 1.2) is the only slow step, so its notebook loads saved results by default.
 

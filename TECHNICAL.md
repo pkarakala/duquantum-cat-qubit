@@ -238,3 +238,10 @@ python cloud/vultr_run.py --plan <id>  # VULTR_API_KEY set; VM is deleted at the
 ## Figure presentation
 
 The 15 maintained task figures use shared sans-serif typography, consistent symbols and units, concise panel labels, and short legends. Definitions, protocol details and interpretation are collected in [figures/CAPTIONS.md](figures/CAPTIONS.md), reproduced beside the corresponding notebook figures. Wigner panels show individual times, complex phase-space axes and a fixed shared color scale. All figures have 300-dpi PNG and PDF exports. The PDF line plots retain vector paths and embedded TrueType fonts; Wigner images remain raster layers.
+
+
+### Wigner animations
+
+The task scripts export four GIFs alongside the static Wigner panels. Single-photon loss uses all 201 solved states at 5-ns spacing; effective stabilization uses 201 states at 10-ns spacing; two-mode inflation uses all 301 reduced-memory states at 10-ns spacing; interference decay uses the 201 states from 1–6 µs at 25-ns spacing. These intervals already resolve the displayed motion; no solver tolerance, integration method or analysis output grid changes are required.
+
+`src.plotting.wigner_gif` computes Wigner functions in batches of 16 on a 151×151 spatial grid. Every frame uses actual saved states, fixed axes, the shared normalized range ±2/π, and a fixed 256-color palette. The display clock reports simulated time to 1 ns. Playback is 25 frames/s with 0.8-s endpoint holds; playback speed is a viewing choice. Physical frame times and display durations are embedded in GIF comments for verification. The README embeds GIFs using relative image paths, supported by [GitHub's image renderer](https://docs.github.com/en/repositories/working-with-files/using-files/working-with-non-code-files), and links the static snapshots as alternatives.

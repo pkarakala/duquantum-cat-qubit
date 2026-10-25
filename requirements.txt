@@ -4,6 +4,7 @@ jax==0.12.0.1
 numpy
 scipy
 matplotlib
+pillow
 pandas
 jupyter
 optax==0.2.8
