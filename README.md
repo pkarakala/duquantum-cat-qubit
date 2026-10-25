@@ -17,8 +17,8 @@ A cat qubit stores information in light trapped in one of two "valleys" in a mic
 | **2.4 Better readout** | Driving at the ringing frequency cuts readout errors 1.7×. A pulse shaped by a gradient optimizer gives 40% more signal with 10% fewer bit flips than a plain square pulse. In the real circuit, the pump must also be retuned by 23 MHz or the photon pairing stops working. |
 | **Section 1** | Every warm-up task done: the cat forms, the simulation size is verified, and we prepare a definite logical state with 99.9% fidelity. |
 
-![Bit-flip rate vs cat size](figures/s2/gamma_x.png)
-*Bit-flip rate against cat size. The fast direct calculation (line) matches brute-force simulation (crosses).*
+![Bit flip rate vs cat size](figures/s2/gamma_x.png)
+*Bit flip rate against cat size. The fast direct calculation (line) matches brute-force simulation (crosses).*
 
 ![Readout error by pulse shape](figures/s2/slide_readout_error.png)
 *Readout error after 2 µs for three pulse shapes. Driving at the ringing frequency wins.*
