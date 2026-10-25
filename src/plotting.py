@@ -3,7 +3,6 @@ from pathlib import Path
 import json
 import dynamiqs as dq
 import matplotlib.pyplot as plt
-import matplotlib.patheffects as path_effects
 import numpy as np
 from cycler import cycler
 from PIL import Image
@@ -30,9 +29,8 @@ def panel(ax, letter, title=""):
 
 def _wigner_origin(ax):
     """Mark the phase-space origin without obscuring the Wigner structure."""
-    halo = [path_effects.withStroke(linewidth=1.5, foreground="white")]
-    ax.plot(0, 0, "+", color="black", ms=4, mew=0.7, zorder=5,
-            path_effects=halo)
+    ax.plot(0, 0, marker="P", ls="none", ms=5.4, mfc="black", mec="black",
+            mew=0, snap=True, antialiased=False, zorder=5)
 
 
 def wigner_panels(states, times, *, xmax=4, nrows=1):
@@ -111,7 +109,7 @@ def wigner_gif(states, times, name, *, xmax=4, fps=25):
     metadata = {"times_us": times.round(12).tolist(), "fps": fps,
                 "durations_ms": durations, "xmax": xmax, "npixels": 151,
                 "wigner_limits": [-2/np.pi, 2/np.pi], "state_dim": states.shape[-2],
-                "origin": [0, 0], "origin_marker": "+"}
+                "origin": [0, 0], "origin_marker": "P"}
     FIG_DIR.mkdir(exist_ok=True)
     path = FIG_DIR / f"{name}.gif"
     frames[0].save(path, save_all=True, append_images=frames[1:], loop=0,
