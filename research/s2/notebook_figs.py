@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 from src import plotting as P          # sets the shared rcParams
 from src import spectral as S
-from research.s2.common import KAPPA_A, KAPPA_2
+from research.s2.common import G2, KAPPA_A, KAPPA_B, KAPPA_2
 
 R = Path(__file__).resolve().parents[2] / "results" / "s2"
 GREY = "0.45"
@@ -87,45 +87,62 @@ def bit_flips():
     return P.save(fig, "s2/task_2_1_large_cats")
 
 
-def better_readout():
-    fig, ax = plt.subplots(2, 2, figsize=(9.2, 6.6), layout="constrained")
-    for dp, c, lab in ((0, "C3", "real circuit, nominal pump"), (-23, "C0", "real circuit, pump −23 MHz")):
+def readout_error(r, eta=1.0):
+    """Misread probability for an ideal matched filter with efficiency eta, plus the drive-induced flip."""
+    return 0.5 * erfc(sqrt(eta * r["snr"] / 2)) + r["p_flip"]
+
+
+def circuit_check():
+    fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.4), layout="constrained")
+    for dp, c, lab in ((0, "C3", r"circuit, $\Delta_p=0$"), (-23, "C0", r"circuit, $\Delta_p/2\pi=-23$ MHz")):
         d = load(f"circuit_na14_nb6_T0.15_dp{dp}.json")[0]
         w = 8  # 6 ns moving average hides the fast pump ripple
-        ax[0, 0].plot(1e3 * np.array(d["t"])[w - 1:], np.convolve(d["na_circuit"], np.ones(w) / w, "valid"),
-                      color=c, lw=1.5, label=lab)
-    ax[0, 0].plot(1e3 * np.array(d["t"]), d["na_rwa"], "k--", lw=1.2, label="simplified model")
-    ax[0, 0].set(xlabel="t (ns)", ylabel="memory photons")
-    ax[0, 0].legend(loc="lower left")
-    P.panel(ax[0, 0], "a", "Pump must be retuned")
+        ax[0].plot(1e3 * np.array(d["t"])[w - 1:], np.convolve(d["na_circuit"], np.ones(w) / w, "valid"),
+                   color=c, lw=1.5, label=lab)
+    ax[0].plot(1e3 * np.array(d["t"]), d["na_rwa"], "k--", lw=1.2, label=r"$g_2(a^2b^\dagger+\mathrm{h.c.})$")
+    ax[0].set(xlabel=r"$t$ (ns)", ylabel=r"$\langle a^\dagger a\rangle$")
+    ax[0].legend(loc="lower left")
+    P.panel(ax[0], "a", "Pair conversion from $|\\alpha_0=1\\rangle$")
     scan = sorted(load("circuit_na10_nb4_T0.15_dp*.json"), key=lambda d: d["dp_MHz"])
-    ax[0, 1].plot([d["dp_MHz"] for d in scan], [d["max_abs_diff_na_averaged"] for d in scan], "o-", color="C0", ms=3)
-    ax[0, 1].axvline(-23, ls=":", color=GREY)
-    ax[0, 1].set(xlabel="pump detuning (MHz)", ylabel="mismatch vs simplified model")
-    P.panel(ax[0, 1], "b", "Pump frequency scan")
+    ax[1].plot([d["dp_MHz"] for d in scan], [d["max_abs_diff_na_averaged"] for d in scan], "o-", color="C0", ms=3)
+    ax[1].axvline(-23, ls=":", color=GREY)
+    ax[1].set(xlabel=r"$\Delta_p/2\pi$ (MHz)", ylabel=r"$\max_t|\Delta\langle a^\dagger a\rangle|$")
+    P.panel(ax[1], "b", "Pump frequency scan")
+    return P.save(fig, "s2/task_2_4_circuit")
+
+
+def better_readout():
+    fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.6), layout="constrained")
     p = load("pulse_a2.10_30x8_T2_peak.json")[0]
-    err = lambda r: 0.5 * erfc(sqrt(r["snr"] / 2)) + r["p_flip"]
-    names = {"square": "square", "bang": "bang-bang\nresonant", "res": "resonant\ncosine"}
-    best = [min((r for r in p["rows"] if r["family"] == f), key=err) for f in names]
-    ax[1, 0].barh(list(names.values()), [100 * err(r) for r in best], color=[GREY, "C1", "C0"], height=0.55)
-    for i, r in enumerate(best):
-        ax[1, 0].text(100 * err(r) + 0.02, i, f"{100 * err(r):.2f}%", va="center", fontsize=8)
-    ax[1, 0].set(xlabel="readout error in 2 µs (%)", xlim=(0, 1.4))
-    P.panel(ax[1, 0], "c", "Resonant drive: 1.7× fewer errors")
+    # readout error contours on the SNR vs P_flip plane (eta = 1)
+    pf, sn = np.meshgrid(np.logspace(-3.4, -1.5, 200), np.linspace(0.5, 24, 200))
+    err = 0.5 * np.vectorize(erfc)(np.sqrt(sn / 2)) + pf
+    cs = ax[0].contour(pf, sn, 100 * err, levels=[0.65, 1, 2, 5], colors="0.75", linewidths=0.8)
+    ax[0].clabel(cs, fmt="%g%%", fontsize=7)
+    fams = (("square", GREY, "s", r"square"), ("bang", "C1", "^", r"$\mathrm{sgn}(\cos\omega_r t)$"),
+            ("res", "C0", "o", r"$\cos\omega_r t$"))
+    for f, c, m, lab in fams:
+        rows = sorted((r for r in p["rows"] if r["family"] == f), key=lambda r: r["level"])
+        ax[0].plot([r["p_flip"] for r in rows], [r["snr"] for r in rows], m + "-", color=c, ms=5, label=lab)
+        best = min(rows, key=readout_error)
+        ax[0].plot(best["p_flip"], best["snr"], m, color=c, ms=11, mfc="none", mew=1.3)
+    ax[0].set(xscale="log", xlabel=r"$P_{\rm flip}$", ylabel="SNR", xlim=(4e-4, 3e-2), ylim=(0, 24))
+    ax[0].legend(loc="upper left", title=r"$\epsilon_Z(t)/\epsilon_{\max}$")
+    P.panel(ax[0], "a", r"Signal vs flips, $T=2\ \mu$s")
     o = load("opt_a2.10_30x8_T0.5_pk1_bang_mu1_s0.json")[0]
     t = (np.arange(o["bins"]) + 0.5) * o["T"] / o["bins"]
-    ax[1, 1].step(t, np.full_like(t, o["peak"]), where="mid", color=GREY, label="square")
-    ax[1, 1].step(t, o["best"]["pulse_over_g2"], where="mid", color="C0",
-                  label=f"optimized: {o['best']['snr'] / o['square']['snr']:.2f}× signal, "
-                        f"{o['best']['p_flip'] / o['square']['p_flip']:.2f}× flips")
-    ax[1, 1].set(xlabel="t (µs)", ylabel="drive (× g₂)", ylim=(-1.15, 1.6))
-    ax[1, 1].legend(loc="upper right")
-    P.panel(ax[1, 1], "d", "Gradient-optimized pulse")
+    wr = np.sqrt(4 * G2**2 * o["alpha"]**2 - KAPPA_B**2 / 16)
+    ax[1].step(t, np.full_like(t, o["peak"]), where="mid", color=GREY, label="square")
+    ax[1].step(t, o["peak"] * np.sign(np.cos(wr * t)), where="mid", color="C1", ls="--", label=r"start: $\mathrm{sgn}(\cos\omega_r t)$")
+    ax[1].step(t, o["best"]["pulse_over_g2"], where="mid", color="C0", label="optimized")
+    ax[1].set(xlabel=r"$t$ (µs)", ylabel=r"$\epsilon_Z(t)/g_2$", ylim=(-1.15, 1.75))
+    ax[1].legend(loc="upper right", ncol=3, fontsize=7)
+    P.panel(ax[1], "b", r"Gradient-optimized pulse, $T=0.5\ \mu$s")
     return P.save(fig, "s2/task_2_4_better_readout")
 
 
 def main():
-    for fn in (bit_flips, better_readout):
+    for fn in (bit_flips, circuit_check, better_readout):
         fn()
 
 

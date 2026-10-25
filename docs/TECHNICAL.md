@@ -38,21 +38,20 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 
 - **Circuit** (`rwa_terms.py`, `circuit_sim.py`):
   - Only the a²b† family is resonant, which needs ε_p = 0.037.
-  - Simulating the full ATS circuit without the RWA, the pump at its nominal frequency fails to pair photons, because Stark shifts detune it.
-  - Retuning the pump by −23 MHz restores pairing: the mismatch drops from 0.43 to 0.06.
-  - Converged at 12×5 and 14×6.
-- **Trade-off:** signal and drive-induced flips both scale as ε_Z². Raising the drive changes nothing; only the pulse shape helps. The flip coefficient falls as e^{−2.03α²}.
-- **Pulses** (`pulse_eval.py`, `pulse_opt.py`, `fidelity.py`). Readout error is ½erfc(√(SNR/2)) plus P_flip, at α = 2.1 in a 2 µs window:
+  - In the full ATS circuit without the RWA, the pump at its nominal frequency fails to pair photons, because Stark shifts detune it.
+  - Retuning the pump by −23 MHz restores pairing, about 15% slower than the RWA model: the photon number mismatch drops from 0.43 to 0.07.
+  - Converged at 12×5 and 14×6. 150 ns, no loss.
+- **Trade-off:** SNR and P_flip both scale as ε_Z², so each pulse shape has an optimal strength and only the shape changes SNR per flip. The flip coefficient falls as e^{−2.03α²}.
+- **Pulses** (`pulse_eval.py`). Readout error ε_ro = ½erfc(√(η SNR/2)) + P_flip, at α = 2.1 in a 2 µs window:
 
-| pulse (best peak) | SNR | P_flip | readout error |
-|---|---|---|---|
-| square, 1.0 g₂ | 7.5 | 8.1e-3 | 1.12% |
-| bang-bang resonant, 0.75 g₂ | 12.8 | 9.2e-3 | 0.94% |
-| resonant cosine, 0.75 g₂ | 8.2 | 4.4e-3 | **0.65%** |
+| pulse (best peak) | SNR | P_flip | ε_ro (η = 1) | ε_ro (η = 0.5) |
+|---|---|---|---|---|
+| square, 1.0 g₂ | 7.5 | 8.1e-3 | 1.12% | 3.48% |
+| sgn(cos ω_r t), 0.75 g₂ | 12.8 | 9.2e-3 | 0.94% | 1.49% |
+| cos ω_r t, 0.75 g₂ | 8.2 | 4.4e-3 | **0.65%** | 1.50% |
 
-- Gradient-optimized pulses (jax.grad through dynamiqs) beat a square pulse by 1.26–1.71× in signal per flip, in all 9 converged settings (α 1.4 to 2.1, T 0.5 to 1 µs, peak 0.5 to 1 g₂).
-  - At α = 2.1, T = 0.5 µs, peak 1 g₂: 1.40× the signal with 0.90× the flips.
 - Why the resonant drive wins: it drives the 3.2 MHz oscillator in step, so the buffer amplifies it. Smoothing the pulse edges alone gains only 8–14%.
+- **Optimizer** (`pulse_opt.py`, jax.grad through dynamiqs, started from sgn(cos ω_r t), objective SNR − μ P_flip). It beats a square pulse by 1.26–1.71× in SNR per flip in all 9 converged settings (α 1.4 to 2.1, T 0.5 to 1 µs). Most of that comes from the resonant start; over its start it gains 0.98–1.16×. It lowers ε_ro against its start at α ≤ 1.8 but not at α = 2.1.
 
 ### Checks
 
