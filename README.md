@@ -17,14 +17,26 @@ A cat qubit stores information in light trapped in one of two "valleys" in a mic
 | **2.4 Better readout** | Driving at the ringing frequency cuts readout errors 1.7×. A pulse shaped by a gradient optimizer gives 40% more signal with 10% fewer bit flips than a plain square pulse. In the real circuit, the pump must also be retuned by 23 MHz or the photon pairing stops working. |
 | **Section 1** | Every warm-up task done: the cat forms, the simulation size is verified, and we prepare a definite logical state with 99.9% fidelity. |
 
+## The cat qubit, step by step
+
+| The cat forms | It forms in the real two-resonator circuit | Photon loss fades it |
+|:---:|:---:|:---:|
+| <img src="figures/task_1_0c_wigner.gif" width="260" alt="Cat formation"> | <img src="figures/task_1_1_wigner.gif" width="260" alt="Two-mode inflation"> | <img src="figures/task_1_3a_wigner_fading.gif" width="260" alt="Interference fading"> |
+
+*Phase-space pictures of the light in the resonator. Red and blue are positive and negative values. The two blobs are the qubit's two states, and the stripes between them show that it is in both at once.*
+
+![Preparing a definite state](figures/task_1_3b_logical_prep.png)
+*Preparing one definite state: a short push before the stabilization turns on lands the qubit in the chosen valley, even if the push is aimed badly.*
+
+Full Section 1 write-up, with every figure and caption: [`docs/SECTION1.md`](docs/SECTION1.md) and [`figures/CAPTIONS.md`](figures/CAPTIONS.md).
+
+## Section 2 in two pictures
+
 ![Bit flip rate vs cat size](figures/s2/gamma_x.png)
 *Bit flip rate against cat size. The fast direct calculation (line) matches brute-force simulation (crosses).*
 
 ![Readout error by pulse shape](figures/s2/slide_readout_error.png)
 *Readout error after 2 µs for three pulse shapes. Driving at the ringing frequency wins.*
-
-![Cat qubit forming](figures/task_1_1_wigner.gif)
-*The cat forming from empty: one blob of light splits into two, with interference between them.*
 
 ## Run it
 
