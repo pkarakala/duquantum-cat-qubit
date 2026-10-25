@@ -4,5 +4,6 @@ pydantic>=2
 pydantic-settings
 httpx
 slowapi
-psycopg[binary]
+psycopg[binary,pool]
 backboard-sdk
+elevenlabs

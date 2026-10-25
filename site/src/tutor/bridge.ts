@@ -14,7 +14,10 @@ export function toTutorState(raw: TutorState | Record<string, unknown>, attempts
   return {
     level_id: String(state.levelId ?? "L1"),
     params: (state.params as Record<string, unknown>) ?? {},
-    prediction: state.prediction as string | undefined,
+    prediction:
+      typeof state.prediction === "object" && state.prediction !== null
+        ? String((state.prediction as { optionId?: unknown }).optionId ?? "")
+        : (state.prediction as string | undefined),
     misconception_ids: (state.misconceptionIds as string[]) ?? [],
     last_sim: { summary: last.summary ?? "" },
     hint_level: Number(state.hintLevel ?? 1),
