@@ -14,6 +14,7 @@ import type { ExprTree as SimTree } from "../sim/expr";
 import { runInWorker } from "../sim/index";
 import { renderHome } from "./home";
 import { renderResearch } from "./research";
+import { renderLab } from "./labPages";
 import { mountAcademy, type AcademyHandle, type LevelId } from "./index";
 
 export const ROUTE_HASHES = {
@@ -228,19 +229,56 @@ async function runBrowser(handle: BlocksHandle, status: HTMLElement): Promise<vo
   }
 }
 
+/** Shown only when the live leaderboard is unavailable or empty. Clearly labelled; not real submissions. */
+const SAMPLE_ROWS = [
+  { alias: "sample-learner-1", score: 0.92, verified: false },
+  { alias: "sample-learner-2", score: 0.88, verified: false },
+  { alias: "sample-learner-3", score: 0.71, verified: false },
+];
+
+function leaderboardTable(rows: { alias?: string; score?: number; verified?: boolean }[]): HTMLTableElement {
+  const table = document.createElement("table");
+  table.className = "leaderboard";
+  const head = table.createTHead().insertRow();
+  for (const h of ["#", "Learner", "Score", "Verified"]) {
+    const th = document.createElement("th");
+    th.textContent = h;
+    head.append(th);
+  }
+  const body = table.createTBody();
+  rows.forEach((row, i) => {
+    const tr = body.insertRow();
+    const score = typeof row.score === "number" ? row.score.toFixed(4) : "?";
+    for (const text of [String(i + 1), row.alias || "anon", score, row.verified ? "yes" : "no"]) tr.insertCell().textContent = text;
+  });
+  return table;
+}
+
 function showChallenge(root: HTMLElement): void {
   closeAcademy();
   closeBlocks();
   root.classList.remove("academy");
   delete root.dataset.level;
-  const lede = paragraph("lede", "Level 8 scores the readout pulse. Submit it from #/learn/L8. This page reads the leaderboard when the API is configured.");
+  const lede = paragraph("lede", "Level 8 scores your readout pulse: put the energy at the buffer's ring and beat the square pulse. Submit from L8; scores land here.");
   const status = document.createElement("p");
   status.setAttribute("role", "status");
-  const list = document.createElement("ol");
-  root.replaceChildren(page("Challenge", lede, status, list));
+  const board = document.createElement("div");
+  const play = document.createElement("p");
+  const go = document.createElement("a");
+  go.href = "#/learn/L8";
+  go.textContent = "Play L8 · design the readout pulse";
+  go.className = "button primary";
+  play.className = "home-cta";
+  play.append(go);
+  root.replaceChildren(page("Leaderboard", lede, play, status, board));
+  const showSample = (why: string) => {
+    status.textContent = why;
+    const note = paragraph("sample-note", "Sample entries for illustration, not real submissions or physics results.");
+    board.replaceChildren(note, leaderboardTable(SAMPLE_ROWS));
+  };
   const base = apiBase();
   if (!base) {
-    status.textContent = "No VITE_API_BASE, so the leaderboard stays on the server.";
+    showSample("Leaderboard offline in this build.");
     return;
   }
   status.textContent = "Loading the leaderboard…";
@@ -251,23 +289,17 @@ function showChallenge(root: HTMLElement): void {
       window.clearTimeout(kill);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const body = (await response.json()) as { rows?: { alias?: string; score?: number; verified?: boolean }[] };
-      list.replaceChildren();
       const rows = body.rows ?? [];
       if (!rows.length) {
-        status.textContent = "The leaderboard is empty.";
+        showSample("No submissions yet. Be the first from L8.");
         return;
       }
       status.textContent = `${rows.length} scores.`;
-      for (const row of rows) {
-        const item = document.createElement("li");
-        const score = typeof row.score === "number" ? row.score.toFixed(4) : "?";
-        item.textContent = `${row.alias || "anon"} · ${score}${row.verified ? " · verified" : ""}`;
-        list.append(item);
-      }
+      board.replaceChildren(leaderboardTable(rows));
     })
     .catch(() => {
       window.clearTimeout(kill);
-      status.textContent = "The leaderboard did not answer. The L8 score on this page is still local.";
+      showSample("The leaderboard did not answer.");
     });
 }
 
@@ -276,6 +308,7 @@ function showResearch(root: HTMLElement, hash: string): void {
   closeBlocks();
   root.classList.remove("academy");
   delete root.dataset.level;
+  if (renderLab(root, hash)) return;
   const info = RESEARCH[hash] ?? { title: "Real Research", blurb: "This viewer is not in the Academy bundle." };
   const lede = paragraph("lede", info.blurb);
   const back = document.createElement("p");
@@ -293,9 +326,23 @@ function showAbout(root: HTMLElement): void {
   delete root.dataset.level;
   const lede = paragraph(
     "lede",
-    "Eight lessons, the operator-block editor, and the in-browser one-mode solver. Two-mode dynamics are not an interactive browser loop: L6 uses the API or a precomputed preset. ħ = 1, time is in µs, and rates are in rad/µs.",
+    "Cat Qubit Academy is the product layer of our DuQuantum 2026 entry (Alice & Bob challenge, Standard track): eight lessons, the operator-block editor, and an in-browser one-mode Lindblad solver.",
   );
-  root.replaceChildren(page("About", lede));
+  const team = paragraph("", "Team: Pranav Reddy · Harshit Aggarwal · Halo Kwok · Xuanyu Zhu.");
+  const units = paragraph(
+    "muted",
+    "ħ = 1, time in µs, rates in rad/µs. Two-mode dynamics (L6) run on the API or a precomputed preset, not in the browser loop. The physics results come from dynamiqs/JAX scripts in the repo, several run in batches on Vultr.",
+  );
+  const links = document.createElement("p");
+  links.className = "home-cta";
+  for (const [href, text] of [["#/", "The walkthrough"], ["#/research", "Tasks, notebooks, results"], ["#/learn", "Start Level 1"]]) {
+    const a = document.createElement("a");
+    a.href = href;
+    a.textContent = text;
+    a.className = "button";
+    links.append(a);
+  }
+  root.replaceChildren(page("About", lede, team, units, links));
 }
 
 function showMissing(root: HTMLElement): void {

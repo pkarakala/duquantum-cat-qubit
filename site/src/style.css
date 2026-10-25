@@ -558,3 +558,8 @@ a.button.primary:hover { background: var(--accent-strong); }
 .slide-fig img { max-height: 60vh; width: auto; max-width: 100%; margin: 0 auto; }
 .slide-fig.with-extra img { width: 100%; }
 .slide-stats .stat strong { font-family: var(--font-sans); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.lab-figs { display: grid; gap: var(--s-5); margin: var(--s-5) 0; }
+.lab-figs figcaption { margin-top: var(--s-2); text-align: center; }
+.sample-note { background: var(--warn-soft); color: var(--warn); border-radius: var(--r-md); padding: var(--s-2) var(--s-3); font-size: var(--text-sm); font-weight: 600; }
+.leaderboard { border-collapse: collapse; width: 100%; max-width: 640px; }
+.leaderboard th, .leaderboard td { padding: var(--s-2) var(--s-3); border-bottom: 1px solid var(--line); text-align: left; }

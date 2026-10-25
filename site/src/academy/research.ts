@@ -51,6 +51,11 @@ export function renderResearch(root: HTMLElement): void {
     Object.assign(link(`${BASE}methodology.html`, "Methodology and checks"), { className: "button primary" }),
   );
   hero.append(docs);
+  const labs = el("p", "home-cta");
+  for (const [href, text] of [["#/inflate", "Inflate"], ["#/errors", "Error budget"], ["#/readout", "Readout designer"], ["#/verify", "Verification"]]) {
+    labs.append(Object.assign(link(href, text), { className: "button" }));
+  }
+  hero.append(labs);
 
   const table = el("table", "task-table");
   const head = el("tr");

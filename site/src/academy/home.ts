@@ -6,7 +6,7 @@ interface Sponsor {
   name: string;
   role: string;
   detail: string;
-  status: "live" | "demo";
+  status: "live" | "demo" | "used";
 }
 
 export const SPONSORS: Sponsor[] = [
@@ -39,6 +39,12 @@ export const SPONSORS: Sponsor[] = [
     role: "Hosting + compute",
     detail: "Hosts this site and API, and ran our JAX/dynamiqs research sweeps.",
     status: "live",
+  },
+  {
+    name: "SpaceX · xAI Grok + Cursor",
+    role: "Built the product",
+    detail: "The Academy front end and API were built in Cursor with the Grok bot.",
+    status: "used",
   },
   {
     name: "Solana",
@@ -173,7 +179,7 @@ function link(href: string, text: string, className = ""): HTMLAnchorElement {
 }
 
 /** "Γ_X" → Γ<sub>X</sub>; "κ_a" → κ<sub>a</sub>. */
-function withSubs(parent: HTMLElement, text: string): HTMLElement {
+export function withSubs(parent: HTMLElement, text: string): HTMLElement {
   for (const part of text.split(/(_[A-Za-z]+)/)) {
     if (part.startsWith("_")) parent.append(el("sub", "", part.slice(1)));
     else if (part) parent.append(part);
@@ -266,7 +272,7 @@ function sponsors(): HTMLElement {
   for (const s of SPONSORS) {
     const card = el("article", "sponsor-card");
     const top = el("header");
-    top.append(el("h3", "", s.name), el("span", `badge ${s.status}`, s.status === "live" ? "live" : "demo only"));
+    top.append(el("h3", "", s.name), el("span", `badge ${s.status}`, { live: "live", used: "dev tool", demo: "demo only" }[s.status]));
     card.append(top, el("p", "sponsor-role", s.role), el("p", "", s.detail));
     grid.append(card);
   }
