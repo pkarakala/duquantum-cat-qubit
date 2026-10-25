@@ -10,7 +10,7 @@ Team: Pranav Reddy, Harshit Aggarwal, Halo Kwok, Xuanyu Zhu
 | | Write-up |
 |---|---|
 | **Task 1**: stabilize a cat qubit, check convergence, prepare a logical state | [docs/task_1.md](docs/task_1.md) |
-| **Task 2**: bit flips, phase flips, buffer readout, a better readout | [notebooks 06–09](notebooks/) · [docs/TECHNICAL.md](docs/TECHNICAL.md) |
+| **Task 2**: bit flips, phase flips, buffer readout, a better readout | [docs/task_2.md](docs/task_2.md) · [notebooks 06–09](notebooks/) |
 
 ## Run it
 
@@ -22,9 +22,9 @@ pip install -r requirements.txt
 ## How we used AI and tools
 
 - **Claude Code** did most of the implementation and drafted the write ups, under our direction.
-- **Codex** helped with Section 1 validation, convergence analysis, figures and the brute force Task 2.1/2.2 simulations.
+- **Codex** helped with Section 1 validation, convergence analysis, figures, Task 2.1/2.2 time evolution, and the Task 2.4 enlargement study and submission review.
 - **Gemini** checked the physics in the code and validated the plots (`tools/ai_review.py`; log in [`reviews/`](reviews/)).
 - **Vultr** ran our large simulation batches in the cloud in total ([tools log](docs/tools-log.md)).
 - **Cursor** and a **Groq**-powered bot are used for the product layer.
 
-We checked every result against a hand prediction or a second method.
+The notebooks record analytic comparisons, independent numerical checks and the limits of each result.
