@@ -567,7 +567,7 @@ function snrCard(run: LevelRun, outcome: RunOutcome): HTMLElement {
   const card = document.createElement('p');
   const snr = snrAt(outcome.result, { params: run.params });
   const row = (outcome.result.tradeoff ?? []).find((item) => Math.abs(item.eps - Number(run.params.eps)) < 1e-6);
-  card.textContent = `SNR in 1 µs: ${snr == null ? '—' : snr.toFixed(3)}. Relative bit-flip cost: ${row?.gammaXRel?.toFixed(3) ?? '—'}. Harder driving reads faster and disturbs the cat more.`;
+  card.textContent = `SNR in 1 µs: ${snr == null ? '—' : snr.toFixed(3)}. Relative bit-flip cost: ${row?.gammaXRel?.toFixed(3) ?? '—'}. Harder driving reads faster and disturbs the cat more. (Illustrative preset, not our dynamiqs result: see Tasks & notebooks, task 2.3.)`;
   return card;
 }
 

@@ -25,7 +25,9 @@ export async function startElevenSession(
   hooks: VoiceHooks = {},
 ) {
   const { Conversation } = await import("@elevenlabs/client");
-  await navigator.mediaDevices.getUserMedia({ audio: true });
+  const mic = navigator.mediaDevices.getUserMedia({ audio: true });
+  const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("mic timeout")), 15000));
+  await Promise.race([mic, timeout]);
   return Conversation.startSession({
     agentId: id,
     clientTools,
