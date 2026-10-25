@@ -1,0 +1,1618 @@
+{
+  "created_utc": "2026-10-25T08:11:40.931788+00:00",
+  "preset": "research",
+  "source_sha256": {
+    "src/.___init__.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._analysis.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._circuit.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._circuit_corrections.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._config.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._model.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._plotting.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._rate_solver.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._rates.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_campaign_spectrum.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_dephasing.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_measurement.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_optimization.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_pulses.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_rate_validation.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_semiclassical.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._results.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._spectral.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/analysis.py": "d349b244c827367faccdcb76adf9e15782f79daa3929212d57d1e34bcf822354",
+    "src/circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+    "src/circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198",
+    "src/config.py": "c4ccc7ccccb9ff06d4e38fe235f4361bcbe575415e1b1326436aa40653762442",
+    "src/model.py": "82f350e75ba442e16e6d971ee483c52c9bb7f25602246a003ab5aff25093782c",
+    "src/plotting.py": "43f568e0da3d8ad3ef7c4eb27c8c50a56e458022e022673eeee3209d8e17e4d5",
+    "src/rate_solver.py": "6b5476060c07e624f0e6a5df786c1ec591e4bc8eb05731643b75ffb63214144d",
+    "src/rates.py": "94cc6b616415eba0da57f8d8565bdcf9a822f9a001da3ae18a811747385292f3",
+    "src/readout.py": "8a75081bff5a0240f73b5124e72a075a69bbbef69a6489e0d049166bf377be6c",
+    "src/readout_campaign_spectrum.py": "e6106a868d6f60597951dcdaeac61ba9a1fe37f66dc3ae7566fc7862831ba327",
+    "src/readout_dephasing.py": "bfe294b0da8ff37902914eb475561c6a26febc861fd501321a8ff25feaa4a62f",
+    "src/readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+    "src/readout_optimization.py": "4f1c00a3414d73c4aee5eb636a5937427f773e1ac4fbd689ff162a70577f4718",
+    "src/readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+    "src/readout_rate_validation.py": "58a81cd8a887dd872e22ce5f37e4b37a95a17fadef378e8adea0e3cf21512317",
+    "src/readout_semiclassical.py": "7a88369dc1e94aaead8a4f01a865e5fc6c6b92e6127cdea10fbe270edbe5c636",
+    "src/results.py": "2b96c99b083f542b1a38c9b34626b8aed223a560dd2cdfb0617eccc4b520fd0d",
+    "src/spectral.py": "dbb9e9abcf4848cf3c86cdf9b2d895d9a4e817e8bbe4076ff9ddd72432535a29",
+    "tasks/.___init__.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_0.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_1.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_1_checks.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_2.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_3a.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_3b.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_1.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_2.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_3.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_4.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_4_campaign.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_4_campaign_report.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_common.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tasks/task_1_0.py": "075bdafff0e35fad4ec638e0e4b741ab5e625caed075ac1efbefaaa98c24349e",
+    "tasks/task_1_1.py": "2fd4551bd95a8ba009894da4450dc01d4eb2977d696d2816149496264ba8ab9d",
+    "tasks/task_1_1_checks.py": "6e13497877ba118f200963b8547cdef0878002dee4337c4c8632696b81271ce2",
+    "tasks/task_1_2.py": "545b0b89fb322c6305dc2a0a755b2c194189f2fabe448891eadcc318d10b3aac",
+    "tasks/task_1_3a.py": "1a124800f563b8248a5cdfd8a057e07525610a13b24e58f89f02358d7ace8d9d",
+    "tasks/task_1_3b.py": "f86b72cdb8fc4656a9c9e46e337e17e17a6b113eda57417f14c637fa719f3418",
+    "tasks/task_2_1.py": "88c05ec6e5eaed6650fd2e8e9da0619bc612f84c9616b9db28c09287724d81d1",
+    "tasks/task_2_2.py": "cec0e354bb9dda6faa76a8f84b07318bc71b76a37bd692f1bcd3bc0d3fe695f5",
+    "tasks/task_2_3.py": "740fe3e2f582ede2e2b1d7cb8bd9b2a3126b21e02c31366c7245ad73cf18526e",
+    "tasks/task_2_4.py": "5ae4877bd2f73988dcdd375816b1633fff50fef6ad68f1b4f53feb1930f83cc8",
+    "tasks/task_2_4_campaign.py": "69647105af55d4722d6523b3693e61909ef0d0a50bcc0f9e48395bd52ea6077e",
+    "tasks/task_2_4_campaign_report.py": "91448623ed78071bf7dc1694e2b6c8d82ecfba0531e068d47a6d63f555f54ab1",
+    "tasks/task_2_common.py": "b6035445f24cbfa6796fbc76a34d3f1d411bdf39027bcd11af479cf71966dd52"
+  },
+  "measurement_convention": "dY=2sqrt(eta*kappa)Re(exp(-i*phi)B)dt+dW; SNR_squared=4I",
+  "purpose": "Executed evidence for Task 2.4(a-d); interpretation requires review",
+  "jobs": [
+    {
+      "id": "design_a8c60908f1219c2d",
+      "kind": "design",
+      "parameters": {
+        "duration": 2.0,
+        "seed": 2026
+      },
+      "purpose": "Cheap semiclassical candidate generation, then quantum testing",
+      "priority": 0
+    },
+    {
+      "id": "pulse_7ccc08d02563f6d3",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.0,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_3148ded5aa609137",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.05,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_f2eb3bb055b99f20",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.1,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_ef80283443fd4023",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.25,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_8b3e6c057c6aa358",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_065305bf1dd16b2c",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.0,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_c7974f4201a62b89",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.05,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_acc3582d18b2c380",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.1,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_d02c632c73de6ef4",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.25,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "pulse_bc8d7b027feffa8c",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: tuned constant and matched idle controls",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_6fd3ed6b2acec01e",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.2,
+        "ratio": 0.0,
+        "Na": 16,
+        "Nb": 6,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_fbeda74d38bbf399",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.2,
+        "ratio": 0.25,
+        "Na": 16,
+        "Nb": 6,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_d14ca01760e4eacf",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.2,
+        "ratio": 0.5,
+        "Na": 16,
+        "Nb": 6,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_783a256402ec4bcd",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.4,
+        "ratio": 0.0,
+        "Na": 16,
+        "Nb": 6,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_6adf1b5ada8352b9",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.4,
+        "ratio": 0.25,
+        "Na": 16,
+        "Nb": 6,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_7d3dd020a998fabd",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.4,
+        "ratio": 0.5,
+        "Na": 16,
+        "Nb": 6,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_901a773f41ca4bc9",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "Na": 32,
+        "Nb": 12,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_ff9f21f0a6f5ccda",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 2.1,
+        "ratio": 0.25,
+        "Na": 32,
+        "Nb": 12,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "spectrum_9fc41669a0343782",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 2.1,
+        "ratio": 0.5,
+        "Na": 32,
+        "Nb": 12,
+        "k": 4,
+        "time_check": false
+      },
+      "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+      "priority": 1
+    },
+    {
+      "id": "pulse_69d2649183a5b4cc",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.1,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_087c203745a714b8",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.25,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_001613891266adac",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_bf710520be6068da",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.1,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_3b310bb7ce08dd54",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.25,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_6c319395c90ac3ea",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_3c8b5b59f328a09a",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.1,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_c739deb4d99d9d6d",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.25,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_9f755dfa0796a911",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.5,
+        "duration": 2.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_974ea4947650fb58",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.1,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_e17b0178485cf467",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.25,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_879459ded454145a",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_0523adf68f129950",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.1,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_87ad6860c0b6511b",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.25,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_a75931c9e45ae74e",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_14a48584b155a05e",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.1,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_97d7058068c8fa65",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.25,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_f6cd5d8474031835",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+      "priority": 2
+    },
+    {
+      "id": "pulse_28cf6c69c88fb20f",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.1,
+        "duration": 8.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: longer constant comparator for information/time trade-off",
+      "priority": 2
+    },
+    {
+      "id": "pulse_cd2996ec315d34de",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.25,
+        "duration": 8.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: longer constant comparator for information/time trade-off",
+      "priority": 2
+    },
+    {
+      "id": "spectrum_1cc5e94e8d4f8b5b",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.2,
+        "ratio": 0.25,
+        "Na": 12,
+        "Nb": 4,
+        "k": 4,
+        "time_check": true
+      },
+      "purpose": "Matched small-cutoff time-domain/modal check; separate cutoff tests required",
+      "priority": 2
+    },
+    {
+      "id": "spectrum_2e809c1f1a86428b",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.4,
+        "ratio": 0.25,
+        "Na": 12,
+        "Nb": 4,
+        "k": 4,
+        "time_check": true
+      },
+      "purpose": "Matched small-cutoff time-domain/modal check; separate cutoff tests required",
+      "priority": 2
+    },
+    {
+      "id": "pulse_d716a543ef1130c9",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.25,
+        "hold_ratio": 0.4,
+        "tail_ratio": -0.2,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: bounded signed termination; no assumed improvement",
+      "priority": 3
+    },
+    {
+      "id": "pulse_e21c7a0dbb94e4d3",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.25,
+        "hold_ratio": 0.7,
+        "tail_ratio": -0.6,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: bounded signed termination; no assumed improvement",
+      "priority": 3
+    },
+    {
+      "id": "pulse_5443f7e1ce27dae7",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.5,
+        "hold_ratio": 0.4,
+        "tail_ratio": -0.2,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: bounded signed termination; no assumed improvement",
+      "priority": 3
+    },
+    {
+      "id": "pulse_b11d8d51e2eeaeb2",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.5,
+        "hold_ratio": 0.7,
+        "tail_ratio": -0.6,
+        "duration": 4.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Discovery: bounded signed termination; no assumed improvement",
+      "priority": 3
+    },
+    {
+      "id": "dephasing_32bb5b3b5d8b82ef",
+      "kind": "dephasing",
+      "parameters": {
+        "ratio": 0.0,
+        "Na": 32,
+        "Nb": 12
+      },
+      "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+      "priority": 3
+    },
+    {
+      "id": "dephasing_8b37c58f927445e6",
+      "kind": "dephasing",
+      "parameters": {
+        "ratio": 0.0,
+        "Na": 32,
+        "Nb": 12,
+        "kappa_a": 0.0
+      },
+      "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+      "priority": 3
+    },
+    {
+      "id": "dephasing_309a9bca27f1eac6",
+      "kind": "dephasing",
+      "parameters": {
+        "ratio": 0.25,
+        "Na": 32,
+        "Nb": 12
+      },
+      "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+      "priority": 3
+    },
+    {
+      "id": "dephasing_91943cca505fffb1",
+      "kind": "dephasing",
+      "parameters": {
+        "ratio": 0.25,
+        "Na": 32,
+        "Nb": 12,
+        "kappa_a": 0.0
+      },
+      "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+      "priority": 3
+    },
+    {
+      "id": "dephasing_bc3927569d08644b",
+      "kind": "dephasing",
+      "parameters": {
+        "ratio": 0.5,
+        "Na": 32,
+        "Nb": 12
+      },
+      "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+      "priority": 3
+    },
+    {
+      "id": "dephasing_482eec3aab79b10b",
+      "kind": "dephasing",
+      "parameters": {
+        "ratio": 0.5,
+        "Na": 32,
+        "Nb": 12,
+        "kappa_a": 0.0
+      },
+      "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+      "priority": 3
+    },
+    {
+      "id": "pulse_dc53fcb2d31f7e57",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.05822546130975964,
+        "duration": 2.0,
+        "idle": 2.0,
+        "alpha": 2.1,
+        "hold_ratio": 0.29861932397867874,
+        "tail_ratio": -0.04099764327501387,
+        "edge_fraction": 0.1,
+        "knots": [
+          0.2,
+          0.8
+        ],
+        "phase": 0.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Quantum check of a semiclassical proposal; prediction alone is not evidence",
+      "priority": 3
+    },
+    {
+      "id": "pulse_836f82196b0002e5",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.48784980315955107,
+        "duration": 2.0,
+        "idle": 2.0,
+        "alpha": 2.1,
+        "hold_ratio": 0.5140885402795163,
+        "tail_ratio": -0.11298657370680865,
+        "edge_fraction": 0.1,
+        "knots": [
+          0.2,
+          0.8
+        ],
+        "phase": 0.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Quantum check of a semiclassical proposal; prediction alone is not evidence",
+      "priority": 3
+    },
+    {
+      "id": "pulse_0b35816270623dda",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "build_hold_deplete",
+        "ratio": 0.49156603041888725,
+        "duration": 2.0,
+        "idle": 2.0,
+        "alpha": 2.1,
+        "hold_ratio": 0.9702439163397287,
+        "tail_ratio": -0.7161038504046043,
+        "edge_fraction": 0.1,
+        "knots": [
+          0.2,
+          0.8
+        ],
+        "phase": 0.0,
+        "Na": 24,
+        "Nb": 8,
+        "rtol": 1e-09,
+        "atol": 1e-11
+      },
+      "purpose": "Quantum check of a semiclassical proposal; prediction alone is not evidence",
+      "priority": 3
+    },
+    {
+      "id": "spectrum_231062aa7764559c",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.4,
+        "ratio": 0.0,
+        "Na": 20,
+        "Nb": 8,
+        "k": 4
+      },
+      "purpose": "Separate small-cat rate cutoff comparison",
+      "priority": 4
+    },
+    {
+      "id": "spectrum_e9b69cebd7ca45aa",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 1.4,
+        "ratio": 0.25,
+        "Na": 20,
+        "Nb": 8,
+        "k": 4
+      },
+      "purpose": "Separate small-cat rate cutoff comparison",
+      "priority": 4
+    },
+    {
+      "id": "spectrum_b6312ff4cbad7a2f",
+      "kind": "spectrum",
+      "parameters": {
+        "alpha": 2.1,
+        "ratio": 0.25,
+        "Na": 32,
+        "Nb": 12,
+        "k": 4,
+        "shift": 1e-09
+      },
+      "purpose": "Physical-target shift sensitivity; not a global dominance certificate",
+      "priority": 4
+    },
+    {
+      "id": "pulse_b1f2b1393d0b0ff1",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_3c540025950a8060",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 40,
+        "Nb": 12
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_7def789618bfcb8d",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 14
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_9426dbe4a2e75b5d",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 40,
+        "Nb": 14
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_6f787216b4e21a6d",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_a5b8e7695895865f",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 40,
+        "Nb": 12
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_fcc62fa25ee2b3a1",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 14
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_5e80f2ca1d2fc587",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 40,
+        "Nb": 14
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_b270049fcd119450",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_e4b7f16cf8a5f6e9",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 40,
+        "Nb": 12
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_6c3d942f459cc7eb",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 14
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_5ac874019af068b3",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 40,
+        "Nb": 14
+      },
+      "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+      "priority": 6
+    },
+    {
+      "id": "pulse_9433f4ab71ee838b",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "step": 0.005,
+        "rtol": 1e-11,
+        "atol": 1e-13
+      },
+      "purpose": "Finalist validation: time-grid and solver refinement",
+      "priority": 7
+    },
+    {
+      "id": "pulse_13a613390d28f057",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "step": 0.005,
+        "rtol": 1e-11,
+        "atol": 1e-13
+      },
+      "purpose": "Finalist validation: time-grid and solver refinement",
+      "priority": 7
+    },
+    {
+      "id": "pulse_d7eef2c07bba17a9",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "step": 0.005,
+        "rtol": 1e-11,
+        "atol": 1e-13
+      },
+      "purpose": "Finalist validation: time-grid and solver refinement",
+      "priority": 7
+    },
+    {
+      "id": "pulse_e12e1875bc6384cc",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "drive_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_c75751a8326b19e7",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "drive_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_a9492f2cd99b4d58",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "phase": -0.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_2df0bc454ea402d7",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "phase": 0.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_bdbff40af71bac48",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "order": "sine"
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_d1b0e6a67e06d350",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "circuit_correction": true
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_6059973d1eb63069",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "coupling_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_44ca7df4a797db31",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "coupling_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_48c9ad2d181f8ed9",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "buffer_loss_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_ee6626aebaca417a",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "buffer_loss_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_0678fb1e79f679e4",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "constant",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "kappa_a": 0.0
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_e3e487e7894f2b52",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "drive_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_b9710cd42041aa07",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "drive_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_d528a322548396b0",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "phase": -0.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_81e04dab0a74f7a1",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "phase": 0.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_f480595d0fe51826",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "order": "sine"
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_61f55c6303528a2b",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "circuit_correction": true
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_bd9d951eac208be2",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "coupling_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_7e54f5d1a327d308",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "coupling_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_e13e68748fd5faf6",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "buffer_loss_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_58aa86fede8bfed5",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "buffer_loss_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_e905cd681b01b7f3",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "raised_cosine",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "kappa_a": 0.0
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_80f7599dc5cc974d",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "drive_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_24a1799802cf30f5",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "drive_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_39e4952c37ed0d48",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "phase": -0.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_33da27479e4eb09a",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "phase": 0.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_4afce000373ebf5f",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "order": "sine"
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_598de0989ffbdd2d",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "circuit_correction": true
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_9405bdfcb0a2ea48",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "coupling_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_674142dcf8937e4e",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "coupling_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_f116bde2eda7582b",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "buffer_loss_scale": 0.95
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_024f21c3d252272c",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "buffer_loss_scale": 1.05
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    },
+    {
+      "id": "pulse_3e1ed08596faa4a7",
+      "kind": "pulse",
+      "parameters": {
+        "profile": "gaussian",
+        "ratio": 0.5,
+        "duration": 4.0,
+        "Na": 32,
+        "Nb": 12,
+        "kappa_a": 0.0
+      },
+      "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+      "priority": 8
+    }
+  ],
+  "semiclassical_proposals_added": true,
+  "finalists_frozen": {
+    "utc": "2026-10-25T08:16:33.630585+00:00",
+    "discovery_ids": [
+      "pulse_bc8d7b027feffa8c",
+      "pulse_879459ded454145a",
+      "pulse_a75931c9e45ae74e"
+    ],
+    "selection": "Throughput baseline, shaped throughput and depleted shaped candidate above 25% information floor; final error/leakage <1%, then independent validation"
+  }
+}

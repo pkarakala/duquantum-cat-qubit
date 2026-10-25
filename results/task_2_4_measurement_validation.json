@@ -1,0 +1,474 @@
+{
+  "schema_version": 1,
+  "raw_archive": {
+    "path": "results/task_2_4_independent_trajectories.npz",
+    "sha256": "1d507d2ff434190d34964fd9d36143567b692e7452080e62cc6685d002781e16",
+    "format": "Namespaced keys namespace__array; manifest lists datasets and observable order. Load with allow_pickle=False."
+  },
+  "updated_utc": "2026-10-25T08:20:30.054396+00:00",
+  "scope": "Independent integration and local homodyne-noise validation of the ideal cubic two-mode model. This certificate does not validate omitted circuit terms or establish cutoff convergence.",
+  "software": {
+    "qutip": "5.3.1",
+    "backend": "QuTiP BDF",
+    "normalize_output": false,
+    "stage_boundaries": "Separate solver calls place read-drive discontinuities at exact boundaries."
+  },
+  "source": {
+    "module": "src/readout_measurement.py",
+    "function_sha256": {
+      "independent_cycle": "2bf828881960a9cfec3131de9ae5a7ddefcd9563719f7e5122a2ef9a7e61b8e4",
+      "homodyne_covariance": "58752a47303c674a30bc3f33f80f965179dbdaeb51eadba84922abd69bb47de2",
+      "stationary_boxcar_variance": "34cf47ddd0e4b093052013964294eb7a696ffaa5dd8ca3de2543d0b89969ac5a",
+      "cycle_fields_on_grid": "9f09364642aa9ab32858f1c51900d708f2ecd0b5414ea51dec2cb7cae2065075"
+    },
+    "unit_tests": "tests/test_readout_measurement.py",
+    "unit_test_count": 10,
+    "unit_test_status": "passed"
+  },
+  "metrics": {
+    "information": "I=kappa_b*integral(Re(beta_minus-beta_plus)^2 dt), ideal efficiency, fixed real quadrature, evaluated through readout end. Conditional-mean shot-noise reference; neither measured fidelity nor Shannon information.",
+    "wrong_population": "Population of the opposite logical projector, built from orthonormal even/odd cats at alpha_storage=2.1; no postselection.",
+    "leakage": "1 - expectation(P_plus+P_minus), reported separately from wrong population.",
+    "positivity": "Small negative minimum eigenvalues are retained and reported; density matrices are not clipped or normalized after integration."
+  },
+  "cycles": {
+    "measurement-cycle-32-12": {
+      "status": "completed",
+      "result": {
+        "backend": "independent QuTiP BDF, stage boundaries exact",
+        "qutip": "5.3.1",
+        "Na": 32,
+        "Nb": 12,
+        "alpha_storage": 2.1,
+        "alpha_readout": 2.6,
+        "ratio": 0.25,
+        "read_time": 7.0,
+        "ramp": 1.0,
+        "idle": 2.0,
+        "g2": 4.7940703893780245,
+        "kappa_a": 0.058433623356770145,
+        "kappa_b": 16.336281798666924,
+        "rtol": 1e-10,
+        "atol": 1e-12,
+        "wall_s": 635.4779798340023,
+        "mean_field_information_at_read_end": 1.0597608270981522,
+        "wrong_logical_population": [
+          1.3561279409696786e-05,
+          1.3561279409696786e-05
+        ],
+        "final_leakage": [
+          8.109190900932553e-06,
+          8.109190900932553e-06
+        ],
+        "max_trace_error": 7.216449660063518e-15,
+        "final_min_eigenvalue": -7.380632531380088e-11,
+        "max_top2_a": 2.486718530388637e-08,
+        "max_top_b": 3.3725481306657674e-08
+      },
+      "raw_artifact": "results/task_2_4_independent_trajectories.npz",
+      "archive_namespace": "aggressive_pilot",
+      "same_cutoff_backend_comparison": {
+        "dynamiqs_cache": "results/task_2_4_cache/cycle_5377ae1f7f05c707cd3a1136.npz",
+        "boundary_times_us": [
+          0.0,
+          1.0,
+          8.0,
+          9.0,
+          11.0
+        ],
+        "max_observable_difference_at_boundaries": 3.310374034035248e-09,
+        "max_buffer_difference_at_boundaries": 1.312977894343844e-09,
+        "wrong_qutip": [
+          1.3561279409696786e-05,
+          1.3561279409696786e-05
+        ],
+        "wrong_dynamiqs": [
+          1.3561279121022691e-05,
+          1.3561279121022691e-05
+        ],
+        "wrong_population_max_abs_difference": 2.886740952751316e-13,
+        "leakage_max_abs_difference": 1.4642830337466793e-13,
+        "information_qutip": 1.0597608270981522,
+        "information_dynamiqs": 1.0597608270941457
+      }
+    },
+    "measurement-optimized-cycle": {
+      "status": "completed",
+      "result": {
+        "read_time": 6.603850412184744,
+        "ramp": 1.0,
+        "wall_s": 634.8305830955505,
+        "mean_field_information_at_read_end": 0.9999999999406943,
+        "wrong_logical_population": [
+          1.3219419479535067e-05,
+          1.3219419479535067e-05
+        ],
+        "final_leakage": [
+          8.109190900622927e-06,
+          8.109190900622927e-06
+        ],
+        "branch_metadata": [
+          {
+            "backend": "independent QuTiP BDF, stage boundaries exact",
+            "qutip": "5.3.1",
+            "Na": 32,
+            "Nb": 12,
+            "alpha_storage": 2.1,
+            "alpha_readout": 2.6,
+            "ratio": 0.25,
+            "read_time": 6.603850412184744,
+            "ramp": 1.0,
+            "idle": 2.0,
+            "g2": 4.7940703893780245,
+            "kappa_a": 0.058433623356770145,
+            "kappa_b": 16.336281798666924,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "wall_s": 617.9834566669888,
+            "initial_signs": [
+              1
+            ],
+            "mean_field_information_at_read_end": null,
+            "wrong_logical_population": [
+              1.3219419479535067e-05
+            ],
+            "final_leakage": [
+              8.109190900622927e-06
+            ],
+            "max_trace_error": 4.551914400963142e-15,
+            "final_min_eigenvalue": -9.598464139657022e-12,
+            "max_top2_a": 2.4883797032200065e-08,
+            "max_top_b": 3.3729331449209405e-08
+          },
+          {
+            "backend": "independent QuTiP BDF, stage boundaries exact",
+            "qutip": "5.3.1",
+            "Na": 32,
+            "Nb": 12,
+            "alpha_storage": 2.1,
+            "alpha_readout": 2.6,
+            "ratio": 0.25,
+            "read_time": 6.603850412184744,
+            "ramp": 1.0,
+            "idle": 2.0,
+            "g2": 4.7940703893780245,
+            "kappa_a": 0.058433623356770145,
+            "kappa_b": 16.336281798666924,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "wall_s": 627.5904190839938,
+            "initial_signs": [
+              -1
+            ],
+            "mean_field_information_at_read_end": null,
+            "wrong_logical_population": [
+              1.3219419479535067e-05
+            ],
+            "final_leakage": [
+              8.109190900622927e-06
+            ],
+            "max_trace_error": 4.551914400963142e-15,
+            "final_min_eigenvalue": -9.598464139657022e-12,
+            "max_top2_a": 2.4883797032200065e-08,
+            "max_top_b": 3.3729331449209405e-08
+          }
+        ]
+      },
+      "raw_artifact": "results/task_2_4_independent_trajectories.npz",
+      "archive_namespace": "aggressive_equal_information",
+      "same_cutoff_backend_comparison": {
+        "dynamiqs_cache": "results/task_2_4_cache/cycle_91858c25a4d31d65f720cc94.npz",
+        "boundary_times_us": [
+          0.0,
+          1.0,
+          7.603850412184744,
+          8.603850412184745,
+          10.603850412184745
+        ],
+        "max_observable_difference_at_boundaries": 1.4362584414087612e-09,
+        "max_buffer_difference_at_boundaries": 6.320091967182942e-10,
+        "wrong_qutip": [
+          1.3219419479535067e-05,
+          1.3219419479535067e-05
+        ],
+        "wrong_dynamiqs": [
+          1.3219419061228732e-05,
+          1.3219419061228732e-05
+        ],
+        "wrong_population_max_abs_difference": 4.183063350050734e-13,
+        "leakage_max_abs_difference": 1.5897218369714632e-13,
+        "information_qutip": 0.9999999999406943,
+        "information_dynamiqs": 0.9999999992213359
+      },
+      "maintained_cache": "results/task_2_4_cache/independent_cycle_5bd3f518cf48613b6922fc45.npz"
+    },
+    "measurement-baseline": {
+      "status": "completed",
+      "result": {
+        "read_time": 108.22050859821613,
+        "wall_s": 4004.0455479621887,
+        "mean_field_information_at_read_end": 0.9999999990325591,
+        "wrong_logical_population": [
+          0.0003306256691015429,
+          0.0003306256691015429
+        ],
+        "final_leakage": [
+          8.109870503680759e-06,
+          8.109870503680759e-06
+        ],
+        "branch_metadata": [
+          {
+            "backend": "independent QuTiP BDF, stage boundaries exact",
+            "qutip": "5.3.1",
+            "Na": 32,
+            "Nb": 12,
+            "alpha_storage": 2.1,
+            "alpha_readout": 2.1,
+            "ratio": 0.05,
+            "read_time": 108.22050859821613,
+            "ramp": 0.0,
+            "idle": 2.0,
+            "g2": 4.7940703893780245,
+            "kappa_a": 0.058433623356770145,
+            "kappa_b": 16.336281798666924,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "wall_s": 3956.1486617909977,
+            "initial_signs": [
+              1
+            ],
+            "mean_field_information_at_read_end": null,
+            "wrong_logical_population": [
+              0.0003306256691015429
+            ],
+            "final_leakage": [
+              8.109870503680759e-06
+            ],
+            "max_trace_error": 7.37188088351104e-14,
+            "final_min_eigenvalue": -1.405169774060475e-10,
+            "max_top2_a": 4.563461557731085e-11,
+            "max_top_b": 5.582197701098013e-10
+          },
+          {
+            "backend": "independent QuTiP BDF, stage boundaries exact",
+            "qutip": "5.3.1",
+            "Na": 32,
+            "Nb": 12,
+            "alpha_storage": 2.1,
+            "alpha_readout": 2.1,
+            "ratio": 0.05,
+            "read_time": 108.22050859821613,
+            "ramp": 0.0,
+            "idle": 2.0,
+            "g2": 4.7940703893780245,
+            "kappa_a": 0.058433623356770145,
+            "kappa_b": 16.336281798666924,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "wall_s": 4000.736747084011,
+            "initial_signs": [
+              -1
+            ],
+            "mean_field_information_at_read_end": null,
+            "wrong_logical_population": [
+              0.0003306256691015429
+            ],
+            "final_leakage": [
+              8.109870503680759e-06
+            ],
+            "max_trace_error": 7.37188088351104e-14,
+            "final_min_eigenvalue": -1.405169774060475e-10,
+            "max_top2_a": 4.563461557731085e-11,
+            "max_top_b": 5.582197701098013e-10
+          }
+        ]
+      },
+      "raw_artifact": "results/task_2_4_independent_trajectories.npz",
+      "archive_namespace": "weak_baseline",
+      "maintained_cache": "results/task_2_4_cache/independent_cycle_d1f34436bb7c81d0674864e9.npz"
+    },
+    "measurement-idle": {
+      "status": "completed",
+      "result": {
+        "backend": "independent QuTiP BDF, stage boundaries exact",
+        "qutip": "5.3.1",
+        "Na": 28,
+        "Nb": 10,
+        "alpha_storage": 2.1,
+        "alpha_readout": 2.1,
+        "ratio": 0.0,
+        "read_time": 45.39965733925895,
+        "ramp": 0.0,
+        "idle": 2.0,
+        "g2": 4.7940703893780245,
+        "kappa_a": 0.058433623356770145,
+        "kappa_b": 16.336281798666924,
+        "rtol": 1e-10,
+        "atol": 1e-12,
+        "wall_s": 488.7715440419852,
+        "initial_signs": [
+          1
+        ],
+        "mean_field_information_at_read_end": null,
+        "wrong_logical_population": [
+          9.05879904839813e-06
+        ],
+        "final_leakage": [
+          8.110031673069573e-06
+        ],
+        "max_trace_error": 3.8413716652030416e-14,
+        "final_min_eigenvalue": -5.196812463341781e-12,
+        "max_top2_a": 3.255932033033489e-11,
+        "max_top_b": 2.5890554895897657e-10,
+        "interpretation": "Only the positive initial codeword is integrated. Zero memory drive gives exact unitary memory-parity symmetry, so negative-codeword wrong probability is identical.",
+        "total_duration_us": 47.39965733925895
+      },
+      "raw_artifact": "results/task_2_4_independent_trajectories.npz",
+      "archive_namespace": "idle_benchmark",
+      "logical_symmetry": "Only sign +1 was numerically integrated. Conjugation by memory parity maps the undriven + codeword evolution to the - codeword evolution, giving identical wrong populations. This is covariance of the Lindbladian, not conservation of parity under single-photon loss."
+    }
+  },
+  "trajectory_comparison": {
+    "protocol": "measurement-optimized-cycle",
+    "interpolation": "Segmentwise quintic mean-observable interpolation, partitioned at all physical drive switches; no interpolation of density matrices and no extrapolation.",
+    "max_buffer_mean_abs_difference": 1.4388061711e-08,
+    "max_buffer_difference_relative_to_peak": 2.9927168359e-07,
+    "warning": "Naive linear resampling gives an apparent 2.23e-5 buffer difference on dissimilar output grids; it does not measure solver error."
+  },
+  "local_noise": {
+    "references": {
+      "homodyne_current_and_Wiener_normalization": "https://qutip.readthedocs.io/en/stable/guide/dynamics/dynamics-stochastic.html",
+      "quantum_regression_propagation": "https://qutip.readthedocs.io/en/stable/guide/guide-correlation.html"
+    },
+    "formula": "C(tau)=Tr[(c+c.dag) exp(L*tau)(c*rho+rho*c.dag-Tr[(c+c.dag)*rho]*rho)], c=sqrt(kappa_b)*b. Vacuum delta noise excluded.",
+    "boxcar_formula": "Var(Y_T)=T+2*integral_0^T((T-tau)*C(tau) dtau).",
+    "assumptions": "Covariance is centered exactly about a finite-time branch reference; the boxcar formula additionally assumes local stationarity. The diagnostic is not the variance of a full readout cycle or proof of a Gaussian distribution.",
+    "reference": "Positive coherent codeword at t=0, vacuum buffer, evolve 4 us under constant readout controls. Na=28,Nb=10, BDF rtol=1e-10,atol=1e-12; delays linspace(0,2,1001) us.",
+    "archive_namespaces": [
+      "noise_weak",
+      "noise_aggressive",
+      "noise_conservative"
+    ],
+    "results": [
+      {
+        "alpha": 2.1,
+        "ratio": 0.05,
+        "Na": 28,
+        "Nb": 10,
+        "reference_time_us": 4.0,
+        "delay_horizon_us": 2.0,
+        "mean_buffer": [
+          -0.011894800960870503,
+          0.003115133779729041
+        ],
+        "buffer_incoherent_photons": 0.00013352574936926654,
+        "variance_1us": 0.9975303367666327,
+        "variance_2us": 1.9952226752636133,
+        "covariance_at_0": -0.05021186520535621,
+        "covariance_at_2us": 2.2658823863247076e-06,
+        "max_abs_covariance_last_quarter": 2.0654553611424948e-05,
+        "trace_error": 6.661338147750939e-16,
+        "wall_s": 54.475619584001834,
+        "interpretation": "Connected covariance at a finite-time branch reference. Boxcar formula assumes local stationarity; it is not a single-shot fidelity."
+      },
+      {
+        "alpha": 2.6,
+        "ratio": 0.25,
+        "Na": 28,
+        "Nb": 10,
+        "reference_time_us": 4.0,
+        "delay_horizon_us": 2.0,
+        "mean_buffer": [
+          -0.04804781325398096,
+          0.0036891827014516377
+        ],
+        "buffer_incoherent_photons": 0.0017927637514364879,
+        "variance_1us": 0.998956063256121,
+        "variance_2us": 1.9980293497393886,
+        "covariance_at_0": -0.02418325464752845,
+        "covariance_at_2us": 2.956049744104209e-05,
+        "max_abs_covariance_last_quarter": 0.00028557403870011996,
+        "trace_error": 2.9976021664879227e-15,
+        "wall_s": 79.80071958400367,
+        "interpretation": "Connected covariance at a finite-time branch reference. Boxcar formula assumes local stationarity; it is not a single-shot fidelity."
+      },
+      {
+        "alpha": 2.6,
+        "ratio": 0.1,
+        "Na": 28,
+        "Nb": 10,
+        "reference_time_us": 4.0,
+        "delay_horizon_us": 2.0,
+        "mean_buffer": [
+          -0.019220555265511138,
+          0.003150613986767595
+        ],
+        "buffer_incoherent_photons": 0.0002922041407192056,
+        "variance_1us": 0.9984354380132134,
+        "variance_2us": 1.9969983949231844,
+        "covariance_at_0": -0.04895888620998619,
+        "covariance_at_2us": -1.2063595899135027e-08,
+        "max_abs_covariance_last_quarter": 1.0512624240272922e-05,
+        "trace_error": 2.220446049250313e-16,
+        "wall_s": 220.8677964169765,
+        "interpretation": "Connected covariance at a finite-time branch reference. Boxcar formula assumes local stationarity; it is not a single-shot fidelity."
+      }
+    ],
+    "quadrature_convergence": {
+      "measurement-noise-2.1-0.05": {
+        "1.0": {
+          "variance_trapezoid": 0.9975303367666327,
+          "variance_simpson": 0.99753037015775,
+          "difference_from_coarser_grid": 1.0017335194678623e-07,
+          "trapz_simpson_difference": 3.339111731559541e-08
+        },
+        "2.0": {
+          "variance_trapezoid": 1.9952226752636133,
+          "variance_simpson": 1.9952227087611467,
+          "difference_from_coarser_grid": 1.0049259979716396e-07,
+          "trapz_simpson_difference": 3.349753341375106e-08
+        }
+      },
+      "measurement-noise-2.6-0.25": {
+        "1.0": {
+          "variance_trapezoid": 0.998956063256121,
+          "variance_simpson": 0.998956080050927,
+          "difference_from_coarser_grid": 5.038441808213889e-08,
+          "trapz_simpson_difference": 1.6794805990372197e-08
+        },
+        "2.0": {
+          "variance_trapezoid": 1.9980293497393886,
+          "variance_simpson": 1.9980293653015115,
+          "difference_from_coarser_grid": 4.6686368770920694e-08,
+          "trapz_simpson_difference": 1.556212292364023e-08
+        }
+      },
+      "measurement-noise-2.6-0.1": {
+        "1.0": {
+          "variance_trapezoid": 0.9984354380132134,
+          "variance_simpson": 0.998435470527671,
+          "difference_from_coarser_grid": 9.754337260137191e-08,
+          "trapz_simpson_difference": 3.251445757079807e-08
+        },
+        "2.0": {
+          "variance_trapezoid": 1.9969983949231844,
+          "variance_simpson": 1.9969984275905106,
+          "difference_from_coarser_grid": 9.800197875442507e-08,
+          "trapz_simpson_difference": 3.2667326177460154e-08
+        }
+      }
+    },
+    "interpretation": "At these three local references, boxcar noise differs from vacuum by less than 0.25%; weak negative covariance indicates modest quadrature squeezing. Full-record likelihood discrimination remains uncomputed."
+  },
+  "cutoff_limitations": {
+    "same_cutoff_backend_agreement": "The 32x12 QuTiP/Dynamiqs agreement certifies integration accuracy at that cutoff only.",
+    "reported_aggressive_cutoff_check": {
+      "source": "Parent Dynamiqs 32x12 and 36x14 full-cycle comparison",
+      "wrong_32x12": 1.32194190612e-05,
+      "wrong_36x14": 1.24049215658e-05,
+      "relative_change": 0.0616137132523934,
+      "interpretation": "A roughly 6.16% change remains despite very small top-level populations. Do not claim the aggressive wrong probability is cutoff-converged from boundary populations alone."
+    },
+    "conservative_full_cycle": "Parent validates the conservative alpha=2.6, ratio=0.1, ramp=2 us cycle at larger cutoffs; this certificate currently supplies its equal-duration undriven benchmark, not an independent conservative-cycle solution."
+  }
+}

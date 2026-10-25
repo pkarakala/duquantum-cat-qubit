@@ -1,0 +1,54 @@
+{
+  "recorded_utc": "2026-10-25T12:34:15.985691+00:00",
+  "scope": "Reference-driven(a-d) rewrite: six-page main answer, supplementary appendices; independent retained-algebra checks; no new master-equation simulations",
+  "pdf": {
+    "path": "output/pdf/task_2_4_final_report.pdf",
+    "sha256": "d7e0d9a38b95c2f6907e6546f257a09914bf66d320d633c0b96ee10a5e02b461",
+    "source_sha256": "c51134f62643118d4a1ecd611a68d8be24ed0333cd03f7303ab7cd118eb820b7",
+    "page_count": 14,
+    "machine_checks_pass": true,
+    "agent_visual_review": "All main pages and appendix renders inspected; no clipping, missing glyphs, overfull boxes or broken local links observed",
+    "main_answer_pages": 6
+  },
+  "repository_tests": {
+    "command": "python -m unittest discover -s tests -q",
+    "tests_run": 131,
+    "duration_seconds": 4.776,
+    "exit_code": 0,
+    "historical_result_from_prior_delivery": true
+  },
+  "synthesis_notebook": {
+    "path": "notebooks/10_task_2_4_final_synthesis.ipynb",
+    "sha256": "1309b9205991ebc3a0d4721e9fd23dfa0f18d204869876cfb76a754e01e0013d",
+    "executed_code_cells": 6,
+    "error_outputs": 0
+  },
+  "cloud_source_manifest_records_verified": 66,
+  "same_cutoff_independent_checks_passed": 2,
+  "supplemental_joint_cutoff_backend_checks_passed": 2,
+  "cloud_workers": "Inactive at prior delivery; no cloud computations launched in this revision",
+  "review_type": "AI-assisted scientific and visual review; no human scientific approval implied",
+  "superseded_pdf_sha256": "1124ce7f374e30456d26700632b5c8d23037e9258f09681d664f3ddc2d212d46",
+  "merged_evidence": {
+    "source_file_hashes_verified": 118,
+    "matched_figure_hashes": 7,
+    "local_pdf_links_valid": true,
+    "new_derived_metrics": "plateau switching per information, complete-cycle population ratio, local-rate/cloud-pulse diagnostic, quantum fluctuation energy",
+    "editorial_evaluation": "reviews/task_2_4_reference_review.md",
+    "untested_hybrid_excluded": true
+  },
+  "independent_reference_checks": {
+    "scope": "Independent rotating-frame algebra and coherent-output normalization; no new dynamics simulation",
+    "source_sha256": "2ffdfb0b59bbf9369894effc8c08085d506ca436d5f027791fcb8e31fbdc3ce5",
+    "laboratory_drive": "2 epsilon cos(omega*t-phi)(a+a_dagger)",
+    "creation_coefficient_error": 1.962615573354719e-17,
+    "fifth_order_rwa_low_fock_max_error_per_us": 8.583756213050954e-13,
+    "rwa_quadrature_points": 128,
+    "pump_amplitude_rad": 0.03532407407407408,
+    "rounded_pump_g2_over_2pi_MHz": 0.7560000000000001,
+    "coherent_output_decay_exponent_per_us": 0.25920000000002386,
+    "predicted_coherent_output_decay_exponent_per_us": 0.2592,
+    "coherence_exponent_is_not_a_logical_bit_flip_rate": true,
+    "all_checks_pass": true
+  }
+}

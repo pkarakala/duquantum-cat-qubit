@@ -1,0 +1,166 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "pulse_598de0989ffbdd2d",
+    "kind": "pulse",
+    "parameters": {
+      "profile": "gaussian",
+      "ratio": 0.5,
+      "duration": 4.0,
+      "Na": 32,
+      "Nb": 12,
+      "circuit_correction": true
+    },
+    "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+    "priority": 8
+  },
+  "metrics": {
+    "profile": "gaussian",
+    "alpha": 2.1,
+    "ratio": 0.5,
+    "duration": 4.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.7,
+    "tail_ratio": -0.2,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 32,
+    "Nb": 12,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "g2": 4.7940703893780245,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": true,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {
+      "memory_frequency_shift_per_us": 5.641108459336161,
+      "buffer_frequency_shift_per_us": 137.38890235847973,
+      "phase_order": 6,
+      "static_cosine_per_us": 0.0
+    },
+    "effective_exchange_order": "selected_sine",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      0.4,
+      3.6,
+      4.0,
+      6.0
+    ],
+    "cycle_duration_us": 6.0,
+    "information": {
+      "real_quadrature_information": 1.4636419831772103,
+      "optimal_fixed_quadrature_information": 1.4636540414342103,
+      "optimal_lo_phase_rad": 0.002870350901702068,
+      "time_varying_lo_information_reference": 1.4637305193559385,
+      "quadrature_gram_matrix": [
+        [
+          1.4636419831772103,
+          0.004200958104827849
+        ],
+        [
+          0.004200958104827849,
+          8.853617872811048e-05
+        ]
+      ]
+    },
+    "information_at_pulse_end": 1.4636540414342094,
+    "snr_squared_at_pulse_end": 5.854616165736838,
+    "fixed_real_quadrature_information_at_pulse_end": 1.4636419831772103,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 5.854567932708841,
+    "post_pulse_information_same_lo": 1.601080344526551e-06,
+    "initial_wrong_population": [
+      5.457390924134015e-09,
+      5.457390924134015e-09
+    ],
+    "final_wrong_population": [
+      0.0006300423621668953,
+      0.0006223554295035417
+    ],
+    "excess_wrong_population": [
+      0.0006300369047759711,
+      0.0006223499721126175
+    ],
+    "idle_baseline_final_wrong_population": [
+      3.3045535853038224e-05,
+      3.3045535853038224e-05
+    ],
+    "readout_excess_wrong_population": [
+      0.000596996826313857,
+      0.0005893098936505034
+    ],
+    "final_leakage": [
+      0.00016680421417822783,
+      0.00016680574636289414
+    ],
+    "idle_baseline_final_leakage": [
+      0.00016680630048448736,
+      0.00016680630048448736
+    ],
+    "readout_excess_leakage": [
+      -2.086306259533894e-09,
+      -5.541215932283738e-10
+    ],
+    "max_transient_leakage": [
+      0.011070816258593269,
+      0.019090376760764517
+    ],
+    "buffer_population_at_pulse_end": [
+      0.00038822598000206704,
+      0.00017167259615087418
+    ],
+    "final_buffer_population": [
+      0.00020109088861727906,
+      0.00020109361285976026
+    ],
+    "idle_baseline_final_buffer_population": 0.00020109359788634553,
+    "excess_final_buffer_population": [
+      -2.7092690664705377e-09,
+      1.4973414733587473e-11
+    ],
+    "max_buffer_population": [
+      0.023738311826499492,
+      0.031180664542345072
+    ],
+    "max_top2_a": 1.5678173150383763e-08,
+    "max_top_b": 1.2567507657461057e-15,
+    "max_trace_error": 5.995204332975845e-15,
+    "final_min_eigenvalue": -2.7324912785097024e-11,
+    "final_hermiticity_error": 6.925905202580737e-17,
+    "idle_baseline_max_trace_error": 1.3322676295501878e-14,
+    "idle_baseline_final_min_eigenvalue": -9.758691637913198e-12,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 488.1039581599998
+  },
+  "finished_utc": "2026-10-25T08:57:11.209766+00:00",
+  "worker_wall_s": 489.96854078900014
+}

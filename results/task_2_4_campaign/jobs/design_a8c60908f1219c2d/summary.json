@@ -1,0 +1,272 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "design_a8c60908f1219c2d",
+    "kind": "design",
+    "parameters": {
+      "duration": 2.0,
+      "seed": 2026
+    },
+    "purpose": "Cheap semiclassical candidate generation, then quantum testing",
+    "priority": 0
+  },
+  "metrics": {
+    "candidates": [
+      {
+        "parameters": {
+          "profile": "build_hold_deplete",
+          "ratio": 0.05822546130975964,
+          "duration": 2.0,
+          "idle": 2.0,
+          "alpha": 2.1,
+          "hold_ratio": 0.29861932397867874,
+          "tail_ratio": -0.04099764327501387,
+          "edge_fraction": 0.1,
+          "knots": [
+            0.2,
+            0.8
+          ],
+          "phase": 0.0
+        },
+        "semiclassical_prediction": {
+          "model": "factorized full two-mode semiclassical equations",
+          "use": "candidate generation only; quantum validation required",
+          "information": {
+            "real_quadrature_information": 0.005372806816125103,
+            "optimal_fixed_quadrature_information": 0.005372806816125103,
+            "optimal_lo_phase_rad": 0.0,
+            "time_varying_lo_information_reference": 0.005372806816125103,
+            "quadrature_gram_matrix": [
+              [
+                0.005372806816125103,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "information_at_pulse_end": 0.005372806816125103,
+          "snr_squared_reference_at_pulse_end": 0.021491227264500413,
+          "buffer_mean_field_population_at_pulse_end": [
+            9.335477877555669e-06,
+            9.335477877555669e-06
+          ],
+          "final_buffer_mean_field_population": [
+            9.285320559533303e-06,
+            9.285320559533303e-06
+          ],
+          "max_buffer_mean_field_population": [
+            0.00035579017263810654,
+            0.00035579017263810654
+          ],
+          "memory_amplitude_at_pulse_end": [
+            [
+              2.098762915176019,
+              0.000284920317620499
+            ],
+            [
+              -2.098762915176019,
+              0.000284920317620499
+            ]
+          ],
+          "stage_boundaries_us": [
+            0.0,
+            0.2,
+            0.30000000000000004,
+            0.5,
+            1.5,
+            1.7000000000000002,
+            1.8,
+            2.0,
+            4.0
+          ],
+          "ode_evaluations": 1681
+        },
+        "design": {
+          "score": 0.005372806816125103,
+          "depletion_penalty": 0.0,
+          "objective": "I_fixed_LO - penalty*mean(|B(T)|^2)",
+          "status": "candidate generation; requires quantum validation",
+          "seed": 2026,
+          "evaluations": 84,
+          "iterations": 6,
+          "optimizer": "bounded differential evolution; no polishing",
+          "selection": "representative nondominated evaluated mean-field candidates"
+        }
+      },
+      {
+        "parameters": {
+          "profile": "build_hold_deplete",
+          "ratio": 0.48784980315955107,
+          "duration": 2.0,
+          "idle": 2.0,
+          "alpha": 2.1,
+          "hold_ratio": 0.5140885402795163,
+          "tail_ratio": -0.11298657370680865,
+          "edge_fraction": 0.1,
+          "knots": [
+            0.2,
+            0.8
+          ],
+          "phase": 0.0
+        },
+        "semiclassical_prediction": {
+          "model": "factorized full two-mode semiclassical equations",
+          "use": "candidate generation only; quantum validation required",
+          "information": {
+            "real_quadrature_information": 0.5657868019063539,
+            "optimal_fixed_quadrature_information": 0.5657868019063539,
+            "optimal_lo_phase_rad": 0.0,
+            "time_varying_lo_information_reference": 0.5657868019063539,
+            "quadrature_gram_matrix": [
+              [
+                0.5657868019063539,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "information_at_pulse_end": 0.5657868019063539,
+          "snr_squared_reference_at_pulse_end": 2.2631472076254155,
+          "buffer_mean_field_population_at_pulse_end": [
+            2.0933183843485243e-05,
+            2.0933183843485243e-05
+          ],
+          "final_buffer_mean_field_population": [
+            9.285410671102874e-06,
+            9.285410671102874e-06
+          ],
+          "max_buffer_mean_field_population": [
+            0.024463668694268817,
+            0.024463668694268817
+          ],
+          "memory_amplitude_at_pulse_end": [
+            [
+              2.0987662605712187,
+              0.0024296312435931047
+            ],
+            [
+              -2.0987662605712187,
+              0.0024296312435931047
+            ]
+          ],
+          "stage_boundaries_us": [
+            0.0,
+            0.2,
+            0.30000000000000004,
+            0.5,
+            1.5,
+            1.7000000000000002,
+            1.8,
+            2.0,
+            4.0
+          ],
+          "ode_evaluations": 1783
+        },
+        "design": {
+          "score": 0.5657868019063539,
+          "depletion_penalty": 0.0,
+          "objective": "I_fixed_LO - penalty*mean(|B(T)|^2)",
+          "status": "candidate generation; requires quantum validation",
+          "seed": 2026,
+          "evaluations": 84,
+          "iterations": 6,
+          "optimizer": "bounded differential evolution; no polishing",
+          "selection": "representative nondominated evaluated mean-field candidates"
+        }
+      },
+      {
+        "parameters": {
+          "profile": "build_hold_deplete",
+          "ratio": 0.49156603041888725,
+          "duration": 2.0,
+          "idle": 2.0,
+          "alpha": 2.1,
+          "hold_ratio": 0.9702439163397287,
+          "tail_ratio": -0.7161038504046043,
+          "edge_fraction": 0.1,
+          "knots": [
+            0.2,
+            0.8
+          ],
+          "phase": 0.0
+        },
+        "semiclassical_prediction": {
+          "model": "factorized full two-mode semiclassical equations",
+          "use": "candidate generation only; quantum validation required",
+          "information": {
+            "real_quadrature_information": 1.4671326017634108,
+            "optimal_fixed_quadrature_information": 1.4671326017634108,
+            "optimal_lo_phase_rad": 0.0,
+            "time_varying_lo_information_reference": 1.4671326017634108,
+            "quadrature_gram_matrix": [
+              [
+                1.4671326017634108,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "information_at_pulse_end": 1.4671326017634108,
+          "snr_squared_reference_at_pulse_end": 5.868530407053643,
+          "buffer_mean_field_population_at_pulse_end": [
+            0.00010332178439506573,
+            0.00010332178439506573
+          ],
+          "final_buffer_mean_field_population": [
+            9.289220624024607e-06,
+            9.289220624024607e-06
+          ],
+          "max_buffer_mean_field_population": [
+            0.02483787793127725,
+            0.02483787793127725
+          ],
+          "memory_amplitude_at_pulse_end": [
+            [
+              2.09742661845311,
+              -0.01568926546300741
+            ],
+            [
+              -2.09742661845311,
+              -0.01568926546300741
+            ]
+          ],
+          "stage_boundaries_us": [
+            0.0,
+            0.2,
+            0.30000000000000004,
+            0.5,
+            1.5,
+            1.7000000000000002,
+            1.8,
+            2.0,
+            4.0
+          ],
+          "ode_evaluations": 1876
+        },
+        "design": {
+          "score": 1.4671326017634108,
+          "depletion_penalty": 0.0,
+          "objective": "I_fixed_LO - penalty*mean(|B(T)|^2)",
+          "status": "candidate generation; requires quantum validation",
+          "seed": 2026,
+          "evaluations": 84,
+          "iterations": 6,
+          "optimizer": "bounded differential evolution; no polishing",
+          "selection": "representative nondominated evaluated mean-field candidates"
+        }
+      }
+    ],
+    "interpretation": "Candidate generator only; requires full quantum verification"
+  },
+  "finished_utc": "2026-10-25T08:11:51.057804+00:00",
+  "worker_wall_s": 10.03335276100006
+}

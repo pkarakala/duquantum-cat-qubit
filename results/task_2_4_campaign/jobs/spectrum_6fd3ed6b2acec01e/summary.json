@@ -1,0 +1,161 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "spectrum_6fd3ed6b2acec01e",
+    "kind": "spectrum",
+    "parameters": {
+      "alpha": 1.2,
+      "ratio": 0.0,
+      "Na": 16,
+      "Nb": 6,
+      "k": 4,
+      "time_check": false
+    },
+    "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+    "priority": 1
+  },
+  "metrics": {
+    "Na": 16,
+    "Nb": 6,
+    "alpha": 1.2,
+    "ratio": 0.0,
+    "order": "cubic",
+    "g2": 4.7940703893780245,
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "shift": 1e-08,
+    "k_requested": 4,
+    "k_returned": 4,
+    "modes": [
+      {
+        "eigenvalue_per_us": [
+          -0.000599920390854997,
+          0.0
+        ],
+        "decay_rate_per_us": 0.000599920390854997,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 6.030095534102063e-15,
+        "left_absolute_residual": 5.577952207194921e-13,
+        "right_scaled_residual": 8.233534405296972e-18,
+        "left_eigenvalue_matching_error": 6.505213034913027e-19,
+        "eigenvector_condition_number": 3.754073487166603,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            0.9975185301082373,
+            -0.0
+          ],
+          "logical_imbalance": [
+            0.9984197729711123,
+            -0.0
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.195369344396667,
+          0.0
+        ],
+        "decay_rate_per_us": 8.195369344396667,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 3.322611093351307e-11,
+        "left_absolute_residual": 4.255203599540301e-09,
+        "right_scaled_residual": 4.486515807560159e-14,
+        "left_eigenvalue_matching_error": 2.3092638912203256e-14,
+        "eigenvector_condition_number": 68.22376489133254,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            1.207926331859284e-24,
+            -0.0
+          ],
+          "logical_imbalance": [
+            2.4799893623986778e-25,
+            -0.0
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.342340596574193,
+          0.0
+        ],
+        "decay_rate_per_us": 8.342340596574193,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 1.5995771985541495e-11,
+        "left_absolute_residual": 3.627055410043163e-09,
+        "right_scaled_residual": 2.1594776667051862e-14,
+        "left_eigenvalue_matching_error": 3.9968028886505635e-13,
+        "eigenvector_condition_number": 51.89444176455974,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            -2.3464564992422167e-24,
+            -0.0
+          ],
+          "logical_imbalance": [
+            -1.9586104390942944e-25,
+            -0.0
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.48450499360777,
+          3.220606414844911
+        ],
+        "decay_rate_per_us": 8.48450499360777,
+        "frequency_per_us": 3.220606414844911,
+        "right_absolute_residual": 4.889828472847934e-11,
+        "left_absolute_residual": 7.193394212233139e-09,
+        "right_scaled_residual": 6.594891734747086e-14,
+        "left_eigenvalue_matching_error": 1.2898715600563154e-09,
+        "eigenvector_condition_number": null,
+        "modal_coefficients_certified": false,
+        "modal_coefficients": {}
+      }
+    ],
+    "returned_modes_conjugate_closed": false,
+    "initial_observables": {
+      "memory_amplitude": 0.9999999999569916,
+      "logical_imbalance": 0.9984232010535057
+    },
+    "candidate_mode_index": 0,
+    "candidate_decay_rate_per_us": 0.000599920390854997,
+    "candidate_numerical_resolution_heuristic_per_us": 2.0940042493712887e-11,
+    "candidate_status": "resolved_returned_mode",
+    "candidate_is_nonoscillatory": true,
+    "global_dominance_certified": false,
+    "rate_interpretation": "Slowest memory-visible mode among the returned near-shift Ritz set; not a certified global switching rate",
+    "sector_validity": "Real drive and real exchange only; excludes phase drive, detuning and diagonal Kerr terms",
+    "factorization": {
+      "ordering": "metis",
+      "pymetis": "2025.2.2",
+      "permutation_seed": 0,
+      "diag_pivot_thresh": 0.0,
+      "matrix_shape": [
+        4560,
+        4560
+      ],
+      "matrix_nnz": 39925,
+      "LU_nnz": 874260,
+      "ordering_wall_s": 0.024815422999949988,
+      "factorization_wall_s": 0.029122590000042692,
+      "probe_relative_residuals": [
+        2.134027107555555e-12,
+        3.7784556495014766e-13
+      ],
+      "probe_backward_errors": [
+        1.1539928689764127e-17,
+        1.245594089579947e-17
+      ],
+      "ordering_requested": "auto",
+      "fallback_reason": null,
+      "shift_real": 1e-08,
+      "shift_imag": 0.0
+    },
+    "wall_s": 0.1898749570000291
+  },
+  "finished_utc": "2026-10-25T08:12:16.680720+00:00",
+  "worker_wall_s": 1.599778194999999
+}

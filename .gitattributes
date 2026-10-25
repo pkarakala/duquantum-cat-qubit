@@ -1,0 +1,2 @@
+# Preserve the archived CSV export's standard CRLF line endings.
+results/task_2_4_campaign/report/*.csv whitespace=cr-at-eol

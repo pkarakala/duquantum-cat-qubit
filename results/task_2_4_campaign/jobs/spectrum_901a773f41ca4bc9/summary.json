@@ -1,0 +1,143 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "spectrum_901a773f41ca4bc9",
+    "kind": "spectrum",
+    "parameters": {
+      "alpha": 2.1,
+      "ratio": 0.0,
+      "Na": 32,
+      "Nb": 12,
+      "k": 4,
+      "time_check": false
+    },
+    "purpose": "Static candidate logical modes; retain overlaps and resolution limits",
+    "priority": 1
+  },
+  "metrics": {
+    "Na": 32,
+    "Nb": 12,
+    "alpha": 2.1,
+    "ratio": 0.0,
+    "order": "cubic",
+    "g2": 4.7940703893780245,
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "shift": 1e-08,
+    "k_requested": 4,
+    "k_returned": 4,
+    "modes": [
+      {
+        "eigenvalue_per_us": [
+          -3.8474874091491505e-07,
+          0.0
+        ],
+        "decay_rate_per_us": 3.8474874091491505e-07,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 1.0812101882871446e-12,
+        "left_absolute_residual": 9.491722494309637e-12,
+        "right_scaled_residual": 4.467528750706041e-16,
+        "left_eigenvalue_matching_error": 3.467541127822292e-20,
+        "eigenvector_condition_number": 8.509409074310502,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            0.9991993408750148,
+            -0.0
+          ],
+          "logical_imbalance": [
+            0.9999920407617011,
+            -0.0
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -7.1092996062388485,
+          0.0
+        ],
+        "decay_rate_per_us": 7.1092996062388485,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 1.2447858613612978e-05,
+        "left_absolute_residual": 0.0007327648618068363,
+        "right_scaled_residual": 5.128353876154686e-09,
+        "left_eigenvalue_matching_error": 3.492749350186841e-06,
+        "eigenvector_condition_number": null,
+        "modal_coefficients_certified": false,
+        "modal_coefficients": {}
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.129333174211016,
+          0.0
+        ],
+        "decay_rate_per_us": 8.129333174211016,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 5.10920604837245e-06,
+        "left_absolute_residual": 0.0005812163821375493,
+        "right_scaled_residual": 2.1040414274149957e-09,
+        "left_eigenvalue_matching_error": 9.379164112033322e-12,
+        "eigenvector_condition_number": 1374.2166168649533,
+        "modal_coefficients_certified": false,
+        "modal_coefficients": {}
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.409344806845542,
+          0.0
+        ],
+        "decay_rate_per_us": 8.409344806845542,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 2.7498140224233002e-06,
+        "left_absolute_residual": 0.00027984049453933267,
+        "right_scaled_residual": 1.1322807254250188e-09,
+        "left_eigenvalue_matching_error": 1.467628397477938e-05,
+        "eigenvector_condition_number": null,
+        "modal_coefficients_certified": false,
+        "modal_coefficients": {}
+      }
+    ],
+    "returned_modes_conjugate_closed": true,
+    "initial_observables": {
+      "memory_amplitude": 0.9999999999999994,
+      "logical_imbalance": 0.9999999890852104
+    },
+    "candidate_mode_index": 0,
+    "candidate_decay_rate_per_us": 3.8474874091491505e-07,
+    "candidate_numerical_resolution_heuristic_per_us": 8.076894952391554e-10,
+    "candidate_status": "resolved_returned_mode",
+    "candidate_is_nonoscillatory": true,
+    "global_dominance_certified": false,
+    "rate_interpretation": "Slowest memory-visible mode among the returned near-shift Ritz set; not a certified global switching rate",
+    "sector_validity": "Real drive and real exchange only; excludes phase drive, detuning and diagonal Kerr terms",
+    "factorization": {
+      "ordering": "metis",
+      "pymetis": "2025.2.2",
+      "permutation_seed": 0,
+      "diag_pivot_thresh": 0.0,
+      "matrix_shape": [
+        73536,
+        73536
+      ],
+      "matrix_nnz": 725366,
+      "LU_nnz": 84400608,
+      "ordering_wall_s": 0.6710431530000278,
+      "factorization_wall_s": 11.022808310999949,
+      "probe_relative_residuals": [
+        1.3352949861159425e-07,
+        2.7427360459714265e-08
+      ],
+      "probe_backward_errors": [
+        1.784002285152038e-16,
+        9.589661858883072e-17
+      ],
+      "ordering_requested": "auto",
+      "fallback_reason": null,
+      "shift_real": 1e-08,
+      "shift_imag": 0.0
+    },
+    "wall_s": 26.819714483999974
+  },
+  "finished_utc": "2026-10-25T08:13:03.593479+00:00",
+  "worker_wall_s": 28.464338407000014
+}

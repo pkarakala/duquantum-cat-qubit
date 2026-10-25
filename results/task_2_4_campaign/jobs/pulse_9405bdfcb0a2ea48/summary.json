@@ -1,0 +1,161 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "pulse_9405bdfcb0a2ea48",
+    "kind": "pulse",
+    "parameters": {
+      "profile": "gaussian",
+      "ratio": 0.5,
+      "duration": 4.0,
+      "Na": 32,
+      "Nb": 12,
+      "coupling_scale": 0.95
+    },
+    "purpose": "Finalist robustness / circuit / memory-loss control; matched idle included",
+    "priority": 8
+  },
+  "metrics": {
+    "profile": "gaussian",
+    "alpha": 2.1,
+    "ratio": 0.5,
+    "duration": 4.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.7,
+    "tail_ratio": -0.2,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 32,
+    "Nb": 12,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "g2": 4.554366869909123,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": false,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {},
+    "effective_exchange_order": "cubic",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      0.4,
+      3.6,
+      4.0,
+      6.0
+    ],
+    "cycle_duration_us": 6.0,
+    "information": {
+      "real_quadrature_information": 1.3775783992537474,
+      "optimal_fixed_quadrature_information": 1.3775783992537474,
+      "optimal_lo_phase_rad": 0.0,
+      "time_varying_lo_information_reference": 1.3775783992537474,
+      "quadrature_gram_matrix": [
+        [
+          1.3775783992537474,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "information_at_pulse_end": 1.3775783992537474,
+    "snr_squared_at_pulse_end": 5.5103135970149895,
+    "fixed_real_quadrature_information_at_pulse_end": 1.3775783992537474,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 5.5103135970149895,
+    "post_pulse_information_same_lo": 1.2240120823570066e-06,
+    "initial_wrong_population": [
+      5.457390924134015e-09,
+      5.457390924134015e-09
+    ],
+    "final_wrong_population": [
+      0.00037763517231705697,
+      0.00037763517231705697
+    ],
+    "excess_wrong_population": [
+      0.0003776297149261328,
+      0.0003776297149261328
+    ],
+    "idle_baseline_final_wrong_population": [
+      2.5239716036856362e-06,
+      2.5239716036856362e-06
+    ],
+    "readout_excess_wrong_population": [
+      0.00037511120071337135,
+      0.00037511120071337135
+    ],
+    "final_leakage": [
+      0.00278174416088817,
+      0.00278174416088817
+    ],
+    "idle_baseline_final_leakage": [
+      0.0027817443803198555,
+      0.0027817443803198555
+    ],
+    "readout_excess_leakage": [
+      -2.1943168549559688e-10,
+      -2.1943168549559688e-10
+    ],
+    "max_transient_leakage": [
+      0.014686466989913202,
+      0.014686466989913202
+    ],
+    "buffer_population_at_pulse_end": [
+      9.270105917109347e-05,
+      9.270105917109347e-05
+    ],
+    "final_buffer_population": [
+      1.8490966054948223e-05,
+      1.8490966054948223e-05
+    ],
+    "idle_baseline_final_buffer_population": 1.849091697607355e-05,
+    "excess_final_buffer_population": [
+      4.90788746719973e-11,
+      4.90788746719973e-11
+    ],
+    "max_buffer_population": [
+      0.026449555562461487,
+      0.026449555562461487
+    ],
+    "max_top2_a": 3.91867735423457e-09,
+    "max_top_b": 6.343173917895449e-08,
+    "max_trace_error": 3.885780586188048e-15,
+    "final_min_eigenvalue": -1.8614602811922133e-11,
+    "final_hermiticity_error": 3.2108573333520796e-17,
+    "idle_baseline_max_trace_error": 4.551914400963142e-15,
+    "idle_baseline_final_min_eigenvalue": -4.781863650078483e-12,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 352.7546598930003
+  },
+  "finished_utc": "2026-10-25T08:55:52.185974+00:00",
+  "worker_wall_s": 354.555873625
+}

@@ -11,6 +11,7 @@ The figures are exported as 300-dpi PNGs and PDFs, with animated GIFs for the Wi
 | [Two-mode inflation](task_1_1_wigner.gif) | 0–3 | 301 | 10 |
 | [Interference decay](task_1_3a_wigner_fading.gif) | 1–6 | 201 | 25 |
 | [Logical-state preparation](task_1_3b_wigner.gif) | 0–2 | 201 | 10 |
+| [Enlarge/read/restore](task_2_4_wigner.gif) | 0–10.604 | 304 | ≈35 |
 
 Each frame is computed from a solved state, with the same phase-space coordinates and fixed color scale as the static panels below. The displayed clock is simulated time. GIFs play at 25 frames/s, pause for 0.8 s at each endpoint, and loop. A shared palette keeps colors consistent between frames.
 
@@ -95,3 +96,62 @@ Every Wigner panel and animation marks the phase-space origin with a small cross
 ## task_2_3_validation
 
 **Supporting checks: drive strength and numerical accuracy.** (a) Real-field separation between the two memory states, averaged over 3–4 µs, versus $\epsilon_Z/g_2$. Dashes show the prediction $\epsilon_Z/(\alpha g_2)$. This checks that the chosen weak drive gives approximately proportional response. (b) Largest complex-field difference between each reference calculation and the production result, over both initial memory states, divided by the nominal predicted field magnitude $\epsilon_Z/(2\alpha g_2)$. References use independent QuTiP BDF and tighter Tsit5 integration at $(32,12)$, and a larger $(40,14)$ cutoff. These check that the reported signal and settling are numerically reliable. Separate memory/buffer cutoff increases and an 8-µs run are recorded in the numerical table.
+
+## task_2_4_tradeoff
+
+**Readout signal and bit protection.** (a) Real separation of the two buffer fields, averaged over 3–4 µs, versus memory-drive strength. (b) Observable switching rate $\Gamma_X$. (c) Mean-field information rate $\dot{\mathcal{I}}=\kappa_b(\Delta\beta_R)^2$ versus switching rate. Colors identify target cat amplitude; markers are computed points and connecting lines guide the eye. Grey dotted guides indicate undriven storage at $\alpha=2.1$. Field trajectories use $(32,12)$. The initial $\alpha=2.1$ rate sweep uses $(28,10)$; promoted $\alpha=2.6$ points use $(40,16)$ at $\epsilon_Z/g_2=0.1$ and $(36,16)$ at 0.25. The 0.5 point at $\alpha=2.6$ appears only in (a), since its rate has not received the promoted-point checks. Strong-drive finite-window contrast is not an infinite-time steady signal. Numerical qualifications are given in the [report](../docs/task_2_4_optimization.md).
+
+## task_2_4_protocol
+
+**Enlarge, read, restore.** Conservative cubic-model sequence with storage amplitude $\alpha_0=2.1$, readout amplitude 2.6, two 2-µs quintic ramps, $\epsilon_Z/g_2=0.1$ during the 41.400-µs read interval, and 2 µs of final relaxation. (a) Target $\alpha(t)$ and actual real memory amplitude $\mathrm{Re}A_+(t)$, where $A_s=\mathrm{Tr}(a\rho_s)$. (b) Memory-drive envelope. (c) Real buffer fields for the two independently evolved initial coherent states; solid curves use enlarged readout and dashed curves use the weak reference at fixed $\alpha=2.1$, $\epsilon_Z/g_2=0.05$. (d) Conditional-mean information accumulated through each drive's end; the dotted line is the target $\mathcal{I}=1$. The weak reference uses $(32,12)$ and the conservative cycle uses $(38,16)$. The complete clocks include return and final relaxation. The information functional assumes ideal homodyne shot noise; it is not a classification fidelity.
+
+## task_2_4_validation
+
+**Stored-bit disturbance and numerical comparisons.** (a) Final wrong-logical-state population $p_X$ and code-space leakage $\ell$, as absolute probabilities without postselection. The logical projectors use orthonormal combinations of normalized even and odd cats at $\alpha_0=2.1$. Black mark: directly integrated zero-drive control over the same conservative-cycle clock, at $(28,10)$. (b) Maximum buffer-field differences at shared, exactly saved physical switch times and the final time, divided by the predicted single-pointer magnitude $\beta_{\rm lin}=\epsilon_Z/(2\alpha g_2)$. “Tolerance” compares conservative cycles at $(36,14)$ with $(\mathrm{rtol},\mathrm{atol})=(10^{-10},10^{-12})$ and $(10^{-11},10^{-13})$. “Cutoff” compares $(36,14)$ with $(38,16)$ for that cycle. “QuTiP” compares independent BDF and Dynamiqs integration of the optional fast cycle at identical $(32,12)$ cutoffs. Full-trajectory comparisons and resampling sensitivity are recorded separately. A small field difference does not by itself certify a rare switching rate; rate and final-population cutoff checks are in the report.
+
+## task_2_4_input_shaping
+
+**Less ringing versus accumulated signal.** At fixed $\alpha=2.1$ and peak memory drive $0.05g_2$, compare an abrupt step with a two-step zero-vibration shaper: drive fraction 0.65768 for 0.15931 µs, then full drive. (a) Drive fraction; (b) real buffer-field separation divided by $\Delta_{\rm lin}=0.05/2.1$; (c) conditional-mean information $\mathcal{I}(t)$. Colors are shared across panels. The full complex-field 1% settling time decreases from 0.968 to 0.666 µs, while information at 4 µs decreases by 2.87%. Both branches are independently evolved at $(32,12)$; numerical curves are unsmoothed.
+
+## task_2_4_circuit
+
+**Circuit-model sensitivity.** (a) Real buffer-field separation in the balanced circuit model. Blue: $(\alpha,\epsilon_Z/g_2)=(2.1,0.05)$; orange: $(2.6,0.1)$. Solid curves retain the ATS-pump-only second-pump-order phase-six correction; dashed curves retain the full-phase fundamental-pump van-Vleck matrix and resonant static cosine. All field trajectories use $(32,12)$. (b) Phase-six enlarged-readout switching rates versus memory cutoff, with filled circles at $N_b=10$ and a hollow triangle at $N_b=12$. The dotted guide is matched balanced undriven storage at $(32,10)$. The intentional junction half-difference is $\Delta E_J/E_J=-0.008810$; frequencies and pump resonance are recalibrated. Final memory and separate buffer increments change the driven rate by 2.49% and 4.69%, respectively. Microwave ports use their RWA; mixed pump/control counter-rotating terms are omitted. This is a cutoff-qualified partial-model witness; panel (b) does not give full-phase rates or a device guarantee.
+
+## task_2_4_wigner
+
+**Memory enlargement and return.** Reduced-memory Wigner functions during the optional fast cubic-model cycle: $\alpha_0=2.1$, $\alpha_{\rm ro}=2.6$, $\epsilon_Z/g_2=0.25$, 1-µs ramps, 6.604-µs readout and 2-µs final relaxation. Upper/lower rows start from $|+\alpha_0\rangle$ and $|-\alpha_0\rangle$. Axes give the complex memory phase-space coordinate $\beta$; all panels use the same $-2/\pi\leq W\leq2/\pi$ scale and mark the origin. These visualizations use $(32,12)$; rare errors require the larger-cutoff checks. The [animation](task_2_4_wigner.gif) shows the positive initial state using 304 uniformly spaced solved density matrices over 0–10.604 µs, at approximately 35-ns spacing. No density matrices are interpolated.
+
+
+## task_2_4_baseline
+
+**Both complex weak-readout pointers.** Full two-mode trajectories at alpha 2.1,
+epsilon_Z/g2=.05 and32x12 cutoffs. (a) Opposite real buffer fields, with leading
+weak-response predictions as dashed guides. (b) Common imaginary response;
+branch curves overlap. The dotted guide is the leading photon-loss offset
+kappa_a/(4g2). No trace is smoothed. Reproduce with
+`python tools/plot_task_2_4_baseline.py`.
+
+## task_2_4_campaign_synthesis
+
+**Fixed-time signal/error/termination trade-off.** Constant, raised-cosine and
+Gaussian pulses share4-us readout,2-us recovery, peak epsilon_Z/g2=.5 and32x12
+cutoffs. (a) Conditional-mean shot-noise SNR squared at pulse end (4I).
+(b) Worse-branch wrong-logical population after recovery, in percent.
+(c) Buffer photons at pulse end, on a log scale. These are common-duration,
+common-peak comparisons, not a matched-SNR superiority claim. Reproduce with
+`python tools/plot_task_2_4_campaign_synthesis.py`; original job IDs and hashes
+are in the final evidence index.
+
+
+## task_2_4_model_validation
+
+**Mean-signal accuracy does not imply an accurate reset prediction.** The same
+2-us build/hold/deplete candidate is evaluated classically and by the full
+quantum model at discovery cutoff 24x8. (a) Collected information:1.46713
+classical versus1.42318 quantum, about3% difference. (b) Predicted mean-field
+photons1.03322e-4, quantum mean-amplitude contribution1.93000e-5 and quantum
+total photon population3.61309e-3. Fluctuations account for 99.47% of total
+photons. These quantities do not by themselves establish nonclassical photon
+statistics. Reproduce the evidence index with `tools/synthesize_task_2_4.py`,
+then draw with `tools/plot_task_2_4_model_validation.py`. Exact job IDs,
+parameters and raw-trajectory SHA256 are indexed in the final summary.

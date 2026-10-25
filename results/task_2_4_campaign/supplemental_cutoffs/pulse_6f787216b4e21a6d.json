@@ -1,0 +1,324 @@
+{
+  "execution_status": "completed",
+  "validation_passed": true,
+  "comparison_kind": "Combined joint-cutoff and integration-backend comparison; not same-cutoff solver validation",
+  "reference_job_id": "pulse_6f787216b4e21a6d",
+  "reference_cutoffs": [
+    32,
+    12
+  ],
+  "target_cutoffs": [
+    40,
+    14
+  ],
+  "original_timeout_records_preserved": true,
+  "reference_parameters": {
+    "profile": "raised_cosine",
+    "alpha": 2.1,
+    "ratio": 0.5,
+    "duration": 4.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.7,
+    "tail_ratio": -0.2,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 32,
+    "Nb": 12,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "g2": 4.7940703893780245,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": false,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {},
+    "effective_exchange_order": "cubic",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      0.4,
+      3.6,
+      4.0,
+      6.0
+    ],
+    "cycle_duration_us": 6.0,
+    "information": {
+      "real_quadrature_information": 3.241618124352509,
+      "optimal_fixed_quadrature_information": 3.241618124352509,
+      "optimal_lo_phase_rad": 0.0,
+      "time_varying_lo_information_reference": 3.241618124352509,
+      "quadrature_gram_matrix": [
+        [
+          3.241618124352509,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "information_at_pulse_end": 3.2416181243525064,
+    "snr_squared_at_pulse_end": 12.966472497410026,
+    "fixed_real_quadrature_information_at_pulse_end": 3.241618124352509,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 12.966472497410036,
+    "post_pulse_information_same_lo": 0.00032897744978566124,
+    "initial_wrong_population": [
+      5.457390924134015e-09,
+      5.457390924134015e-09
+    ],
+    "final_wrong_population": [
+      0.0015794727652446517,
+      0.0015794727652446517
+    ],
+    "excess_wrong_population": [
+      0.0015794673078537275,
+      0.0015794673078537275
+    ],
+    "idle_baseline_final_wrong_population": [
+      1.079001740530608e-06,
+      1.079001740530608e-06
+    ],
+    "readout_excess_wrong_population": [
+      0.001578393763504121,
+      0.001578393763504121
+    ],
+    "final_leakage": [
+      8.113660769204232e-06,
+      8.113660769204232e-06
+    ],
+    "idle_baseline_final_leakage": [
+      8.109705980729598e-06,
+      8.109705980729598e-06
+    ],
+    "readout_excess_leakage": [
+      3.954788474633413e-09,
+      3.954788474633413e-09
+    ],
+    "max_transient_leakage": [
+      0.012403082092081163,
+      0.012403082092081163
+    ],
+    "buffer_population_at_pulse_end": [
+      0.0037637128189617996,
+      0.0037637128189617996
+    ],
+    "final_buffer_population": [
+      1.7513325818868884e-05,
+      1.7513325818868884e-05
+    ],
+    "idle_baseline_final_buffer_population": 1.750735030715994e-05,
+    "excess_final_buffer_population": [
+      5.975511708942251e-09,
+      5.975511708942251e-09
+    ],
+    "max_buffer_population": [
+      0.02706687655833622,
+      0.02706687655833622
+    ],
+    "max_top2_a": 6.013240219781538e-09,
+    "max_top_b": 7.933407077572359e-08,
+    "max_trace_error": 4.218847493575595e-15,
+    "final_min_eigenvalue": -9.05633501962841e-11,
+    "final_hermiticity_error": 8.476115137195115e-17,
+    "idle_baseline_max_trace_error": 1.099120794378905e-14,
+    "idle_baseline_final_min_eigenvalue": -7.566632395001994e-11,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 387.2294537560001
+  },
+  "observable_order": [
+    "a",
+    "b",
+    "n_a",
+    "n_b",
+    "top2_a",
+    "top_b",
+    "wrong_plus",
+    "wrong_minus",
+    "leakage",
+    "trace"
+  ],
+  "compared_observable_indices": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7,
+    8,
+    9
+  ],
+  "excluded_boundary_observable_indices": [
+    4,
+    5
+  ],
+  "max_absolute_physical_observable_differences": {
+    "a": 1.2486427481877784e-06,
+    "b": 5.039673994975184e-07,
+    "n_a": 1.1521308334039304e-06,
+    "n_b": 1.2973873140705028e-06,
+    "wrong_plus": 3.1852527282438814e-07,
+    "wrong_minus": 3.1852527282438814e-07,
+    "leakage": 1.1032601794462582e-07,
+    "trace": 4.773959005888173e-15
+  },
+  "max_buffer_field_difference_fraction": 4.233326155779155e-06,
+  "max_wrong_population_absolute_difference": 3.1852527282438814e-07,
+  "max_leakage_absolute_difference": 1.1032601794462582e-07,
+  "final_wrong_population": [
+    0.001579744717024297,
+    0.001579744717024297
+  ],
+  "reference_final_wrong_population": [
+    0.0015794727652446517,
+    0.0015794727652446517
+  ],
+  "final_leakage": [
+    8.113644367425193e-06,
+    8.113644367425193e-06
+  ],
+  "reference_final_leakage": [
+    8.113660769204232e-06,
+    8.113660769204232e-06
+  ],
+  "target_max_top2_a": 2.028029118036257e-09,
+  "target_max_top_b": 8.7005175942455e-09,
+  "reference_max_top2_a": 6.013240219781538e-09,
+  "reference_max_top_b": 7.933407077572359e-08,
+  "waveform_max_absolute_error": 2.220446049250313e-16,
+  "state_health": {
+    "max_trace_error": 2.4424906541753444e-15,
+    "final_min_eigenvalue": -6.67302844602042e-09,
+    "final_hermiticity_error": 0.0
+  },
+  "checks": {
+    "buffer_field_converged": true,
+    "wrong_population_converged": true,
+    "leakage_converged": true,
+    "trace_preserved": true,
+    "final_state_numerically_positive": true,
+    "final_state_hermitian": true,
+    "target_boundaries_small": true,
+    "waveforms_match": true
+  },
+  "thresholds": {
+    "buffer_field_fraction": 0.001,
+    "wrong_population_absolute": 1e-06,
+    "leakage_absolute": 1e-06,
+    "trace_absolute": 1e-09,
+    "final_eigenvalue_floor": -1e-07,
+    "hermiticity_absolute": 1e-10,
+    "target_boundary_population": 0.001,
+    "waveform_absolute": 1e-13
+  },
+  "wall_s": 371.86831794700083,
+  "solver": "Dynamiqs Tsit5(rtol=1e-10,atol=1e-12)",
+  "versions": {
+    "python": "3.12.3",
+    "dynamiqs": "0.3.7",
+    "jax": "0.12.0.1",
+    "scipy": "1.18.1"
+  },
+  "frozen_source_sha256": {
+    "src/.___init__.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._analysis.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._circuit.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._circuit_corrections.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._config.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._model.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._plotting.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._rate_solver.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._rates.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_campaign_spectrum.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_dephasing.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_measurement.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_optimization.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_pulses.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_rate_validation.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._readout_semiclassical.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._results.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/._spectral.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/analysis.py": "d349b244c827367faccdcb76adf9e15782f79daa3929212d57d1e34bcf822354",
+    "src/circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+    "src/circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198",
+    "src/config.py": "c4ccc7ccccb9ff06d4e38fe235f4361bcbe575415e1b1326436aa40653762442",
+    "src/model.py": "82f350e75ba442e16e6d971ee483c52c9bb7f25602246a003ab5aff25093782c",
+    "src/plotting.py": "43f568e0da3d8ad3ef7c4eb27c8c50a56e458022e022673eeee3209d8e17e4d5",
+    "src/rate_solver.py": "6b5476060c07e624f0e6a5df786c1ec591e4bc8eb05731643b75ffb63214144d",
+    "src/rates.py": "94cc6b616415eba0da57f8d8565bdcf9a822f9a001da3ae18a811747385292f3",
+    "src/readout.py": "8a75081bff5a0240f73b5124e72a075a69bbbef69a6489e0d049166bf377be6c",
+    "src/readout_campaign_spectrum.py": "e6106a868d6f60597951dcdaeac61ba9a1fe37f66dc3ae7566fc7862831ba327",
+    "src/readout_dephasing.py": "bfe294b0da8ff37902914eb475561c6a26febc861fd501321a8ff25feaa4a62f",
+    "src/readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+    "src/readout_optimization.py": "4f1c00a3414d73c4aee5eb636a5937427f773e1ac4fbd689ff162a70577f4718",
+    "src/readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+    "src/readout_rate_validation.py": "58a81cd8a887dd872e22ce5f37e4b37a95a17fadef378e8adea0e3cf21512317",
+    "src/readout_semiclassical.py": "7a88369dc1e94aaead8a4f01a865e5fc6c6b92e6127cdea10fbe270edbe5c636",
+    "src/results.py": "2b96c99b083f542b1a38c9b34626b8aed223a560dd2cdfb0617eccc4b520fd0d",
+    "src/spectral.py": "dbb9e9abcf4848cf3c86cdf9b2d895d9a4e817e8bbe4076ff9ddd72432535a29",
+    "tasks/.___init__.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_0.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_1.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_1_checks.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_2.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_3a.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_1_3b.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_1.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_2.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_3.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_4.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_4_campaign.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_4_campaign_report.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/._task_2_common.py": "bceba9b1fe3b6207c09c4cb98d1b061b1fd2e84869e1a3c222aa1c246fa0f917",
+    "tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tasks/task_1_0.py": "075bdafff0e35fad4ec638e0e4b741ab5e625caed075ac1efbefaaa98c24349e",
+    "tasks/task_1_1.py": "2fd4551bd95a8ba009894da4450dc01d4eb2977d696d2816149496264ba8ab9d",
+    "tasks/task_1_1_checks.py": "6e13497877ba118f200963b8547cdef0878002dee4337c4c8632696b81271ce2",
+    "tasks/task_1_2.py": "545b0b89fb322c6305dc2a0a755b2c194189f2fabe448891eadcc318d10b3aac",
+    "tasks/task_1_3a.py": "1a124800f563b8248a5cdfd8a057e07525610a13b24e58f89f02358d7ace8d9d",
+    "tasks/task_1_3b.py": "f86b72cdb8fc4656a9c9e46e337e17e17a6b113eda57417f14c637fa719f3418",
+    "tasks/task_2_1.py": "88c05ec6e5eaed6650fd2e8e9da0619bc612f84c9616b9db28c09287724d81d1",
+    "tasks/task_2_2.py": "cec0e354bb9dda6faa76a8f84b07318bc71b76a37bd692f1bcd3bc0d3fe695f5",
+    "tasks/task_2_3.py": "740fe3e2f582ede2e2b1d7cb8bd9b2a3126b21e02c31366c7245ad73cf18526e",
+    "tasks/task_2_4.py": "5ae4877bd2f73988dcdd375816b1633fff50fef6ad68f1b4f53feb1930f83cc8",
+    "tasks/task_2_4_campaign.py": "69647105af55d4722d6523b3693e61909ef0d0a50bcc0f9e48395bd52ea6077e",
+    "tasks/task_2_4_campaign_report.py": "91448623ed78071bf7dc1694e2b6c8d82ecfba0531e068d47a6d63f555f54ab1",
+    "tasks/task_2_common.py": "b6035445f24cbfa6796fbc76a34d3f1d411bdf39027bcd11af479cf71966dd52"
+  },
+  "supplement_source_sha256": {
+    "tools/task_2_4_finish_cutoffs.py": "a2a646445b140cf60327a556b419fc99a9a370c02c916c74ec336af4450a1503",
+    "tools/task_2_4_independent_check.py": "5dceb6ecc6573b9dd11033f73edb4cf3e0bde2c43ac55dce2862dcf8be5747b5"
+  },
+  "profile_function_sha256": "1db2d0ebe1aa620ec936ffaac284c9d727c56a8f0f1910fa4999e981c2fa7578",
+  "scope": "Joint-cutoff evidence for selected pulse, not a global circuit/fidelity certificate"
+}

@@ -1,0 +1,14 @@
+{
+  "scope": "Independent rotating-frame algebra and coherent-output normalization; no new dynamics simulation",
+  "source_sha256": "2ffdfb0b59bbf9369894effc8c08085d506ca436d5f027791fcb8e31fbdc3ce5",
+  "laboratory_drive": "2 epsilon cos(omega*t-phi)(a+a_dagger)",
+  "creation_coefficient_error": 1.962615573354719e-17,
+  "fifth_order_rwa_low_fock_max_error_per_us": 8.583756213050954e-13,
+  "rwa_quadrature_points": 128,
+  "pump_amplitude_rad": 0.03532407407407408,
+  "rounded_pump_g2_over_2pi_MHz": 0.7560000000000001,
+  "coherent_output_decay_exponent_per_us": 0.25920000000002386,
+  "predicted_coherent_output_decay_exponent_per_us": 0.2592,
+  "coherence_exponent_is_not_a_logical_bit_flip_rate": true,
+  "all_checks_pass": true
+}

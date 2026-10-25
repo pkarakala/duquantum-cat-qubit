@@ -266,3 +266,59 @@ consistency. The executed [notebook](notebooks/08_task_2_3_readout.ipynb)
 loads the saved data by default. Mean-field contrast and settling do not specify
 single-shot fidelity, integration time or the drive-induced bit-flip rate.
 Those need a measurement model and the separate Task 2.4 trade-off analysis.
+
+## Task 2.4: circuit-aware readout optimization
+
+The [merged scientific report](docs/task_2_4_final.md) answers parts (a–d), with
+[notebook 10](notebooks/10_task_2_4_final_synthesis.ipynb) integrating the local
+and cloud evidence. The main (a)-(d) answer is six pages; supplementary
+controls and detailed validations are appendices. The [detailed enlargement study](docs/task_2_4_optimization.md)
+and [notebook 09](notebooks/09_task_2_4_optimization.ipynb) retain its methods.
+`src/circuit.py` derives the calibrated resonant exchange; `src/circuit_corrections.py`
+retains an ATS-pump-only second-pump-order phase-six van-Vleck correction and an
+optional full-phase fundamental-pump sensitivity model. The latter includes
+higher-order off-diagonal two-pump terms. Neither model dresses the baths or
+certifies a full GHz circuit. Mixed pump/microwave counter-rotating terms at
+the same combined formal order are omitted; their effect on rare rates remains
+untested.
+
+`src/readout_optimization.py` packs the exact ideal codeword-difference sector;
+`src/spectral.py` supplies checked sparse factorizations and left/right physical
+mode certificates. Kerr corrections use the complete traceless Hermitian sector.
+`src/readout_rate_validation.py` constructs independent full-complex operators and
+checks three resolvable rates in time. `src/readout_measurement.py` independently
+checks complete cycles and local output-noise covariance.
+
+The curated conservative point uses alpha_ro=2.6 and epsilon_Z/g2=0.1, returning
+to alpha0=2.1. In `results/task_2_4.json`, `tradeoff.amplified_size[0].spectrum`
+gives Gamma_X=2.0351161e-7/us at 40×16, versus undriven 32×12 storage, 3.8474870e-7/us.
+`comparison` reports a 2.3253× complete-cycle speedup over weak readout at the same
+conditional-mean information target. `cycles.amplified.metrics` gives final
+wrong population 7.9483413e-6 at 38×16; `matched_idle_cycle` gives 9.0587990e-6 over
+an equal 47.3996573-µs clock at 28×10. Probabilities are raw, without postselection.
+`validation` separates exact shared-time integration checks, interpolation
+sensitivity and final-probability cutoff increments. The final conservative
+cycle increment is 0.775%; the separate static memory and buffer increments are
+0.699% and 0.530%; the earlier joint increment is 2.117%. These are empirical
+checks, not infinite-Fock error bounds.
+
+The separate spectral, measurement and circuit validation JSONs retain native
+records, model scope and provenance; independent rate and measurement NPZs retain
+raw traces. The main 43-MB trajectory archive also contains solved reduced-memory
+states for the optional fast-cycle Wigner panels and 304-frame GIF. The information
+functional obeys SNR_squared=4I under the coherent white-Gaussian reference; it is
+not a measured single-shot fidelity. The frozen-source pulse campaign contributes
+fixed-time waveform comparisons, independent integration checks, sensitivity
+tests and a failed mean-field depletion prediction. `tools/synthesize_task_2_4.py`
+recomputes the merged error-per-information and photon-energy diagnostics from
+saved outputs; the new model-validation figure exposes the difference between
+mean-amplitude energy and total buffer photons. These results do not validate
+an unexecuted enlargement-plus-depletion hybrid. The
+[dedicated guide](docs/task_2_4_README.md) is the single Task 2.4 entry point.
+
+The supplied (a)-(b) reference was checked in
+`tools/check_task_2_4_reference.py`: direct laboratory-period averaging verifies
+the drive phase and fifth-order resonant terms; coherent-output overlap verifies
+the dephasing factor. Saved algebra checks are separate from full dynamics
+validation. The reference audit documents the corrected buffer-drive omission
+and exclusion of its unverified numerical tables.

@@ -4,7 +4,7 @@
 
 Team: Pranav
 
-Completed: **Tasks 1.0(a–c), 1.1, 1.2, 1.3(a–c), 2.1, 2.2 and 2.3**. [Challenge prompt](docs/challenge_prompt_v4.md) · [Model, parameters and numerical checks](TECHNICAL.md)
+Completed: **Tasks 1.0(a–c), 1.1, 1.2, 1.3(a–c), 2.1, 2.2, 2.3 and 2.4(a–d)**. [Challenge prompt](docs/challenge_prompt_v4.md) · [Model, parameters and numerical checks](TECHNICAL.md)
 
 The memory stores the state; the lossy buffer provides two-photon stabilization. Their annihilation operators are $a$ and $b$, and their mean photon numbers are $\langle n_a\rangle=\langle a^\dagger a\rangle$ and $\langle n_b\rangle=\langle b^\dagger b\rangle$. We use the supplied target amplitude $\alpha=2.1$, corresponding to $\alpha^2=4.41$ photons. The coupling $g_2$ exchanges two memory photons with one buffer photon; $\epsilon_d$ drives the buffer; $\kappa_a$ and $\kappa_b$ are single-photon loss rates.
 
@@ -277,6 +277,14 @@ These results describe mean buffer fields. The 0.968-µs settling time does not
 determine how long a noisy single-shot measurement must integrate, or its fidelity.
 Readout-strength optimization and its effect on bit-flip protection belong to Task 2.4.
 
+## 2.4 — Improve readout while protecting the stored bit
+
+The [dedicated Task 2.4 guide](docs/task_2_4_README.md) links the merged scientific
+report, executed notebooks, numerical evidence and reproduction commands.
+It selects the validated enlargement/read/restore protocol as the main result
+and uses the fixed-size pulse search to explain termination trade-offs and the
+limits of mean-field depletion.
+
 ## Reproduce the results
 
 ```bash
@@ -287,9 +295,9 @@ python -m tasks.task_2_2
 python -m unittest discover -s tests -v
 ```
 
-The commands regenerate the main results and figures. Run `python -m tasks.task_2_3` for the readout study alone, including its independent solver checks, or add `--plot-only` to redraw its saved results. The separate introductory integration audit is `python -m tasks.task_1_1_checks`. QuTiP is included in the requirements.
+The commands regenerate the main results and figures. Run `python -m tasks.task_2_3` for the weak-readout study alone, including its independent solver checks, or add `--plot-only` to redraw its saved results. Task 2.4 is `python -m tasks.task_2_4`; add `--plot-only` to redraw its saved artifacts. Its long cycles and rare-rate checks resume a private cache. The separate introductory integration audit is `python -m tasks.task_1_1_checks`. QuTiP is included in the requirements.
 
-The full cutoff grid resumes cached calculations. Redraw its figures with `python -m tasks.task_1_2 --plot-only`. [Notebooks](notebooks/) provide task walkthroughs; notebooks 03 and 05–08 load saved results by default. [Figure captions](figures/CAPTIONS.md) accompany the maintained PNG/PDF pairs and five animated GIFs. The task scripts regenerate the GIFs from solved states; static panels remain available at the links above. Reported values are stored in [results/](results/).
+The full cutoff grid resumes cached calculations. Redraw its figures with `python -m tasks.task_1_2 --plot-only`. [Notebooks](notebooks/) provide task walkthroughs; notebooks 03 and 05–09 load saved results by default. [Figure captions](figures/CAPTIONS.md) accompany the maintained PNG/PDF pairs and six animated GIFs. The task scripts regenerate the GIFs from solved states; static panels remain available at the links above. Reported values are stored in [results/](results/).
 
 ## AI use
 

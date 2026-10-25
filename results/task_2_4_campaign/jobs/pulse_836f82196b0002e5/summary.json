@@ -1,0 +1,176 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "pulse_836f82196b0002e5",
+    "kind": "pulse",
+    "parameters": {
+      "profile": "build_hold_deplete",
+      "ratio": 0.48784980315955107,
+      "duration": 2.0,
+      "idle": 2.0,
+      "alpha": 2.1,
+      "hold_ratio": 0.5140885402795163,
+      "tail_ratio": -0.11298657370680865,
+      "edge_fraction": 0.1,
+      "knots": [
+        0.2,
+        0.8
+      ],
+      "phase": 0.0,
+      "Na": 24,
+      "Nb": 8,
+      "rtol": 1e-09,
+      "atol": 1e-11
+    },
+    "purpose": "Quantum check of a semiclassical proposal; prediction alone is not evidence",
+    "priority": 3
+  },
+  "metrics": {
+    "profile": "build_hold_deplete",
+    "alpha": 2.1,
+    "ratio": 0.48784980315955107,
+    "duration": 2.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.5140885402795163,
+    "tail_ratio": -0.11298657370680865,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 24,
+    "Nb": 8,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-09,
+    "atol": 1e-11,
+    "g2": 4.7940703893780245,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": false,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {},
+    "effective_exchange_order": "cubic",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      0.2,
+      0.30000000000000004,
+      0.5,
+      1.5,
+      1.7000000000000002,
+      1.8,
+      2.0,
+      4.0
+    ],
+    "cycle_duration_us": 4.0,
+    "information": {
+      "real_quadrature_information": 0.5505182129912048,
+      "optimal_fixed_quadrature_information": 0.5505182129912048,
+      "optimal_lo_phase_rad": 0.0,
+      "time_varying_lo_information_reference": 0.5505182129912048,
+      "quadrature_gram_matrix": [
+        [
+          0.5505182129912048,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "information_at_pulse_end": 0.550518212991205,
+    "snr_squared_at_pulse_end": 2.20207285196482,
+    "fixed_real_quadrature_information_at_pulse_end": 0.5505182129912048,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 2.2020728519648194,
+    "post_pulse_information_same_lo": 1.7850400142571665e-05,
+    "initial_wrong_population": [
+      5.4573544999790965e-09,
+      5.4573544999790965e-09
+    ],
+    "final_wrong_population": [
+      0.0002048836410583934,
+      0.0002048836410583934
+    ],
+    "excess_wrong_population": [
+      0.00020487818370389343,
+      0.00020487818370389343
+    ],
+    "idle_baseline_final_wrong_population": [
+      7.310404187862474e-07,
+      7.310404187862474e-07
+    ],
+    "readout_excess_wrong_population": [
+      0.00020415260063960715,
+      0.00020415260063960715
+    ],
+    "final_leakage": [
+      8.117510417135734e-06,
+      8.117510417135734e-06
+    ],
+    "idle_baseline_final_leakage": [
+      8.117150651868456e-06,
+      8.117150651868456e-06
+    ],
+    "readout_excess_leakage": [
+      3.5976526727836704e-10,
+      3.5976526727836704e-10
+    ],
+    "max_transient_leakage": [
+      0.011958713021881989,
+      0.011958713021881989
+    ],
+    "buffer_population_at_pulse_end": [
+      0.000317003874514597,
+      0.000317003874514597
+    ],
+    "final_buffer_population": [
+      1.751659094980193e-05,
+      1.751659094980193e-05
+    ],
+    "idle_baseline_final_buffer_population": 1.7516071848588473e-05,
+    "excess_final_buffer_population": [
+      5.191012134573604e-10,
+      5.191012134573604e-10
+    ],
+    "max_buffer_population": [
+      0.02700873048304116,
+      0.02700873048304116
+    ],
+    "max_top2_a": 4.3277254057941906e-07,
+    "max_top_b": 3.0740283409008573e-06,
+    "max_trace_error": 2.220446049250313e-15,
+    "final_min_eigenvalue": -4.011570342433948e-10,
+    "final_hermiticity_error": 3.4098178620241425e-17,
+    "idle_baseline_max_trace_error": 2.4424906541753444e-15,
+    "idle_baseline_final_min_eigenvalue": -1.0367075769294396e-09,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 24.512440440999967
+  },
+  "finished_utc": "2026-10-25T08:16:09.534611+00:00",
+  "worker_wall_s": 26.00490146300001
+}

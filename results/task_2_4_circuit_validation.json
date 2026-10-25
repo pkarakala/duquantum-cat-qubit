@@ -1,0 +1,1410 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-25T08:21:58.558240+00:00",
+  "units": {
+    "Hamiltonian_coefficients": "angular microsecond^-1; hbar=1",
+    "gamma_x": "microsecond^-1",
+    "dimensions": "number of Fock states per mode"
+  },
+  "circuit": {
+    "EJ_per_us": 251327.41228718346,
+    "phi_a": 0.06,
+    "phi_b": 0.3,
+    "omega_a_over_2pi_GHz": 4.0,
+    "omega_b_over_2pi_GHz": 4.8,
+    "omega_p_over_2pi_GHz": 3.2,
+    "g2_per_us": 4.7940703893780245,
+    "kappa_a_per_us": 0.058433623356770145,
+    "kappa_b_per_us": 16.336281798666924
+  },
+  "model_definitions": {
+    "phase6": "ATS-pump-only correction, with external microwave ports treated after their RWA; mixed pump/control counter-rotating corrections are omitted. Every second-pump-order van-Vleck product with total zero-point-phase order <=6, including linear-times-fifth and cubic-times-cubic. Complete at that phase order; correction is diagonal.",
+    "first_order_exchange": "Resonant all-phase ATS sine exchange, using exact infinite-Fock Laguerre matrix elements and the finite fundamental-pump 2J1(epsilon_p)/epsilon_p factor. Buffer drive cancels its coherent expectation at the chosen target alpha.",
+    "static_balance": "Physical DC ATS junction-imbalance term C cos(Phi), C=-2 DeltaEJ J0(epsilon_p). Phase6 uses cosine through phase4 because chosen C is O(epsilon_p^2 phi^2). DeltaEJ=(EJ1-EJ2)/2, EJ=(EJ1+EJ2)/2.",
+    "sine_diagonal": "All-phase pump-fundamental VV diagonal only; omits off-diagonal two-pump resonances and is not a complete all-phase Hamiltonian.",
+    "sine_full": "ATS-pump-only correction, with external microwave ports treated after their RWA; mixed pump/control counter-rotating corrections are omitted. Full all-phase pump-fundamental VV projected after padded-virtual-state Fourier commutators, with exact resonant static cosine. Virtual matrix elements are infinite-Fock displacement elements; default virtual_extra=12. Higher pump harmonics, higher van-Vleck orders and bath dressing are omitted.",
+    "calibration": "Subtract the constant and linear Stark shifts and track the local coherent mean slopes. Phase6 compensated HK is Ka na(na-1)+Kb nb(nb-1)+chi na nb -2Ka alpha^2 na-chi alpha^2 nb. The large frequency offsets are physical calibration costs.",
+    "bit_rate": "Decay exponent of the physical Re<a> difference between the two initial coherent codewords; in a two-state reduction it is k_plus_to_minus+k_minus_to_plus. Kerr generally breaks equal-direction switching symmetry.",
+    "certificate": "Full real trace-zero Hermitian Liouvillian including coupled symmetric and antisymmetric density sectors. The idle odd-memory-operator restriction is exact. Left/right eigenpairs and physical initial/observable loading certify the relevant mode; numerical residuals do not bound model remainder."
+  },
+  "phase4_coefficients": {
+    "constant": -824.3266262553808,
+    "delta_a": 6.54804910529393,
+    "delta_b": 163.70122763235722,
+    "Ka": 6.213004948043519e-14,
+    "Kb": 2.317933475924459e-13,
+    "chi": -1.2408495870165317e-13,
+    "phase_order": 4,
+    "fit_residual": 1.8189894035458565e-12,
+    "max_offdiagonal": 0.0,
+    "epsilon_p": 0.03532407407407408
+  },
+  "phase6_coefficients": {
+    "constant": -828.5628477222638,
+    "delta_a": 5.795818957746369,
+    "delta_b": 143.71415126303165,
+    "Ka": -0.017540872835640743,
+    "Kb": -9.63496398372439,
+    "chi": -1.4342968037532926,
+    "phase_order": 6,
+    "fit_residual": 1.5347723092418164e-12,
+    "max_offdiagonal": 1.8998513297275406e-16,
+    "epsilon_p": 0.03532407407407408
+  },
+  "balanced_hardware": {
+    "static_cosine_per_us": 4426.841986892879,
+    "delta_EJ_per_us": -2214.1116262861337,
+    "delta_EJ_over_EJ": -0.008809670247016836,
+    "residual_Ka_per_us": -0.003197904798107819,
+    "residual_Kb_per_us": -0.6706089602663106,
+    "residual_chi_per_us": 0.0
+  },
+  "matched_idle_reference": [
+    {
+      "evidence_status": "certified_mode",
+      "source_record_name": "circuit-audit-bordered-idle-32-10.json",
+      "source_record_sha256": "980536b6679642401745ebb2d8c22104eb4ebf754722abeae425ab4193661171",
+      "source_record_modified_utc": "2026-10-25T07:54:02.012300+00:00",
+      "data": {
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "Na": 32,
+        "Nb": 10,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 8.387583710208034e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 1.7079753185623623e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.423183377435592,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "direct",
+        "factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            51200,
+            51200
+          ],
+          "matrix_nnz": 548992,
+          "LU_nnz": 87441103,
+          "ordering_wall_s": 1.381617292005103,
+          "factorization_wall_s": 42.92771608300973,
+          "probe_relative_residuals": [
+            4.262142906959242e-10,
+            1.6401315740749109e-09
+          ],
+          "probe_backward_errors": [
+            1.140494152958698e-16,
+            4.8627563988092225e-17
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 1e-08,
+          "shift_imag": 0.0
+        },
+        "idle_operator_parity_restriction": true,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 1.7079753185623479e-13,
+          "left_eigen_residual": 2.2620860724302704e-12,
+          "left_eigenvalue": [
+            -8.387583710209555e-07,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 1.520424140321469e-19,
+          "eigenvector_condition_estimate": 8.235309595613051,
+          "right_observable_overlap_abs": 4.194984760916134,
+          "left_initial_overlap_abs": 0.12142664557468924,
+          "mode_amplitude": [
+            4.1949261127820705,
+            -0.0
+          ],
+          "initial_real_memory_difference": 4.2,
+          "normalized_mode_amplitude": 0.9987919316147786
+        },
+        "wall_s": 51.12682970799506
+      }
+    },
+    {
+      "evidence_status": "legacy_uncertified_mode_cutoff_reference",
+      "source_record_name": "circuit-audit-balanced-idle-28-10.json",
+      "source_record_sha256": "54aa0aa63fe5c60d4a4646eae52d8169045446073347b9374bc1582eb61d0d0f",
+      "source_record_modified_utc": "2026-10-25T07:34:44.579829+00:00",
+      "data": {
+        "Na": 28,
+        "Nb": 10,
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "gamma_x_per_us": 8.39448286234452e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 5.668712181177818e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.423183377435592,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "direct",
+        "idle_operator_parity_restriction": true,
+        "wall_s": 323.7110131659865
+      }
+    }
+  ],
+  "balanced_conservative_cutoffs": [
+    {
+      "evidence_status": "certified_mode_cutoff_series",
+      "source_record_name": "circuit-audit-bordered-conservative-32-10.json",
+      "source_record_sha256": "330d806411a5471480b0b3df53f8bd5f81b419bbcc1ec4f8a16d0f4dfd44f3a5",
+      "source_record_modified_utc": "2026-10-25T07:56:27.007564+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.1,
+        "Na": 32,
+        "Nb": 10,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 4.7308213735012675e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 9.799098912261381e-11,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "bordered",
+        "bordered_factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            102400,
+            102400
+          ],
+          "matrix_nnz": 1491389,
+          "LU_nnz": 373364185,
+          "ordering_wall_s": 2.991726958018262,
+          "factorization_wall_s": 335.4318745000055,
+          "probe_relative_residuals": [
+            2.802773701650613e-05,
+            4.888265854691999e-07
+          ],
+          "probe_backward_errors": [
+            1.8206855826638772e-13,
+            1.9766851990671385e-13
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 0.0,
+          "shift_imag": 0.0
+        },
+        "idle_operator_parity_restriction": false,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 9.799098912261378e-11,
+          "left_eigen_residual": 1.6597335579617303e-09,
+          "left_eigenvalue": [
+            -4.730821373480617e-07,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 2.0650663254059842e-18,
+          "eigenvector_condition_estimate": 9.113938502966597,
+          "right_observable_overlap_abs": 5.197378439005881,
+          "left_initial_overlap_abs": 0.10967860691154442,
+          "mode_amplitude": [
+            5.195320685049169,
+            -0.0
+          ],
+          "initial_real_memory_difference": 5.19999999996078,
+          "normalized_mode_amplitude": 0.9991001317477604
+        },
+        "wall_s": 371.9409281660046
+      }
+    },
+    {
+      "evidence_status": "certified_mode_cutoff_series",
+      "source_record_name": "circuit-audit-bordered-conservative-32-12.json",
+      "source_record_sha256": "93f9be3ebad0bee0e30d684259a2285713cd092b07a2162caed554633f753465",
+      "source_record_modified_utc": "2026-10-25T08:19:31.776090+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.1,
+        "Na": 32,
+        "Nb": 12,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 4.963450849047935e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 9.158419690412047e-15,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "bordered",
+        "bordered_factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            147456,
+            147456
+          ],
+          "matrix_nnz": 2171905,
+          "LU_nnz": 725012771,
+          "ordering_wall_s": 3.238697791006416,
+          "factorization_wall_s": 788.893899458024,
+          "probe_relative_residuals": [
+            2.9868043605258543e-05,
+            3.6700699976149926e-06
+          ],
+          "probe_backward_errors": [
+            7.54556194663366e-14,
+            8.962343608578379e-14
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 0.0,
+          "shift_imag": 0.0
+        },
+        "bordered_iterative_refinement": {
+          "solve_calls": 42,
+          "refinement_steps": 107,
+          "maximum_initial_relative_residual": 0.00037536689489898757,
+          "maximum_refined_relative_residual": 7.304763622424133e-08
+        },
+        "idle_operator_parity_restriction": false,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 9.158419690412017e-15,
+          "left_eigen_residual": 4.988986944739684e-14,
+          "left_eigenvalue": [
+            -4.963450847397009e-07,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 1.650925447713755e-16,
+          "eigenvector_condition_estimate": 9.889894135805637,
+          "right_observable_overlap_abs": 5.197378483465404,
+          "left_initial_overlap_abs": 0.10107328511524932,
+          "mode_amplitude": [
+            5.1953207880398224,
+            -0.0
+          ],
+          "initial_real_memory_difference": 5.199999999960781,
+          "normalized_mode_amplitude": 0.9991001515536551
+        },
+        "wall_s": 1008.0700428750133
+      }
+    },
+    {
+      "evidence_status": "certified_mode_cutoff_series",
+      "source_record_name": "circuit-audit-bordered-conservative-34-10.json",
+      "source_record_sha256": "cc857c275da03d975310d28e3e331bd1f577acfce93ee1062339979f23fa1b73",
+      "source_record_modified_utc": "2026-10-25T08:04:26.367100+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.1,
+        "Na": 34,
+        "Nb": 10,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 3.664752996050693e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 9.149380339929307e-15,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "bordered",
+        "bordered_factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            115600,
+            115600
+          ],
+          "matrix_nnz": 1686657,
+          "LU_nnz": 445353952,
+          "ordering_wall_s": 2.7696859579882585,
+          "factorization_wall_s": 287.7460472920211,
+          "probe_relative_residuals": [
+            2.0980927820510226e-05,
+            3.346279257056323e-05
+          ],
+          "probe_backward_errors": [
+            8.708984671006324e-14,
+            2.6418195829789115e-13
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 0.0,
+          "shift_imag": 0.0
+        },
+        "bordered_iterative_refinement": {
+          "solve_calls": 42,
+          "refinement_steps": 104,
+          "maximum_initial_relative_residual": 0.0032190014589573135,
+          "maximum_refined_relative_residual": 9.447862863090668e-08
+        },
+        "idle_operator_parity_restriction": false,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 9.149380339929323e-15,
+          "left_eigen_residual": 4.749169272546063e-14,
+          "left_eigenvalue": [
+            -3.6647529919649897e-07,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 4.08570312575052e-16,
+          "eigenvector_condition_estimate": 9.35331047345353,
+          "right_observable_overlap_abs": 5.19737857975405,
+          "left_initial_overlap_abs": 0.10687168144106271,
+          "mode_amplitude": [
+            5.195320507950081,
+            -0.0
+          ],
+          "initial_real_memory_difference": 5.199999999998303,
+          "normalized_mode_amplitude": 0.999100097683034
+        },
+        "wall_s": 373.6869519999891
+      }
+    },
+    {
+      "evidence_status": "certified_mode_cutoff_series",
+      "source_record_name": "circuit-audit-bordered-conservative-36-10.json",
+      "source_record_sha256": "f97715484861495bcdc4b90ad1bc078f77ad8e9e66f1ce0daf6bee42b7ab8008",
+      "source_record_modified_utc": "2026-10-25T08:18:24.414313+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.1,
+        "Na": 36,
+        "Nb": 10,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 3.363116862538117e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 1.1804606480647126e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "bordered",
+        "bordered_factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            129600,
+            129600
+          ],
+          "matrix_nnz": 1893933,
+          "LU_nnz": 512633163,
+          "ordering_wall_s": 3.1238149590208195,
+          "factorization_wall_s": 608.8783170839888,
+          "probe_relative_residuals": [
+            0.00011556172484358382,
+            4.400466526890801e-05
+          ],
+          "probe_backward_errors": [
+            5.913695991846944e-13,
+            4.444421459496721e-13
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 0.0,
+          "shift_imag": 0.0
+        },
+        "bordered_iterative_refinement": {
+          "solve_calls": 42,
+          "refinement_steps": 112,
+          "maximum_initial_relative_residual": 0.0022333857356452856,
+          "maximum_refined_relative_residual": 1.0660794002282183e-07
+        },
+        "idle_operator_parity_restriction": false,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 1.1804606480647118e-14,
+          "left_eigen_residual": 4.946490606903264e-14,
+          "left_eigenvalue": [
+            -3.3631168557422523e-07,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 6.795864449829459e-16,
+          "eigenvector_condition_estimate": 9.52289619400837,
+          "right_observable_overlap_abs": 5.197378622689147,
+          "left_initial_overlap_abs": 0.10496848646286075,
+          "mode_amplitude": [
+            5.195320461939539,
+            -0.0
+          ],
+          "initial_real_memory_difference": 5.199999999999935,
+          "normalized_mode_amplitude": 0.9991000888345392
+        },
+        "wall_s": 777.8708853330172
+      }
+    },
+    {
+      "evidence_status": "certified_mode_cutoff_series",
+      "source_record_name": "circuit-audit-bordered-conservative-38-10.json",
+      "source_record_sha256": "fe863dfab32c4269abb997ff30feb03065ca61ce49dd6d961c93162fc8282f58",
+      "source_record_modified_utc": "2026-10-25T08:21:05.247360+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.1,
+        "Na": 38,
+        "Nb": 10,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 3.281490352168859e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 1.0399741327115896e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "bordered",
+        "bordered_factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            144400,
+            144400
+          ],
+          "matrix_nnz": 2113217,
+          "LU_nnz": 592928288,
+          "ordering_wall_s": 4.584886541997548,
+          "factorization_wall_s": 696.0339706660016,
+          "probe_relative_residuals": [
+            2.0668085039421415e-06,
+            1.9478647420933517e-07
+          ],
+          "probe_backward_errors": [
+            9.834955573103325e-15,
+            5.0155390666175e-15
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 0.0,
+          "shift_imag": 0.0
+        },
+        "bordered_iterative_refinement": {
+          "solve_calls": 42,
+          "refinement_steps": 107,
+          "maximum_initial_relative_residual": 0.0003175569794337389,
+          "maximum_refined_relative_residual": 1.118062323349294e-07
+        },
+        "idle_operator_parity_restriction": false,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 1.0399741327115866e-14,
+          "left_eigen_residual": 4.9091581823480434e-14,
+          "left_eigenvalue": [
+            -3.2814903503639217e-07,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 1.8049372133482683e-16,
+          "eigenvector_condition_estimate": 9.645594210219986,
+          "right_observable_overlap_abs": 5.197378634320135,
+          "left_initial_overlap_abs": 0.10363322092530976,
+          "mode_amplitude": [
+            5.19532045025887,
+            -0.0
+          ],
+          "initial_real_memory_difference": 5.1999999999999975,
+          "normalized_mode_amplitude": 0.9991000865882447
+        },
+        "wall_s": 782.1925888749829
+      }
+    }
+  ],
+  "cutoff_comparisons": {
+    "memory": [
+      {
+        "varying_dimension": "Na",
+        "fixed_dimension": "Nb",
+        "fixed_value": 10,
+        "small_dimension": 32,
+        "large_dimension": 34,
+        "small_gamma_x_per_us": 4.7308213735012675e-07,
+        "large_gamma_x_per_us": 3.664752996050693e-07,
+        "absolute_difference_per_us": 1.0660683774505747e-07,
+        "relative_change_to_larger": 0.29089774361312193
+      },
+      {
+        "varying_dimension": "Na",
+        "fixed_dimension": "Nb",
+        "fixed_value": 10,
+        "small_dimension": 34,
+        "large_dimension": 36,
+        "small_gamma_x_per_us": 3.664752996050693e-07,
+        "large_gamma_x_per_us": 3.363116862538117e-07,
+        "absolute_difference_per_us": 3.0163613351257605e-08,
+        "relative_change_to_larger": 0.08968945946318785
+      },
+      {
+        "varying_dimension": "Na",
+        "fixed_dimension": "Nb",
+        "fixed_value": 10,
+        "small_dimension": 36,
+        "large_dimension": 38,
+        "small_gamma_x_per_us": 3.363116862538117e-07,
+        "large_gamma_x_per_us": 3.281490352168859e-07,
+        "absolute_difference_per_us": 8.162651036925789e-09,
+        "relative_change_to_larger": 0.02487482869340396
+      }
+    ],
+    "buffer": [
+      {
+        "varying_dimension": "Nb",
+        "fixed_dimension": "Na",
+        "fixed_value": 32,
+        "small_dimension": 10,
+        "large_dimension": 12,
+        "small_gamma_x_per_us": 4.7308213735012675e-07,
+        "large_gamma_x_per_us": 4.963450849047935e-07,
+        "absolute_difference_per_us": 2.326294755466672e-08,
+        "relative_change_to_larger": 0.04686849585531583
+      }
+    ]
+  },
+  "matched_idle_comparisons": [
+    {
+      "Na": 32,
+      "Nb": 10,
+      "gamma_x_per_us": 4.7308213735012675e-07,
+      "matched_idle_gamma_x_per_us": 8.387583710208034e-07,
+      "ratio_to_matched_idle": 0.5640267253301643
+    },
+    {
+      "Na": 32,
+      "Nb": 12,
+      "gamma_x_per_us": 4.963450849047935e-07,
+      "matched_idle_gamma_x_per_us": 8.387583710208034e-07,
+      "ratio_to_matched_idle": 0.5917617064145912
+    },
+    {
+      "Na": 34,
+      "Nb": 10,
+      "gamma_x_per_us": 3.664752996050693e-07,
+      "matched_idle_gamma_x_per_us": 8.387583710208034e-07,
+      "ratio_to_matched_idle": 0.4369259518197759
+    },
+    {
+      "Na": 36,
+      "Nb": 10,
+      "gamma_x_per_us": 3.363116862538117e-07,
+      "matched_idle_gamma_x_per_us": 8.387583710208034e-07,
+      "ratio_to_matched_idle": 0.4009637314790749
+    },
+    {
+      "Na": 38,
+      "Nb": 10,
+      "gamma_x_per_us": 3.281490352168859e-07,
+      "matched_idle_gamma_x_per_us": 8.387583710208034e-07,
+      "ratio_to_matched_idle": 0.3912319048661357
+    }
+  ],
+  "balanced_fast_nonconverged": [
+    {
+      "evidence_status": "certified_mode_not_cutoff_converged",
+      "source_record_name": "circuit-balanced-fast-28-10-bordered.json",
+      "source_record_sha256": "0df3d45e34b469b10b0b408a61e6e439391c63a270f0c78fc4ca12d88bae2d3a",
+      "source_record_modified_utc": "2026-10-25T07:53:57.697460+00:00",
+      "data": {
+        "gamma_x_per_us": 1.3359779482079211e-05,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 2.3752187964933554e-12,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "bordered",
+        "bordered_factorization": {
+          "ordering": "metis",
+          "pymetis": "2025.2.2",
+          "permutation_seed": 0,
+          "diag_pivot_thresh": 0.0,
+          "matrix_shape": [
+            78400,
+            78400
+          ],
+          "matrix_nnz": 1136877,
+          "LU_nnz": 252374352,
+          "ordering_wall_s": 2.964415291993646,
+          "factorization_wall_s": 207.49203812499763,
+          "probe_relative_residuals": [
+            1.0738560661572223e-08,
+            7.499493410384011e-10
+          ],
+          "probe_backward_errors": [
+            1.3200580778957533e-15,
+            3.9053007805639597e-16
+          ],
+          "ordering_requested": "auto",
+          "fallback_reason": null,
+          "shift_real": 0.0,
+          "shift_imag": 0.0
+        },
+        "idle_operator_parity_restriction": false,
+        "eigenpair_certificate": {
+          "right_eigen_residual": 2.3752187964933416e-12,
+          "left_eigen_residual": 1.4862549423733062e-12,
+          "left_eigenvalue": [
+            -1.3359779482073477e-05,
+            0.0
+          ],
+          "eigenvalue_match_abs_error": 5.734413052911613e-18,
+          "eigenvector_condition_estimate": 8.390394018028616,
+          "right_observable_overlap_abs": 5.207810958880787,
+          "left_initial_overlap_abs": 0.11890363394442759,
+          "mode_amplitude": [
+            5.19556395279293,
+            -0.0
+          ],
+          "initial_real_memory_difference": 5.19999998581757,
+          "normalized_mode_amplitude": 0.999146916723704
+        },
+        "wall_s": 235.49810416597757,
+        "alpha": 2.6,
+        "ratio": 0.25,
+        "Na": 28,
+        "Nb": 10
+      }
+    }
+  ],
+  "original_unbalanced_screens": [
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_diagonal_sine_VV",
+      "source_record_name": "circuit-audit-baseline-22-8.json",
+      "source_record_sha256": "b5fbe601c3b8225e47bdf71cf194e402ecdf8081a5a186223b338b0092c86238",
+      "source_record_modified_utc": "2026-10-25T07:14:09.456205+00:00",
+      "data": {
+        "alpha": 2.1,
+        "ratio": 0.05,
+        "Na": 22,
+        "Nb": 8,
+        "gamma_x_per_us": 1.5767120131526858e-05,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 5.863443655297161e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": 5.700191221426378,
+          "buffer_frequency_shift_per_us": 139.36400039842312,
+          "phase_order": "sine"
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": "sine",
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "wall_s": 98.0931488339993
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_diagonal_sine_VV",
+      "source_record_name": "circuit-audit-baseline-24-8.json",
+      "source_record_sha256": "527dc1bceec6dd3387c723368a2ad0344ee73ad25aebe669db15ab6cf843fe3c",
+      "source_record_modified_utc": "2026-10-25T07:19:07.250346+00:00",
+      "data": {
+        "alpha": 2.1,
+        "ratio": 0.05,
+        "Na": 24,
+        "Nb": 8,
+        "gamma_x_per_us": 1.5010963812248368e-05,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 1.0713222398460921e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": 5.700191229362521,
+          "buffer_frequency_shift_per_us": 139.3640003903709,
+          "phase_order": "sine"
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": "sine",
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "wall_s": 297.7912535409996
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_diagonal_sine_VV",
+      "source_record_name": "circuit-audit-idle-22-8.json",
+      "source_record_sha256": "d6f5a2dc837483a8b15f58c684f5ee2e53a88e4f0f6c75df0e74254c0dee3a89",
+      "source_record_modified_utc": "2026-10-25T07:19:02.987779+00:00",
+      "data": {
+        "case": "idle",
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "Na": 22,
+        "Nb": 8,
+        "gamma_x_per_us": 9.847021007716185e-06,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 8.089974195953647e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": 5.700191221426378,
+          "buffer_frequency_shift_per_us": 139.36400039842312,
+          "phase_order": "sine"
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": "sine",
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "wall_s": 52.03524858299352
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_diagonal_sine_VV",
+      "source_record_name": "circuit-audit-idle-24-8.json",
+      "source_record_sha256": "517af583c5b3025082ac67b83eee06f6ef5ec5e426d12809defdc3aa7322106b",
+      "source_record_modified_utc": "2026-10-25T07:20:07.356694+00:00",
+      "data": {
+        "case": "idle",
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "Na": 24,
+        "Nb": 8,
+        "gamma_x_per_us": 9.196493743219081e-06,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 4.6586786146976075e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": 5.700191229362521,
+          "buffer_frequency_shift_per_us": 139.3640003903709,
+          "phase_order": "sine"
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": "sine",
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "wall_s": 64.36749029200291
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_diagonal_sine_VV",
+      "source_record_name": "circuit-audit-amplified-22-8.json",
+      "source_record_sha256": "d0edc3d9025f7e0801ea8e98039ae83ea5a19bb332092463f1f7dc4e70abca84",
+      "source_record_modified_utc": "2026-10-25T07:14:45.625504+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.25,
+        "Na": 22,
+        "Nb": 8,
+        "gamma_x_per_us": 0.000579423565345482,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 8.417719913613402e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": 5.628836465257621,
+          "buffer_frequency_shift_per_us": 136.51119213760825,
+          "phase_order": "sine"
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": "sine",
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "wall_s": 133.02894975000527
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_diagonal_sine_VV",
+      "source_record_name": "circuit-audit-amplified-24-8.json",
+      "source_record_sha256": "7488f5d3897bdd91bbac87dc1d9688b3cebfb935df82a1e868d6e87af57befd3",
+      "source_record_modified_utc": "2026-10-25T07:20:03.641996+00:00",
+      "data": {
+        "alpha": 2.6,
+        "ratio": 0.25,
+        "Na": 24,
+        "Nb": 8,
+        "gamma_x_per_us": 0.0001371855792336054,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 3.386365885011307e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": 5.628845027655342,
+          "buffer_frequency_shift_per_us": 136.51117873433705,
+          "phase_order": "sine"
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": "sine",
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "wall_s": 318.0142579579988
+      }
+    }
+  ],
+  "balanced_small_cutoff_screens": [
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_phase6",
+      "source_record_name": "circuit-audit-balanced_amp-22-8.json",
+      "source_record_sha256": "b9c871eef8118b4aa1809f5c2e9f3f85843e5bdcf48c69f180b32ff53c1020e3",
+      "source_record_modified_utc": "2026-10-25T07:24:25.626937+00:00",
+      "data": {
+        "case": "balanced_amp",
+        "alpha": 2.6,
+        "ratio": 0.25,
+        "Na": 22,
+        "Nb": 8,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 0.0006330236884775055,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 8.898812003989159e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "wall_s": 284.62614970900177
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_phase6",
+      "source_record_name": "circuit-audit-balanced_amp-24-8.json",
+      "source_record_sha256": "29c5d984cb4c0d1c0c8c48ae47011626b706a205941af8ead96ec5d0100b936f",
+      "source_record_modified_utc": "2026-10-25T07:32:16.419780+00:00",
+      "data": {
+        "case": "balanced_amp",
+        "alpha": 2.6,
+        "ratio": 0.25,
+        "Na": 24,
+        "Nb": 8,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 0.00014753944211047046,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 4.854820557955902e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.4382135299867,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "wall_s": 470.7827857499942
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_phase6",
+      "source_record_name": "circuit-audit-balanced_weak-22-8.json",
+      "source_record_sha256": "c495988bd8386381fade9dc64f36601a6b5be17aa39cc6528c151574e2b34c2c",
+      "source_record_modified_utc": "2026-10-25T07:24:55.415329+00:00",
+      "data": {
+        "case": "balanced_weak",
+        "alpha": 2.1,
+        "ratio": 0.05,
+        "Na": 22,
+        "Nb": 8,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 8.634824459111181e-06,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 6.79596861453304e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.423183377435592,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "wall_s": 313.2216911249998
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_phase6",
+      "source_record_name": "circuit-audit-balanced_weak-24-8.json",
+      "source_record_sha256": "4e32ad8f9aa5890a39a3b547141cf8b94de7001183a51253ecd726bb7d6ec22a",
+      "source_record_modified_utc": "2026-10-25T07:32:55.927765+00:00",
+      "data": {
+        "case": "balanced_weak",
+        "alpha": 2.1,
+        "ratio": 0.05,
+        "Na": 24,
+        "Nb": 8,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 7.860080524500261e-06,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 6.310423186874406e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.423183377435592,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "wall_s": 480.5021002919966
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_phase6",
+      "source_record_name": "circuit-audit-balanced_idle-22-8.json",
+      "source_record_sha256": "0174b7fad4293a21f8c239a3a0bc6b386213f08fa968b5a472c4911cd92cb01c",
+      "source_record_modified_utc": "2026-10-25T07:27:43.603670+00:00",
+      "data": {
+        "case": "balanced_idle",
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "Na": 22,
+        "Nb": 8,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 1.2003788430414517e-06,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 1.3345651212514016e-13,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.423183377435592,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "direct",
+        "idle_operator_parity_restriction": true,
+        "wall_s": 40.47339650000504
+      }
+    },
+    {
+      "evidence_status": "screen_only_not_cutoff_converged_phase6",
+      "source_record_name": "circuit-audit-balanced_idle-24-8.json",
+      "source_record_sha256": "79d8f95f87f2d77b6661ab8cfc5443b19a81b59c7df481916052d39bf2a43e66",
+      "source_record_modified_utc": "2026-10-25T07:28:18.409268+00:00",
+      "data": {
+        "case": "balanced_idle",
+        "alpha": 2.1,
+        "ratio": 0.0,
+        "Na": 24,
+        "Nb": 8,
+        "balance": {
+          "static_cosine_per_us": 4426.841986892879,
+          "delta_EJ_per_us": -2214.1116262861337,
+          "delta_EJ_over_EJ": -0.008809670247016836,
+          "residual_Ka_per_us": -0.003197904798107819,
+          "residual_Kb_per_us": -0.6706089602663106,
+          "residual_chi_per_us": 0.0
+        },
+        "gamma_x_per_us": 8.684471045498385e-07,
+        "mode_frequency_per_us": 0.0,
+        "single_exponential": true,
+        "eigen_residual": 6.348285296786483e-14,
+        "shift": 1e-08,
+        "calibration": {
+          "memory_frequency_shift_per_us": -9.423183377435592,
+          "buffer_frequency_shift_per_us": -236.05576910853463,
+          "phase_order": 6,
+          "static_cosine_per_us": 4426.841986892879
+        },
+        "phi_a": 0.06,
+        "phi_b": 0.3,
+        "phase_order": 6,
+        "correction_scale": 1.0,
+        "sine_exchange": true,
+        "static_cosine_per_us": 4426.841986892879,
+        "solver": "direct",
+        "idle_operator_parity_restriction": true,
+        "wall_s": 34.80445629199676
+      }
+    }
+  ],
+  "full_phase_sensitivity": {
+    "circuit-audit-balanced-all-phase-local.json": {
+      "evidence_status": "Hamiltonian_sensitivity_not_switching_rate_certificate",
+      "source_record_name": "circuit-audit-balanced-all-phase-local.json",
+      "source_record_sha256": "a5457fec4fac17edcefa7adbdf737d37b3672c28e240dccf7fd395269ae0f192",
+      "source_record_modified_utc": "2026-10-25T08:00:02.017181+00:00",
+      "data": {
+        "Ka": -0.001831741029945988,
+        "Kb": 0.1597910706204857,
+        "chi": 0.11563132095807305
+      }
+    },
+    "circuit-audit-full-vv.json": {
+      "evidence_status": "Hamiltonian_sensitivity_not_switching_rate_certificate",
+      "source_record_name": "circuit-audit-full-vv.json",
+      "source_record_sha256": "7c332838d4cc91c1f859531eb29198e6b6fda047ae4ad36e6e046fedfbac146f",
+      "source_record_modified_utc": "2026-10-25T08:01:20.449171+00:00",
+      "data": {
+        "hermiticity": 0.0,
+        "virtual_error": 0.0,
+        "diagonal_error": 1.0231815394945443e-12,
+        "offdiagonal_max": 0.024485754006966873,
+        "two_pump_normalized": 0.00029052500027865847
+      }
+    },
+    "circuit-audit-full-vv-large-padding.json": {
+      "evidence_status": "Hamiltonian_sensitivity_not_switching_rate_certificate",
+      "source_record_name": "circuit-audit-full-vv-large-padding.json",
+      "source_record_sha256": "11bbec75689a00a39da2e7db2636de6db8f0f3a46af44083ac2237c0c1236952",
+      "source_record_modified_utc": "2026-10-25T08:06:01.504935+00:00",
+      "data": {
+        "Na": 32,
+        "Nb": 12,
+        "virtual_extras": [
+          12,
+          16
+        ],
+        "max_difference": 0.0,
+        "matrix_nnz": 1216,
+        "wall_s": 6.723603541002376
+      }
+    }
+  },
+  "full_sine_field_records": [
+    {
+      "evidence_status": "finite_time_mean_quadrature_only_not_switching_or_fidelity_certificate",
+      "source_record_name": "full_sine_fields_2.1_0.05.json",
+      "source_record_sha256": "044cd78f58d941fb03b4a4813e2650f2433b5233949e27faff1d85dbd97712c4",
+      "source_record_modified_utc": "2026-10-25T08:11:55.638781+00:00",
+      "data": {
+        "parameters": {
+          "alpha": 2.1,
+          "ratio": 0.05,
+          "static_cosine": 4426.841986892879,
+          "Na": 32,
+          "Nb": 12,
+          "phi_a": 0.06,
+          "phi_b": 0.3,
+          "phase_order": "sine_full",
+          "correction_scale": 1.0,
+          "end": 4.0,
+          "step": 0.002,
+          "rtol": 1e-10,
+          "atol": 1e-12,
+          "hamiltonian_sha256": "4e0bcf3fd1da2ab3824fe9e979c6f7345be1ce497023fb8d047c91b2c7483c91",
+          "source_sha256": "b3489d6060c6c5e470f5814bfa5657ea62f374ed49e8ddd00207c9ed960dc252",
+          "calibration": {
+            "memory_frequency_shift_per_us": -9.387387063459336,
+            "buffer_frequency_shift_per_us": -234.82337297964006,
+            "phase_order": "sine_full",
+            "static_cosine_per_us": 4426.841986892879,
+            "virtual_extra": 12,
+            "pump_harmonics": "fundamental",
+            "phase_resummation": "full"
+          },
+          "health": {
+            "max_trace_error": 2.4424906541753444e-15,
+            "final_min_eigenvalue": -1.2447786736860851e-09,
+            "final_hermiticity_error": 0.0
+          },
+          "wall_s": 249.95910425001057
+        },
+        "quadrature": {
+          "real_quadrature_information": 0.04144817778107742,
+          "optimal_fixed_quadrature_information": 0.04144825939845257,
+          "optimal_lo_phase_rad": 3.140189392086808,
+          "time_varying_lo_information_reference": 0.04144831766660665,
+          "quadrature_gram_matrix": [
+            [
+              0.04144817778107742,
+              -5.816258866044928e-05
+            ],
+            [
+              -5.816258866044928e-05,
+              1.3988552922947258e-07
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "evidence_status": "finite_time_mean_quadrature_only_not_switching_or_fidelity_certificate",
+      "source_record_name": "full_sine_fields_2.6_0.1.json",
+      "source_record_sha256": "da44ed7e8114382042a80e2877369a98b0898ee4a389f76747c3460adc6220e4",
+      "source_record_modified_utc": "2026-10-25T08:16:06.182276+00:00",
+      "data": {
+        "parameters": {
+          "alpha": 2.6,
+          "ratio": 0.1,
+          "static_cosine": 4426.841986892879,
+          "Na": 32,
+          "Nb": 12,
+          "phi_a": 0.06,
+          "phi_b": 0.3,
+          "phase_order": "sine_full",
+          "correction_scale": 1.0,
+          "end": 4.0,
+          "step": 0.002,
+          "rtol": 1e-10,
+          "atol": 1e-12,
+          "hamiltonian_sha256": "4fb2889ecacf2fa0585ad793f950361b573621fff3a386d3e9bdcfb1faabc712",
+          "source_sha256": "b3489d6060c6c5e470f5814bfa5657ea62f374ed49e8ddd00207c9ed960dc252",
+          "calibration": {
+            "memory_frequency_shift_per_us": -9.394832785676092,
+            "buffer_frequency_shift_per_us": -234.49193360493018,
+            "phase_order": "sine_full",
+            "static_cosine_per_us": 4426.841986892879,
+            "virtual_extra": 12,
+            "pump_harmonics": "fundamental",
+            "phase_resummation": "full"
+          },
+          "health": {
+            "max_trace_error": 2.4424906541753444e-15,
+            "final_min_eigenvalue": -1.1127113280624443e-09,
+            "final_hermiticity_error": 0.0
+          },
+          "wall_s": 246.22682229199563
+        },
+        "quadrature": {
+          "real_quadrature_information": 0.10995192719587489,
+          "optimal_fixed_quadrature_information": 0.10995223075127211,
+          "optimal_lo_phase_rad": 3.1399310882897193,
+          "time_varying_lo_information_reference": 0.1099523608649923,
+          "quadrature_gram_matrix": [
+            [
+              0.10995192719587489,
+              -0.00018269225883805573
+            ],
+            [
+              -0.00018269225883805573,
+              4.3366911741485606e-07
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "full_sine_field_comparison": {
+    "time_us": 4.0,
+    "Na": 32,
+    "Nb": 12,
+    "weak_alpha": 2.1,
+    "weak_epsilon_z_over_g2": 0.05,
+    "strong_alpha": 2.6,
+    "strong_epsilon_z_over_g2": 0.1,
+    "weak_optimal_fixed_information": 0.04144825939845257,
+    "strong_optimal_fixed_information": 0.10995223075127211,
+    "information_ratio": 2.6527587007761553,
+    "scope": "Finite-time output mean-quadrature separation at 4 us in the full-phase pump-fundamental model; no full-sine rare-switching or measurement-fidelity certificate."
+  },
+  "validation": {
+    "tests_file": "tests/test_circuit_corrections.py",
+    "tests_passed": 16,
+    "checks": [
+      "Independent classical frequency-shift sign/order check",
+      "Virtual-state padding convergence",
+      "Independent dense Fourier commutators",
+      "Dense full-complex Liouvillian spectrum and RHS",
+      "Physical bit observable and codeword difference after quarter rotations",
+      "Exact idle memory-operator parity including full-sine offdiagonals",
+      "Direct/bordered/block/parity inverse comparison",
+      "Left/right physical-mode loading"
+    ],
+    "source_sha256_at_aggregation": {
+      "src/circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198",
+      "src/spectral.py": "dbb9e9abcf4848cf3c86cdf9b2d895d9a4e817e8bbe4076ff9ddd72432535a29",
+      "tests/test_circuit_corrections.py": "2d21155dade6aeb8b6b3a0891a09c1617be0e40a2fe8ab9efd7faa9f0caa73f9"
+    },
+    "provenance_limit": "Early runs did not capture executed-source hashes; embedded native records retain their original numerical metadata. Current-source hashes identify the aggregation version, not retrospectively the source used for every run."
+  },
+  "conclusions": {
+    "status": "Completed, cutoff-qualified effective-model witness; no bound on the exact open-circuit rate.",
+    "supported": "Balanced conservative readout has a lower certified physical bit-mode relaxation exponent than the same-hardware idle reference at every saved witness cutoff. This is a systematically truncated model result with observed cutoff differences, not a hardware guarantee.",
+    "cutoff_qualification": "Last memory increment at Nb=10: Na36 to38 changes Gamma by2.4875% relative38. Buffer increment at Na32: Nb10 to12 changes Gamma by4.6868% relative12. There is no combined38x12 point; these separate checks do not prove a uniform cutoff bound. Idle Na28 to32 atNb10 differs0.0822%; idle buffer convergence was not separately tested.",
+    "model_qualification": "Full-phase pump-fundamental finite-time fields retain2.65x information-metric improvement, but no full-sine rare-switching calculation or fidelity certificate was performed. Initial unbalanced diagonal-only screens are explicitly nonconverged and cannot establish matched hardware mitigation benefit.",
+    "scope": "Systematically truncated effective-Hamiltonian design witness, not an exact open GHz circuit or fabrication guarantee. Cancellations are sensitive to higher phase orders. No hardware-robustness claim follows from an eigenvalue residual. Completeness applies to the ATS pump interaction only; mixed pump/microwave counter-rotating terms at the retained combined order have not been simulated."
+  },
+  "omitted_mixed_control_corrections": {
+    "status": "Analytically identified in post-delivery audit; not included in reported simulations.",
+    "leading_hamiltonian": "-g2*epsilon_z/omega_a*(a_dagger*b+a*b_dagger) + g2*epsilon_d/(2*omega_b)*(a^2+a_dagger^2)",
+    "order": "Same combined second-pump/sixth-phase order when epsilon_z and epsilon_d scale with g2.",
+    "coefficients_at_calibrated_conservative_point_per_us": [
+      -9.1446e-05,
+      0.002438
+    ],
+    "rate_effect": "Not evaluated; a small Hamiltonian coefficient does not bound its effect on exponentially rare switching."
+  }
+}

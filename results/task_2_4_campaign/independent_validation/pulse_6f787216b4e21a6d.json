@@ -1,0 +1,243 @@
+{
+  "job_id": "pulse_6f787216b4e21a6d",
+  "reference_job": {
+    "id": "pulse_6f787216b4e21a6d",
+    "kind": "pulse",
+    "parameters": {
+      "profile": "raised_cosine",
+      "ratio": 0.5,
+      "duration": 4.0,
+      "Na": 32,
+      "Nb": 12
+    },
+    "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+    "priority": 6
+  },
+  "execution_status": "completed",
+  "validation_passed": true,
+  "checks": {
+    "waveforms_match": true,
+    "all_observables_agree": true,
+    "trace_preserved": true,
+    "final_state_numerically_positive": true,
+    "final_state_hermitian": true
+  },
+  "reference_parameters": {
+    "profile": "raised_cosine",
+    "alpha": 2.1,
+    "ratio": 0.5,
+    "duration": 4.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.7,
+    "tail_ratio": -0.2,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 32,
+    "Nb": 12,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "g2": 4.7940703893780245,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": false,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {},
+    "effective_exchange_order": "cubic",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      0.4,
+      3.6,
+      4.0,
+      6.0
+    ],
+    "cycle_duration_us": 6.0,
+    "information": {
+      "real_quadrature_information": 3.241618124352509,
+      "optimal_fixed_quadrature_information": 3.241618124352509,
+      "optimal_lo_phase_rad": 0.0,
+      "time_varying_lo_information_reference": 3.241618124352509,
+      "quadrature_gram_matrix": [
+        [
+          3.241618124352509,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "information_at_pulse_end": 3.2416181243525064,
+    "snr_squared_at_pulse_end": 12.966472497410026,
+    "fixed_real_quadrature_information_at_pulse_end": 3.241618124352509,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 12.966472497410036,
+    "post_pulse_information_same_lo": 0.00032897744978566124,
+    "initial_wrong_population": [
+      5.457390924134015e-09,
+      5.457390924134015e-09
+    ],
+    "final_wrong_population": [
+      0.0015794727652446517,
+      0.0015794727652446517
+    ],
+    "excess_wrong_population": [
+      0.0015794673078537275,
+      0.0015794673078537275
+    ],
+    "idle_baseline_final_wrong_population": [
+      1.079001740530608e-06,
+      1.079001740530608e-06
+    ],
+    "readout_excess_wrong_population": [
+      0.001578393763504121,
+      0.001578393763504121
+    ],
+    "final_leakage": [
+      8.113660769204232e-06,
+      8.113660769204232e-06
+    ],
+    "idle_baseline_final_leakage": [
+      8.109705980729598e-06,
+      8.109705980729598e-06
+    ],
+    "readout_excess_leakage": [
+      3.954788474633413e-09,
+      3.954788474633413e-09
+    ],
+    "max_transient_leakage": [
+      0.012403082092081163,
+      0.012403082092081163
+    ],
+    "buffer_population_at_pulse_end": [
+      0.0037637128189617996,
+      0.0037637128189617996
+    ],
+    "final_buffer_population": [
+      1.7513325818868884e-05,
+      1.7513325818868884e-05
+    ],
+    "idle_baseline_final_buffer_population": 1.750735030715994e-05,
+    "excess_final_buffer_population": [
+      5.975511708942251e-09,
+      5.975511708942251e-09
+    ],
+    "max_buffer_population": [
+      0.02706687655833622,
+      0.02706687655833622
+    ],
+    "max_top2_a": 6.013240219781538e-09,
+    "max_top_b": 7.933407077572359e-08,
+    "max_trace_error": 4.218847493575595e-15,
+    "final_min_eigenvalue": -9.05633501962841e-11,
+    "final_hermiticity_error": 8.476115137195115e-17,
+    "idle_baseline_max_trace_error": 1.099120794378905e-14,
+    "idle_baseline_final_min_eigenvalue": -7.566632395001994e-11,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 387.2294537560001
+  },
+  "solver": "Dynamiqs Tsit5(rtol=1e-10,atol=1e-12)",
+  "comparison": "Both independent codeword evolutions, identical saved grid and stage boundaries",
+  "observable_order": [
+    "a",
+    "b",
+    "n_a",
+    "n_b",
+    "top2_a",
+    "top_b",
+    "wrong_plus",
+    "wrong_minus",
+    "leakage",
+    "trace"
+  ],
+  "max_absolute_error_by_observable": [
+    2.1835145914869222e-08,
+    2.259777649155254e-08,
+    3.7772687200288146e-08,
+    4.674972672868982e-09,
+    1.5640507863227766e-09,
+    1.5798006520034034e-10,
+    2.3435620111200706e-09,
+    2.3435620111200706e-09,
+    2.3452218327058016e-09,
+    6.217248937900877e-15
+  ],
+  "absolute_tolerance_by_observable": [
+    2e-07,
+    2e-07,
+    2e-06,
+    2e-06,
+    1e-07,
+    1e-07,
+    1e-07,
+    1e-07,
+    1e-07,
+    1e-09
+  ],
+  "waveform_max_absolute_error": 2.220446049250313e-16,
+  "final_wrong_population": [
+    0.0015794727711422965,
+    0.0015794727711422965
+  ],
+  "reference_final_wrong_population": [
+    0.0015794727652446517,
+    0.0015794727652446517
+  ],
+  "final_wrong_population_max_error": 5.897644785729517e-12,
+  "final_leakage": [
+    8.11366076944128e-06,
+    8.11366076944128e-06
+  ],
+  "final_leakage_max_error": 2.37048946552697e-16,
+  "information_at_pulse_end": 3.241618136395874,
+  "information_absolute_difference": 1.204336763649394e-08,
+  "state_health": {
+    "max_trace_error": 3.4416913763379853e-15,
+    "final_min_eigenvalue": -3.7108552171299434e-09,
+    "final_hermiticity_error": 0.0
+  },
+  "wall_s": 159.93267152399994,
+  "versions": {
+    "python": "3.12.3",
+    "dynamiqs": "0.3.7",
+    "jax": "0.12.0.1",
+    "qutip": "5.3.1",
+    "scipy": "1.18.1"
+  },
+  "source_sha256": {
+    "tools/task_2_4_independent_check.py": "5dceb6ecc6573b9dd11033f73edb4cf3e0bde2c43ac55dce2862dcf8be5747b5",
+    "src/circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+    "src/readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+    "tasks/task_2_4.py": "5ae4877bd2f73988dcdd375816b1633fff50fef6ad68f1b4f53feb1930f83cc8"
+  },
+  "profile_function_sha256": "1db2d0ebe1aa620ec936ffaac284c9d727c56a8f0f1910fa4999e981c2fa7578",
+  "scope": "Independent integration check only; does not certify Fock convergence or single-shot fidelity"
+}

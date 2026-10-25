@@ -1,0 +1,239 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "spectrum_2e809c1f1a86428b",
+    "kind": "spectrum",
+    "parameters": {
+      "alpha": 1.4,
+      "ratio": 0.25,
+      "Na": 12,
+      "Nb": 4,
+      "k": 4,
+      "time_check": true
+    },
+    "purpose": "Matched small-cutoff time-domain/modal check; separate cutoff tests required",
+    "priority": 2
+  },
+  "metrics": {
+    "Na": 12,
+    "Nb": 4,
+    "alpha": 1.4,
+    "ratio": 0.25,
+    "order": "cubic",
+    "g2": 4.7940703893780245,
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "shift": 1e-08,
+    "k_requested": 4,
+    "k_returned": 4,
+    "modes": [
+      {
+        "eigenvalue_per_us": [
+          -0.02474907744564189,
+          0.0
+        ],
+        "decay_rate_per_us": 0.02474907744564189,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 2.3359487966296513e-14,
+        "left_absolute_residual": 4.580542051527791e-13,
+        "right_scaled_residual": 5.600623065593301e-17,
+        "left_eigenvalue_matching_error": 3.712308238590367e-16,
+        "eigenvector_condition_number": 3.253322269892432,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            0.9995234911387798,
+            -0.0
+          ],
+          "logical_imbalance": [
+            0.9936651526030682,
+            -0.0
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -4.957335187391323,
+          6.084143924323639
+        ],
+        "decay_rate_per_us": 4.957335187391323,
+        "frequency_per_us": 6.084143924323639,
+        "right_absolute_residual": 3.1238144770302663e-12,
+        "left_absolute_residual": 2.7589082036709117e-11,
+        "right_scaled_residual": 7.351697910538373e-15,
+        "left_eigenvalue_matching_error": 9.208872687368632e-13,
+        "eigenvector_condition_number": 6.1820534832316865,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            -0.0017633236261392112,
+            -0.0018616470363422915
+          ],
+          "logical_imbalance": [
+            -0.0007254365852278419,
+            -0.0007074251876086175
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -4.957335187391323,
+          -6.084143924323639
+        ],
+        "decay_rate_per_us": 4.957335187391323,
+        "frequency_per_us": 6.084143924323639,
+        "right_absolute_residual": 3.1238144770302663e-12,
+        "left_absolute_residual": 2.7589082036709117e-11,
+        "right_scaled_residual": 7.351697910538373e-15,
+        "left_eigenvalue_matching_error": 9.208872687368632e-13,
+        "eigenvector_condition_number": 6.1820534832316865,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            -0.0017633236261392112,
+            0.0018616470363422915
+          ],
+          "logical_imbalance": [
+            -0.0007254365852278419,
+            0.0007074251876086175
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.165999090048617,
+          0.0
+        ],
+        "decay_rate_per_us": 8.165999090048617,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 4.1879721568898155e-12,
+        "left_absolute_residual": 3.185690911125458e-11,
+        "right_scaled_residual": 9.84875563881089e-15,
+        "left_eigenvalue_matching_error": 3.6290970228947117e-12,
+        "eigenvector_condition_number": 24.44559036979071,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            0.0001352644569410418,
+            -0.0
+          ],
+          "logical_imbalance": [
+            4.6397607515854365e-05,
+            -0.0
+          ]
+        }
+      }
+    ],
+    "returned_modes_conjugate_closed": true,
+    "initial_observables": {
+      "memory_amplitude": 0.9999942131214925,
+      "logical_imbalance": 0.9998031619454698
+    },
+    "candidate_mode_index": 0,
+    "candidate_decay_rate_per_us": 0.02474907744564189,
+    "candidate_numerical_resolution_heuristic_per_us": 1.490197946441413e-11,
+    "candidate_status": "resolved_returned_mode",
+    "candidate_is_nonoscillatory": true,
+    "global_dominance_certified": false,
+    "rate_interpretation": "Slowest memory-visible mode among the returned near-shift Ritz set; not a certified global switching rate",
+    "sector_validity": "Real drive and real exchange only; excludes phase drive, detuning and diagonal Kerr terms",
+    "factorization": {
+      "ordering": "metis",
+      "pymetis": "2025.2.2",
+      "permutation_seed": 0,
+      "diag_pivot_thresh": 0.0,
+      "matrix_shape": [
+        1128,
+        1128
+      ],
+      "matrix_nnz": 12824,
+      "LU_nnz": 191947,
+      "ordering_wall_s": 0.00911445199994887,
+      "factorization_wall_s": 0.006190151000055266,
+      "probe_relative_residuals": [
+        2.1448239535806398e-13,
+        1.5565804296760813e-13
+      ],
+      "probe_backward_errors": [
+        2.0506695538769156e-16,
+        2.8981140579931727e-16
+      ],
+      "ordering_requested": "auto",
+      "fallback_reason": null,
+      "shift_real": 1e-08,
+      "shift_imag": 0.0
+    },
+    "time_domain": {
+      "status": "integrated",
+      "end_us": 202.02773258849126,
+      "maximum_horizon_us": 10000.0,
+      "backend": "SciPy Radau full real sector, rtol=1e-9 atol=1e-11",
+      "nfev": 4467,
+      "nlu": 76,
+      "fits": {
+        "memory_amplitude": [
+          {
+            "start_us": 30.304159888273688,
+            "end_us": 202.02773258849126,
+            "status": "fitted",
+            "amplitude": 0.4721414658887887,
+            "rate_per_us": 0.02474907744525381,
+            "max_relative_residual": 6.821761289908597e-10,
+            "relative_candidate_difference": 1.5680567955200786e-11
+          },
+          {
+            "start_us": 50.506933147122815,
+            "end_us": 202.02773258849126,
+            "status": "fitted",
+            "amplitude": 0.2863682747806909,
+            "rate_per_us": 0.024749077444860688,
+            "max_relative_residual": 6.20264719731422e-10,
+            "relative_candidate_difference": 3.156486183542029e-11
+          },
+          {
+            "start_us": 70.70970640597194,
+            "end_us": 202.02773258849126,
+            "status": "fitted",
+            "amplitude": 0.17369113862975902,
+            "rate_per_us": 0.024749077445658522,
+            "max_relative_residual": 8.076786800296605e-10,
+            "relative_candidate_difference": 6.721290191080698e-13
+          }
+        ],
+        "logical_imbalance": [
+          {
+            "start_us": 30.304159888273688,
+            "end_us": 202.02773258849126,
+            "status": "fitted",
+            "amplitude": 0.4693741827099087,
+            "rate_per_us": 0.024749077445253814,
+            "max_relative_residual": 6.821764982918178e-10,
+            "relative_candidate_difference": 1.568034591059586e-11
+          },
+          {
+            "start_us": 50.506933147122815,
+            "end_us": 202.02773258849126,
+            "status": "fitted",
+            "amplitude": 0.284689832688608,
+            "rate_per_us": 0.024749077444860688,
+            "max_relative_residual": 6.202657729441299e-10,
+            "relative_candidate_difference": 3.156486183542029e-11
+          },
+          {
+            "start_us": 70.70970640597194,
+            "end_us": 202.02773258849126,
+            "status": "fitted",
+            "amplitude": 0.17267311204032185,
+            "rate_per_us": 0.024749077445658522,
+            "max_relative_residual": 8.076785609845407e-10,
+            "relative_candidate_difference": 6.721290191080698e-13
+          }
+        ]
+      },
+      "fit_interpretation": "Deterministic fit diagnostics, not statistical rate uncertainties"
+    },
+    "wall_s": 2.1853596519999883
+  },
+  "finished_utc": "2026-10-25T08:15:15.229351+00:00",
+  "worker_wall_s": 3.7711667199999965
+}

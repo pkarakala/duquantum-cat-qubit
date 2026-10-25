@@ -1,0 +1,55 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "dephasing_309a9bca27f1eac6",
+    "kind": "dephasing",
+    "parameters": {
+      "ratio": 0.25,
+      "Na": 32,
+      "Nb": 12
+    },
+    "purpose": "Even-cat coherence envelope separates deterministic Z rotation, leakage and physical memory loss",
+    "priority": 3
+  },
+  "metrics": {
+    "parameters": {
+      "Na": 32,
+      "Nb": 12,
+      "alpha": 2.1,
+      "ratio": 0.25,
+      "end": 4.0,
+      "step": 0.005,
+      "kappa_a": 0.058433623356770145,
+      "kappa_b": 16.336281798666924,
+      "g2": 4.7940703893780245
+    },
+    "backend": "independent full complex QuTiP 5.3.1 BDF",
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "initial_state": "normalized even memory cat times buffer vacuum",
+    "logical_basis": "orthonormal (even+odd)/sqrt(2), (even-odd)/sqrt(2)",
+    "coherence_definition": "sqrt(<X>^2+<Y>^2)=2*abs(rho_01), without postselection",
+    "conditional_coherence_definition": "unconditioned coherence/code population; diagnostic only",
+    "phase_definition": "unwrapped atan2(<Y>,<X>); meaningful only where phase_valid",
+    "code_conditioning_population_floor": 1e-12,
+    "phase_coherence_floor": 1e-08,
+    "final_unconditioned_coherence": 0.06806111588053075,
+    "final_code_conditioned_coherence": 0.06827285687184094,
+    "final_code_population": 0.9968986065471427,
+    "final_leakage": 0.003101393452857315,
+    "max_leakage": 0.004510998110185183,
+    "final_logical_bloch_phase_rad": 40.20602626753231,
+    "max_trace_error": 7.549516567451064e-15,
+    "final_min_eigenvalue": -5.749089024227002e-10,
+    "final_hermiticity_error": 3.9898639947466563e-17,
+    "interpretation": "unconditioned logical coherence and leakage, not switching rate or measurement fidelity",
+    "coherence_scope": "reduced memory: includes entanglement with the buffer as well as information lost to the environment",
+    "dephasing_caution": "coherence loss alone does not uniquely identify pure dephasing; compare memory-loss controls, leakage and switching separately",
+    "coherent_output_dephasing_reference": null,
+    "reference_note": "Requires separate pointer trajectories and coherent-output assumptions; not computed here",
+    "source_sha256": "bfe294b0da8ff37902914eb475561c6a26febc861fd501321a8ff25feaa4a62f",
+    "wall_s": 78.29830036499993
+  },
+  "finished_utc": "2026-10-25T08:16:21.081001+00:00",
+  "worker_wall_s": 79.65645595899991
+}

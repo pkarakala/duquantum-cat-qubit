@@ -1,0 +1,258 @@
+{"utc": "2026-10-25T08:11:40.990147+00:00", "event": "scheduler_started", "pid": 2640, "workers": 7, "hours": 3.0}
+{"utc": "2026-10-25T08:11:40.991289+00:00", "event": "job_started", "id": "design_a8c60908f1219c2d", "pid": 2641, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:11:40.991878+00:00", "event": "job_started", "id": "pulse_7ccc08d02563f6d3", "pid": 2642, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:11:40.992349+00:00", "event": "job_started", "id": "pulse_3148ded5aa609137", "pid": 2643, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:11:40.993090+00:00", "event": "job_started", "id": "pulse_f2eb3bb055b99f20", "pid": 2644, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:11:40.993587+00:00", "event": "job_started", "id": "pulse_ef80283443fd4023", "pid": 2645, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:11:40.994055+00:00", "event": "job_started", "id": "pulse_8b3e6c057c6aa358", "pid": 2646, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:11:40.994537+00:00", "event": "job_started", "id": "pulse_065305bf1dd16b2c", "pid": 2647, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:11:53.010946+00:00", "event": "job_finished", "id": "design_a8c60908f1219c2d", "returncode": 0}
+{"utc": "2026-10-25T08:11:53.012136+00:00", "event": "job_started", "id": "pulse_c7974f4201a62b89", "pid": 2648, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:12:05.027553+00:00", "event": "job_finished", "id": "pulse_3148ded5aa609137", "returncode": 0}
+{"utc": "2026-10-25T08:12:05.028828+00:00", "event": "job_started", "id": "pulse_acc3582d18b2c380", "pid": 2649, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:12:07.031406+00:00", "event": "job_finished", "id": "pulse_7ccc08d02563f6d3", "returncode": 0}
+{"utc": "2026-10-25T08:12:07.031725+00:00", "event": "job_finished", "id": "pulse_ef80283443fd4023", "returncode": 0}
+{"utc": "2026-10-25T08:12:07.033453+00:00", "event": "job_started", "id": "pulse_d02c632c73de6ef4", "pid": 2650, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:12:07.034112+00:00", "event": "job_started", "id": "pulse_bc8d7b027feffa8c", "pid": 2651, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:12:15.045853+00:00", "event": "job_finished", "id": "pulse_065305bf1dd16b2c", "returncode": 0}
+{"utc": "2026-10-25T08:12:15.047050+00:00", "event": "job_started", "id": "spectrum_6fd3ed6b2acec01e", "pid": 2654, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:12:17.049521+00:00", "event": "job_finished", "id": "pulse_f2eb3bb055b99f20", "returncode": 0}
+{"utc": "2026-10-25T08:12:17.049710+00:00", "event": "job_finished", "id": "spectrum_6fd3ed6b2acec01e", "returncode": 0}
+{"utc": "2026-10-25T08:12:17.050954+00:00", "event": "job_started", "id": "spectrum_fbeda74d38bbf399", "pid": 2655, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:12:17.051546+00:00", "event": "job_started", "id": "pulse_69d2649183a5b4cc", "pid": 2656, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:12:19.054070+00:00", "event": "job_finished", "id": "pulse_8b3e6c057c6aa358", "returncode": 0}
+{"utc": "2026-10-25T08:12:19.055287+00:00", "event": "job_started", "id": "pulse_087c203745a714b8", "pid": 2657, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:12:21.057927+00:00", "event": "job_finished", "id": "spectrum_fbeda74d38bbf399", "returncode": 0}
+{"utc": "2026-10-25T08:12:21.059110+00:00", "event": "job_started", "id": "spectrum_d14ca01760e4eacf", "pid": 2658, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:12:25.064889+00:00", "event": "job_finished", "id": "spectrum_d14ca01760e4eacf", "returncode": 0}
+{"utc": "2026-10-25T08:12:25.066109+00:00", "event": "job_started", "id": "spectrum_783a256402ec4bcd", "pid": 2659, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:12:27.068888+00:00", "event": "job_finished", "id": "pulse_c7974f4201a62b89", "returncode": 0}
+{"utc": "2026-10-25T08:12:27.069085+00:00", "event": "job_finished", "id": "spectrum_783a256402ec4bcd", "returncode": 0}
+{"utc": "2026-10-25T08:12:27.070160+00:00", "event": "job_started", "id": "spectrum_6adf1b5ada8352b9", "pid": 2660, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:12:27.070772+00:00", "event": "job_started", "id": "pulse_001613891266adac", "pid": 2661, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:12:31.076674+00:00", "event": "job_finished", "id": "spectrum_6adf1b5ada8352b9", "returncode": 0}
+{"utc": "2026-10-25T08:12:31.078135+00:00", "event": "job_started", "id": "spectrum_7d3dd020a998fabd", "pid": 2662, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:12:35.084127+00:00", "event": "job_finished", "id": "spectrum_7d3dd020a998fabd", "returncode": 0}
+{"utc": "2026-10-25T08:12:35.085418+00:00", "event": "job_started", "id": "spectrum_901a773f41ca4bc9", "pid": 2663, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:12:41.096032+00:00", "event": "job_finished", "id": "pulse_69d2649183a5b4cc", "returncode": 0}
+{"utc": "2026-10-25T08:12:41.097223+00:00", "event": "job_started", "id": "pulse_bf710520be6068da", "pid": 2664, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:12:43.100199+00:00", "event": "job_finished", "id": "pulse_087c203745a714b8", "returncode": 0}
+{"utc": "2026-10-25T08:12:43.101247+00:00", "event": "job_started", "id": "pulse_3b310bb7ce08dd54", "pid": 2665, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:12:45.104211+00:00", "event": "job_finished", "id": "pulse_d02c632c73de6ef4", "returncode": 0}
+{"utc": "2026-10-25T08:12:45.105498+00:00", "event": "job_started", "id": "pulse_6c319395c90ac3ea", "pid": 2666, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:12:53.125765+00:00", "event": "job_finished", "id": "pulse_001613891266adac", "returncode": 0}
+{"utc": "2026-10-25T08:12:53.127053+00:00", "event": "job_started", "id": "pulse_3c8b5b59f328a09a", "pid": 2667, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:13:03.143650+00:00", "event": "job_finished", "id": "pulse_acc3582d18b2c380", "returncode": 0}
+{"utc": "2026-10-25T08:13:03.144799+00:00", "event": "job_started", "id": "pulse_c739deb4d99d9d6d", "pid": 2675, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:13:05.148152+00:00", "event": "job_finished", "id": "spectrum_901a773f41ca4bc9", "returncode": 0}
+{"utc": "2026-10-25T08:13:05.148417+00:00", "event": "job_finished", "id": "pulse_bf710520be6068da", "returncode": 0}
+{"utc": "2026-10-25T08:13:05.149731+00:00", "event": "job_started", "id": "spectrum_ff9f21f0a6f5ccda", "pid": 2676, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:13:05.150353+00:00", "event": "job_started", "id": "pulse_9f755dfa0796a911", "pid": 2677, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:13:07.154650+00:00", "event": "job_finished", "id": "pulse_3b310bb7ce08dd54", "returncode": 0}
+{"utc": "2026-10-25T08:13:07.155764+00:00", "event": "job_started", "id": "pulse_974ea4947650fb58", "pid": 2678, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:13:09.159040+00:00", "event": "job_finished", "id": "pulse_bc8d7b027feffa8c", "returncode": 0}
+{"utc": "2026-10-25T08:13:09.159215+00:00", "event": "job_finished", "id": "pulse_6c319395c90ac3ea", "returncode": 0}
+{"utc": "2026-10-25T08:13:09.160247+00:00", "event": "job_started", "id": "pulse_e17b0178485cf467", "pid": 2679, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:13:09.160836+00:00", "event": "job_started", "id": "pulse_879459ded454145a", "pid": 2680, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:13:19.178465+00:00", "event": "job_finished", "id": "pulse_3c8b5b59f328a09a", "returncode": 0}
+{"utc": "2026-10-25T08:13:19.179491+00:00", "event": "job_started", "id": "pulse_0523adf68f129950", "pid": 2681, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:13:29.198100+00:00", "event": "job_finished", "id": "pulse_c739deb4d99d9d6d", "returncode": 0}
+{"utc": "2026-10-25T08:13:29.199197+00:00", "event": "job_started", "id": "pulse_87ad6860c0b6511b", "pid": 2682, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:13:31.202683+00:00", "event": "job_finished", "id": "pulse_9f755dfa0796a911", "returncode": 0}
+{"utc": "2026-10-25T08:13:31.203717+00:00", "event": "job_started", "id": "pulse_a75931c9e45ae74e", "pid": 2683, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:13:41.221576+00:00", "event": "job_finished", "id": "pulse_974ea4947650fb58", "returncode": 0}
+{"utc": "2026-10-25T08:13:41.222674+00:00", "event": "job_started", "id": "pulse_14a48584b155a05e", "pid": 2684, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:13:45.229977+00:00", "event": "job_finished", "id": "pulse_879459ded454145a", "returncode": 0}
+{"utc": "2026-10-25T08:13:45.231210+00:00", "event": "job_started", "id": "pulse_97d7058068c8fa65", "pid": 2685, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:13:49.238599+00:00", "event": "job_finished", "id": "pulse_e17b0178485cf467", "returncode": 0}
+{"utc": "2026-10-25T08:13:49.239548+00:00", "event": "job_started", "id": "pulse_f6cd5d8474031835", "pid": 2686, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:13:55.250976+00:00", "event": "job_finished", "id": "pulse_0523adf68f129950", "returncode": 0}
+{"utc": "2026-10-25T08:13:55.252014+00:00", "event": "job_started", "id": "pulse_28cf6c69c88fb20f", "pid": 2687, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:14:07.275934+00:00", "event": "job_finished", "id": "pulse_87ad6860c0b6511b", "returncode": 0}
+{"utc": "2026-10-25T08:14:07.276936+00:00", "event": "job_started", "id": "pulse_cd2996ec315d34de", "pid": 2688, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:14:09.280799+00:00", "event": "job_finished", "id": "spectrum_ff9f21f0a6f5ccda", "returncode": 0}
+{"utc": "2026-10-25T08:14:09.280968+00:00", "event": "job_finished", "id": "pulse_a75931c9e45ae74e", "returncode": 0}
+{"utc": "2026-10-25T08:14:09.281841+00:00", "event": "job_started", "id": "spectrum_9fc41669a0343782", "pid": 2692, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:14:09.282406+00:00", "event": "job_started", "id": "pulse_d716a543ef1130c9", "pid": 2693, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:14:17.297840+00:00", "event": "job_finished", "id": "pulse_14a48584b155a05e", "returncode": 0}
+{"utc": "2026-10-25T08:14:17.298743+00:00", "event": "job_started", "id": "pulse_e21c7a0dbb94e4d3", "pid": 2694, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:14:23.310559+00:00", "event": "job_finished", "id": "pulse_97d7058068c8fa65", "returncode": 0}
+{"utc": "2026-10-25T08:14:23.311485+00:00", "event": "job_started", "id": "pulse_5443f7e1ce27dae7", "pid": 2695, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:14:27.319386+00:00", "event": "job_finished", "id": "pulse_f6cd5d8474031835", "returncode": 0}
+{"utc": "2026-10-25T08:14:27.320228+00:00", "event": "job_started", "id": "pulse_b11d8d51e2eeaeb2", "pid": 2697, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:14:47.361053+00:00", "event": "job_finished", "id": "pulse_d716a543ef1130c9", "returncode": 0}
+{"utc": "2026-10-25T08:14:47.361916+00:00", "event": "job_started", "id": "dephasing_32bb5b3b5d8b82ef", "pid": 2698, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:14:53.374110+00:00", "event": "job_finished", "id": "pulse_e21c7a0dbb94e4d3", "returncode": 0}
+{"utc": "2026-10-25T08:14:53.375020+00:00", "event": "job_started", "id": "dephasing_8b37c58f927445e6", "pid": 2699, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:15:01.391717+00:00", "event": "job_finished", "id": "pulse_5443f7e1ce27dae7", "returncode": 0}
+{"utc": "2026-10-25T08:15:01.392669+00:00", "event": "job_started", "id": "dephasing_309a9bca27f1eac6", "pid": 2700, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:15:05.401185+00:00", "event": "job_finished", "id": "pulse_b11d8d51e2eeaeb2", "returncode": 0}
+{"utc": "2026-10-25T08:15:05.402100+00:00", "event": "job_started", "id": "dephasing_91943cca505fffb1", "pid": 2704, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:15:07.406479+00:00", "event": "job_finished", "id": "spectrum_9fc41669a0343782", "returncode": 0}
+{"utc": "2026-10-25T08:15:07.407389+00:00", "event": "job_started", "id": "spectrum_1cc5e94e8d4f8b5b", "pid": 2705, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:15:11.416236+00:00", "event": "job_finished", "id": "spectrum_1cc5e94e8d4f8b5b", "returncode": 0}
+{"utc": "2026-10-25T08:15:11.417177+00:00", "event": "job_started", "id": "spectrum_2e809c1f1a86428b", "pid": 2706, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:15:15.426055+00:00", "event": "job_finished", "id": "pulse_cd2996ec315d34de", "returncode": 0}
+{"utc": "2026-10-25T08:15:15.426971+00:00", "event": "job_started", "id": "dephasing_bc3927569d08644b", "pid": 2707, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:15:17.431612+00:00", "event": "job_finished", "id": "spectrum_2e809c1f1a86428b", "returncode": 0}
+{"utc": "2026-10-25T08:15:17.432532+00:00", "event": "job_started", "id": "dephasing_482eec3aab79b10b", "pid": 2708, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:15:39.481888+00:00", "event": "job_finished", "id": "dephasing_8b37c58f927445e6", "returncode": 0}
+{"utc": "2026-10-25T08:15:39.482923+00:00", "event": "job_started", "id": "spectrum_231062aa7764559c", "pid": 2709, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:15:41.487597+00:00", "event": "job_finished", "id": "pulse_28cf6c69c88fb20f", "returncode": 0}
+{"utc": "2026-10-25T08:15:41.488517+00:00", "event": "job_started", "id": "pulse_dc53fcb2d31f7e57", "pid": 2710, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:15:43.493167+00:00", "event": "job_finished", "id": "dephasing_32bb5b3b5d8b82ef", "returncode": 0}
+{"utc": "2026-10-25T08:15:43.493689+00:00", "event": "job_finished", "id": "spectrum_231062aa7764559c", "returncode": 0}
+{"utc": "2026-10-25T08:15:43.494559+00:00", "event": "job_started", "id": "spectrum_e9b69cebd7ca45aa", "pid": 2711, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:15:43.495368+00:00", "event": "job_started", "id": "pulse_836f82196b0002e5", "pid": 2712, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:15:49.509531+00:00", "event": "job_finished", "id": "spectrum_e9b69cebd7ca45aa", "returncode": 0}
+{"utc": "2026-10-25T08:15:49.510411+00:00", "event": "job_started", "id": "spectrum_b6312ff4cbad7a2f", "pid": 2716, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:16:07.553447+00:00", "event": "job_finished", "id": "pulse_dc53fcb2d31f7e57", "returncode": 0}
+{"utc": "2026-10-25T08:16:07.554296+00:00", "event": "job_started", "id": "pulse_0b35816270623dda", "pid": 2738, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:16:11.565802+00:00", "event": "job_finished", "id": "pulse_836f82196b0002e5", "returncode": 0}
+{"utc": "2026-10-25T08:16:21.593564+00:00", "event": "job_finished", "id": "dephasing_309a9bca27f1eac6", "returncode": 0}
+{"utc": "2026-10-25T08:16:33.632222+00:00", "event": "job_finished", "id": "pulse_0b35816270623dda", "returncode": 0}
+{"utc": "2026-10-25T08:16:33.633532+00:00", "event": "job_started", "id": "pulse_b1f2b1393d0b0ff1", "pid": 2741, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:16:33.634225+00:00", "event": "job_started", "id": "pulse_3c540025950a8060", "pid": 2742, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:16:33.634934+00:00", "event": "job_started", "id": "pulse_7def789618bfcb8d", "pid": 2743, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:16:49.690491+00:00", "event": "job_finished", "id": "dephasing_91943cca505fffb1", "returncode": 0}
+{"utc": "2026-10-25T08:16:49.690666+00:00", "event": "job_finished", "id": "dephasing_482eec3aab79b10b", "returncode": 0}
+{"utc": "2026-10-25T08:16:49.691951+00:00", "event": "job_started", "id": "pulse_9426dbe4a2e75b5d", "pid": 2744, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:16:49.692492+00:00", "event": "job_started", "id": "pulse_6f787216b4e21a6d", "pid": 2745, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:16:53.706730+00:00", "event": "job_finished", "id": "spectrum_b6312ff4cbad7a2f", "returncode": 0}
+{"utc": "2026-10-25T08:16:53.708066+00:00", "event": "job_started", "id": "pulse_a5b8e7695895865f", "pid": 2747, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:17:01.736082+00:00", "event": "job_finished", "id": "dephasing_bc3927569d08644b", "returncode": 0}
+{"utc": "2026-10-25T08:17:01.737442+00:00", "event": "job_started", "id": "pulse_fcc62fa25ee2b3a1", "pid": 2748, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:20:02.382744+00:00", "event": "job_finished", "id": "pulse_b1f2b1393d0b0ff1", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.383244+00:00", "event": "job_finished", "id": "pulse_3c540025950a8060", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.383741+00:00", "event": "job_finished", "id": "pulse_7def789618bfcb8d", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.384336+00:00", "event": "job_finished", "id": "pulse_9426dbe4a2e75b5d", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.384803+00:00", "event": "job_finished", "id": "pulse_6f787216b4e21a6d", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.385287+00:00", "event": "job_finished", "id": "pulse_a5b8e7695895865f", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.385751+00:00", "event": "job_finished", "id": "pulse_fcc62fa25ee2b3a1", "returncode": -15}
+{"utc": "2026-10-25T08:20:02.452389+00:00", "event": "scheduler_started", "pid": 20775, "workers": 7, "hours": 3.0}
+{"utc": "2026-10-25T08:20:02.458096+00:00", "event": "job_started", "id": "pulse_b1f2b1393d0b0ff1", "pid": 20794, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:20:02.458598+00:00", "event": "job_started", "id": "pulse_3c540025950a8060", "pid": 20795, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:20:02.459018+00:00", "event": "job_started", "id": "pulse_7def789618bfcb8d", "pid": 20797, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:20:02.459468+00:00", "event": "job_started", "id": "pulse_9426dbe4a2e75b5d", "pid": 20798, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:20:02.459896+00:00", "event": "job_started", "id": "pulse_6f787216b4e21a6d", "pid": 20799, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:20:02.460303+00:00", "event": "job_started", "id": "pulse_a5b8e7695895865f", "pid": 20800, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:20:02.460720+00:00", "event": "job_started", "id": "pulse_fcc62fa25ee2b3a1", "pid": 20802, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:20:36.647473+00:00", "event": "job_finished", "id": "pulse_b1f2b1393d0b0ff1", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.648140+00:00", "event": "job_finished", "id": "pulse_3c540025950a8060", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.648803+00:00", "event": "job_finished", "id": "pulse_7def789618bfcb8d", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.649428+00:00", "event": "job_finished", "id": "pulse_9426dbe4a2e75b5d", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.650054+00:00", "event": "job_finished", "id": "pulse_6f787216b4e21a6d", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.650690+00:00", "event": "job_finished", "id": "pulse_a5b8e7695895865f", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.651307+00:00", "event": "job_finished", "id": "pulse_fcc62fa25ee2b3a1", "returncode": -15}
+{"utc": "2026-10-25T08:20:36.729003+00:00", "event": "scheduler_started", "pid": 26640, "workers": 7, "hours": 3.0}
+{"utc": "2026-10-25T08:20:36.734980+00:00", "event": "job_started", "id": "pulse_b1f2b1393d0b0ff1", "pid": 26659, "cpus": [0, 1]}
+{"utc": "2026-10-25T08:20:36.735432+00:00", "event": "job_started", "id": "pulse_3c540025950a8060", "pid": 26660, "cpus": [2, 3]}
+{"utc": "2026-10-25T08:20:36.735856+00:00", "event": "job_started", "id": "pulse_7def789618bfcb8d", "pid": 26661, "cpus": [4, 5]}
+{"utc": "2026-10-25T08:20:36.736297+00:00", "event": "job_started", "id": "pulse_9426dbe4a2e75b5d", "pid": 26662, "cpus": [6, 7]}
+{"utc": "2026-10-25T08:20:36.736717+00:00", "event": "job_started", "id": "pulse_6f787216b4e21a6d", "pid": 26663, "cpus": [8, 9]}
+{"utc": "2026-10-25T08:20:36.737125+00:00", "event": "job_started", "id": "pulse_a5b8e7695895865f", "pid": 26665, "cpus": [10, 11]}
+{"utc": "2026-10-25T08:20:36.737588+00:00", "event": "job_started", "id": "pulse_fcc62fa25ee2b3a1", "pid": 26666, "cpus": [12, 13]}
+{"utc": "2026-10-25T08:21:04.880485+00:00", "event": "job_finished", "id": "pulse_b1f2b1393d0b0ff1", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.880995+00:00", "event": "job_finished", "id": "pulse_3c540025950a8060", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.881476+00:00", "event": "job_finished", "id": "pulse_7def789618bfcb8d", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.881952+00:00", "event": "job_finished", "id": "pulse_9426dbe4a2e75b5d", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.882422+00:00", "event": "job_finished", "id": "pulse_6f787216b4e21a6d", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.882880+00:00", "event": "job_finished", "id": "pulse_a5b8e7695895865f", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.883349+00:00", "event": "job_finished", "id": "pulse_fcc62fa25ee2b3a1", "returncode": -15}
+{"utc": "2026-10-25T08:21:04.992914+00:00", "event": "scheduler_started", "pid": 27037, "workers": 12, "hours": 2.843342283103201}
+{"utc": "2026-10-25T08:21:04.998830+00:00", "event": "job_started", "id": "pulse_b1f2b1393d0b0ff1", "pid": 27038, "cpus": [0]}
+{"utc": "2026-10-25T08:21:04.999409+00:00", "event": "job_started", "id": "pulse_3c540025950a8060", "pid": 27039, "cpus": [1]}
+{"utc": "2026-10-25T08:21:04.999875+00:00", "event": "job_started", "id": "pulse_7def789618bfcb8d", "pid": 27040, "cpus": [2]}
+{"utc": "2026-10-25T08:21:05.000314+00:00", "event": "job_started", "id": "pulse_9426dbe4a2e75b5d", "pid": 27041, "cpus": [3]}
+{"utc": "2026-10-25T08:21:05.000782+00:00", "event": "job_started", "id": "pulse_6f787216b4e21a6d", "pid": 27042, "cpus": [4]}
+{"utc": "2026-10-25T08:21:05.001248+00:00", "event": "job_started", "id": "pulse_a5b8e7695895865f", "pid": 27043, "cpus": [5]}
+{"utc": "2026-10-25T08:21:05.001839+00:00", "event": "job_started", "id": "pulse_fcc62fa25ee2b3a1", "pid": 27044, "cpus": [6]}
+{"utc": "2026-10-25T08:21:05.002306+00:00", "event": "job_started", "id": "pulse_5e80f2ca1d2fc587", "pid": 27045, "cpus": [7]}
+{"utc": "2026-10-25T08:21:05.002780+00:00", "event": "job_started", "id": "pulse_b270049fcd119450", "pid": 27046, "cpus": [8]}
+{"utc": "2026-10-25T08:21:05.003234+00:00", "event": "job_started", "id": "pulse_e4b7f16cf8a5f6e9", "pid": 27047, "cpus": [9]}
+{"utc": "2026-10-25T08:21:05.003667+00:00", "event": "job_started", "id": "pulse_6c3d942f459cc7eb", "pid": 27048, "cpus": [10]}
+{"utc": "2026-10-25T08:21:05.004104+00:00", "event": "job_started", "id": "pulse_5ac874019af068b3", "pid": 27049, "cpus": [11]}
+{"utc": "2026-10-25T08:27:33.198339+00:00", "event": "job_finished", "id": "pulse_b270049fcd119450", "returncode": 0}
+{"utc": "2026-10-25T08:27:33.203450+00:00", "event": "job_started", "id": "pulse_9433f4ab71ee838b", "pid": 27080, "cpus": [8]}
+{"utc": "2026-10-25T08:27:35.210797+00:00", "event": "job_finished", "id": "pulse_6f787216b4e21a6d", "returncode": 0}
+{"utc": "2026-10-25T08:27:35.215614+00:00", "event": "job_started", "id": "pulse_13a613390d28f057", "pid": 27081, "cpus": [4]}
+{"utc": "2026-10-25T08:29:01.717492+00:00", "event": "job_finished", "id": "pulse_b1f2b1393d0b0ff1", "returncode": 0}
+{"utc": "2026-10-25T08:29:01.722301+00:00", "event": "job_started", "id": "pulse_d7eef2c07bba17a9", "pid": 27084, "cpus": [0]}
+{"utc": "2026-10-25T08:31:36.814050+00:00", "event": "job_finished", "id": "pulse_6c3d942f459cc7eb", "returncode": 0}
+{"utc": "2026-10-25T08:31:36.818948+00:00", "event": "job_started", "id": "pulse_e12e1875bc6384cc", "pid": 27112, "cpus": [10]}
+{"utc": "2026-10-25T08:31:44.859194+00:00", "event": "job_finished", "id": "pulse_fcc62fa25ee2b3a1", "returncode": 0}
+{"utc": "2026-10-25T08:31:44.864035+00:00", "event": "job_started", "id": "pulse_c75751a8326b19e7", "pid": 27113, "cpus": [6]}
+{"utc": "2026-10-25T08:32:47.321189+00:00", "event": "job_finished", "id": "pulse_7def789618bfcb8d", "returncode": 0}
+{"utc": "2026-10-25T08:32:47.326472+00:00", "event": "job_started", "id": "pulse_a9492f2cd99b4d58", "pid": 27115, "cpus": [2]}
+{"utc": "2026-10-25T08:34:13.824372+00:00", "event": "job_finished", "id": "pulse_e4b7f16cf8a5f6e9", "returncode": 0}
+{"utc": "2026-10-25T08:34:13.829037+00:00", "event": "job_started", "id": "pulse_2df0bc454ea402d7", "pid": 27120, "cpus": [9]}
+{"utc": "2026-10-25T08:35:52.411620+00:00", "event": "job_finished", "id": "pulse_3c540025950a8060", "returncode": 0}
+{"utc": "2026-10-25T08:35:52.416473+00:00", "event": "job_started", "id": "pulse_bdbff40af71bac48", "pid": 27126, "cpus": [1]}
+{"utc": "2026-10-25T08:36:22.579816+00:00", "event": "job_finished", "id": "pulse_d7eef2c07bba17a9", "returncode": 0}
+{"utc": "2026-10-25T08:36:22.584651+00:00", "event": "job_started", "id": "pulse_d1b0e6a67e06d350", "pid": 27128, "cpus": [0]}
+{"utc": "2026-10-25T08:36:56.772010+00:00", "event": "job_finished", "id": "pulse_13a613390d28f057", "returncode": 0}
+{"utc": "2026-10-25T08:36:56.776709+00:00", "event": "job_started", "id": "pulse_6059973d1eb63069", "pid": 27129, "cpus": [4]}
+{"utc": "2026-10-25T08:36:58.784444+00:00", "event": "job_finished", "id": "pulse_a5b8e7695895865f", "returncode": 0}
+{"utc": "2026-10-25T08:36:58.789196+00:00", "event": "job_started", "id": "pulse_44ca7df4a797db31", "pid": 27131, "cpus": [5]}
+{"utc": "2026-10-25T08:40:09.910764+00:00", "event": "job_finished", "id": "pulse_e12e1875bc6384cc", "returncode": 0}
+{"utc": "2026-10-25T08:40:09.915737+00:00", "event": "job_started", "id": "pulse_48c9ad2d181f8ed9", "pid": 27135, "cpus": [10]}
+{"utc": "2026-10-25T08:40:13.935225+00:00", "event": "job_finished", "id": "pulse_c75751a8326b19e7", "returncode": 0}
+{"utc": "2026-10-25T08:40:13.939960+00:00", "event": "job_started", "id": "pulse_ee6626aebaca417a", "pid": 27136, "cpus": [6]}
+{"utc": "2026-10-25T08:40:15.947572+00:00", "event": "job_finished", "id": "pulse_5ac874019af068b3", "returncode": 0}
+{"utc": "2026-10-25T08:40:15.952198+00:00", "event": "job_started", "id": "pulse_0678fb1e79f679e4", "pid": 27137, "cpus": [11]}
+{"utc": "2026-10-25T08:41:06.261639+00:00", "event": "job_finished", "id": "pulse_9426dbe4a2e75b5d", "returncode": -15}
+{"utc": "2026-10-25T08:41:06.325859+00:00", "event": "job_finished", "id": "pulse_5e80f2ca1d2fc587", "returncode": -15}
+{"utc": "2026-10-25T08:41:06.330599+00:00", "event": "job_started", "id": "pulse_e3e487e7894f2b52", "pid": 27145, "cpus": [3]}
+{"utc": "2026-10-25T08:41:06.331390+00:00", "event": "job_started", "id": "pulse_b9710cd42041aa07", "pid": 27146, "cpus": [7]}
+{"utc": "2026-10-25T08:41:26.440528+00:00", "event": "job_finished", "id": "pulse_9433f4ab71ee838b", "returncode": 0}
+{"utc": "2026-10-25T08:41:26.445482+00:00", "event": "job_started", "id": "pulse_d528a322548396b0", "pid": 27149, "cpus": [8]}
+{"utc": "2026-10-25T08:41:28.453530+00:00", "event": "job_finished", "id": "pulse_a9492f2cd99b4d58", "returncode": 0}
+{"utc": "2026-10-25T08:41:28.458288+00:00", "event": "job_started", "id": "pulse_81e04dab0a74f7a1", "pid": 27150, "cpus": [2]}
+{"utc": "2026-10-25T08:42:50.946777+00:00", "event": "job_finished", "id": "pulse_2df0bc454ea402d7", "returncode": 0}
+{"utc": "2026-10-25T08:42:50.953842+00:00", "event": "job_started", "id": "pulse_f480595d0fe51826", "pid": 27154, "cpus": [9]}
+{"utc": "2026-10-25T08:43:17.114058+00:00", "event": "job_finished", "id": "pulse_bdbff40af71bac48", "returncode": 0}
+{"utc": "2026-10-25T08:43:17.118597+00:00", "event": "job_started", "id": "pulse_61f55c6303528a2b", "pid": 27156, "cpus": [1]}
+{"utc": "2026-10-25T08:43:43.261608+00:00", "event": "job_finished", "id": "pulse_6059973d1eb63069", "returncode": 0}
+{"utc": "2026-10-25T08:43:43.266176+00:00", "event": "job_started", "id": "pulse_bd9d951eac208be2", "pid": 27158, "cpus": [4]}
+{"utc": "2026-10-25T08:44:05.405029+00:00", "event": "job_finished", "id": "pulse_44ca7df4a797db31", "returncode": 0}
+{"utc": "2026-10-25T08:44:05.409631+00:00", "event": "job_started", "id": "pulse_7e54f5d1a327d308", "pid": 27160, "cpus": [5]}
+{"utc": "2026-10-25T08:44:49.667950+00:00", "event": "job_finished", "id": "pulse_d1b0e6a67e06d350", "returncode": 0}
+{"utc": "2026-10-25T08:44:49.672647+00:00", "event": "job_started", "id": "pulse_e13e68748fd5faf6", "pid": 27161, "cpus": [0]}
+{"utc": "2026-10-25T08:47:14.511841+00:00", "event": "job_finished", "id": "pulse_e3e487e7894f2b52", "returncode": 0}
+{"utc": "2026-10-25T08:47:14.512047+00:00", "event": "job_finished", "id": "pulse_b9710cd42041aa07", "returncode": 0}
+{"utc": "2026-10-25T08:47:14.516601+00:00", "event": "job_started", "id": "pulse_58aa86fede8bfed5", "pid": 27169, "cpus": [3]}
+{"utc": "2026-10-25T08:47:14.517430+00:00", "event": "job_started", "id": "pulse_e905cd681b01b7f3", "pid": 27170, "cpus": [7]}
+{"utc": "2026-10-25T08:47:46.705168+00:00", "event": "job_finished", "id": "pulse_81e04dab0a74f7a1", "returncode": 0}
+{"utc": "2026-10-25T08:47:46.709672+00:00", "event": "job_started", "id": "pulse_80f7599dc5cc974d", "pid": 27173, "cpus": [2]}
+{"utc": "2026-10-25T08:47:48.717677+00:00", "event": "job_finished", "id": "pulse_48c9ad2d181f8ed9", "returncode": 0}
+{"utc": "2026-10-25T08:47:48.722288+00:00", "event": "job_started", "id": "pulse_24a1799802cf30f5", "pid": 27174, "cpus": [10]}
+{"utc": "2026-10-25T08:47:50.734311+00:00", "event": "job_finished", "id": "pulse_d528a322548396b0", "returncode": 0}
+{"utc": "2026-10-25T08:47:50.741096+00:00", "event": "job_started", "id": "pulse_39e4952c37ed0d48", "pid": 27175, "cpus": [8]}
+{"utc": "2026-10-25T08:48:06.848819+00:00", "event": "job_finished", "id": "pulse_ee6626aebaca417a", "returncode": 0}
+{"utc": "2026-10-25T08:48:06.853378+00:00", "event": "job_started", "id": "pulse_33da27479e4eb09a", "pid": 27177, "cpus": [6]}
+{"utc": "2026-10-25T08:48:10.873117+00:00", "event": "job_finished", "id": "pulse_0678fb1e79f679e4", "returncode": 0}
+{"utc": "2026-10-25T08:48:10.877732+00:00", "event": "job_started", "id": "pulse_4afce000373ebf5f", "pid": 27178, "cpus": [11]}
+{"utc": "2026-10-25T08:49:01.196433+00:00", "event": "job_finished", "id": "pulse_f480595d0fe51826", "returncode": 0}
+{"utc": "2026-10-25T08:49:01.200754+00:00", "event": "job_started", "id": "pulse_598de0989ffbdd2d", "pid": 27183, "cpus": [9]}
+{"utc": "2026-10-25T08:49:57.576645+00:00", "event": "job_finished", "id": "pulse_bd9d951eac208be2", "returncode": 0}
+{"utc": "2026-10-25T08:49:57.581330+00:00", "event": "job_started", "id": "pulse_9405bdfcb0a2ea48", "pid": 27186, "cpus": [4]}
+{"utc": "2026-10-25T08:50:57.950835+00:00", "event": "job_finished", "id": "pulse_7e54f5d1a327d308", "returncode": 0}
+{"utc": "2026-10-25T08:50:57.955397+00:00", "event": "job_started", "id": "pulse_674142dcf8937e4e", "pid": 27194, "cpus": [5]}
+{"utc": "2026-10-25T08:50:59.963614+00:00", "event": "job_finished", "id": "pulse_e13e68748fd5faf6", "returncode": 0}
+{"utc": "2026-10-25T08:50:59.968009+00:00", "event": "job_started", "id": "pulse_f116bde2eda7582b", "pid": 27195, "cpus": [0]}
+{"utc": "2026-10-25T08:51:56.313644+00:00", "event": "job_finished", "id": "pulse_61f55c6303528a2b", "returncode": 0}
+{"utc": "2026-10-25T08:51:56.318118+00:00", "event": "job_started", "id": "pulse_024f21c3d252272c", "pid": 27199, "cpus": [1]}
+{"utc": "2026-10-25T08:53:22.946493+00:00", "event": "job_finished", "id": "pulse_58aa86fede8bfed5", "returncode": 0}
+{"utc": "2026-10-25T08:53:22.950946+00:00", "event": "job_started", "id": "pulse_3e1ed08596faa4a7", "pid": 27204, "cpus": [3]}
+{"utc": "2026-10-25T08:53:49.106230+00:00", "event": "job_finished", "id": "pulse_39e4952c37ed0d48", "returncode": 0}
+{"utc": "2026-10-25T08:53:59.166182+00:00", "event": "job_finished", "id": "pulse_24a1799802cf30f5", "returncode": 0}
+{"utc": "2026-10-25T08:54:05.201207+00:00", "event": "job_finished", "id": "pulse_80f7599dc5cc974d", "returncode": 0}
+{"utc": "2026-10-25T08:54:05.201455+00:00", "event": "job_finished", "id": "pulse_33da27479e4eb09a", "returncode": 0}
+{"utc": "2026-10-25T08:54:25.319391+00:00", "event": "job_finished", "id": "pulse_4afce000373ebf5f", "returncode": 0}
+{"utc": "2026-10-25T08:55:41.817465+00:00", "event": "job_finished", "id": "pulse_e905cd681b01b7f3", "returncode": 0}
+{"utc": "2026-10-25T08:55:53.886605+00:00", "event": "job_finished", "id": "pulse_9405bdfcb0a2ea48", "returncode": 0}
+{"utc": "2026-10-25T08:57:12.356046+00:00", "event": "job_finished", "id": "pulse_598de0989ffbdd2d", "returncode": 0}
+{"utc": "2026-10-25T08:57:14.368816+00:00", "event": "job_finished", "id": "pulse_674142dcf8937e4e", "returncode": 0}
+{"utc": "2026-10-25T08:57:38.505969+00:00", "event": "job_finished", "id": "pulse_f116bde2eda7582b", "returncode": 0}
+{"utc": "2026-10-25T08:57:50.573957+00:00", "event": "job_finished", "id": "pulse_024f21c3d252272c", "returncode": 0}
+{"utc": "2026-10-25T09:00:07.356438+00:00", "event": "job_finished", "id": "pulse_3e1ed08596faa4a7", "returncode": 0}

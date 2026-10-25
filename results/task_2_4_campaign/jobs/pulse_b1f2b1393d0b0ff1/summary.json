@@ -1,0 +1,158 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "pulse_b1f2b1393d0b0ff1",
+    "kind": "pulse",
+    "parameters": {
+      "profile": "constant",
+      "ratio": 0.5,
+      "duration": 4.0,
+      "Na": 32,
+      "Nb": 12
+    },
+    "purpose": "Finalist validation: memory, buffer and joint cutoff increases",
+    "priority": 6
+  },
+  "metrics": {
+    "profile": "constant",
+    "alpha": 2.1,
+    "ratio": 0.5,
+    "duration": 4.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.7,
+    "tail_ratio": -0.2,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 32,
+    "Nb": 12,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "g2": 4.7940703893780245,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": false,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {},
+    "effective_exchange_order": "cubic",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      4.0,
+      6.0
+    ],
+    "cycle_duration_us": 6.0,
+    "information": {
+      "real_quadrature_information": 3.6835812786366886,
+      "optimal_fixed_quadrature_information": 3.6835812786366886,
+      "optimal_lo_phase_rad": 0.0,
+      "time_varying_lo_information_reference": 3.6835812786366886,
+      "quadrature_gram_matrix": [
+        [
+          3.6835812786366886,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "information_at_pulse_end": 3.683581278636688,
+    "snr_squared_at_pulse_end": 14.734325114546753,
+    "fixed_real_quadrature_information_at_pulse_end": 3.6835812786366886,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 14.734325114546754,
+    "post_pulse_information_same_lo": 0.05655529861584352,
+    "initial_wrong_population": [
+      5.457390924134015e-09,
+      5.457390924134015e-09
+    ],
+    "final_wrong_population": [
+      0.0018277147867852444,
+      0.0018277147867852444
+    ],
+    "excess_wrong_population": [
+      0.0018277093293943203,
+      0.0018277093293943203
+    ],
+    "idle_baseline_final_wrong_population": [
+      1.079001740530608e-06,
+      1.079001740530608e-06
+    ],
+    "readout_excess_wrong_population": [
+      0.0018266357850447138,
+      0.0018266357850447138
+    ],
+    "final_leakage": [
+      8.131365427064665e-06,
+      8.131365427064665e-06
+    ],
+    "idle_baseline_final_leakage": [
+      8.109705980729598e-06,
+      8.109705980729598e-06
+    ],
+    "readout_excess_leakage": [
+      2.165944633506654e-08,
+      2.165944633506654e-08
+    ],
+    "max_transient_leakage": [
+      0.017924803146021642,
+      0.017924803146021642
+    ],
+    "buffer_population_at_pulse_end": [
+      0.02706516812247478,
+      0.02706516812247478
+    ],
+    "final_buffer_population": [
+      1.754022253989174e-05,
+      1.754022253989174e-05
+    ],
+    "idle_baseline_final_buffer_population": 1.750735030715994e-05,
+    "excess_final_buffer_population": [
+      3.287223273179687e-08,
+      3.287223273179687e-08
+    ],
+    "max_buffer_population": [
+      0.03405405086120703,
+      0.03405405086120703
+    ],
+    "max_top2_a": 9.748753949645955e-09,
+    "max_top_b": 7.99070083280118e-08,
+    "max_trace_error": 1.021405182655144e-14,
+    "final_min_eigenvalue": -1.9779874924920985e-11,
+    "final_hermiticity_error": 4.761805149202637e-17,
+    "idle_baseline_max_trace_error": 1.099120794378905e-14,
+    "idle_baseline_final_min_eigenvalue": -7.566632395001994e-11,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 474.3041106380001
+  },
+  "finished_utc": "2026-10-25T08:29:00.799223+00:00",
+  "worker_wall_s": 475.76642774100014
+}

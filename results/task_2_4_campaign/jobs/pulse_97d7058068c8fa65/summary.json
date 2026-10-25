@@ -1,0 +1,166 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "pulse_97d7058068c8fa65",
+    "kind": "pulse",
+    "parameters": {
+      "profile": "build_hold_deplete",
+      "ratio": 0.25,
+      "duration": 4.0,
+      "Na": 24,
+      "Nb": 8,
+      "rtol": 1e-09,
+      "atol": 1e-11
+    },
+    "purpose": "Discovery: fixed-alpha shape comparison at common duration",
+    "priority": 2
+  },
+  "metrics": {
+    "profile": "build_hold_deplete",
+    "alpha": 2.1,
+    "ratio": 0.25,
+    "duration": 4.0,
+    "idle": 2.0,
+    "edge_fraction": 0.1,
+    "hold_ratio": 0.7,
+    "tail_ratio": -0.2,
+    "knots": [
+      0.2,
+      0.8
+    ],
+    "Na": 24,
+    "Nb": 8,
+    "order": "cubic",
+    "step": 0.01,
+    "rtol": 1e-09,
+    "atol": 1e-11,
+    "g2": 4.7940703893780245,
+    "control_g2": 4.7940703893780245,
+    "circuit_correction": false,
+    "phase_order": 6,
+    "correction_scale": 1.0,
+    "static_cosine": 0.0,
+    "circuit_calibration": {},
+    "effective_exchange_order": "cubic",
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "drive_scale": 1.0,
+    "phase": 0.0,
+    "efficiency": 1.0,
+    "qutip": "5.3.1",
+    "observable_order": [
+      "a",
+      "b",
+      "n_a",
+      "n_b",
+      "top2_a",
+      "top_b",
+      "wrong_plus",
+      "wrong_minus",
+      "leakage",
+      "trace"
+    ],
+    "stage_boundaries_us": [
+      0.0,
+      0.4,
+      0.6000000000000001,
+      1.0,
+      3.0,
+      3.4000000000000004,
+      3.6,
+      4.0,
+      6.0
+    ],
+    "cycle_duration_us": 6.0,
+    "information": {
+      "real_quadrature_information": 0.39899438490446354,
+      "optimal_fixed_quadrature_information": 0.39899438490446354,
+      "optimal_lo_phase_rad": 0.0,
+      "time_varying_lo_information_reference": 0.39899438490446354,
+      "quadrature_gram_matrix": [
+        [
+          0.39899438490446354,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "information_at_pulse_end": 0.39899438490446365,
+    "snr_squared_at_pulse_end": 1.5959775396178546,
+    "fixed_real_quadrature_information_at_pulse_end": 0.39899438490446354,
+    "fixed_real_quadrature_snr_squared_at_pulse_end": 1.5959775396178542,
+    "post_pulse_information_same_lo": 1.9768738459546853e-06,
+    "initial_wrong_population": [
+      5.4573544999790965e-09,
+      5.4573544999790965e-09
+    ],
+    "final_wrong_population": [
+      0.0001335644506121185,
+      0.0001335644506121185
+    ],
+    "excess_wrong_population": [
+      0.00013355899325761853,
+      0.00013355899325761853
+    ],
+    "idle_baseline_final_wrong_population": [
+      1.1371906090093413e-06,
+      1.1371906090093413e-06
+    ],
+    "readout_excess_wrong_population": [
+      0.00013242726000310917,
+      0.00013242726000310917
+    ],
+    "final_leakage": [
+      8.117183786032156e-06,
+      8.117183786032156e-06
+    ],
+    "idle_baseline_final_leakage": [
+      8.117157428269985e-06,
+      8.117157428269985e-06
+    ],
+    "readout_excess_leakage": [
+      2.6357762171046618e-11,
+      2.6357762171046618e-11
+    ],
+    "max_transient_leakage": [
+      0.0028276876381003783,
+      0.0028276876381003783
+    ],
+    "buffer_population_at_pulse_end": [
+      5.45578510416964e-05,
+      5.45578510416964e-05
+    ],
+    "final_buffer_population": [
+      1.7516142879872176e-05,
+      1.7516142879872176e-05
+    ],
+    "idle_baseline_final_buffer_population": 1.7516085401989733e-05,
+    "excess_final_buffer_population": [
+      5.7477882442334054e-11,
+      5.7477882442334054e-11
+    ],
+    "max_buffer_population": [
+      0.0063168150360576976,
+      0.0063168150360576976
+    ],
+    "max_top2_a": 1.097022066609837e-07,
+    "max_top_b": 6.224341163902221e-07,
+    "max_trace_error": 3.3306690738754696e-15,
+    "final_min_eigenvalue": -1.385108598358747e-10,
+    "final_hermiticity_error": 8.329639101522981e-17,
+    "idle_baseline_max_trace_error": 2.4424906541753444e-15,
+    "idle_baseline_final_min_eigenvalue": -6.943716111208115e-10,
+    "source_sha256": {
+      "readout_pulses.py": "ecd9fa4b280c822f280788514c960a261272970018865dc9a20922ddc2814eb7",
+      "circuit.py": "66d5ae67ae6d8f13a12bec4962ab08821f5735e510d1c8fb892dee0c1f7ce7b6",
+      "readout_measurement.py": "44514963506486e3602c66e729f3420f065d9d5f977880c8d6aef3d4d95edee5",
+      "circuit_corrections.py": "b68ed6373b4fe50ca467207ae7b82c21f1d7852569b78cbe6b7664f2e73b0198"
+    },
+    "wall_s": 34.96945547099995
+  },
+  "finished_utc": "2026-10-25T08:14:21.656041+00:00",
+  "worker_wall_s": 36.393027322999956
+}

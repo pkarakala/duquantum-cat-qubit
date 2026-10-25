@@ -7,3 +7,12 @@ prep/DuQuantum_2026_Hacker_Guide.pdf
 reviews/*.tmp
 results/task_1_2_cache/
 results/task_2_cache/
+results/task_2_4_cache/
+output/task_2_4_pdf_review/*.aux
+output/task_2_4_pdf_review/*.log
+output/task_2_4_pdf_review/*.tex
+output/task_2_4_pdf_review/*.ast.json
+output/task_2_4_pdf_review/report.pdf
+results/task_2_4_campaign/collection.log
+results/task_2_4_campaign/supplemental_collection.log
+results/task_2_4_campaign/scheduler.lock

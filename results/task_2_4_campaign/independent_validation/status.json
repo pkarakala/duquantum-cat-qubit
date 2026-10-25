@@ -1,0 +1,19 @@
+{
+  "status": "completed",
+  "case_count": 2,
+  "requested_cases": 2,
+  "pending": [],
+  "case_results": [
+    {
+      "job_id": "pulse_b1f2b1393d0b0ff1",
+      "execution_status": "completed",
+      "validation_passed": true
+    },
+    {
+      "job_id": "pulse_6f787216b4e21a6d",
+      "execution_status": "completed",
+      "validation_passed": true
+    }
+  ],
+  "all_requested_cases_validated": true
+}

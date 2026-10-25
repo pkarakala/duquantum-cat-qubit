@@ -1,0 +1,239 @@
+{
+  "execution_status": "completed",
+  "job": {
+    "id": "spectrum_1cc5e94e8d4f8b5b",
+    "kind": "spectrum",
+    "parameters": {
+      "alpha": 1.2,
+      "ratio": 0.25,
+      "Na": 12,
+      "Nb": 4,
+      "k": 4,
+      "time_check": true
+    },
+    "purpose": "Matched small-cutoff time-domain/modal check; separate cutoff tests required",
+    "priority": 2
+  },
+  "metrics": {
+    "Na": 12,
+    "Nb": 4,
+    "alpha": 1.2,
+    "ratio": 0.25,
+    "order": "cubic",
+    "g2": 4.7940703893780245,
+    "kappa_a": 0.058433623356770145,
+    "kappa_b": 16.336281798666924,
+    "shift": 1e-08,
+    "k_requested": 4,
+    "k_returned": 4,
+    "modes": [
+      {
+        "eigenvalue_per_us": [
+          -0.07031557245902273,
+          0.0
+        ],
+        "decay_rate_per_us": 0.07031557245902273,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 6.640994140780242e-14,
+        "left_absolute_residual": 3.781960752396129e-13,
+        "right_scaled_residual": 1.6542678401460758e-16,
+        "left_eigenvalue_matching_error": 2.220446049250313e-16,
+        "eigenvector_condition_number": 3.141535252793897,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            1.0059252158453826,
+            -0.0
+          ],
+          "logical_imbalance": [
+            0.9952726059753305,
+            -0.0
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -4.926078987547914,
+          4.890209276614201
+        ],
+        "decay_rate_per_us": 4.926078987547914,
+        "frequency_per_us": 4.890209276614201,
+        "right_absolute_residual": 1.3463476345536605e-12,
+        "left_absolute_residual": 8.798974740264408e-12,
+        "right_scaled_residual": 3.2973096136104953e-15,
+        "left_eigenvalue_matching_error": 2.9777166713245524e-13,
+        "eigenvector_condition_number": 6.831439015759225,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            -0.005488652191793427,
+            -0.00976591871608996
+          ],
+          "logical_imbalance": [
+            -0.0023578500712131633,
+            -0.0032781604963940648
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -4.926078987547914,
+          -4.890209276614201
+        ],
+        "decay_rate_per_us": 4.926078987547914,
+        "frequency_per_us": 4.890209276614201,
+        "right_absolute_residual": 1.3463476345536605e-12,
+        "left_absolute_residual": 8.798974740264408e-12,
+        "right_scaled_residual": 3.2973096136104953e-15,
+        "left_eigenvalue_matching_error": 2.9777166713245524e-13,
+        "eigenvector_condition_number": 6.831439015759225,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            -0.005488652191793427,
+            0.00976591871608996
+          ],
+          "logical_imbalance": [
+            -0.0023578500712131633,
+            0.0032781604963940648
+          ]
+        }
+      },
+      {
+        "eigenvalue_per_us": [
+          -8.158550068660327,
+          0.0
+        ],
+        "decay_rate_per_us": 8.158550068660327,
+        "frequency_per_us": 0.0,
+        "right_absolute_residual": 1.6673531565632144e-11,
+        "left_absolute_residual": 7.815352856041166e-12,
+        "right_scaled_residual": 4.0713388707209605e-14,
+        "left_eigenvalue_matching_error": 4.423128530106624e-12,
+        "eigenvector_condition_number": 25.45934855866248,
+        "modal_coefficients_certified": true,
+        "modal_coefficients": {
+          "memory_amplitude": [
+            0.000200196846003255,
+            -0.0
+          ],
+          "logical_imbalance": [
+            0.001989937290442034,
+            -0.0
+          ]
+        }
+      }
+    ],
+    "returned_modes_conjugate_closed": true,
+    "initial_observables": {
+      "memory_amplitude": 0.9999996723217165,
+      "logical_imbalance": 0.998423202902774
+    },
+    "candidate_mode_index": 0,
+    "candidate_decay_rate_per_us": 0.07031557245902273,
+    "candidate_numerical_resolution_heuristic_per_us": 1.188116302833537e-11,
+    "candidate_status": "resolved_returned_mode",
+    "candidate_is_nonoscillatory": true,
+    "global_dominance_certified": false,
+    "rate_interpretation": "Slowest memory-visible mode among the returned near-shift Ritz set; not a certified global switching rate",
+    "sector_validity": "Real drive and real exchange only; excludes phase drive, detuning and diagonal Kerr terms",
+    "factorization": {
+      "ordering": "metis",
+      "pymetis": "2025.2.2",
+      "permutation_seed": 0,
+      "diag_pivot_thresh": 0.0,
+      "matrix_shape": [
+        1128,
+        1128
+      ],
+      "matrix_nnz": 12824,
+      "LU_nnz": 191947,
+      "ordering_wall_s": 0.009011671999928694,
+      "factorization_wall_s": 0.0058314179999570115,
+      "probe_relative_residuals": [
+        1.1126508068102265e-13,
+        9.503429901217739e-14
+      ],
+      "probe_backward_errors": [
+        3.707749470751055e-15,
+        2.9439523408130766e-16
+      ],
+      "ordering_requested": "auto",
+      "fallback_reason": null,
+      "shift_real": 1e-08,
+      "shift_imag": 0.0
+    },
+    "time_domain": {
+      "status": "integrated",
+      "end_us": 71.10800389079975,
+      "maximum_horizon_us": 10000.0,
+      "backend": "SciPy Radau full real sector, rtol=1e-9 atol=1e-11",
+      "nfev": 3802,
+      "nlu": 68,
+      "fits": {
+        "memory_amplitude": [
+          {
+            "start_us": 10.666200583619963,
+            "end_us": 71.10800389079975,
+            "status": "fitted",
+            "amplitude": 0.4751654265067689,
+            "rate_per_us": 0.07031557245651049,
+            "max_relative_residual": 7.537756042249038e-10,
+            "relative_candidate_difference": 3.572808715546216e-11
+          },
+          {
+            "start_us": 17.777000972699938,
+            "end_us": 71.10800389079975,
+            "status": "fitted",
+            "amplitude": 0.2882023996202076,
+            "rate_per_us": 0.07031557245824081,
+            "max_relative_residual": 8.478042373032388e-10,
+            "relative_candidate_difference": 1.112010483694803e-11
+          },
+          {
+            "start_us": 24.88780136177991,
+            "end_us": 71.10800389079975,
+            "status": "fitted",
+            "amplitude": 0.1748035915782322,
+            "rate_per_us": 0.07031557246047655,
+            "max_relative_residual": 8.359083557642638e-10,
+            "relative_candidate_difference": 2.067568338759429e-11
+          }
+        ],
+        "logical_imbalance": [
+          {
+            "start_us": 10.666200583619963,
+            "end_us": 71.10800389079975,
+            "status": "fitted",
+            "amplitude": 0.4701334899049416,
+            "rate_per_us": 0.07031557245651049,
+            "max_relative_residual": 7.537755725512452e-10,
+            "relative_candidate_difference": 3.572808715546216e-11
+          },
+          {
+            "start_us": 17.777000972699938,
+            "end_us": 71.10800389079975,
+            "status": "fitted",
+            "amplitude": 0.28515037579337993,
+            "rate_per_us": 0.07031557245824081,
+            "max_relative_residual": 8.478049368788084e-10,
+            "relative_candidate_difference": 1.112010483694803e-11
+          },
+          {
+            "start_us": 24.88780136177991,
+            "end_us": 71.10800389079975,
+            "status": "fitted",
+            "amplitude": 0.17295244555302608,
+            "rate_per_us": 0.07031557246047657,
+            "max_relative_residual": 8.359087639810002e-10,
+            "relative_candidate_difference": 2.0675905432199215e-11
+          }
+        ]
+      },
+      "fit_interpretation": "Deterministic fit diagnostics, not statistical rate uncertainties"
+    },
+    "wall_s": 1.8505853390000766
+  },
+  "finished_utc": "2026-10-25T08:15:10.913312+00:00",
+  "worker_wall_s": 3.4657933439999624
+}
