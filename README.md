@@ -151,9 +151,10 @@ All simulations include memory single-photon loss and use $(N_a,N_b)=(32,12)$.
 
 ## 1.3(c) — Cost of preparation
 
-- **Control:** a resonant memory drive, with its phase referenced to the stabilization pump. It can reuse a suitable existing memory-drive line; otherwise an additional line is needed. The model does not specify the available hardware.
-- **Calibration:** the displacement amplitude and phase must be controlled. At fixed initial amplitude $\lvert\beta\rvert=\alpha=2.1$, a tested phase error of 30° gives **99.51%** fidelity after 2 µs of stabilization, compared with **30.68%** before stabilization. At 45°, the final fidelity is 97.27%, below 99%. These are sampled phase errors, not a precisely located tolerance boundary.
-- **Dynamics and time:** displace first, then stabilize so the memory pulse has ended before inflation. The $\beta=1.5$ example requires the pulse duration plus 0.41 µs of stabilization to reach 99% fidelity. Applying the tested $\varepsilon_1=20$ µs⁻¹ drive during inflation instead raises the sampled memory peak to 8.51 photons, versus 6.89 from vacuum without the memory drive.
+- **Hardware:** preparation requires a resonant memory drive and phase synchronization with the stabilization pump. A suitable existing memory-drive line can be reused; otherwise an additional line is required.
+- **Calibration:** stabilization relaxes the requirement to prepare the target amplitude exactly, but the pulse must provide sufficient bias toward the desired codeword. The tested real amplitudes $\beta=1.5,2.1,3.0$ all give fidelity above 99% at 2 µs. Phase accuracy remains important: at $\lvert\beta\rvert=\alpha=2.1$, a 30° phase error gives **99.51%** final fidelity, compared with **30.68%** initially; a 45° error gives 97.27% final fidelity.
+- **Time:** for $\beta=1.5$, preparation takes the displacement-pulse duration plus **0.41 µs of stabilization** to reach 99% fidelity. The pulse is idealized as an initial coherent state, so its duration and errors during the pulse are not included in this simulation.
+- **Interaction with stabilization:** the proposed sequence ends the memory pulse before stabilization begins. Applying the drive during inflation changes the transient: the tested $\varepsilon_1=20$ µs⁻¹ pulse raises the sampled memory peak to **8.51 photons**, compared with 6.89 from vacuum without a memory drive.
 
 ## Reproduce the results
 
