@@ -1,147 +1,200 @@
-"""Task 1.3(b): prepare a definite codeword |0_L> = |+alpha> instead of the even cat.
+"""Task 1.3(b): prepare |+α⟩ in the two-mode model, and cost it (1.3c).
 
-Why vacuum gives the cat: H and every jump operator are unchanged by a -> -a (memory
-parity), and so is |0>. The answer must then be symmetric between +alpha and -alpha.
-The buffer drive only touches b, so no buffer-side control can pick a well. The symmetry
-has to be broken on the memory, by something odd in a:
-
-  A. displaced start: a short memory pulse makes |beta> (beta real, > 0) before the
-     pump turns on (the order used by Reglade et al.); the dissipation then pulls it
-     into the nearest well.
-  B. drive during inflation: i*eps1*(a^dag - a) for the first T_P, starting from vacuum.
-
-We also test how much the stabilization forgives a miscalibrated pulse (phase and
-amplitude errors on beta), which is the cost question of 1.3(c).
+Vacuum inflation conserves a → −a, so it lands on the even cat. Method (ii) is a
+finite real-axis pulse with the pump off, then stabilization. Pranav's intro script
+drove the memory while the pump was already on; that is pump_on=True, not (ii).
 """
 import argparse
-import time
 
 import jax.numpy as jnp
 import numpy as np
-import matplotlib.pyplot as plt
 import dynamiqs as dq
 
 from src import config as C
-from src.model import two_mode
-from src.plotting import save as save_fig
-from src.results import save as save_res
+from src.analysis import code_projector, z_logical
+from src.model import coherent2, one_mode, two_mode, vacuum2
 
-T_END, N_T = 2.0, 201
-BETAS = [0.0, 0.5, 1.0, 1.5, 2.1, 3.0]          # method A, amplitude sweep (real beta)
-PHASES_DEG = [0, 15, 30, 45, 60, 75]            # method A, phase error at |beta| = alpha
-T_P = 0.1                                       # method B pulse length (us)
-EPS1 = [5.0, 10.0, 20.0]                        # method B drive strengths (rad/us)
-
-
-def first_time_above(t, y, thr):
-    """First time after which y stays >= thr (inf if it never does)."""
-    below = np.where(y < thr)[0]
-    if len(below) == 0:
-        return float(t[0])
-    return float(t[below[-1] + 1]) if below[-1] + 1 < len(t) else float("inf")
+T_EVAL = 3.0
+TAUS_NS = (20, 50, 100, 200)
+EX_RATIOS = (0.02, 0.05, 0.1, 0.2)
+T_OFFS = (0.1, 0.2, 0.4)
+METRIC_KEYS = ("re_a", "im_a", "fid", "p_right", "parity", "purity", "leakage",
+               "n_a", "n_b", "top2_a", "top_b")
+# Intro-track anchor: results/task_1_3b.json, β = α, t = 2 µs, 32×12. Method (i).
+PRANAV_F_T2 = 0.9999915936048853
 
 
-def run(H, jumps, psi0, t, ops):
-    t0 = time.time()
-    res = dq.mesolve(H, jumps, psi0, t, method=C.METHOD, exp_ops=ops, save_states=False)
-    print(f"  solved in {time.time() - t0:.0f} s")
-    return np.asarray(res.expects)
+def metrics_extra(Na, Nb, alpha):
+    """save_extra(t, rho) -> memory observables. rho_a is Na×Na; never the full state."""
+    ket = dq.coherent(Na, alpha).to_jax()
+    Z = dq.asqarray(z_logical(Na, alpha)).to_jax()
+    P = dq.asqarray(code_projector(Na, alpha)).to_jax()
+    parity = jnp.diag(((-1.0) ** jnp.arange(Na)).astype(jnp.complex128))
+    a_mat = jnp.diag(jnp.sqrt(jnp.arange(1, Na, dtype=float)), k=1).astype(jnp.complex128)
+    n_a = jnp.arange(Na, dtype=float)
+    n_b = jnp.arange(Nb, dtype=float)
+
+    def extra(t, rho):
+        rho_a = dq.ptrace(rho, 0, (Na, Nb)).to_jax()
+        rho_b = dq.ptrace(rho, 1, (Na, Nb)).to_jax()
+        ea = jnp.trace(rho_a @ a_mat)
+        fid = (jnp.conj(ket).T @ rho_a @ ket)[0, 0]
+        return {
+            "re_a": jnp.real(ea),
+            "im_a": jnp.imag(ea),
+            "fid": jnp.real(fid),
+            "p_right": (1.0 + jnp.real(jnp.trace(Z @ rho_a))) / 2.0,
+            "parity": jnp.real(jnp.trace(parity @ rho_a)),
+            "purity": jnp.real(jnp.trace(rho_a @ rho_a)),
+            "leakage": 1.0 - jnp.real(jnp.trace(P @ rho_a)),
+            "n_a": jnp.real(jnp.sum(n_a * jnp.diag(rho_a))),
+            "n_b": jnp.real(jnp.sum(n_b * jnp.diag(rho_b))),
+            "top2_a": jnp.real(rho_a[-1, -1] + rho_a[-2, -2]),
+            "top_b": jnp.real(rho_b[-1, -1]),
+            "rho_a": rho_a,
+        }
+
+    return extra
 
 
-def summarize(t, E, label):
-    """E[..., k, t]: k = 0 fidelity with |+alpha>, 1 <a>, 2 <n_a>, 3 <n_b>, 4/5 truncation monitors."""
-    F, ra = E[0].real, E[1].real / C.ALPHA
-    return {
-        "label": label,
-        "F_plus_alpha_2us": float(F[-1]),
-        "re_a_over_alpha_2us": float(ra[-1]),
-        "t_F_099_us": first_time_above(t, F, 0.99),
-        "peak_na": float(E[2].real.max()),
-        "max_top2_a": float(E[4].real.max()),
-        "max_top_b": float(E[5].real.max()),
-    }
+def _unpack(res, t):
+    out = {"t_us": np.asarray(t, dtype=float)}
+    for k in METRIC_KEYS:
+        out[k] = np.asarray(res.extra[k]).real
+    out["rho_a"] = np.asarray(res.extra["rho_a"])
+    return out
 
 
-def main(Na, Nb):
-    H0, jumps, (a, b) = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A)
-    Ib = dq.eye(Nb)
-    top_a = np.zeros(Na); top_a[-2:] = 1
-    top_b = np.zeros(Nb); top_b[-1] = 1
-    ops = [dq.tensor(dq.coherent_dm(Na, C.ALPHA), Ib), a, a.dag() @ a, b.dag() @ b,
-           dq.tensor(dq.asqarray(np.diag(top_a).astype(complex)), Ib),
-           dq.tensor(dq.eye(Na), dq.asqarray(np.diag(top_b).astype(complex)))]
-    t = jnp.linspace(0, T_END, N_T)
-    tt = np.asarray(t)
-    vac_b = dq.fock(Nb, 0)
+def _solve(H, jumps, rho0, t, extra):
+    return dq.mesolve(H, jumps, rho0, t, method=C.METHOD, save_states=False, save_extra=extra)
 
-    # A1: amplitude sweep, beta real
-    print("A1 displaced start, amplitude sweep")
-    psi = [dq.tensor(dq.coherent(Na, be), vac_b) for be in BETAS]
-    EA = run(H0, jumps, psi, t, ops)
-    A1 = [summarize(tt, EA[i], f"beta={be}") | {"beta": be, "bare_overlap": float(np.exp(-(be - C.ALPHA) ** 2))}
-          for i, be in enumerate(BETAS)]
 
-    # A2: phase error, |beta| = alpha. Without stabilization the overlap would be exp(-|beta - alpha|^2).
-    print("A2 displaced start, phase error")
-    betas_c = [C.ALPHA * np.exp(1j * np.deg2rad(p)) for p in PHASES_DEG]
-    psi = [dq.tensor(dq.coherent(Na, be), vac_b) for be in betas_c]
-    EP = run(H0, jumps, psi, t, ops)
-    A2 = [summarize(tt, EP[i], f"phase={p}deg") | {"phase_deg": p, "bare_overlap": float(np.exp(-abs(betas_c[i] - C.ALPHA) ** 2))}
-          for i, p in enumerate(PHASES_DEG)]
+def _concat(tr1, tr2):
+    """Drop tr1's last sample; tr2 starts on that same state."""
+    out = {"t_us": np.concatenate([tr1["t_us"][:-1], tr2["t_us"]])}
+    for k in METRIC_KEYS:
+        out[k] = np.concatenate([tr1[k][..., :-1], tr2[k]], axis=-1)
+    if "rho_a" in tr1 and "rho_a" in tr2:
+        out["rho_a"] = np.concatenate([tr1["rho_a"][..., :-1, :, :], tr2["rho_a"]], axis=-3)
+    return out
 
-    # B: symmetry-breaking memory drive during inflation, from vacuum.
-    # exp(-i H t) with H = i eps (a^dag - a) is the displacement D(eps t), so eps*T_P is the bare beta.
-    print("B drive during inflation")
-    drive = dq.pwc(jnp.array([0.0, T_P]), jnp.array(EPS1)[:, None], 1j * (a.dag() - a))
-    EB = run(H0 + drive, jumps, dq.tensor(dq.fock(Na, 0), vac_b), t, ops)
-    B = [summarize(tt, EB[i], f"eps1={e}") | {"eps1": e, "bare_beta": e * T_P} for i, e in enumerate(EPS1)]
 
-    # Control: eps (a + a^dag) displaces along the imaginary axis (90 deg from both wells), so it should not pick one.
-    print("control: wrong quadrature")
-    ctrl = dq.pwc(jnp.array([0.0, T_P]), jnp.array([10.0]), a + a.dag())
-    EC = run(H0 + ctrl, jumps, dq.tensor(dq.fock(Na, 0), vac_b), t, ops)
-    control = summarize(tt, EC, "eps*(a+a^dag), eps=10")
+def run_ideal(Na, Nb, alpha, t_eval):
+    """Method (i): instantaneous displacement, then nominal stabilization."""
+    H, jumps, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A)
+    t = jnp.linspace(0.0, t_eval, 301)
+    res = _solve(H, jumps, coherent2(Na, Nb, alpha), t, metrics_extra(Na, Nb, alpha))
+    return _unpack(res, t)
 
-    fig, ax = plt.subplots(1, 3, figsize=(15, 4))
-    for i, be in enumerate(BETAS):
-        ax[0].plot(tt, EA[i, 0].real, lw=2, label=f"β = {be}")
-    ax[0].axhline(0.99, color="gray", ls=":", lw=0.8)
-    ax[0].set(xlabel="t (µs)", ylabel="fidelity with |+α⟩", ylim=(0, 1.02), title="A: start displaced, then stabilize")
-    ax[0].legend(fontsize=8); ax[0].grid(alpha=0.3)
-    ph = np.array(PHASES_DEG)
-    ax[1].plot(ph, [r["F_plus_alpha_2us"] for r in A2], "o-", lw=2, label="with stabilization (2 µs)")
-    ax[1].plot(ph, [r["bare_overlap"] for r in A2], "s--", lw=2, label="pulse alone |⟨α|β⟩|²")
-    ax[1].axhline(0.99, color="gray", ls=":", lw=0.8)
-    ax[1].set(xlabel="pulse phase error (deg), |β| = α", ylabel="fidelity with |+α⟩", ylim=(0, 1.02),
-              title="stabilization forgives calibration errors")
-    ax[1].legend(fontsize=8); ax[1].grid(alpha=0.3)
-    for i, e in enumerate(EPS1):
-        ax[2].plot(tt, EB[i, 1].real / C.ALPHA, lw=2, label=f"i·ε(a†−a), ε = {e}")
-    ax[2].plot(tt, EC[1].real / C.ALPHA, "k--", lw=1.5, label="ε(a+a†), ε = 10 (control)")
-    ax[2].set(xlabel="t (µs)", ylabel="Re⟨a⟩ / α", title=f"B: drive the memory for the first {T_P*1e3:.0f} ns")
-    ax[2].legend(fontsize=8); ax[2].grid(alpha=0.3)
-    save_fig(fig, "task_1_3b_logical_prep")
 
-    def phase_window(rows, key):
-        ok = [r["phase_deg"] for r in rows if r[key] >= 0.99]
-        return max(ok) if ok else None
+def run_pulse(Na, Nb, alpha, tau_us, t_eval, pump_on=False):
+    """Method (ii): displace with g2 = eps_d = 0, then stabilize. pump_on is not (ii)."""
+    eps_x = float(alpha) / float(tau_us)
+    if pump_on:
+        H, jumps, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A, eps_x=eps_x)
+    else:
+        H, jumps, _ = two_mode(Na, Nb, 0.0, 0.0, C.KAPPA_B, C.KAPPA_A, eps_x=eps_x)
+    extra = metrics_extra(Na, Nb, alpha)
+    t = jnp.linspace(0.0, tau_us, 51)
+    res = _solve(H, jumps, vacuum2(Na, Nb), t, extra)
+    tr = _unpack(res, np.asarray(t) - float(tau_us))
+    tr["eps_x"] = eps_x
+    tr["analytic_re_a"] = float((2 * eps_x / C.KAPPA_A) * (1 - np.exp(-C.KAPPA_A * tau_us / 2)))
+    tr["pump_on"] = bool(pump_on)
+    if t_eval <= 0:
+        return tr
+    H2, j2, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A)
+    t2 = jnp.linspace(0.0, t_eval, 301)
+    res2 = _solve(H2, j2, res.final_state, t2, extra)
+    return _concat(tr, _unpack(res2, t2))
 
-    out = {
-        "Na": Na, "Nb": Nb, "T_end_us": T_END,
-        "A1_amplitude": A1, "A2_phase": A2, "B_drive": B, "control_wrong_quadrature": control,
-        "phase_window_F099_stabilized_deg": phase_window(A2, "F_plus_alpha_2us"),
-        "phase_window_F099_bare_deg": phase_window(A2, "bare_overlap"),
-    }
-    for k in ("A1_amplitude", "A2_phase", "B_drive"):
-        for r in out[k]:
-            print(k, r)
-    print("control", control)
-    save_res("task_1_3b", out)
+
+def run_biased(Na, Nb, alpha, ratios, t_off, t_eval, drive="x"):
+    """Method (iii): stabilization on, eps_x = r g2 for t_off, then the drive off.
+
+    drive='z' is the forbidden eps(a+a†) demo. It is not a preparation method.
+    """
+    ratios = np.atleast_1d(np.asarray(ratios, dtype=float))
+    amps = jnp.asarray(ratios * C.G2)
+    if drive == "x":
+        H1, jumps, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A, eps_x=amps)
+    elif drive == "z":
+        H1, jumps, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A, eps_z=amps)
+    else:
+        raise ValueError(f"drive must be 'x' or 'z', got {drive!r}")
+    extra = metrics_extra(Na, Nb, alpha)
+    n1 = int(round(t_off / 0.01)) + 1
+    t1 = jnp.linspace(0.0, t_off, n1)
+    res1 = _solve(H1, jumps, vacuum2(Na, Nb), t1, extra)
+    H2, j2, _ = two_mode(Na, Nb, C.G2, C.EPS_D, C.KAPPA_B, C.KAPPA_A)
+    n2 = int(round((t_eval - t_off) / 0.01)) + 1
+    t2 = jnp.linspace(t_off, t_eval, max(n2, 2))
+    res2 = _solve(H2, j2, res1.final_state, t2, extra)
+    out = _concat(_unpack(res1, t1), _unpack(res2, t2))
+    out["ratios"] = ratios
+    out["drive"] = drive
+    return out
+
+
+def one_mode_endpoint(protocol, Na, alpha, t_eval, tau_us=0.0, ratio=0.0, t_off=0.0, drive="x"):
+    """Same protocol on the effective model. Used as a cross-check once production runs."""
+    extra_ket = dq.coherent(Na, alpha).to_jax()
+    Z = dq.asqarray(z_logical(Na, alpha)).to_jax()
+
+    def extra(t, rho):
+        r = rho.to_jax()
+        fid = jnp.real((jnp.conj(extra_ket).T @ r @ extra_ket)[0, 0])
+        p_right = (1.0 + jnp.real(jnp.trace(Z @ r))) / 2.0
+        return {"fid": fid, "p_right": p_right}
+
+    if protocol == "ideal":
+        H, jumps, _ = one_mode(Na, C.KAPPA_2, alpha, C.KAPPA_A)
+        res = _solve(H, jumps, dq.coherent(Na, alpha), jnp.linspace(0.0, t_eval, 2), extra)
+    elif protocol == "pulse":
+        eps_x = alpha / tau_us
+        H, jumps, _ = one_mode(Na, 0.0, alpha, C.KAPPA_A, eps_x=eps_x)
+        res = _solve(H, jumps, dq.fock(Na, 0), jnp.linspace(0.0, tau_us, 2), extra)
+        H2, j2, _ = one_mode(Na, C.KAPPA_2, alpha, C.KAPPA_A)
+        res = _solve(H2, j2, res.final_state, jnp.linspace(0.0, t_eval, 2), extra)
+    elif protocol == "biased":
+        amp = ratio * C.G2
+        kw = {"eps_x": amp} if drive == "x" else {"eps_z": amp}
+        H, jumps, _ = one_mode(Na, C.KAPPA_2, alpha, C.KAPPA_A, **kw)
+        res = _solve(H, jumps, dq.fock(Na, 0), jnp.linspace(0.0, t_off, 2), extra)
+        H2, j2, _ = one_mode(Na, C.KAPPA_2, alpha, C.KAPPA_A)
+        res = _solve(H2, j2, res.final_state, jnp.linspace(t_off, t_eval, 2), extra)
+    else:
+        raise ValueError(protocol)
+    return {"fidelity": float(np.asarray(res.extra["fid"])[-1]),
+            "p_right": float(np.asarray(res.extra["p_right"])[-1])}
+
+
+def main(quick=False, methods=("ideal", "pulse", "biased"), na=32, nb=12, conv=True, write_table=False):
+    """Entry point. Production records were not written in the 10:45 cutoff commit.
+
+    Passing an int as the first argument used to mean main(Na, Nb) in the intro script.
+    That call is rejected so it cannot launch a 32×12 run by accident.
+    """
+    if not isinstance(quick, bool):
+        raise TypeError("main(quick: bool, ..., na=, nb=). Intro-track main(Na, Nb) was replaced; "
+                        "its numbers remain in results/task_1_3b.json.")
+    if isinstance(methods, str):
+        methods = tuple(s.strip() for s in methods.split(",") if s.strip())
+    print(f"l3-prep main quick={quick} methods={methods} na={na} nb={nb} conv={conv} "
+          f"write_table={write_table}")
+    print("Production mesolve, records and figures were not run before the 10:45 EDT stop. "
+          "See docs/plan/status/l3-prep.md.")
+    return {"quick": quick, "methods": methods, "na": na, "nb": nb, "pranav_F_t2": PRANAV_F_T2}
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--na", type=int, default=C.NA)
-    p.add_argument("--nb", type=int, default=C.NB)
+    p.add_argument("--quick", action="store_true")
+    p.add_argument("--methods", default="ideal,pulse,biased")
+    p.add_argument("--na", type=int, default=32)
+    p.add_argument("--nb", type=int, default=12)
+    p.add_argument("--no-conv", action="store_true")
+    p.add_argument("--write-table", action="store_true")
     args = p.parse_args()
-    main(args.na, args.nb)
+    main(quick=args.quick, methods=args.methods, na=args.na, nb=args.nb,
+         conv=not args.no_conv, write_table=args.write_table)
