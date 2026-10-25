@@ -123,15 +123,15 @@ We quantify $\rho_a$ using even-cat fidelity $F_+=\langle C_+\rvert\rho_a\lvert 
 
 Inflation from vacuum prepares a superposition of both codewords. **To initialize $\lvert0_L\rangle\equiv\lvert+\alpha\rangle$, we first displace the memory toward positive amplitude, then stabilize it.** The displacement selects the sign; stabilization restores the target amplitude.
 
-We introduce $\beta$ for the dimensionless amplitude of the initial coherent state $\lvert\beta\rangle$, whose mean photon number is $\lvert\beta\rvert^2$. The target amplitude remains $\alpha=2.1$. The demonstrated procedure is:
+**Both protocols use the same resonant memory drive**, with Hamiltonian $i\varepsilon_1(t)(a^\dagger-a)$ and real amplitude $\varepsilon_1$ in µs⁻¹. Applied before stabilization, an ideal pulse prepares $\lvert\beta\rangle$, where $\beta=\int_{\mathrm{pulse}}\varepsilon_1(t)\mathrm{d}t$ is its dimensionless displacement amplitude. The initial mean photon number is $\lvert\beta\rvert^2$; the target amplitude is $\alpha=2.1$. Our proposed sequence is:
 
 1. Start with the memory and buffer in vacuum, with two-photon stabilization disabled.
-2. Apply a resonant memory pulse, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
+2. Apply this memory pulse with area $\beta=1.5$, phased along the positive real axis set by the stabilization pump, to prepare $\lvert\beta=1.5\rangle_a\lvert0\rangle_b$, giving an initial memory occupation of 2.25 photons.
 3. Switch off the memory pulse and enable the two-photon exchange pump and buffer drive at the supplied parameters, targeting $\alpha=2.1$. Keep stabilization on to bring the memory toward $\lvert+\alpha\rangle$.
 
 Using $\beta=1.5\lt\alpha=2.1$ tests amplitude correction: fidelity rises from **69.77% initially to 99.878% at 2 µs**, remaining above 99% from **0.41 µs** onward through 2 µs. The pulse ends before stabilization, avoiding simultaneous memory driving. It is modeled as an initial coherent state; reported times exclude its duration.
 
-For comparison, we also test a resonant memory drive with Hamiltonian $i\varepsilon_1(a^\dagger-a)$ during the first 0.1 µs of inflation, starting from vacuum. Here $\varepsilon_1$ is the drive amplitude in µs⁻¹; this phase pushes the memory toward positive real amplitude. The orthogonal drive $\varepsilon_1(a+a^\dagger)$ pushes along the imaginary axis and serves as a control. It does not favor either real-amplitude state.
+For comparison, we apply **the same drive while stabilization is active**, during the first 0.1 µs of inflation from vacuum. This pulse is simulated explicitly, whereas the first protocol starts from its idealized post-pulse state. The orthogonal control, $\varepsilon_1(a+a^\dagger)$, shifts the drive phase by 90° and displaces along the imaginary axis, favoring neither codeword.
 
 We report fidelity $F_\alpha=\langle\alpha\rvert\rho_a\lvert\alpha\rangle$ and normalized mean amplitude $\mathrm{Re}\langle a\rangle/\alpha$, which is near $+1$ for the desired state and zero for an equal, symmetric occupation of the two signs. The time $t_{99}$ is the first saved time after which fidelity stays above 0.99 through 2 µs.
 
