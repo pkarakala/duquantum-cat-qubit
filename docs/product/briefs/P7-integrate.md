@@ -33,7 +33,7 @@ You turn the reviewed product lanes into **one working Academy**: a public site,
 ## 3. Allowlist (touch nothing else)
 - **Site entry files:** `site/package.json`; `site/package-lock.json` (it must change with the deps; CONTRACT §1 doesn't list it, so say so); `site/src/main.ts`; `site/index.html` (including a small `<style>` block for the nav groups); `site/vite.config.ts` and `site/vite.single.config.ts`.
 - **Routes:** `site/src/academy/routes.ts`, plus your integration tests in `site/src/academy/routes.test.ts` (CONTRACT gives you no test path; note that).
-- **Generated copies only.** Never hand-edit these, and log a sha256 for each file: `site/src/academy/presets/*.json`, copied from P0's precompute output (P2 owns that folder, so tell P2 in your status); `site/public/audio/*.mp3` plus `manifest.json`, copied from `server/precomputed/audio/`.
+- **Generated copies only.** Never hand-edit these, and log a sha256 for each file: `site/src/academy/presets/*.json` (P2 copies them per the P0 and P2 briefs; you re-copy from `server/precomputed/presets/` only if P0 re-ran `precompute.py` after P2 merged, and tell P2 in your status); `site/public/audio/*.mp3` plus `manifest.json`, copied from `server/precomputed/audio/`.
 - **Deploy:** the runbook sections of `deploy/README.md`, plus new files `deploy/smoke.ps1` and `deploy/warm.sh`. Compose services and the `Caddyfile` stay P0's; changes to them need a DECISION NEEDED.
 - **Your records:** `docs/product/status/p7-integrate.md`, `docs/product/status/p7-shots/**`, and merge commits on `prod/p7-integrate`.
 - **Never:** another lane's source (send it back instead), or l6's tests; `site/src/data/live/**`, `src/`, `results/`, `figures/`, `server/app/**`; CONTRACT or LEVELS; any `.env` with real values, or `notes/`. **Never push** without Harshit's OK.
@@ -56,9 +56,9 @@ You turn the reviewed product lanes into **one working Academy**: a public site,
 - **Nav** (`index.html`): three groups, **Academy** (Learn, Sandbox, Challenge), **Real Research** (Inflate, Error budget, Readout designer, Verification) and **About**. Set `aria-current="page"` on the active link. The nav wraps at 375 px.
 - **Build env:** `VITE_API_BASE`: the Vultr `https://<ip-dashes>.sslip.io` (in dev, `http://localhost:8000`); `VITE_ELEVENLABS_AGENT_ID`, from P4. Anything `VITE_*` ships to the browser, so **never put a secret there**.
 - **Vite configs:** Keep l6's `base './'` and output directories. The single-file build must **inline P1's Web Worker** (for example a `?worker&inline` import, or `worker.format: 'es'`). Verify that it runs from `file://`. If `site/public/audio` would put files beside `dist-single/index.html` (l6 gate: only `index.html`), set `publicDir: false` in `vite.single.config.ts`. Offline concept cards then show text only, which is cut item 3 anyway.
-- **Preset coverage:** every `LevelSpec.preset` id, L1 to L8; L6: the four builds `correct`, `missing_kb_jump`, `eps_a_drive` and `a_bd2_swap`; L7: the signals for **every** ε_Z grid value × valley 0 and 1; each preset carries its source metadata (Na×Nb, params hash).
+- **Preset coverage:** every `LevelSpec.preset` id, L1 to L8; L6: P0's four builds `correct`, `missing_kappa_b`, `eps_z_drive_wrong` and `a_bd2_wrong`, plus the 32×12 and 24×6 references; L7: ⟨b⟩± for **every** ε_Z/g₂ ∈ {0.05, 0.1, 0.2, 0.5, 1, 2, 3}, both wells; each preset carries its source metadata (Na×Nb, params hash).
 - **Fallback badge** (CONTRACT §3): server (3 s; L6 waits up to 15 s with a progress indicator), then the nearest preset, then the in-browser one-mode solver. The badge names whichever source is active.
-- **Deploy** (P0's `deploy/docker-compose.yml` and `Caddyfile`): Host: `<ip-with-dashes>.sslip.io`, with automatic TLS from Caddy. `/opt/academy/.env` sets `ALLOWED_ORIGINS=https://pkarakala.github.io,http://localhost:5173,http://localhost:4173,null` (`null` is for the `file://` build).
+- **Deploy** (P0's `deploy/docker-compose.yml` and `Caddyfile`): Host: `<ip-with-dashes>.sslip.io`, with automatic TLS from Caddy. `/opt/academy/.env` (api only, with **no** `SOLANA_SECRET_KEY_B58`) sets `API_HOST=<ip-with-dashes>.sslip.io` and `ALLOWED_ORIGINS=https://pkarakala.github.io,http://localhost:5173,http://localhost:4173,null` (`null` is for the `file://` build). The chain secret lives only in `/opt/academy/chain.env` (CONTRACT §2 secret isolation). Deploy with `docker compose --env-file /opt/academy/.env up -d --build` from `deploy/`.
 - **Keep warm:** Run one always-on instance, and never stop it from 6:00 to 11:30 AM. Compose uses `restart: unless-stopped`, and the JAX compile cache lives on a volume (both P0's). A cron job `*/5` curls `/api/health`. `deploy/warm.sh` makes one one-mode call, two 16×5 two-mode calls and one tutor call. Run it before each demo window.
 - **Merge preconditions:** The reviewer verdict `PASS` or `PASS_WITH_NOTES` is in `docs/plan/status/reviews/<slug>.md` on `review/<slug>-r<N>`, at the lane's **current** sha (the 91-reviewer convention; PLAN §5). The lane's status says `DONE`.
 
@@ -163,7 +163,8 @@ powershell -File deploy/smoke.ps1 -Base http://localhost:8000; powershell -File 
 Harshit deploy block (bash on the VM, adapted to P0's `deploy/README.md`):
 ```bash
 cd /opt/academy/repo && git fetch && git checkout <sha>      # first time: clone per HUMAN §2
-cd deploy && docker compose up -d --build && docker compose ps
+# /opt/academy/.env (api: keys, ALLOWED_ORIGINS, API_HOST; NO SOLANA_SECRET_KEY_B58) and /opt/academy/chain.env (chain only) exist, Harshit-filled
+cd deploy && docker compose --env-file /opt/academy/.env up -d --build && docker compose ps
 curl -fsS https://<ip-dashes>.sslip.io/api/health
 (crontab -l 2>/dev/null; echo '*/5 * * * * curl -fsS https://<ip-dashes>.sslip.io/api/health >/dev/null') | crontab -
 bash deploy/warm.sh https://<ip-dashes>.sslip.io

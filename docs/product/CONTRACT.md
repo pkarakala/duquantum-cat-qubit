@@ -21,10 +21,10 @@ Product lanes read this together with the root `AGENTS.md`. Its physics rules st
 | `p1-ts-sim` | `briefs/P1-ts-sim.md` | `site/src/sim/**` | none (pure TS) |
 | `p2-academy` | `briefs/P2-academy.md` | `site/src/academy/**` (engine, level specs, UI, presets, scripted hints) **except `site/src/academy/routes.ts`** (P7) | P1 interface; l6 skeleton |
 | `p3-blocks` | `briefs/P3-blocks.md` | `site/src/blocks/**` | §4 ExprTree |
-| `p4-tutor` | `briefs/P4-tutor.md` | `server/app/tutor/**`, `server/app/memory/**`, `server/app/voice/**`, `server/tests/test_tutor*.py`, `site/src/tutor/**` | P0 skeleton |
+| `p4-tutor` | `briefs/P4-tutor.md` | `server/app/tutor/**`, `server/app/memory/**`, `server/app/voice/**`, `server/tests/test_tutor*.py`, `server/precomputed/audio/**` (carved out of P0's `server/precomputed/**`), `site/src/tutor/**` | P0 skeleton |
 | `p5-data` | `briefs/P5-data.md` | `server/app/data/**`, `server/sql/**`, `server/tests/test_data*.py` | P0 skeleton |
 | `p6-chain` | `briefs/P6-chain.md` | `chain/**` (Node service), `site/src/chain/**` | P0 compose |
-| `p7-integrate` | `briefs/P7-integrate.md` | `site/package.json`, `site/src/main.ts`, `site/index.html` and `site/vite*.config.ts` (after l6 merges); `site/src/academy/routes.ts` wiring; `deploy/**` runbook updates; `docs/product/status/p7-integrate.md` | all of the above |
+| `p7-integrate` | `briefs/P7-integrate.md` | after l6 merges: `site/package.json`, `site/package-lock.json`, `site/src/main.ts`, `site/index.html`, `site/vite*.config.ts`; `site/src/academy/routes.ts`; `site/public/audio/**` (copied from P4); refreshes `site/src/academy/presets/**` only after a P0 precompute re-run (P2 does the first copy); `deploy/**` runbook updates and `deploy/warm.sh`; `site/tests/e2e/**`; `docs/product/status/p7-integrate.md`; `docs/product/status/p7-shots/**`. **P7 integrates on `prod/p7-integrate`.** The physics integrator is the only writer of `standard-track`, so P7 writes `MERGE REQUESTED` in its status file. | all of the above |
 | `p8-docs` | `briefs/P8-docs.md` | `docs/product/devpost.md`, `docs/product/sponsor_writeups.md`, `docs/product/dev_post.md`, `docs/product/demo_script.md`, and the README "Academy" section **via l7-docs** (send text to l7; don't edit README directly) | all |
 
 Every lane owns `docs/product/status/<slug>.md`. Use `docs/plan/status/_TEMPLATE.md` as the template.
@@ -37,6 +37,8 @@ Every lane owns `docs/product/status/<slug>.md`. Use `docs/plan/status/_TEMPLATE
 - **Env vars** (`server/.env.example`): `GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.8-flash`, `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, `ELEVENLABS_AGENT_ID`, `BACKBOARD_API_KEY`, `TIGER_DATABASE_URL`, `SOLANA_RPC_URL=https://api.devnet.solana.com`, `SOLANA_SECRET_KEY_B58` (chain service only), `ADMIN_TOKEN`, `ALLOWED_ORIGINS`, `SIM_TIMEOUT_ONE_MODE_S=8`, `SIM_TIMEOUT_TWO_MODE_S=15`.
 - **Client timeouts:** 3 s for normal server calls; up to 15 s with a progress state for the L6 live run. After that, fall back to a preset.
 - **`API_HOST`**, e.g. `45-76-1-2.sslip.io`, is used by Caddy and by the chain service's metadata URLs.
+- **Site build env:** `VITE_API_BASE` and `VITE_ELEVENLABS_AGENT_ID`. The agent ID is public by design, because the agent is public with auth off.
+- **Offline audio:** the single-file offline build has no `public/` audio (`publicDir: false`), so narration plays only online. That matches cut item 3.
 - **Secret isolation:**
   - The api container reads `/opt/academy/.env`, which does **not** contain `SOLANA_SECRET_KEY_B58`.
   - The chain container reads `/opt/academy/chain.env` (`SOLANA_SECRET_KEY_B58`, `SOLANA_RPC_URL`, `ADMIN_TOKEN`, `API_HOST`).
@@ -50,7 +52,7 @@ Base: `https://<vultr-ip>.sslip.io` in production, `http://localhost:8000` in de
 | Method and path | Request | Response | Owner |
 |---|---|---|---|
 | `GET /api/health` | n/a | `{ok, version, engine:"dynamiqs 0.3.7", features:{gemini, elevenlabs, backboard, tiger, chain}}` | P0 |
-| `POST /api/sim/one_mode` | `{alpha, kappa2_scale=1, kappa_a_scale=1, n_th=0, eps_z_over_g2=0, eps_x_over_g2=0, N=30, t_end_us=2, n_t=200, init:"vacuum"\|"coherent"\|"cat_plus"\|"cat_minus", init_alpha?, outputs:["n","parity","re_a","wigner"], wigner_times?:[us], learner_id?, level_id?}` (the last two are used only for Tiger logging) | `{t_us[], n[], parity[], re_a[], wigner?:{x[], y[], frames:[{t_us, w:[[...]]}]}, meta:{engine, cached, wall_ms, params_hash}}` | P0 |
+| `POST /api/sim/one_mode` | `{alpha, kappa2_scale=1, kappa_a_scale=1, n_th=0, eps_z_over_g2=0, eps_x_over_g2=0, N=30, t_end_us=2, n_t=200, init:"vacuum"\|"coherent"\|"cat_plus"\|"cat_minus"\|"fock", init_alpha?, init_n?, delta_over_2pi_MHz?=0 (detuning for L2's rotation), outputs:["n","parity","re_a","wigner"], wigner_times?:[us], learner_id?, level_id?}` (the last two are used only for Tiger logging) | `{t_us[], n[], parity[], re_a[], wigner?:{x[], y[], frames:[{t_us, w:[[...]]}]}, meta:{engine, cached, wall_ms, params_hash}}` | P0 |
 | `POST /api/sim/two_mode` | `{alpha, g2_scale=1, kappa_b_scale=1, kappa_a_scale=1, n_th=0, eps_z_over_g2=0, eps_x_over_g2=0, Na=16, Nb=5, t_end_us≤3, init, learner_id?, level_id?, outputs}`. κ₂ is derived from g₂ and κ_b, so there's no `kappa2_scale` here. **Live caps:** Na ≤ 20, Nb ≤ 6, `n_t` fixed at 201. `outputs` ⊆ `["na","nb","b_re","b_im","top2_a","top_b","parity","wigner"]` | `{t_us[], na[], nb[], b_re[], b_im[], top2_a[], top_b[], parity[], wigner?, meta}` | P0 |
 | `POST /api/sim/expr` | `{H: ExprTree, jumps: [ExprTree], params:{name: number}, modes:"one"\|"two", N\|Na,Nb, init, t_end_us, n_t, outputs}` | as above, plus `meta.compiled:"<human-readable H>"` | P0 |
 | `POST /api/tutor` | `{learner_id, level_id, message, state:{params, prediction?, misconception_ids:[], last_sim:{summary}, hint_level}}` | `{reply, hint_level, tool_calls:[{name, args, result_summary}], numbers_cited:[...], guard:{passed, removed:[...]}}` | P4 |
@@ -199,4 +201,10 @@ type MisconceptionId = 'M1' | 'M2' | 'M3' | 'M4' | 'M5' | 'M6' | 'M7';
 - `lookup_grid(name, params)`: a precomputed grid lookup, for example the Γ_X(α) curve or the readout trade-off.
 - `check(level_id, answer)`: runs the level's check.
 - **Guard:** after generation, every number in the reply must appear in a tool result or record within 1% (or be a level constant listed in `LEVELS.md`). Otherwise strip the number and add "(let's check that with a sim)".
-- ElevenAgents **client tools** (browser): `set_param(name, value)`, `run_sim()`, `show_hint(level)`, `next_level()`. They call the same functions the UI uses.
+- ElevenAgents **client tools** (browser): `set_param(name, value)`, `run_sim()`, `show_hint(level)`, `next_level()`, and **`ask_tutor(question)`**. They call the same functions the UI uses.
+  - **`ask_tutor`** routes to the guarded `POST /api/tutor` and returns its reply for the voice agent to speak. The agent's system prompt must call `ask_tutor` for **any** physics explanation or number. This keeps voice answers behind the same number guard.
+- **Guard whitelist:**
+  - Each level's `allowedConstants`.
+  - Plus every number that appears in that level's own text: concept, prediction options and feedback, hints, solution, check windows and aha. These are extracted automatically when the level JSON is built.
+  - Plus the numbers in tool results and records.
+- **Tutor request:** `state.attempts` (int, the number of failed checks this level) is optional. The server also counts failures. The full answer is allowed only once there are 2 or more failed attempts.

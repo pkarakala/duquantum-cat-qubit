@@ -25,7 +25,7 @@ Then copy `server/.env.example` to `server/.env`, fill it in, and paste the same
 - Caddy serves `https://<ip-with-dashes>.sslip.io`. Put that URL in the site's `VITE_API_BASE` and in `ALLOWED_ORIGINS`.
 - Smoke test: `curl https://<host>/api/health`.
 
-## 3. Think-aloud tests (7:00 to 7:45 AM; 10 min each with 2–3 non-physics hackers)
+## 3. Think-aloud tests (6:50 to 7:30 AM, before the 7:30 product freeze; 10 min each with 2–3 non-physics hackers)
 1. "Please think out loud." Let them play L2 to L4 without help.
 2. Note each prediction (right or wrong, and the misconception ID). Note where they got stuck, and quote what they said.
 3. After L4, re-ask the L3 and L4 prediction questions. Record before and after accuracy (N is small; say so).
@@ -35,6 +35,9 @@ Then copy `server/.env.example` to `server/.env`, fill it in, and paste the same
 - **Devpost:** add the Academy URL and the "Built with" list.
 - **MLH challenges:** submit once per category (Gemini, ElevenLabs, Vultr, Tiger Data, Solana, Backboard, SpaceXSI with the raffle opt-in, DEV later). Use the P8 write-ups.
 - **Video:** add the Academy segment (60-second demo; `docs/product/demo_script.md`).
+  - **Decision needed:** Devpost allows one video of 4 minutes or less, and l7's physics script already targets 225 s.
+  - **Recommended:** l7 trims physics to about 195 s and the Academy gets about 45 s.
+  - The alternative is to show the Academy only in the live talk.
 
 ## 5. Sleep
 You now carry both phases, so protect a block of about **2:30 to 6:00 AM**. Before you sleep:

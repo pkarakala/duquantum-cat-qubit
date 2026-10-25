@@ -36,7 +36,7 @@ Product lanes are light on CPU. The heavy two-mode sims run on **Vultr**, not th
 |---|---|---|
 | **P-G0** | 11:45 PM | `product-academy` merged into `standard-track` (docs only); Harshit has the accounts and keys (`HUMAN.md` §1); Vultr VM created |
 | **P-G1** | 2:15 AM | p1 golden tests green; p3 ExprTree fixtures green; p0 sim endpoints pass tests locally; L1–L4 playable locally on the TS solver |
-| **P-G2** | 4:30 AM | p0 deployed on Vultr with HTTPS; tutor answers with a tool-grounded number; voice widget drives a slider; Tiger logs runs; a devnet credential is minted (or custodially); the results-hash anchor transaction exists |
+| **P-G2** | 4:30 AM (local); 6:15 AM (Vultr) | **Locally** by 4:30: the tutor answers with a tool-grounded number; the voice widget drives a slider; Tiger logs runs; a devnet credential is minted (or custodially); the results-hash anchor transaction exists. **Vultr HTTPS deploy by 6:15 AM**, because Harshit runs the SSH steps after waking at 6:00. If keys and the VM are ready before he sleeps, deploy before 2:30. |
 | **P-G3 (product freeze)** | 7:30 AM | All 8 levels playable at the public URL; L1–L5 work offline; the demo dry run passes with the network off (presets and scripted hints); Grok Bot QA issues triaged; think-aloud results recorded |
 
 ## 3. Cut order (if a product gate slips > 45 min)
