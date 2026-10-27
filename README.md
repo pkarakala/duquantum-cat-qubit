@@ -1,7 +1,7 @@
 # Cat qubits: bit flips, phase flips and a better readout
 
-**DuQuantum 2026 · Alice & Bob challenge · Standard track · 3rd place overall**
-Team: Pranav Reddy, Harshit Aggarwal, Halo Kwok, Xuanyu Zhu
+**DuQuantum 2026 · Alice & Bob challenge · Standard track · 3rd place overall across all challenges**
+Team: Pranav Reddy, Xuanyu Zhu, Harshit Aggarwal, Halo Kwok, 
 
 <p align="center"><img src="figures/task_1_1_wigner.png" width="760" alt="Wigner snapshots of a cat qubit forming from vacuum"></p>
 <p align="center"><sub>A cat qubit forms from vacuum: two lobes at α = 2.1 in under 1 µs.</sub></p>
@@ -37,9 +37,9 @@ pip install -r requirements.txt
 ## How we used AI and tools
 
 - **Claude Code** did most of the implementation and drafted the write ups, under our direction.
-- **Codex** helped with Section 1 validation, convergence analysis, figures, Task 2.1/2.2 time evolution, and the Task 2.4 enlargement study and submission review.
+- **Codex** helped with Section 1 validation, convergence analysis, updating figures/ scales, Task 2.1/2.2 time evolution, and the Task 2.4 enlargement study and submission review.
 - **Gemini** checked the physics in the code and validated the plots (`tools/ai_review.py`; log in [`reviews/gemini-20261024-1632.md`](reviews/gemini-20261024-1632.md)).
-- **Vultr** ran our large simulation batches in the cloud, about 4 USD in total ([tools log](docs/tools-log.md)).
+- **Vultr** ran our large simulation batches in the cloud ([tools log](docs/tools-log.md)).
 - **Cursor** and a **Grok**-powered bot built most of the Academy (branch `integrated`).
 
 The notebooks record analytic comparisons, independent numerical checks and the limits of each result.
