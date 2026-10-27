@@ -51,7 +51,7 @@ The direct coherent-state matrix element is $\langle-\alpha\rvert a\lvert\alpha\
 \Gamma_X^{\mathrm{GR}}\simeq2\kappa_a\alpha^2e^{-4\alpha^2}.
 ```
 
-Its $\alpha^2$ prefactor matters: fitting this expression over the same six amplitudes gives exponent **3.087**, rather than four. It captures the exponential suppression but underestimates the simulated rate by **33.3% at $\alpha=1.4$**. Moreover, a loss jump leaves a coherent state unchanged apart from its eigenvalue; a matrix element between nonorthogonal codewords is not, by itself, a complete switching theory.
+Its $\alpha^2$ prefactor matters: fitting this expression over the same six amplitudes gives exponent **3.087**, rather than four. It captures the exponential suppression but the simulated rate is **33.3% higher at $\alpha=1.4$**. Moreover, a loss jump leaves a coherent state unchanged apart from its eigenvalue; a matrix element between nonorthogonal codewords is not, by itself, a complete switching theory.
 
 Projecting weak memory loss onto the orthonormal even/odd cat basis gives the first-order result
 
@@ -249,7 +249,7 @@ H_{\mathrm{ATS}}\simeq2E_J\epsilon_p\cos\omega_pt\sin\hat\varphi,
 Here $\varphi_a=0.06$ and $\varphi_b=0.30$ are zero-point phase fluctuations. The illustrative parameters are $E_J/2\pi=40$ GHz and $(\omega_a,\omega_b,\omega_p)/2\pi=(4.0,4.8,3.2)$ GHz. Expanding the sine to cubic order produces $-E_J\epsilon_p\varphi_a^2\varphi_b\cos\omega_pt(a+a^\dagger)^2(b+b^\dagger)$. At $\omega_p=2\omega_a-\omega_b$, one pump harmonic cancels the rotating-frame phase of $a^2b^\dagger$, giving the exchange coefficient
 
 ```math
-|g_2^{(3)}|=\tfrac12E_J\epsilon_p\varphi_a^2\varphi_b.
+|g_2^{(3)}|=\frac{1}{2}E_J\epsilon_p\varphi_a^2\varphi_b.
 ```
 
 A pump-phase choice makes $g_2\gt0$. A **separate resonant memory microwave**, $2\epsilon_Z(t)\cos\omega_at(a+a^\dagger)$, supplies $H_Z=\epsilon_Z(t)(a+a^\dagger)$ after the rotating-wave approximation (RWA). The independent buffer microwave supplies $-\epsilon_d(b+b^\dagger)$. This gives the Hamiltonian used in Task 2.3; the readout drive is an added physical control.
