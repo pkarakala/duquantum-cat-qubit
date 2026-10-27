@@ -3,7 +3,7 @@
 **DuQuantum 2026 · Alice & Bob challenge · Standard track · 3rd place overall across all challenges**
 Team: Pranav Reddy, Xuanyu Zhu, Harshit Aggarwal, Halo Kwok, 
 
-<p align="center"><img src="figures/task_1_1_wigner.png" width="760" alt="Wigner snapshots of a cat qubit forming from vacuum"></p>
+<p align="center"><img src="figures/task_1_1_wigner_hero.gif" width="480" alt="Animation of a cat qubit forming from vacuum"></p>
 <p align="center"><sub>A cat qubit forms from vacuum: two lobes at α = 2.1 in under 1 µs.</sub></p>
 
 ## The challenge
