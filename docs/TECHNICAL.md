@@ -13,7 +13,7 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 | α | 1.0 | 1.4 | 1.8 | 2.1 | 2.4 |
 |---|---|---|---|---|---|
 | Γ_X (1/µs) | 2.30e-3 | 1.20e-4 | 4.07e-6 | 3.85e-7 | 3.12e-8 |
-| time per flip | 0.43 ms | 8.3 ms | 0.25 s | 2.6 s | 32 s |
+| T_X = 1/Γ_X | 0.43 ms | 8.3 ms | 0.25 s | 2.6 s | 32 s |
 
 - Two escape routes. Direct: Γ ≈ 2κ_aα²e^{−4α²}. Out of the code space and back: Γ ≈ (κ_a²/κ₂)e^{−2α²}.
 - Proof: sweeping κ_a gives a slope d lnΓ_X/d lnκ_a of 1.06, 1.28, 1.78, 2.00 and 2.05 at α = 1.0, 1.4, 1.8, 2.1 and 2.4. That is the handover from one photon loss to two.
@@ -30,9 +30,9 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
 ### 2.3 Readout (`tasks/task_2_3.py`; drive sweep `research/s2/readout.py`)
 
 - Contrast: Re⟨b⟩ = ∓ε_Z/(2αg₂). At ε_Z = 0.05 g₂ two independent codes give 0.9992 of it, agreeing to 3e-6.
-- Linear to 1% up to ε_Z ≈ 0.6 g₂ at α = 2.1 (0.05 g₂ at α = 1.4, 1.1 g₂ at α = 2.4). Stronger drives flip the qubit, and the contrast collapses.
+- Linear to 1% up to ε_Z ≈ 0.6 g₂ at α = 2.1 (0.05 g₂ at α = 1.4, 1.1 g₂ at α = 2.4). Stronger drives speed up bit flips (Γ_X grows about as ε_Z²), and the finite-time contrast falls.
 - The signal rings (period 0.313 µs, Q ≈ 2) and stays within 1% from 0.97 µs. Memory and buffer form a damped oscillator at 2g₂α, underdamped because κ_b < 8g₂α; it predicts 0.319 µs and Q 2.5. This is the same physics as the Task 1.1 overshoot.
-- Checks: QuTiP BDF, tighter tolerances, truncations up to 40×14 and an 8 µs run all agree to 2e-5 of the signal or better.
+- Checks: QuTiP BDF, tighter tolerances, truncations up to 40×14 and an 8 µs run all agree to 2.5e-5 of the signal or better.
 
 ### 2.4 Better readout
 
@@ -41,29 +41,29 @@ Methods, headline numbers and checks. Each task's notebook in [`notebooks/`](../
   - In the full ATS circuit without the RWA, the pump at its nominal frequency fails to pair photons, because Stark shifts detune it.
   - Retuning the pump by −23 MHz restores pairing, about 15% slower than the RWA model: the photon number mismatch drops from 0.43 to 0.07.
   - Converged at 12×5 and 14×6. 150 ns, no loss.
-- **Trade-off:** SNR and P_flip both scale as ε_Z², so each pulse shape has an optimal strength and only the shape changes SNR per flip. The flip coefficient falls as e^{−2.03α²}.
+- **Trade-off:** SNR and P_flip both scale as ε_Z², so each pulse shape has an optimal strength and at fixed cat size only the pulse shape changes SNR per flip. The flip coefficient falls as e^{−2.03α²}.
 - **Pulses** (`pulse_eval.py`). Readout error ε_ro = ½erfc(√(η SNR/2)) + P_flip, at α = 2.1 for a 2 µs pulse, with output collected through 4.5 µs (2.5 µs of free recovery):
 
 | pulse (best peak) | SNR | P_flip | ε_ro (η = 1) | ε_ro (η = 0.5) |
 |---|---|---|---|---|
 | square, 1.0 g₂ | 7.5 | 8.1e-3 | 1.12% | 3.48% |
 | sgn(cos ω_r t), 0.75 g₂ | 12.8 | 9.2e-3 | 0.94% | 1.49% |
-| cos ω_r t, 0.75 g₂ | 8.2 | 4.4e-3 | **0.65%** | 1.50% |
+| cos ω_r t, 0.75 g₂ | 8.2 | 4.4e-3 | **0.65%** | 2.60% (1.50% at 1.0 g₂) |
 
 P_flip here is the recovered amplitude-loss proxy δ_X = (A_ref − A_pulse)/(2A_ref) after the drive, not a logical-projector measurement, and SNR is the information 𝓘 in [Task 2.4(c)](task_2.md#c-test-resonant-modulation-and-temporary-enlargement). So ε_ro is an estimate.
 
-- Why the resonant drive wins: it drives the 3.2 MHz oscillator in step, so the buffer amplifies it. Smoothing the pulse edges alone gains only 8–14%.
-- **Optimizer** (`pulse_opt.py`, jax.grad through dynamiqs, started from sgn(cos ω_r t), objective SNR − μ P_flip). It beats a square pulse by 1.26–1.71× in SNR per flip in all 9 converged settings (α 1.4 to 2.1, T 0.5 to 1 µs). Most of that comes from the resonant start; over its start it gains 0.98–1.16×. It lowers ε_ro against its start at α ≤ 1.8 but not at α = 2.1.
+- Why the resonant drive wins: it drives the 3.14 MHz oscillator in step, so the buffer amplifies it. Smoothing the pulse edges alone gains only 8–14%.
+- **Optimizer** (`pulse_opt.py`, jax.grad through dynamiqs, started from sgn(cos ω_r t), objective SNR − μ P_flip). It beats a square pulse by 1.26–1.71× in SNR per flip in all 9 completed settings (α 1.4 to 2.1, T 0.5 to 1 µs). Most of that comes from the resonant start; over its start it gains 0.98–1.16×. It lowers ε_ro against its start at α ≤ 1.8 but not at α = 2.1.
 
 ### Checks
 
-- Every headline number is computed at two or more truncations. Top Fock-level population is ≤ 1e-6 in the readout and pulse runs.
+- Headline numbers are checked at two or more truncations, except the 2 µs pulse table (30×8 only; the 0.5 µs version is checked at 32×8 vs 36×10) and driven Γ_X at ε_Z = 0.5 g₂ (28×8 only). Top Fock-level population is ≤ 1e-6 in the pulse runs and in the readout runs up to ε_Z = 2 g₂ (≤ 2e-5 at 3 g₂).
 - Eigenvalues are cross-checked against time domain fits: Γ_X at 4 values of α, Γ_X with the drive on at 4 points, and Γ_Z at 6 values of α.
 - Limits: Γ_X is not converged at α ≥ 2.6. The circuit simulation covers 150 ns without loss.
 
 ### Selected enlargement evidence
 
-`results/task_2_4_enlargement.json` and `task_2_4_enlargement_trajectories.npz` contain the selected weak reference, conservative enlargement cycle and relevant convergence checks from XZ commit `17ef9a24fa1b501ee3421e5dd251209f88d395bc`. The JSON preserves original execution metadata, source hashes and immutable links to the simulation implementation. It records the distinction between original execution hashes and later cache-lookup changes.
+`results/task_2_4_enlargement.json` and `task_2_4_enlargement_trajectories.npz` contain the selected weak reference, conservative enlargement cycle and relevant convergence checks from Xuanyu Zhu's commit `17ef9a24fa1b501ee3421e5dd251209f88d395bc` (kept by tag `archive/XZ-codex-intro-review`). The JSON preserves original execution metadata, source hashes and immutable links to the simulation implementation. It records the distinction between original execution hashes and later cache-lookup changes.
 
 Notebook 09 recomputes the counted information and recovered wrong-logical populations from the retained raw observables. The readout information budget ends at the exact drive-end sample; the complete-cycle duration includes return and recovery. Populations use orthonormal combinations of the even and odd cats at the original storage amplitude, with leakage reported separately and no postselection.
 
@@ -95,7 +95,7 @@ Why ±35° and not the one-mode model's ±45°: the slow buffer makes the memory
 
 - **Claude Code** wrote most of `src/`, `tasks/` and `research/s2/` under our direction.
 - **Codex** built the Task 1.2 grid, the trace-distance metric, the time-domain Task 2.1/2.2 runs, the enlargement study, and the selective submission integration.
-- **Gemini** (`tools/ai_review.py`, log in [`reviews/`](../reviews/)) reviewed the physics in the code and checked the plots against our claims. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.
+- **Gemini** (`tools/ai_review.py`, log in [`reviews/gemini-20261024-1632.md`](../reviews/gemini-20261024-1632.md)) reviewed the physics in the code and checked the plots against our claims. It found no bugs. We re-ran the six points it raised; one corrected a coherence normalization to 1 + e^{−2α²}.
 - No AI output was accepted unchecked. Every number has a hand prediction, a second method or a convergence test.
 - One catch of our own: the default solver tolerance put about 1e-4 of noise into the truncation monitors, which could have hidden a real truncation problem.
 
